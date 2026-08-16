@@ -1,0 +1,11 @@
+targets:
+  $default:
+    builders:
+      drift_dev:
+        generate_for:
+          - lib/core/database/app_database.dart
+      json_serializable:
+        options:
+          explicit_to_json: true
+          field_rename: snake
+          ignore_unannotated: true

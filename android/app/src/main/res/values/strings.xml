@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LifeHub</string>
+    <string name="course_widget_label">课程表</string>
+    <string name="today_widget_label">今日概览</string>
+    <string name="course_widget_description">显示今天后续的两节课程</string>
+    <string name="today_widget_description">显示今天的任务、习惯与日程</string>
+</resources>

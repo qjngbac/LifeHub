@@ -1,0 +1,27 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # 启用额外的规则
+    avoid_print: true
+    avoid_single_cascade_in_expression_statements: true
+    no_duplicate_case_values: true
+    sort_unnamed_constructors_first: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "build/**"
+    - "features/**"
+    - "legacy_source/**"
+    - "**/*.gr.dart"
+
+  # 忽略特定文件
+  errors:
+    invalid_annotation_target: ignore
+    missing_required_param: error
+    missing_return: error
+    todo: ignore

@@ -1,0 +1,4408 @@
+{
+  "source": "LifeHub_日用品选购_431种常见日用品知识库_扩展版.md",
+  "generatedAt": "2026-08-14",
+  "categories": [
+    {
+      "id": "goods-category-01",
+      "name": "纸品与卫生消耗品",
+      "count": 25
+    },
+    {
+      "id": "goods-category-02",
+      "name": "口腔与个人清洁",
+      "count": 24
+    },
+    {
+      "id": "goods-category-03",
+      "name": "洗护与基础化妆品",
+      "count": 27
+    },
+    {
+      "id": "goods-category-04",
+      "name": "家庭洗涤与清洁剂",
+      "count": 25
+    },
+    {
+      "id": "goods-category-05",
+      "name": "家庭清洁工具",
+      "count": 26
+    },
+    {
+      "id": "goods-category-06",
+      "name": "锅具与烹饪工具",
+      "count": 24
+    },
+    {
+      "id": "goods-category-07",
+      "name": "食品收纳与饮水器具",
+      "count": 27
+    },
+    {
+      "id": "goods-category-08",
+      "name": "餐具茶具与咖啡器具",
+      "count": 25
+    },
+    {
+      "id": "goods-category-09",
+      "name": "床品与家用纺织品",
+      "count": 24
+    },
+    {
+      "id": "goods-category-10",
+      "name": "基础服装",
+      "count": 26
+    },
+    {
+      "id": "goods-category-11",
+      "name": "鞋靴箱包与随身用品",
+      "count": 25
+    },
+    {
+      "id": "goods-category-12",
+      "name": "收纳与家居塑料杂品",
+      "count": 24
+    },
+    {
+      "id": "goods-category-13",
+      "name": "电工配件照明与充电",
+      "count": 27
+    },
+    {
+      "id": "goods-category-14",
+      "name": "常用小家电",
+      "count": 25
+    },
+    {
+      "id": "goods-category-15",
+      "name": "常用文具与家用工具",
+      "count": 26
+    },
+    {
+      "id": "goods-category-16",
+      "name": "母婴与儿童日用品",
+      "count": 18
+    },
+    {
+      "id": "goods-category-17",
+      "name": "家庭安全与应急用品",
+      "count": 17
+    },
+    {
+      "id": "goods-category-18",
+      "name": "宠物日常用品",
+      "count": 16
+    }
+  ],
+  "items": [
+    {
+      "id": "goods-001",
+      "number": 1,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "抽取式面巾纸",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "GB/T 20808-2022《纸巾》",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-002",
+      "number": 2,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "卷筒卫生纸",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "GB/T 20810-2018《卫生纸（含卫生纸原纸）》",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-003",
+      "number": 3,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "手帕纸",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "GB/T 20808-2022《纸巾》",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-004",
+      "number": 4,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "餐巾纸",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "GB/T 20808-2022《纸巾》",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-005",
+      "number": 5,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "厨房纸巾",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "GB/T 26174-2023《厨房纸巾》",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-006",
+      "number": 6,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "擦手纸",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "GB/T 24455-2022《擦手纸》",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-007",
+      "number": 7,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "普通湿巾",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "GB/T 27728.1-2024《湿巾及类似用途产品 第1部分：通用要求》",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-008",
+      "number": 8,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "消毒湿巾",
+      "buyingTip": "核对有效成分、作用对象、浓度/接触时间和是否需要清水擦拭。",
+      "standards": "GB/T 27728.3-2024《湿巾及类似用途产品 第3部分：消毒湿巾专用要求》",
+      "misconception": "把清洁剂与消毒剂混合使用。"
+    },
+    {
+      "id": "goods-009",
+      "number": 9,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "干湿两用纸巾",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-010",
+      "number": 10,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "棉柔巾",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-011",
+      "number": 11,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "洗脸巾",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-012",
+      "number": 12,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "卸妆棉",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-013",
+      "number": 13,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "棉签",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-014",
+      "number": 14,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "一次性马桶垫纸",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-015",
+      "number": 15,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "烘焙纸",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-016",
+      "number": 16,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "纸杯",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-017",
+      "number": 17,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "纸吸管",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-018",
+      "number": 18,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "垃圾袋",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-019",
+      "number": 19,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "保鲜袋",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-020",
+      "number": 20,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "一次性手套",
+      "buyingTip": "看原料、用途、卫生/吸水或湿强性能、包装完整性",
+      "standards": "生活用纸/湿巾/食品接触纸制品对应现行标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-021",
+      "number": 21,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "湿厕纸",
+      "buyingTip": "看是否明确可冲散/不可冲散、是否含香精或刺激性成分、包装密封和使用部位。",
+      "standards": "湿巾/厕用湿巾对应现行产品标准与卫生要求",
+      "misconception": "“可冲散”不等于任何下水系统都适合大量冲入。"
+    },
+    {
+      "id": "goods-022",
+      "number": 22,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "一次性护理垫",
+      "buyingTip": "看吸收层、防渗底膜、尺寸、透气和单次使用说明。",
+      "standards": "卫生护理垫/一次性卫生用品对应现行产品标准与卫生要求",
+      "misconception": "吸满后继续长时间使用，增加潮湿和皮肤刺激。"
+    },
+    {
+      "id": "goods-023",
+      "number": 23,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "成人纸尿裤",
+      "buyingTip": "看吸收量、尺码、防漏结构、透气和更换便利性。",
+      "standards": "成人失禁用品对应现行产品标准与卫生要求",
+      "misconception": "长时间不更换导致皮肤潮湿刺激。"
+    },
+    {
+      "id": "goods-024",
+      "number": 24,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "卫生巾",
+      "buyingTip": "看长度/吸收量、表层材质、包装完整性和使用期限。",
+      "standards": "卫生巾（护垫）相关现行国家/行业标准与卫生要求",
+      "misconception": "只看香味、凉感等附加功能，忽略透气和皮肤耐受。"
+    },
+    {
+      "id": "goods-025",
+      "number": 25,
+      "categoryId": "goods-category-01",
+      "category": "纸品与卫生消耗品",
+      "name": "卫生护垫",
+      "buyingTip": "看尺寸、透气性、表层材质和包装密封。",
+      "standards": "卫生巾（护垫）相关现行国家/行业标准与卫生要求",
+      "misconception": "长期高频使用但忽略潮湿和皮肤刺激。"
+    },
+    {
+      "id": "goods-026",
+      "number": 26,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "手动牙刷",
+      "buyingTip": "刷头大小要适合口腔，刷毛不应有明显毛刺；电动款看防水、刷头耗材和充电安全。",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "越硬的刷毛越能“刷干净”。"
+    },
+    {
+      "id": "goods-027",
+      "number": 27,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "电动牙刷",
+      "buyingTip": "刷头大小要适合口腔，刷毛不应有明显毛刺；电动款看防水、刷头耗材和充电安全。",
+      "standards": "GB/T 40362-2021《电动牙刷 一般要求和检测方法》",
+      "misconception": "越硬的刷毛越能“刷干净”。"
+    },
+    {
+      "id": "goods-028",
+      "number": 28,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "牙膏",
+      "buyingTip": "看功效宣称与适用人群；儿童、牙敏感等特殊需求按包装和专业建议选择。",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "把“美白/抗敏”等宣传词当成立即治疗效果。"
+    },
+    {
+      "id": "goods-029",
+      "number": 29,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "牙线",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-030",
+      "number": 30,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "牙线棒",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-031",
+      "number": 31,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "漱口水",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-032",
+      "number": 32,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "舌苔刷",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-033",
+      "number": 33,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "牙间刷",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-034",
+      "number": 34,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "假牙清洁片",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-035",
+      "number": 35,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "冲牙器",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-036",
+      "number": 36,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "剃须刀",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-037",
+      "number": 37,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "电动剃须刀",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-038",
+      "number": 38,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "剃须泡沫",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-039",
+      "number": 39,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "梳子",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-040",
+      "number": 40,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "发梳",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-041",
+      "number": 41,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "指甲剪",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-042",
+      "number": 42,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "指甲锉",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-043",
+      "number": 43,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "修眉刀",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-044",
+      "number": 44,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "耳勺",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-045",
+      "number": 45,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "沐浴球",
+      "buyingTip": "看适用人群、接触部位、材料与易清洁性；电动产品同时看防水和电气安全",
+      "standards": "口腔清洁用品产品标准；电动牙刷可重点核对 GB/T 40362-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-046",
+      "number": 46,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "鼻毛修剪器",
+      "buyingTip": "看刀头防夹伤、易清洁、防水等级和电池安全。",
+      "standards": "个人护理电器对应现行安全标准",
+      "misconception": "用普通剪刀深插鼻腔替代专用工具。"
+    },
+    {
+      "id": "goods-047",
+      "number": 47,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "洗发按摩刷",
+      "buyingTip": "看刷齿圆钝、软硬适中、易清洁和握持防滑。",
+      "standards": "日用塑料/硅胶制品对应现行产品标准",
+      "misconception": "刷齿越硬越能清洁头皮。"
+    },
+    {
+      "id": "goods-048",
+      "number": 48,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "指甲刷",
+      "buyingTip": "看刷毛软硬、边缘圆滑和清洗晾干是否方便。",
+      "standards": "日用刷类产品对应现行标准",
+      "misconception": "多人长期共用且不清洁。"
+    },
+    {
+      "id": "goods-049",
+      "number": 49,
+      "categoryId": "goods-category-02",
+      "category": "口腔与个人清洁",
+      "name": "修脚锉",
+      "buyingTip": "看磨面是否牢固、边缘不割手、是否可清洗消毒。",
+      "standards": "个人护理工具对应现行产品标准",
+      "misconception": "在破损、感染皮肤上反复打磨。"
+    },
+    {
+      "id": "goods-050",
+      "number": 50,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "洗发水",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-051",
+      "number": 51,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "护发素",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-052",
+      "number": 52,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "沐浴露",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-053",
+      "number": 53,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "洗手液",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-054",
+      "number": 54,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "香皂",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-055",
+      "number": 55,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "洗面奶",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-056",
+      "number": 56,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "身体乳",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-057",
+      "number": 57,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "护手霜",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-058",
+      "number": 58,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "润唇膏",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-059",
+      "number": 59,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "防晒霜",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-060",
+      "number": 60,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "卸妆水",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-061",
+      "number": 61,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "爽肤水",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-062",
+      "number": 62,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "面霜",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-063",
+      "number": 63,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "精华液",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-064",
+      "number": 64,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "面膜",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-065",
+      "number": 65,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "发膜",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-066",
+      "number": 66,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "染发剂",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-067",
+      "number": 67,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "烫发剂",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-068",
+      "number": 68,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "止汗露",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-069",
+      "number": 69,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "香水",
+      "buyingTip": "看备案/注册、成分表、适用肤质、净含量、限用日期；先做小范围试用",
+      "standards": "化妆品监管要求、《化妆品安全技术规范》及产品备案/注册信息",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-070",
+      "number": 70,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "洁面油",
+      "buyingTip": "看备案信息、成分、乳化性和自身肤质耐受。",
+      "standards": "化妆品监管要求及备案/注册信息",
+      "misconception": "把卸妆力强理解成越刺激越好。"
+    },
+    {
+      "id": "goods-071",
+      "number": 71,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "眼霜",
+      "buyingTip": "看成分和眼周耐受，避免刺激性成分进入眼睛。",
+      "standards": "化妆品监管要求及备案/注册信息",
+      "misconception": "宣称“去黑眼圈”就等同于治疗所有黑眼圈原因。"
+    },
+    {
+      "id": "goods-072",
+      "number": 72,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "身体防晒乳",
+      "buyingTip": "看防晒指数、使用场景、耐水性和补涂要求。",
+      "standards": "化妆品监管要求；防晒类特殊化妆品注册信息",
+      "misconception": "只涂一次就认为全天有效。"
+    },
+    {
+      "id": "goods-073",
+      "number": 73,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "护发精油",
+      "buyingTip": "看成分、是否用于发丝还是头皮、用量和香精刺激。",
+      "standards": "化妆品监管要求及备案信息",
+      "misconception": "大量涂到头皮造成闷腻。"
+    },
+    {
+      "id": "goods-074",
+      "number": 74,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "定型喷雾",
+      "buyingTip": "看可燃警示、喷雾距离、通风要求和香精耐受。",
+      "standards": "化妆品/气雾剂相关监管与产品要求",
+      "misconception": "在明火旁喷使用。"
+    },
+    {
+      "id": "goods-075",
+      "number": 75,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "脱毛膏",
+      "buyingTip": "看适用部位、停留时间、过敏测试和禁用部位。",
+      "standards": "化妆品监管要求及备案信息",
+      "misconception": "超时停留以追求更彻底效果。"
+    },
+    {
+      "id": "goods-076",
+      "number": 76,
+      "categoryId": "goods-category-03",
+      "category": "洗护与基础化妆品",
+      "name": "身体磨砂膏",
+      "buyingTip": "看颗粒粗细、使用频率和皮肤屏障状态。",
+      "standards": "化妆品监管要求及备案信息",
+      "misconception": "破损、晒伤或炎症皮肤继续高频去角质。"
+    },
+    {
+      "id": "goods-077",
+      "number": 77,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "洗衣液",
+      "buyingTip": "看适用机洗/手洗、浓缩倍数、用量说明和是否适合特殊面料。",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "浓度越高就无限加量，导致残留和浪费。"
+    },
+    {
+      "id": "goods-078",
+      "number": 78,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "洗衣粉",
+      "buyingTip": "看适用机洗/手洗、浓缩倍数、用量说明和是否适合特殊面料。",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "浓度越高就无限加量，导致残留和浪费。"
+    },
+    {
+      "id": "goods-079",
+      "number": 79,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "洗衣凝珠",
+      "buyingTip": "看适用机洗/手洗、浓缩倍数、用量说明和是否适合特殊面料。",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "浓度越高就无限加量，导致残留和浪费。"
+    },
+    {
+      "id": "goods-080",
+      "number": 80,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "洗衣皂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-081",
+      "number": 81,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "柔顺剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-082",
+      "number": 82,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "衣领净",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-083",
+      "number": 83,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "洗洁精",
+      "buyingTip": "看用途和使用浓度，充分漂洗；不要把非食品接触清洁剂用于餐具/果蔬。",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "用量越多越干净。"
+    },
+    {
+      "id": "goods-084",
+      "number": 84,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "果蔬清洗剂",
+      "buyingTip": "看用途和使用浓度，充分漂洗；不要把非食品接触清洁剂用于餐具/果蔬。",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "用量越多越干净。"
+    },
+    {
+      "id": "goods-085",
+      "number": 85,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "厨房油污清洁剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-086",
+      "number": 86,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "玻璃清洁剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-087",
+      "number": 87,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "地板清洁剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-088",
+      "number": 88,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "洁厕剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-089",
+      "number": 89,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "浴室清洁剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-090",
+      "number": 90,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "除霉剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-091",
+      "number": 91,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "漂白剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-092",
+      "number": 92,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "衣物消毒液",
+      "buyingTip": "核对有效成分、作用对象、浓度/接触时间和是否需要清水擦拭。",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "把清洁剂与消毒剂混合使用。"
+    },
+    {
+      "id": "goods-093",
+      "number": 93,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "家居消毒液",
+      "buyingTip": "核对有效成分、作用对象、浓度/接触时间和是否需要清水擦拭。",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "把清洁剂与消毒剂混合使用。"
+    },
+    {
+      "id": "goods-094",
+      "number": 94,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "管道疏通剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-095",
+      "number": 95,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "水垢清洁剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-096",
+      "number": 96,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "皮革清洁剂",
+      "buyingTip": "看使用对象、有效成分/表面活性剂、是否需稀释、警示语和腐蚀性",
+      "standards": "洗涤剂/清洁剂对应产品标准与标签要求；食品接触用途需额外核对相关食品安全要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-097",
+      "number": 97,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "洗碗机专用洗涤剂",
+      "buyingTip": "看是否为洗碗机专用、剂量、软水盐/漂洗剂兼容和餐具材质。",
+      "standards": "餐具洗涤剂及相关现行产品标准",
+      "misconception": "拿普通手洗洗洁精代替导致大量泡沫。"
+    },
+    {
+      "id": "goods-098",
+      "number": 98,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "洗衣机槽清洁剂",
+      "buyingTip": "看适用机型、使用周期、投放方式和是否需空桶漂洗。",
+      "standards": "家居清洁剂对应现行产品标准",
+      "misconception": "与含氯/酸性产品混合使用。"
+    },
+    {
+      "id": "goods-099",
+      "number": 99,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "空调清洁剂",
+      "buyingTip": "看适用部位、是否需要断电、是否需冲洗和气味刺激。",
+      "standards": "家居清洁剂/气雾剂相关现行要求",
+      "misconception": "直接喷电控部件或带电清洁。"
+    },
+    {
+      "id": "goods-100",
+      "number": 100,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "鞋类清洁剂",
+      "buyingTip": "看适用皮革/织物/麂皮类型，先做小面积测试。",
+      "standards": "鞋类护理剂对应现行标准/企业执行标准",
+      "misconception": "一种清洁剂通用于所有鞋面材质。"
+    },
+    {
+      "id": "goods-101",
+      "number": 101,
+      "categoryId": "goods-category-04",
+      "category": "家庭洗涤与清洁剂",
+      "name": "餐具消毒剂",
+      "buyingTip": "看有效成分、使用浓度、接触时间和是否需清水冲洗。",
+      "standards": "消毒产品监管要求及对应卫生标准",
+      "misconception": "和其他清洁剂混合使用。"
+    },
+    {
+      "id": "goods-102",
+      "number": 102,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "拖把",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-103",
+      "number": 103,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "扫帚",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-104",
+      "number": 104,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "簸箕",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-105",
+      "number": 105,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "海绵擦",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-106",
+      "number": 106,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "百洁布",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-107",
+      "number": 107,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "钢丝球",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-108",
+      "number": 108,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "洗碗刷",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-109",
+      "number": 109,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "瓶刷",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-110",
+      "number": 110,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "厕所刷",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-111",
+      "number": 111,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "玻璃刮",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-112",
+      "number": 112,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "抹布",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-113",
+      "number": 113,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "超细纤维清洁布",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-114",
+      "number": 114,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "清洁手套",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-115",
+      "number": 115,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "水桶",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-116",
+      "number": 116,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "喷壶",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-117",
+      "number": 117,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "粘毛器",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-118",
+      "number": 118,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "除尘掸",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-119",
+      "number": 119,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "鞋刷",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-120",
+      "number": 120,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "垃圾桶",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-121",
+      "number": 121,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "地漏疏通器",
+      "buyingTip": "看材质、结构强度、可替换耗材、握持舒适度和易清洗程度",
+      "standards": "按具体产品检索现行产品/行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-122",
+      "number": 122,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "平板拖把替换布",
+      "buyingTip": "看尺寸兼容、吸水/去污能力和耐洗次数。",
+      "standards": "纺织/清洁工具对应现行产品标准",
+      "misconception": "只按外观看尺寸，不核对卡扣和拖把型号。"
+    },
+    {
+      "id": "goods-123",
+      "number": 123,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "窗槽刷",
+      "buyingTip": "看刷头宽度、硬度、缝隙适配和握柄强度。",
+      "standards": "日用刷具对应现行产品标准",
+      "misconception": "用尖锐金属替代导致划伤窗框。"
+    },
+    {
+      "id": "goods-124",
+      "number": 124,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "缝隙清洁刷",
+      "buyingTip": "看刷头尺寸、刷毛韧性和是否便于冲洗。",
+      "standards": "日用刷具对应现行产品标准",
+      "misconception": "一把刷子同时用于厨房和卫生间。"
+    },
+    {
+      "id": "goods-125",
+      "number": 125,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "刮水器",
+      "buyingTip": "看胶条平整度、宽度、手柄牢固和更换便利性。",
+      "standards": "家用清洁工具对应现行标准",
+      "misconception": "胶条老化后继续使用造成水痕和划伤。"
+    },
+    {
+      "id": "goods-126",
+      "number": 126,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "除尘滚筒",
+      "buyingTip": "看粘性适中、替换耗材价格和是否会残胶。",
+      "standards": "日用清洁用品对应现行标准",
+      "misconception": "在易掉毛/脆弱面料上用过强粘性滚筒。"
+    },
+    {
+      "id": "goods-127",
+      "number": 127,
+      "categoryId": "goods-category-05",
+      "category": "家庭清洁工具",
+      "name": "鞋底清洁刷",
+      "buyingTip": "看刷毛强度、底座防滑和排水清洁性。",
+      "standards": "家用刷具对应现行标准",
+      "misconception": "室内外混用且长期不清洗。"
+    },
+    {
+      "id": "goods-128",
+      "number": 128,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "炒锅",
+      "buyingTip": "看锅体厚度、把手牢固、适用炉具；有涂层时检查是否平整无明显脱落。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "把所有不粘锅都理解成“永不粘、永不掉涂层”。"
+    },
+    {
+      "id": "goods-129",
+      "number": 129,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "煎锅",
+      "buyingTip": "看锅体厚度、把手牢固、适用炉具；有涂层时检查是否平整无明显脱落。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "把所有不粘锅都理解成“永不粘、永不掉涂层”。"
+    },
+    {
+      "id": "goods-130",
+      "number": 130,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "汤锅",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-131",
+      "number": 131,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "奶锅",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-132",
+      "number": 132,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "蒸锅",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-133",
+      "number": 133,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "压力锅",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-134",
+      "number": 134,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "电压力锅内胆",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-135",
+      "number": 135,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "铸铁锅",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-136",
+      "number": 136,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "不锈钢锅",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-137",
+      "number": 137,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "不粘锅",
+      "buyingTip": "看锅体厚度、把手牢固、适用炉具；有涂层时检查是否平整无明显脱落。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "把所有不粘锅都理解成“永不粘、永不掉涂层”。"
+    },
+    {
+      "id": "goods-138",
+      "number": 138,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "砂锅",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-139",
+      "number": 139,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "珐琅锅",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-140",
+      "number": 140,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "耐热玻璃锅",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-141",
+      "number": 141,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "烤盘",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-142",
+      "number": 142,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "烘焙模具",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-143",
+      "number": 143,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "菜刀",
+      "buyingTip": "看刃口完整、握柄防滑、连接牢固和收纳防护。",
+      "standards": "GB/T 40356-2021《厨用刀具》",
+      "misconception": "只追求锋利度，忽视握持和防误伤。"
+    },
+    {
+      "id": "goods-144",
+      "number": 144,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "砧板",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-145",
+      "number": 145,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "锅铲",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-146",
+      "number": 146,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "汤勺",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-147",
+      "number": 147,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "食品夹",
+      "buyingTip": "看食品接触材质、适用热源、结构牢固、涂层完整性和清洁维护要求",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；厨用刀具可核对 GB/T 40356-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-148",
+      "number": 148,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "电饭煲内胆",
+      "buyingTip": "看与原机型匹配、食品接触材质、涂层完整和厚度。",
+      "standards": "GB 4806 系列 + 原电器配套要求",
+      "misconception": "随意使用尺寸相近的非原适配内胆。"
+    },
+    {
+      "id": "goods-149",
+      "number": 149,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "蒸屉",
+      "buyingTip": "看食品接触材质、孔边是否毛刺、尺寸稳定和耐热。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列",
+      "misconception": "使用来源不明的镀层金属蒸屉。"
+    },
+    {
+      "id": "goods-150",
+      "number": 150,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "硅胶锅铲",
+      "buyingTip": "看是否明确食品接触用途、耐温范围、异味和一体成型结构。",
+      "standards": "GB 4806.11 等食品接触橡胶/硅胶相关标准",
+      "misconception": "硅胶变色开裂后仍长期高温使用。"
+    },
+    {
+      "id": "goods-151",
+      "number": 151,
+      "categoryId": "goods-category-06",
+      "category": "锅具与烹饪工具",
+      "name": "厨房剪刀",
+      "buyingTip": "看刃口咬合、铆接牢固、防滑手柄和可拆洗设计。",
+      "standards": "厨房工具对应现行产品标准",
+      "misconception": "生熟食长期共用且不清洁。"
+    },
+    {
+      "id": "goods-152",
+      "number": 152,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "塑料保鲜盒",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-153",
+      "number": 153,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "玻璃保鲜盒",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-154",
+      "number": 154,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "不锈钢饭盒",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-155",
+      "number": 155,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "硅胶食品盒",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-156",
+      "number": 156,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "保鲜膜",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-157",
+      "number": 157,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "铝箔纸",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-158",
+      "number": 158,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "密封袋",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-159",
+      "number": 159,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "冰格",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-160",
+      "number": 160,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "塑料水杯",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-161",
+      "number": 161,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "玻璃水杯",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-162",
+      "number": 162,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "陶瓷马克杯",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-163",
+      "number": 163,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "不锈钢水杯",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-164",
+      "number": 164,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "保温杯",
+      "buyingTip": "重点看内胆材质标识、密封性、保温性能、杯盖异味和是否明确食品接触用途。",
+      "standards": "GB/T 40355-2021《不锈钢真空保温容器》（不锈钢真空类）",
+      "misconception": "只看到“304/316”字样就认定一定更安全或更好。"
+    },
+    {
+      "id": "goods-165",
+      "number": 165,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "保温壶",
+      "buyingTip": "重点看内胆材质标识、密封性、保温性能、杯盖异味和是否明确食品接触用途。",
+      "standards": "GB/T 40355-2021《不锈钢真空保温容器》（不锈钢真空类）",
+      "misconception": "只看到“304/316”字样就认定一定更安全或更好。"
+    },
+    {
+      "id": "goods-166",
+      "number": 166,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "运动水壶",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-167",
+      "number": 167,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "吸管杯",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-168",
+      "number": 168,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "不锈钢吸管",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-169",
+      "number": 169,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "硅胶吸管",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-170",
+      "number": 170,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "冷水壶",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-171",
+      "number": 171,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "摇摇杯",
+      "buyingTip": "先确认可食品接触，再看材质、耐温、密封、是否适合微波/冷冻/酸性食品",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列；不锈钢真空保温容器可核对 GB/T 40355-2021",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-172",
+      "number": 172,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "真空保鲜袋",
+      "buyingTip": "看食品接触标识、适配真空机、耐温和是否可重复使用。",
+      "standards": "GB 4806.1 + 塑料材料对应 GB 4806 系列",
+      "misconception": "用于高温加热却未核对耐温范围。"
+    },
+    {
+      "id": "goods-173",
+      "number": 173,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "密封罐",
+      "buyingTip": "看材质、密封圈、食品接触标识、开合方便和清洗死角。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列",
+      "misconception": "只看密封不看是否适合装油脂/酸性食品。"
+    },
+    {
+      "id": "goods-174",
+      "number": 174,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "调味瓶",
+      "buyingTip": "看瓶体和盖子的食品接触材质、耐腐蚀、出料口易清洁。",
+      "standards": "GB 4806 系列食品接触材料标准",
+      "misconception": "长期装盐醋却忽略金属部件腐蚀。"
+    },
+    {
+      "id": "goods-175",
+      "number": 175,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "油壶",
+      "buyingTip": "看食品接触材质、遮光性、密封和出油口防滴漏。",
+      "standards": "GB 4806 系列食品接触材料标准",
+      "misconception": "把油壶长期放在灶边高温和强光处。"
+    },
+    {
+      "id": "goods-176",
+      "number": 176,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "米桶",
+      "buyingTip": "看食品接触材质、密封防虫、容量和内部易清洁。",
+      "standards": "GB 4806.1 + 塑料/金属对应标准",
+      "misconception": "新米不断倒入旧米上方从不清桶。"
+    },
+    {
+      "id": "goods-177",
+      "number": 177,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "便当盒",
+      "buyingTip": "看食品接触材质、耐温、密封、微波/洗碗机适用说明。",
+      "standards": "GB 4806.1 + 材质对应 GB 4806 系列",
+      "misconception": "盖着密封盖直接微波却未看说明。"
+    },
+    {
+      "id": "goods-178",
+      "number": 178,
+      "categoryId": "goods-category-07",
+      "category": "食品收纳与饮水器具",
+      "name": "儿童水杯",
+      "buyingTip": "看食品接触材质、防漏、吸嘴结构、易拆洗和适龄提示。",
+      "standards": "GB 4806 系列 + 儿童用品相关现行标准",
+      "misconception": "复杂吸管结构长期拆洗不彻底。"
+    },
+    {
+      "id": "goods-179",
+      "number": 179,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "陶瓷碗",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-180",
+      "number": 180,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "陶瓷盘",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-181",
+      "number": 181,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "木筷",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-182",
+      "number": 182,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "竹筷",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-183",
+      "number": 183,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "不锈钢筷",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-184",
+      "number": 184,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "汤匙",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-185",
+      "number": 185,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "餐叉",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-186",
+      "number": 186,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "餐刀",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-187",
+      "number": 187,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "不锈钢碗",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-188",
+      "number": 188,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "密胺餐具",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-189",
+      "number": 189,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "玻璃茶壶",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-190",
+      "number": 190,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "陶瓷茶壶",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-191",
+      "number": 191,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "茶杯",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-192",
+      "number": 192,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "玻璃酒杯",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-193",
+      "number": 193,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "咖啡杯",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-194",
+      "number": 194,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "手冲滤杯",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-195",
+      "number": 195,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "法压壶",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-196",
+      "number": 196,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "摩卡壶",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-197",
+      "number": 197,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "咖啡滤纸",
+      "buyingTip": "看食品接触材质、釉面/涂层、边缘毛刺、耐热和清洁便利性",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-198",
+      "number": 198,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "一次性餐具",
+      "buyingTip": "先确认材质和食品接触用途，再根据热饮、油脂、酸性食品、微波等场景选耐温等级。",
+      "standards": "GB 4806.1 + 陶瓷/玻璃/金属/塑料等对应食品接触标准",
+      "misconception": "用“食品级”四个字替代对材质和标准的核对。"
+    },
+    {
+      "id": "goods-199",
+      "number": 199,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "不锈钢餐盘",
+      "buyingTip": "看食品接触材质、边缘卷边、焊点和是否易清洗。",
+      "standards": "GB 4806.9 等食品接触金属材料相关标准",
+      "misconception": "只看“不锈钢”不看食品接触用途。"
+    },
+    {
+      "id": "goods-200",
+      "number": 200,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "木勺",
+      "buyingTip": "看木材表面、无刺、无异味、无厚重不明涂层。",
+      "standards": "食品接触木制品相关现行标准/要求",
+      "misconception": "开裂发霉后继续使用。"
+    },
+    {
+      "id": "goods-201",
+      "number": 201,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "饭勺",
+      "buyingTip": "看食品接触材质、耐热、防粘结构和边缘圆滑。",
+      "standards": "GB 4806 系列食品接触材料标准",
+      "misconception": "用低耐温塑料饭勺接触高温锅底。"
+    },
+    {
+      "id": "goods-202",
+      "number": 202,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "茶滤",
+      "buyingTip": "看金属/塑料材质、滤孔焊接、易清洗和耐腐蚀。",
+      "standards": "GB 4806 系列食品接触材料标准",
+      "misconception": "茶渣长期残留发霉后继续使用。"
+    },
+    {
+      "id": "goods-203",
+      "number": 203,
+      "categoryId": "goods-category-08",
+      "category": "餐具茶具与咖啡器具",
+      "name": "咖啡手冲壶",
+      "buyingTip": "看壶体食品接触材质、把手隔热、壶嘴控制和炉具适配。",
+      "standards": "GB 4806 系列 + 对应金属/电器标准",
+      "misconception": "电加热款只看壶嘴不看防干烧和电气安全。"
+    },
+    {
+      "id": "goods-204",
+      "number": 204,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "毛巾",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-205",
+      "number": 205,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "浴巾",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-206",
+      "number": 206,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "方巾",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-207",
+      "number": 207,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "床单",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-208",
+      "number": 208,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "被套",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-209",
+      "number": 209,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "枕套",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-210",
+      "number": 210,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "棉被",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-211",
+      "number": 211,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "羽绒被",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-212",
+      "number": 212,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "化纤被",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-213",
+      "number": 213,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "枕头",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-214",
+      "number": 214,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "床垫保护垫",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-215",
+      "number": 215,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "毛毯",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-216",
+      "number": 216,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "沙发套",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-217",
+      "number": 217,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "窗帘",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-218",
+      "number": 218,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "桌布",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-219",
+      "number": 219,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "地毯",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-220",
+      "number": 220,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "浴室地垫",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-221",
+      "number": 221,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "围裙",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-222",
+      "number": 222,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "隔热手套",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-223",
+      "number": 223,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "蚊帐",
+      "buyingTip": "看纤维成分、A/B/C安全类别、色牢度、尺寸、洗护标签和异味",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-224",
+      "number": 224,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "枕巾",
+      "buyingTip": "看纤维含量、安全类别、色牢度、尺寸和可洗性。",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看手感不看纤维和安全类别。"
+    },
+    {
+      "id": "goods-225",
+      "number": 225,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "凉席",
+      "buyingTip": "看材质、表面毛刺、气味、可清洁性和防霉保存。",
+      "standards": "凉席对应现行产品/行业标准",
+      "misconception": "受潮发霉只擦表面继续用。"
+    },
+    {
+      "id": "goods-226",
+      "number": 226,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "床笠",
+      "buyingTip": "看床垫尺寸、包边弹性、纤维成分和洗护要求。",
+      "standards": "GB 18401-2010 及对应纺织产品标准",
+      "misconception": "只看床长宽，不看床垫厚度。"
+    },
+    {
+      "id": "goods-227",
+      "number": 227,
+      "categoryId": "goods-category-09",
+      "category": "床品与家用纺织品",
+      "name": "沙发抱枕套",
+      "buyingTip": "看面料耐磨、色牢度、拉链牢固和清洗方式。",
+      "standards": "GB 18401-2010 及家用纺织品相关标准",
+      "misconception": "深色产品掉色情况未测试就直接接触浅色沙发。"
+    },
+    {
+      "id": "goods-228",
+      "number": 228,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "T恤",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-229",
+      "number": 229,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "衬衫",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-230",
+      "number": 230,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "内裤",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-231",
+      "number": 231,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "文胸",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-232",
+      "number": 232,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "袜子",
+      "buyingTip": "看纤维成分、安全类别、色牢度、气味和洗护标签；贴身用品优先舒适透气。",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看“纯棉”宣传而不看实际纤维含量标签。"
+    },
+    {
+      "id": "goods-233",
+      "number": 233,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "休闲裤",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-234",
+      "number": 234,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "牛仔裤",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-235",
+      "number": 235,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "毛衣",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-236",
+      "number": 236,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "羊毛衫",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-237",
+      "number": 237,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "羽绒服",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-238",
+      "number": 238,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "大衣",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-239",
+      "number": 239,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "运动服",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-240",
+      "number": 240,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "速干衣",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-241",
+      "number": 241,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "防晒衣",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-242",
+      "number": 242,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "保暖内衣",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-243",
+      "number": 243,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "睡衣",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-244",
+      "number": 244,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "泳衣",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-245",
+      "number": 245,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "雨衣",
+      "buyingTip": "看骨架/面料强度、开合安全、遮蔽面积和实际使用场景。",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "把“防晒”宣传与专业紫外线防护指标混为一谈。"
+    },
+    {
+      "id": "goods-246",
+      "number": 246,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "手套",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-247",
+      "number": 247,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "围巾",
+      "buyingTip": "看安全类别、纤维含量、色牢度、尺码、缝制和洗护标识",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-248",
+      "number": 248,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "卫衣",
+      "buyingTip": "看纤维成分、安全类别、起球情况、缝制和帽绳设计。",
+      "standards": "GB 18401-2010；儿童产品另核对 GB 31701-2015",
+      "misconception": "只看克重宣传，不看材质和做工。"
+    },
+    {
+      "id": "goods-249",
+      "number": 249,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "夹克",
+      "buyingTip": "看面料成分、拉链、里料、缝制和实际防风需求。",
+      "standards": "GB 18401-2010 及对应服装产品标准",
+      "misconception": "把“防泼水”当成“完全防水”。"
+    },
+    {
+      "id": "goods-250",
+      "number": 250,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "冲锋衣",
+      "buyingTip": "看防水透湿指标、接缝压胶、帽兜和使用环境。",
+      "standards": "户外服装对应现行国家/行业标准",
+      "misconception": "只看“冲锋衣”名称，不看真实防水透湿参数。"
+    },
+    {
+      "id": "goods-251",
+      "number": 251,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "瑜伽服",
+      "buyingTip": "看弹性、透气、色牢度、缝线和动作时遮蔽性。",
+      "standards": "GB 18401-2010 及运动服装相关标准",
+      "misconception": "只看紧身效果忽略透气和缝线摩擦。"
+    },
+    {
+      "id": "goods-252",
+      "number": 252,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "打底衫",
+      "buyingTip": "看纤维成分、贴身安全类别、弹性和色牢度。",
+      "standards": "GB 18401-2010",
+      "misconception": "贴身穿却不看安全类别。"
+    },
+    {
+      "id": "goods-253",
+      "number": 253,
+      "categoryId": "goods-category-10",
+      "category": "基础服装",
+      "name": "短裤",
+      "buyingTip": "看面料、腰头、缝线、口袋和活动舒适性。",
+      "standards": "GB 18401-2010 及对应服装产品标准",
+      "misconception": "只按标称尺码，不看具体尺寸表。"
+    },
+    {
+      "id": "goods-254",
+      "number": 254,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "运动鞋",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-255",
+      "number": 255,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "跑步鞋",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-256",
+      "number": 256,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "皮鞋",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-257",
+      "number": 257,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "帆布鞋",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-258",
+      "number": 258,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "拖鞋",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-259",
+      "number": 259,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "凉鞋",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-260",
+      "number": 260,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "雨靴",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-261",
+      "number": 261,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "徒步鞋",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-262",
+      "number": 262,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "鞋垫",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-263",
+      "number": 263,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "鞋带",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-264",
+      "number": 264,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "双肩包",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-265",
+      "number": 265,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "手提包",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-266",
+      "number": 266,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "行李箱",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-267",
+      "number": 267,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "钱包",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-268",
+      "number": 268,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "购物袋",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-269",
+      "number": 269,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "雨伞",
+      "buyingTip": "看骨架/面料强度、开合安全、遮蔽面积和实际使用场景。",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "把“防晒”宣传与专业紫外线防护指标混为一谈。"
+    },
+    {
+      "id": "goods-270",
+      "number": 270,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "太阳镜",
+      "buyingTip": "看镜片标识、紫外线防护、光学质量和佩戴舒适度。",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看镜片颜色深浅判断防紫外线能力。"
+    },
+    {
+      "id": "goods-271",
+      "number": 271,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "遮阳帽",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-272",
+      "number": 272,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "旅行收纳袋",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-273",
+      "number": 273,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "钥匙扣",
+      "buyingTip": "看材料、做工、耐磨、承重、气味和使用场景",
+      "standards": "鞋类/箱包/皮革毛皮对应现行产品与安全标准，购买前核对标准状态",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-274",
+      "number": 274,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "登山包",
+      "buyingTip": "看背负系统、容量、承重、缝线、扣具和防雨设计。",
+      "standards": "箱包/户外用品对应现行产品标准",
+      "misconception": "只看容量大，不看背负和自重。"
+    },
+    {
+      "id": "goods-275",
+      "number": 275,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "腰包",
+      "buyingTip": "看拉链、腰带锁扣、缝线和贴身舒适度。",
+      "standards": "箱包对应现行产品标准",
+      "misconception": "装重物超过腰带和扣具承受能力。"
+    },
+    {
+      "id": "goods-276",
+      "number": 276,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "电脑包",
+      "buyingTip": "看尺寸、缓冲层、防泼水、拉链和肩带承重。",
+      "standards": "箱包对应现行产品标准",
+      "misconception": "只看能放进去，不留缓冲空间。"
+    },
+    {
+      "id": "goods-277",
+      "number": 277,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "皮带",
+      "buyingTip": "看材质标识、扣头牢固、边缘处理和尺寸。",
+      "standards": "皮革/人造革制品对应现行产品标准",
+      "misconception": "只凭“真皮”字样判断耐用性。"
+    },
+    {
+      "id": "goods-278",
+      "number": 278,
+      "categoryId": "goods-category-11",
+      "category": "鞋靴箱包与随身用品",
+      "name": "一次性鞋套",
+      "buyingTip": "看尺寸、防滑、耐撕裂和使用地面。",
+      "standards": "日用塑料/无纺布制品对应现行标准",
+      "misconception": "在湿滑地面把普通薄鞋套当防滑鞋。"
+    },
+    {
+      "id": "goods-279",
+      "number": 279,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "衣架",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-280",
+      "number": 280,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "收纳箱",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-281",
+      "number": 281,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "抽屉收纳盒",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-282",
+      "number": 282,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "真空压缩袋",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-283",
+      "number": 283,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "塑料盆",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-284",
+      "number": 284,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "洗衣篮",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-285",
+      "number": 285,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "鞋架",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-286",
+      "number": 286,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "衣帽架",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-287",
+      "number": 287,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "桌面收纳盒",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-288",
+      "number": 288,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "纸巾盒",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-289",
+      "number": 289,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "肥皂盒",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-290",
+      "number": 290,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "牙刷杯",
+      "buyingTip": "刷头大小要适合口腔，刷毛不应有明显毛刺；电动款看防水、刷头耗材和充电安全。",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "越硬的刷毛越能“刷干净”。"
+    },
+    {
+      "id": "goods-291",
+      "number": 291,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "浴帘",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-292",
+      "number": 292,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "防滑垫",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-293",
+      "number": 293,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "无痕挂钩",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-294",
+      "number": 294,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "衣夹",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-295",
+      "number": 295,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "晾衣绳",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-296",
+      "number": 296,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "晾衣杆",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-297",
+      "number": 297,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "熨衣板",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-298",
+      "number": 298,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "热水袋",
+      "buyingTip": "看承重、边角、材质气味、耐温和安装方式；接触食品的必须按食品接触用品要求",
+      "standards": "日用塑料/金属杂品对应标准；食品接触时使用 GB 4806 系列",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-299",
+      "number": 299,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "化妆品收纳盒",
+      "buyingTip": "看材质气味、抽屉顺滑、边角和易清洁性。",
+      "standards": "日用塑料制品对应现行产品标准",
+      "misconception": "把不耐温塑料长期放在热源旁。"
+    },
+    {
+      "id": "goods-300",
+      "number": 300,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "家庭药箱",
+      "buyingTip": "看分区、避光、防潮、儿童防误取和便携性。",
+      "standards": "家居收纳产品相关标准；药品储存仍以说明书为准",
+      "misconception": "把所有药品拆掉原包装混放。"
+    },
+    {
+      "id": "goods-301",
+      "number": 301,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "脏衣篓",
+      "buyingTip": "看通风、承重、防霉、提手和边缘。",
+      "standards": "日用塑料/纺织收纳用品对应现行标准",
+      "misconception": "湿衣长时间密闭堆放。"
+    },
+    {
+      "id": "goods-302",
+      "number": 302,
+      "categoryId": "goods-category-12",
+      "category": "收纳与家居塑料杂品",
+      "name": "冰箱收纳盒",
+      "buyingTip": "看食品接触用途、耐低温、尺寸和清洁死角。",
+      "standards": "GB 4806 系列食品接触材料标准",
+      "misconception": "普通收纳盒未经确认就直接接触食品。"
+    },
+    {
+      "id": "goods-303",
+      "number": 303,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "插线板",
+      "buyingTip": "核对额定电流/功率、插孔保护、线径与发热情况，优先有可靠认证和过载保护。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "多个大功率电器长期共用一个插线板。"
+    },
+    {
+      "id": "goods-304",
+      "number": 304,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "墙壁插座",
+      "buyingTip": "核对额定电流/功率、插孔保护、线径与发热情况，优先有可靠认证和过载保护。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "多个大功率电器长期共用一个插线板。"
+    },
+    {
+      "id": "goods-305",
+      "number": 305,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "插头转换器",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-306",
+      "number": 306,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "延长线",
+      "buyingTip": "核对额定电流/功率、插孔保护、线径与发热情况，优先有可靠认证和过载保护。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "多个大功率电器长期共用一个插线板。"
+    },
+    {
+      "id": "goods-307",
+      "number": 307,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "USB充电器",
+      "buyingTip": "看输出协议、额定功率、电芯/温控保护、认证和设备兼容性。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看标称瓦数，不看协议兼容与温升。"
+    },
+    {
+      "id": "goods-308",
+      "number": 308,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "Type-C数据线",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-309",
+      "number": 309,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "移动电源",
+      "buyingTip": "看输出协议、额定功率、电芯/温控保护、认证和设备兼容性。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看标称瓦数，不看协议兼容与温升。"
+    },
+    {
+      "id": "goods-310",
+      "number": 310,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "干电池",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-311",
+      "number": 311,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "充电电池",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-312",
+      "number": 312,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "手电筒",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-313",
+      "number": 313,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "LED灯泡",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-314",
+      "number": 314,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "台灯",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-315",
+      "number": 315,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "夜灯",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-316",
+      "number": 316,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "应急灯",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-317",
+      "number": 317,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "智能插座",
+      "buyingTip": "核对额定电流/功率、插孔保护、线径与发热情况，优先有可靠认证和过载保护。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "多个大功率电器长期共用一个插线板。"
+    },
+    {
+      "id": "goods-318",
+      "number": 318,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "定时插座",
+      "buyingTip": "核对额定电流/功率、插孔保护、线径与发热情况，优先有可靠认证和过载保护。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "多个大功率电器长期共用一个插线板。"
+    },
+    {
+      "id": "goods-319",
+      "number": 319,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "墙壁开关",
+      "buyingTip": "优先正规渠道，看额定参数、CCC/产品认证（适用时）、过载保护、阻燃和接口规格",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-320",
+      "number": 320,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "防浪涌插座",
+      "buyingTip": "核对额定电流/功率、插孔保护、线径与发热情况，优先有可靠认证和过载保护。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "多个大功率电器长期共用一个插线板。"
+    },
+    {
+      "id": "goods-321",
+      "number": 321,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "旅行转换插头",
+      "buyingTip": "核对额定电流/功率、插孔保护、线径与发热情况，优先有可靠认证和过载保护。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "多个大功率电器长期共用一个插线板。"
+    },
+    {
+      "id": "goods-322",
+      "number": 322,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "无线充电器",
+      "buyingTip": "看输出协议、额定功率、电芯/温控保护、认证和设备兼容性。",
+      "standards": "对应强制性电气安全标准、插头插座/电源/电池/灯具现行标准与认证要求",
+      "misconception": "只看标称瓦数，不看协议兼容与温升。"
+    },
+    {
+      "id": "goods-323",
+      "number": 323,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "车载充电器",
+      "buyingTip": "看输入电压、输出协议、温升保护和车机接口兼容。",
+      "standards": "车载电源/低压电器相关现行安全标准",
+      "misconception": "长期使用发热明显的劣质车充。"
+    },
+    {
+      "id": "goods-324",
+      "number": 324,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "电源适配器",
+      "buyingTip": "看输入输出参数、接口极性、功率、认证和散热。",
+      "standards": "信息技术设备电源相关现行安全标准/认证",
+      "misconception": "只看插头能插上，不核对电压电流。"
+    },
+    {
+      "id": "goods-325",
+      "number": 325,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "网线",
+      "buyingTip": "看类别标识、导体材质、长度、接头做工和实际速率需求。",
+      "standards": "数据通信电缆对应现行产品标准",
+      "misconception": "为短距离普通家庭网络盲目追求高类别。"
+    },
+    {
+      "id": "goods-326",
+      "number": 326,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "HDMI线",
+      "buyingTip": "看版本/带宽能力、长度、接口做工和设备需求。",
+      "standards": "数字音视频接口线缆相关规范/产品标准",
+      "misconception": "只凭“8K”包装判断实际带宽。"
+    },
+    {
+      "id": "goods-327",
+      "number": 327,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "USB集线器",
+      "buyingTip": "看供电方式、接口速率、总功率和过流保护。",
+      "standards": "信息技术设备/接口附件相关安全要求",
+      "misconception": "多个大功率设备同时由无外接电源集线器供电。"
+    },
+    {
+      "id": "goods-328",
+      "number": 328,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "智能灯泡",
+      "buyingTip": "看灯头规格、功率、显色、色温、联网协议和电气安全。",
+      "standards": "灯具/LED照明现行安全与性能标准",
+      "misconception": "只看App功能，不看亮度和显色。"
+    },
+    {
+      "id": "goods-329",
+      "number": 329,
+      "categoryId": "goods-category-13",
+      "category": "电工配件照明与充电",
+      "name": "电蚊拍",
+      "buyingTip": "看高压网防护、充电安全、开关防误触和结构强度。",
+      "standards": "家用电器/电蚊拍对应现行安全标准",
+      "misconception": "在易燃气体或酒精喷雾附近使用。"
+    },
+    {
+      "id": "goods-330",
+      "number": 330,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "电热水壶",
+      "buyingTip": "看防干烧/过热保护、额定功率、内胆或食品接触部件材质、清洁难度。",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只比较功率和功能数量，不看安全与清洁。"
+    },
+    {
+      "id": "goods-331",
+      "number": 331,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "电饭煲",
+      "buyingTip": "看防干烧/过热保护、额定功率、内胆或食品接触部件材质、清洁难度。",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只比较功率和功能数量，不看安全与清洁。"
+    },
+    {
+      "id": "goods-332",
+      "number": 332,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "电磁炉",
+      "buyingTip": "看防干烧/过热保护、额定功率、内胆或食品接触部件材质、清洁难度。",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只比较功率和功能数量，不看安全与清洁。"
+    },
+    {
+      "id": "goods-333",
+      "number": 333,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "微波炉",
+      "buyingTip": "看防干烧/过热保护、额定功率、内胆或食品接触部件材质、清洁难度。",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只比较功率和功能数量，不看安全与清洁。"
+    },
+    {
+      "id": "goods-334",
+      "number": 334,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "空气炸锅",
+      "buyingTip": "看防干烧/过热保护、额定功率、内胆或食品接触部件材质、清洁难度。",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只比较功率和功能数量，不看安全与清洁。"
+    },
+    {
+      "id": "goods-335",
+      "number": 335,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "多士炉",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-336",
+      "number": 336,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "料理机",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-337",
+      "number": 337,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "榨汁机",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-338",
+      "number": 338,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "咖啡机",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-339",
+      "number": 339,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "电风扇",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-340",
+      "number": 340,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "取暖器",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-341",
+      "number": 341,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "加湿器",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-342",
+      "number": 342,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "除湿机",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-343",
+      "number": 343,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "吹风机",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-344",
+      "number": 344,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "吸尘器",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-345",
+      "number": 345,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "蒸汽拖把",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-346",
+      "number": 346,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "电熨斗",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-347",
+      "number": 347,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "挂烫机",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-348",
+      "number": 348,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "扫地机器人",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-349",
+      "number": 349,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "洗衣机",
+      "buyingTip": "看额定功率、接地/绝缘、防烫、防干烧、易清洁、售后和适用空间",
+      "standards": "GB/T 4706.1-2024 + 对应具体家电安全分标准（该通用标准自2026-08-01实施）",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-350",
+      "number": 350,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "电烤箱",
+      "buyingTip": "看容量、温控、防烫、接地、门体结构和易清洁性。",
+      "standards": "GB/T 4706.1-2024 + 对应电烤箱安全分标准",
+      "misconception": "只看最高温度，不看温控稳定和防烫。"
+    },
+    {
+      "id": "goods-351",
+      "number": 351,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "破壁机",
+      "buyingTip": "看杯体食品接触材质、刀组、安全联锁、噪声和清洁。",
+      "standards": "GB/T 4706.1-2024 + 食品加工电器对应分标准",
+      "misconception": "杯盖未锁好或热饮超过说明容量。"
+    },
+    {
+      "id": "goods-352",
+      "number": 352,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "电饼铛",
+      "buyingTip": "看温控、上下盘间隙、涂层、把手防烫和清洗。",
+      "standards": "GB/T 4706.1-2024 + 对应烹饪电器安全标准",
+      "misconception": "金属工具刮伤不粘涂层。"
+    },
+    {
+      "id": "goods-353",
+      "number": 353,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "电炖锅",
+      "buyingTip": "看内胆材质、干烧保护、预约安全和锅盖结构。",
+      "standards": "GB/T 4706.1-2024 + 对应烹饪电器安全标准",
+      "misconception": "长时间无人看管超出说明书推荐。"
+    },
+    {
+      "id": "goods-354",
+      "number": 354,
+      "categoryId": "goods-category-14",
+      "category": "常用小家电",
+      "name": "除螨仪",
+      "buyingTip": "看吸力/拍打、过滤、紫外线防误照（如有）和线缆安全。",
+      "standards": "GB/T 4706.1-2024 + 清洁电器对应安全标准",
+      "misconception": "把紫外线功能当成无需清洁和晾晒的替代。"
+    },
+    {
+      "id": "goods-355",
+      "number": 355,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "剪刀",
+      "buyingTip": "看刃口完整、握柄防滑、连接牢固和收纳防护。",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只追求锋利度，忽视握持和防误伤。"
+    },
+    {
+      "id": "goods-356",
+      "number": 356,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "美工刀",
+      "buyingTip": "看刃口完整、握柄防滑、连接牢固和收纳防护。",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只追求锋利度，忽视握持和防误伤。"
+    },
+    {
+      "id": "goods-357",
+      "number": 357,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "螺丝刀套装",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-358",
+      "number": 358,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "羊角锤",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-359",
+      "number": 359,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "尖嘴钳",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-360",
+      "number": 360,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "活动扳手",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-361",
+      "number": 361,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "卷尺",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-362",
+      "number": 362,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "内六角扳手",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-363",
+      "number": 363,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "绝缘胶带",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-364",
+      "number": 364,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "布基胶带",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-365",
+      "number": 365,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "瞬干胶",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-366",
+      "number": 366,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "针线包",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-367",
+      "number": 367,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "订书机",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-368",
+      "number": 368,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "中性笔",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-369",
+      "number": 369,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "铅笔",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-370",
+      "number": 370,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "橡皮",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-371",
+      "number": 371,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "直尺",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-372",
+      "number": 372,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "笔记本",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-373",
+      "number": 373,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "文件夹",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-374",
+      "number": 374,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "计算器",
+      "buyingTip": "看材料、机械强度、刀口/尖端防护、绝缘需求和使用年龄",
+      "standards": "按具体文具/工具检索现行国家或行业标准",
+      "misconception": "只看宣传词或价格，不核对用途、材质、标签和实际使用场景。"
+    },
+    {
+      "id": "goods-375",
+      "number": 375,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "热熔胶枪",
+      "buyingTip": "看功率、绝缘、支架、防烫和胶棒规格。",
+      "standards": "电热工具对应现行安全标准",
+      "misconception": "通电后随手平放在可燃物上。"
+    },
+    {
+      "id": "goods-376",
+      "number": 376,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "手电钻",
+      "buyingTip": "看电压/功率、夹头、绝缘、扭矩和防护附件。",
+      "standards": "手持式电动工具现行安全标准",
+      "misconception": "未固定工件就单手钻孔。"
+    },
+    {
+      "id": "goods-377",
+      "number": 377,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "小型水平尺",
+      "buyingTip": "看测量精度、气泡管固定和尺体平直度。",
+      "standards": "测量工具对应现行产品标准",
+      "misconception": "跌落变形后仍当精确工具使用。"
+    },
+    {
+      "id": "goods-378",
+      "number": 378,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "螺丝批套装",
+      "buyingTip": "看批头材质、规格完整、握柄防滑和绝缘需求。",
+      "standards": "手工具对应现行产品标准",
+      "misconception": "用普通螺丝批处理带电线路。"
+    },
+    {
+      "id": "goods-379",
+      "number": 379,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "标签机",
+      "buyingTip": "看耗材兼容、打印清晰度、电池/充电和App兼容。",
+      "standards": "办公电子产品对应现行安全标准",
+      "misconception": "只看机器价格，不算长期标签耗材成本。"
+    },
+    {
+      "id": "goods-380",
+      "number": 380,
+      "categoryId": "goods-category-15",
+      "category": "常用文具与家用工具",
+      "name": "白板笔",
+      "buyingTip": "看墨水气味、可擦性、笔头和儿童使用警示。",
+      "standards": "学生/办公用品对应现行产品标准",
+      "misconception": "在非白板表面试写导致无法擦除。"
+    },
+    {
+      "id": "goods-381",
+      "number": 381,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿奶瓶",
+      "buyingTip": "看食品接触材质、容量、刻度、耐温、易拆洗和与奶嘴兼容。",
+      "standards": "GB 4806 系列 + 婴幼儿喂养用品相关现行标准",
+      "misconception": "只看瓶身材质，不看奶嘴、密封圈等其他接触部件。"
+    },
+    {
+      "id": "goods-382",
+      "number": 382,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "奶嘴",
+      "buyingTip": "看适龄流速、材质、排气结构、老化更换周期和清洁便利性。",
+      "standards": "婴幼儿奶嘴相关现行产品标准",
+      "misconception": "奶嘴开裂发黏后继续使用。"
+    },
+    {
+      "id": "goods-383",
+      "number": 383,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿餐碗",
+      "buyingTip": "看食品接触材质、防滑、耐温、边缘圆滑和易清洗。",
+      "standards": "GB 4806 系列 + 婴幼儿餐具相关标准",
+      "misconception": "吸盘越牢越好，忽略是否难拆洗。"
+    },
+    {
+      "id": "goods-384",
+      "number": 384,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "儿童餐勺",
+      "buyingTip": "看勺头大小、边缘圆滑、食品接触材质和握柄适龄。",
+      "standards": "GB 4806 系列 + 婴幼儿餐具相关标准",
+      "misconception": "用成人金属硬勺直接替代低龄儿童餐勺。"
+    },
+    {
+      "id": "goods-385",
+      "number": 385,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿辅食盒",
+      "buyingTip": "看食品接触材质、密封、冷冻/加热适用和小份分装。",
+      "standards": "GB 4806 系列食品接触材料标准",
+      "misconception": "未确认耐热就直接高温蒸煮。"
+    },
+    {
+      "id": "goods-386",
+      "number": 386,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿围兜",
+      "buyingTip": "看接触皮肤材质、易清洗、防水层气味和颈部调节。",
+      "standards": "婴幼儿纺织/塑料用品相关现行标准",
+      "misconception": "颈圈过紧或带长绳形成缠绕风险。"
+    },
+    {
+      "id": "goods-387",
+      "number": 387,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿浴盆",
+      "buyingTip": "看结构稳定、边缘圆滑、排水、防滑和材质气味。",
+      "standards": "婴幼儿塑料用品相关现行标准",
+      "misconception": "把浴盆当作可以让婴儿独处的安全空间。"
+    },
+    {
+      "id": "goods-388",
+      "number": 388,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿指甲剪",
+      "buyingTip": "看刀口圆钝防误伤、握柄稳定和尺寸适龄。",
+      "standards": "婴幼儿护理工具对应现行产品标准",
+      "misconception": "在孩子挣扎时强行修剪。"
+    },
+    {
+      "id": "goods-389",
+      "number": 389,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿洗衣液",
+      "buyingTip": "看配方温和、残留漂洗、香精和使用浓度。",
+      "standards": "洗涤剂产品标准 + 婴幼儿用品安全关注要求",
+      "misconception": "“婴儿专用”字样不等于任何皮肤都不会刺激。"
+    },
+    {
+      "id": "goods-390",
+      "number": 390,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿洗发沐浴露",
+      "buyingTip": "看备案信息、温和清洁、香精刺激和眼周使用说明。",
+      "standards": "化妆品监管要求及备案信息",
+      "misconception": "频繁高强度清洁破坏皮肤屏障。"
+    },
+    {
+      "id": "goods-391",
+      "number": 391,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "儿童牙刷",
+      "buyingTip": "看适龄刷头、刷毛圆磨、握柄和更换周期。",
+      "standards": "牙刷/儿童用品对应现行标准",
+      "misconception": "刷毛越硬越能刷干净。"
+    },
+    {
+      "id": "goods-392",
+      "number": 392,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "儿童牙膏",
+      "buyingTip": "看含氟量/适龄说明、用量提示和吞咽风险。",
+      "standards": "牙膏产品标准及儿童使用相关要求",
+      "misconception": "成人牙膏直接按成人用量给幼儿使用。"
+    },
+    {
+      "id": "goods-393",
+      "number": 393,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿纸尿裤",
+      "buyingTip": "看体重尺码、吸收、透气、防漏和接触层。",
+      "standards": "婴幼儿纸尿裤相关现行产品标准",
+      "misconception": "长期不更换或一味追求超大吸收量。"
+    },
+    {
+      "id": "goods-394",
+      "number": 394,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "拉拉裤",
+      "buyingTip": "看体重尺码、腰腿围贴合、透气和穿脱便利。",
+      "standards": "婴幼儿纸尿裤/裤型卫生用品相关标准",
+      "misconception": "尺码偏小造成勒痕仍继续使用。"
+    },
+    {
+      "id": "goods-395",
+      "number": 395,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "隔尿垫",
+      "buyingTip": "看吸水层、防水底层、透气、尺寸和是否可重复洗。",
+      "standards": "婴幼儿护理垫相关现行标准",
+      "misconception": "把一次性隔尿垫长期重复使用。"
+    },
+    {
+      "id": "goods-396",
+      "number": 396,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "儿童安全座椅",
+      "buyingTip": "看适用身高/体重、安装方式、车辆兼容和强制认证要求。",
+      "standards": "儿童约束系统相关强制性标准/认证要求",
+      "misconception": "只按年龄购买，不核对身高体重和安装方式。"
+    },
+    {
+      "id": "goods-397",
+      "number": 397,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "婴儿推车",
+      "buyingTip": "看制动、折叠锁、五点式约束、稳定性和夹手点。",
+      "standards": "婴儿推车相关强制性/产品安全标准",
+      "misconception": "停车只靠路面平整而不踩刹车。"
+    },
+    {
+      "id": "goods-398",
+      "number": 398,
+      "categoryId": "goods-category-16",
+      "category": "母婴与儿童日用品",
+      "name": "儿童保温杯",
+      "buyingTip": "看食品接触材质、容量、吸嘴结构、防漏和烫伤风险。",
+      "standards": "GB 4806 系列；不锈钢真空类可核对 GB/T 40355-2021",
+      "misconception": "直接装沸水给儿童饮用。"
+    },
+    {
+      "id": "goods-399",
+      "number": 399,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "家用急救箱",
+      "buyingTip": "看分区、防潮、便携、儿童防误取和内部耗材有效期管理。",
+      "standards": "急救箱本体对应产品标准；内部医疗器械按其注册/备案信息核对",
+      "misconception": "买完后多年不检查耗材是否过期。"
+    },
+    {
+      "id": "goods-400",
+      "number": 400,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "创可贴",
+      "buyingTip": "看医疗器械注册/备案、尺寸、透气性和是否适合伤口类型。",
+      "standards": "按医疗器械监管要求核对注册/备案信息",
+      "misconception": "把深刺伤、大出血也简单贴创可贴。"
+    },
+    {
+      "id": "goods-401",
+      "number": 401,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "医用纱布",
+      "buyingTip": "看无菌/非无菌属性、规格、包装完整和有效期。",
+      "standards": "按医疗器械监管要求核对注册/备案信息",
+      "misconception": "无菌包装破损后仍按无菌材料使用。"
+    },
+    {
+      "id": "goods-402",
+      "number": 402,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "弹性绷带",
+      "buyingTip": "看宽度、弹性、透气和是否有固定扣。",
+      "standards": "医疗器械/护理用品对应监管要求",
+      "misconception": "包扎过紧导致肢端麻木发白。"
+    },
+    {
+      "id": "goods-403",
+      "number": 403,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "一次性医用口罩",
+      "buyingTip": "看医疗器械信息、执行标准、适用场景和包装完整性。",
+      "standards": "医用口罩对应现行标准及医疗器械监管要求",
+      "misconception": "把普通装饰口罩当医用防护口罩。"
+    },
+    {
+      "id": "goods-404",
+      "number": 404,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "灭火器",
+      "buyingTip": "看灭火类型、充装状态、检验信息、容量和放置位置。",
+      "standards": "消防产品对应强制性标准与认证/检验要求",
+      "misconception": "所有火灾都用同一种灭火器。"
+    },
+    {
+      "id": "goods-405",
+      "number": 405,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "灭火毯",
+      "buyingTip": "看尺寸、耐高温材料、取用方式和固定位置。",
+      "standards": "消防应急用品对应现行产品标准",
+      "misconception": "把灭火毯当作进入大火环境的防护服。"
+    },
+    {
+      "id": "goods-406",
+      "number": 406,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "烟雾报警器",
+      "buyingTip": "看探测类型、电池寿命、报警音量、认证和安装位置。",
+      "standards": "火灾探测报警产品对应现行强制标准",
+      "misconception": "安装后从不测试电池和报警功能。"
+    },
+    {
+      "id": "goods-407",
+      "number": 407,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "一氧化碳报警器",
+      "buyingTip": "看传感器寿命、报警阈值、认证和安装位置要求。",
+      "standards": "有毒气体探测器对应现行标准",
+      "misconception": "把它当作可以在室内安全烧炭的保证。"
+    },
+    {
+      "id": "goods-408",
+      "number": 408,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "燃气报警器",
+      "buyingTip": "看适用天然气/液化气类型、安装高度、报警输出和认证。",
+      "standards": "家用可燃气体探测器对应现行标准",
+      "misconception": "燃气种类不匹配或安装位置错误。"
+    },
+    {
+      "id": "goods-409",
+      "number": 409,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "应急手电",
+      "buyingTip": "看续航、亮度档位、电池状态、防水和长期储存自放电。",
+      "standards": "便携照明产品对应现行安全/性能标准",
+      "misconception": "只追求最高流明，忽略低亮长续航。"
+    },
+    {
+      "id": "goods-410",
+      "number": 410,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "应急收音机",
+      "buyingTip": "看广播频段、电池/手摇/太阳能供电、充电输出和续航。",
+      "standards": "应急通信/收音设备对应现行产品标准",
+      "misconception": "长期收纳不检查电池导致需要时无法使用。"
+    },
+    {
+      "id": "goods-411",
+      "number": 411,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "逃生绳",
+      "buyingTip": "看额定承载、绳体材质、长度、固定点和产品用途。",
+      "standards": "消防逃生/高空防坠产品对应现行安全标准",
+      "misconception": "购买普通晾衣绳替代专业逃生绳。"
+    },
+    {
+      "id": "goods-412",
+      "number": 412,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "反光背心",
+      "buyingTip": "看反光材料面积、可见性、尺寸和使用环境。",
+      "standards": "道路高可视警示服相关现行标准",
+      "misconception": "夜间只穿亮色衣服就认为等同反光材料。"
+    },
+    {
+      "id": "goods-413",
+      "number": 413,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "应急保温毯",
+      "buyingTip": "看尺寸、完整性、反射层和单次/重复使用说明。",
+      "standards": "应急救生用品对应现行产品标准",
+      "misconception": "把薄保温毯当成严寒环境完整睡眠系统。"
+    },
+    {
+      "id": "goods-414",
+      "number": 414,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "求生哨",
+      "buyingTip": "看声音响度、结构可靠、防水和挂绳安全。",
+      "standards": "应急户外用品对应现行标准/产品要求",
+      "misconception": "连续无规律吹哨耗尽体力。"
+    },
+    {
+      "id": "goods-415",
+      "number": 415,
+      "categoryId": "goods-category-17",
+      "category": "家庭安全与应急用品",
+      "name": "车载安全锤",
+      "buyingTip": "看击窗头材质、割带刀保护、固定位置和握持。",
+      "standards": "汽车应急用品对应现行产品标准",
+      "misconception": "放在后备箱深处导致紧急时取不到。"
+    },
+    {
+      "id": "goods-416",
+      "number": 416,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物食盆",
+      "buyingTip": "看材质、稳定性、边缘、易清洗和尺寸适配。",
+      "standards": "宠物用品相关现行产品/企业标准；食品接触材质可参考相应安全要求",
+      "misconception": "盆体表面划伤发霉后继续使用。"
+    },
+    {
+      "id": "goods-417",
+      "number": 417,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物饮水器",
+      "buyingTip": "看储水材质、泵体可拆洗、过滤耗材和防干烧。",
+      "standards": "宠物饮水器/小型电器相关产品安全标准",
+      "misconception": "只换滤芯不清洗水泵和管路。"
+    },
+    {
+      "id": "goods-418",
+      "number": 418,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "猫砂盆",
+      "buyingTip": "看尺寸、进出口高度、易清洁、材料气味和密闭程度。",
+      "standards": "宠物塑料用品相关产品标准",
+      "misconception": "过度封闭导致异味和湿气积聚。"
+    },
+    {
+      "id": "goods-419",
+      "number": 419,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "猫砂",
+      "buyingTip": "看粉尘、结团、气味、宠物接受度和是否适合冲厕。",
+      "standards": "宠物垫料相关产品/企业标准",
+      "misconception": "把所有“可冲”猫砂大量冲入下水道。"
+    },
+    {
+      "id": "goods-420",
+      "number": 420,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "拾便袋",
+      "buyingTip": "看厚度、防漏、尺寸和是否易撕取。",
+      "standards": "日用塑料袋/宠物用品相关标准",
+      "misconception": "袋体过薄造成破损污染。"
+    },
+    {
+      "id": "goods-421",
+      "number": 421,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物牵引绳",
+      "buyingTip": "看额定拉力、扣具、长度、手柄和宠物体重匹配。",
+      "standards": "宠物牵引用具对应现行产品标准",
+      "misconception": "大型犬使用承重不足的细绳。"
+    },
+    {
+      "id": "goods-422",
+      "number": 422,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物胸背",
+      "buyingTip": "看尺寸、受力点、调节范围、缝线和防挣脱。",
+      "standards": "宠物胸背用品对应现行产品标准",
+      "misconception": "胸背过松或过紧。"
+    },
+    {
+      "id": "goods-423",
+      "number": 423,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物航空箱",
+      "buyingTip": "看尺寸、通风、门锁、承重和运输要求。",
+      "standards": "宠物运输容器相关标准及承运方规则",
+      "misconception": "只看外形，不确认航空/铁路运输规格。"
+    },
+    {
+      "id": "goods-424",
+      "number": 424,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物梳",
+      "buyingTip": "看齿尖圆钝、毛发类型适配和握柄防滑。",
+      "standards": "宠物美容用品对应现行产品标准",
+      "misconception": "毛结严重时硬拉造成皮肤损伤。"
+    },
+    {
+      "id": "goods-425",
+      "number": 425,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物指甲剪",
+      "buyingTip": "看刀口尺寸、防过剪设计和握持稳定。",
+      "standards": "宠物护理工具对应现行产品标准",
+      "misconception": "不了解血线位置时一次剪太深。"
+    },
+    {
+      "id": "goods-426",
+      "number": 426,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物洗护液",
+      "buyingTip": "看宠物种类、皮肤适用、成分和冲洗要求。",
+      "standards": "宠物洗护产品相关产品/企业标准",
+      "misconception": "直接用人用强清洁洗发水替代。"
+    },
+    {
+      "id": "goods-427",
+      "number": 427,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物尿垫",
+      "buyingTip": "看吸收量、防漏底膜、尺寸和气味控制。",
+      "standards": "宠物卫生护理用品对应现行产品标准",
+      "misconception": "吸满后长期不更换。"
+    },
+    {
+      "id": "goods-428",
+      "number": 428,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物窝",
+      "buyingTip": "看尺寸、填充、可拆洗、底部防滑和保温需求。",
+      "standards": "宠物纺织/家居用品相关产品标准",
+      "misconception": "夏季继续使用过厚不透气窝垫。"
+    },
+    {
+      "id": "goods-429",
+      "number": 429,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物玩具",
+      "buyingTip": "看尺寸、防吞咽、材料、耐咬程度和零件牢固。",
+      "standards": "宠物玩具相关产品标准",
+      "misconception": "破损掉小零件后继续让宠物玩。"
+    },
+    {
+      "id": "goods-430",
+      "number": 430,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物湿巾",
+      "buyingTip": "看使用部位、成分、无酒精/香精需求和宠物舔舐风险。",
+      "standards": "宠物护理湿巾相关产品/企业标准",
+      "misconception": "用人用消毒湿巾频繁擦宠物口鼻。"
+    },
+    {
+      "id": "goods-431",
+      "number": 431,
+      "categoryId": "goods-category-18",
+      "category": "宠物日常用品",
+      "name": "宠物牙刷",
+      "buyingTip": "看刷头尺寸、刷毛软硬和宠物口腔适配。",
+      "standards": "宠物口腔护理用品相关产品标准",
+      "misconception": "与人共用牙刷或使用人用含氟牙膏。"
+    }
+  ]
+}

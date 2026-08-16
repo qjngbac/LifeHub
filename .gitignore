@@ -1,0 +1,59 @@
+# Flutter
+build/
+.dart_tool/
+*.pub
+.dart_tool/flutter_gen/gen_l10n/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug
+*.log
+
+# Keep the application dependency lock file reproducible.
+!pubspec.lock
+
+# Test
+coverage/
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+android/key.properties
+android/app/*.jks
+android/app/*.keystore
+**/key.properties
+**/*.jks
+**/*.keystore
+**/*.p12
+**/*.pfx
+**/*.pem
+
+# Generated files
+*.asar
+lib/generated/
+
+# Local-only development archives and internal planning artifacts.
+/legacy_source/
+/features/
+/docs/superpowers/
+/docs/V1_ACCEPTANCE_REPORT.md
+/docs/HANDOVER_DOCUMENT.md
+/docs/IMPLEMENTATION_STATUS.md
+
+# Generated Android/IDE state.
+/android/.gradle/
+/android/.kotlin/
+*.iml

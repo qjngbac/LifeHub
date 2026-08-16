@@ -1,0 +1,6720 @@
+{
+  "source": "LifeHub_药品信息_728种常见药品知识库_扩展版.md",
+  "generatedAt": "2026-08-14",
+  "categories": [
+    {
+      "id": "drug-category-01",
+      "name": "解热镇痛与抗炎药",
+      "count": 23
+    },
+    {
+      "id": "drug-category-02",
+      "name": "麻醉、镇痛与肌松药",
+      "count": 22
+    },
+    {
+      "id": "drug-category-03",
+      "name": "抗过敏与呼吸系统药",
+      "count": 24
+    },
+    {
+      "id": "drug-category-04",
+      "name": "胃酸相关与胃黏膜保护药",
+      "count": 23
+    },
+    {
+      "id": "drug-category-05",
+      "name": "胃肠动力、止吐、止泻与肝胆药",
+      "count": 24
+    },
+    {
+      "id": "drug-category-06",
+      "name": "青霉素与头孢菌素类抗菌药",
+      "count": 22
+    },
+    {
+      "id": "drug-category-07",
+      "name": "其他常用抗菌药",
+      "count": 25
+    },
+    {
+      "id": "drug-category-08",
+      "name": "抗结核与抗病毒药",
+      "count": 23
+    },
+    {
+      "id": "drug-category-09",
+      "name": "抗真菌与抗寄生虫药",
+      "count": 24
+    },
+    {
+      "id": "drug-category-10",
+      "name": "降压药：RAAS与钙通道阻滞剂",
+      "count": 22
+    },
+    {
+      "id": "drug-category-11",
+      "name": "降压药：β受体阻滞剂、利尿剂及其他",
+      "count": 23
+    },
+    {
+      "id": "drug-category-12",
+      "name": "心绞痛、心衰与抗心律失常药",
+      "count": 22
+    },
+    {
+      "id": "drug-category-13",
+      "name": "抗凝、抗血小板与调脂药",
+      "count": 23
+    },
+    {
+      "id": "drug-category-14",
+      "name": "糖尿病药",
+      "count": 25
+    },
+    {
+      "id": "drug-category-15",
+      "name": "甲状腺、激素与骨代谢药",
+      "count": 23
+    },
+    {
+      "id": "drug-category-16",
+      "name": "神经系统：抗癫痫与神经痛药",
+      "count": 23
+    },
+    {
+      "id": "drug-category-17",
+      "name": "精神科与睡眠相关药",
+      "count": 22
+    },
+    {
+      "id": "drug-category-18",
+      "name": "帕金森、认知障碍、偏头痛与眩晕药",
+      "count": 23
+    },
+    {
+      "id": "drug-category-19",
+      "name": "贫血、维生素、矿物质与血液支持药",
+      "count": 24
+    },
+    {
+      "id": "drug-category-20",
+      "name": "肿瘤药：细胞毒与传统化疗",
+      "count": 23
+    },
+    {
+      "id": "drug-category-21",
+      "name": "肿瘤药：靶向与免疫治疗",
+      "count": 22
+    },
+    {
+      "id": "drug-category-22",
+      "name": "风湿免疫与痛风药",
+      "count": 24
+    },
+    {
+      "id": "drug-category-23",
+      "name": "皮肤、眼科与耳鼻喉常用药",
+      "count": 23
+    },
+    {
+      "id": "drug-category-24",
+      "name": "妇产科、泌尿与生殖相关药",
+      "count": 24
+    },
+    {
+      "id": "drug-category-25",
+      "name": "急救、补液与解毒药",
+      "count": 22
+    },
+    {
+      "id": "drug-category-26",
+      "name": "中成药：感冒与肺系常用药",
+      "count": 23
+    },
+    {
+      "id": "drug-category-27",
+      "name": "中成药：脾胃与消化系统",
+      "count": 25
+    },
+    {
+      "id": "drug-category-28",
+      "name": "中成药：心脑血管与神志相关",
+      "count": 22
+    },
+    {
+      "id": "drug-category-29",
+      "name": "中成药：骨伤、风湿与外用",
+      "count": 24
+    },
+    {
+      "id": "drug-category-30",
+      "name": "中成药：妇科、儿科与常见调理类",
+      "count": 23
+    },
+    {
+      "id": "drug-category-31",
+      "name": "口腔与咽喉局部用药",
+      "count": 16
+    },
+    {
+      "id": "drug-category-32",
+      "name": "肾病、透析与电解质相关药",
+      "count": 17
+    }
+  ],
+  "items": [
+    {
+      "id": "drug-001",
+      "number": 1,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "对乙酰氨基酚",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-002",
+      "number": 2,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "布洛芬",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-003",
+      "number": 3,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "阿司匹林",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-004",
+      "number": 4,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "双氯芬酸",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-005",
+      "number": 5,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "塞来昔布",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-006",
+      "number": 6,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "依托考昔",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-007",
+      "number": 7,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "美洛昔康",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-008",
+      "number": 8,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "洛索洛芬",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-009",
+      "number": 9,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "萘普生",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-010",
+      "number": 10,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "吲哚美辛",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-011",
+      "number": 11,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "氯诺昔康",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-012",
+      "number": 12,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "酮洛芬",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-013",
+      "number": 13,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "氟比洛芬",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-014",
+      "number": 14,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "尼美舒利",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-015",
+      "number": 15,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "艾瑞昔布",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-016",
+      "number": 16,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "帕瑞昔布",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-017",
+      "number": 17,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "舒林酸",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-018",
+      "number": 18,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "依托度酸",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-019",
+      "number": 19,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "右酮洛芬",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-020",
+      "number": 20,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "氟比洛芬酯",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-021",
+      "number": 21,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "吡罗昔康",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-022",
+      "number": 22,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "醋氯芬酸",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-023",
+      "number": 23,
+      "categoryId": "drug-category-01",
+      "category": "解热镇痛与抗炎药",
+      "name": "安乃近",
+      "useTags": "发热、疼痛、炎症等",
+      "riskSummary": "注意胃肠道出血、肾功能、心血管风险及重复用药；具体禁忌以说明书为准。"
+    },
+    {
+      "id": "drug-024",
+      "number": 24,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "利多卡因",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-025",
+      "number": 25,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "布比卡因",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-026",
+      "number": 26,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "罗哌卡因",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-027",
+      "number": 27,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "普鲁卡因",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-028",
+      "number": 28,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "丙泊酚",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-029",
+      "number": 29,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "依托咪酯",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-030",
+      "number": 30,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "咪达唑仑",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-031",
+      "number": 31,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "氯胺酮",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-032",
+      "number": 32,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "七氟烷",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-033",
+      "number": 33,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "异氟烷",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-034",
+      "number": 34,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "芬太尼",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-035",
+      "number": 35,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "舒芬太尼",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-036",
+      "number": 36,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "瑞芬太尼",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-037",
+      "number": 37,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "吗啡",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-038",
+      "number": 38,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "哌替啶",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-039",
+      "number": 39,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "曲马多",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-040",
+      "number": 40,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "羟考酮",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-041",
+      "number": 41,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "罗库溴铵",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-042",
+      "number": 42,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "顺阿曲库铵",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-043",
+      "number": 43,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "新斯的明",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-044",
+      "number": 44,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "丁丙诺啡",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-045",
+      "number": 45,
+      "categoryId": "drug-category-02",
+      "category": "麻醉、镇痛与肌松药",
+      "name": "纳布啡",
+      "useTags": "麻醉、围术期镇痛、镇静、肌松等",
+      "riskSummary": "多为处方/院内专业用药，可影响呼吸和意识；不得自行使用。"
+    },
+    {
+      "id": "drug-046",
+      "number": 46,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "氯雷他定",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-047",
+      "number": 47,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "西替利嗪",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-048",
+      "number": 48,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "左西替利嗪",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-049",
+      "number": 49,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "非索非那定",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-050",
+      "number": 50,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "地氯雷他定",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-051",
+      "number": 51,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "苯海拉明",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-052",
+      "number": 52,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "氯苯那敏",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-053",
+      "number": 53,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "孟鲁司特",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-054",
+      "number": 54,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "沙丁胺醇",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-055",
+      "number": 55,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "特布他林",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-056",
+      "number": 56,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "福莫特罗",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-057",
+      "number": 57,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "沙美特罗",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-058",
+      "number": 58,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "异丙托溴铵",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-059",
+      "number": 59,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "噻托溴铵",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-060",
+      "number": 60,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "布地奈德",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-061",
+      "number": 61,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "丙酸氟替卡松",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-062",
+      "number": 62,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "倍氯米松",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-063",
+      "number": 63,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "氨茶碱",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-064",
+      "number": 64,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "茶碱",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-065",
+      "number": 65,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "乙酰半胱氨酸",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-066",
+      "number": 66,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "左沙丁胺醇",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-067",
+      "number": 67,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "溴己新",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-068",
+      "number": 68,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "氨溴索",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-069",
+      "number": 69,
+      "categoryId": "drug-category-03",
+      "category": "抗过敏与呼吸系统药",
+      "name": "羧甲司坦",
+      "useTags": "过敏、哮喘、慢阻肺、咳痰等",
+      "riskSummary": "部分药可嗜睡或需正确吸入技术；哮喘急性发作不能只依赖长期控制药。"
+    },
+    {
+      "id": "drug-070",
+      "number": 70,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "奥美拉唑",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-071",
+      "number": 71,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "埃索美拉唑",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-072",
+      "number": 72,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "兰索拉唑",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-073",
+      "number": 73,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "泮托拉唑",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-074",
+      "number": 74,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "雷贝拉唑",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-075",
+      "number": 75,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "艾普拉唑",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-076",
+      "number": 76,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "法莫替丁",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-077",
+      "number": 77,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "西咪替丁",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-078",
+      "number": 78,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "尼扎替丁",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-079",
+      "number": 79,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "铝碳酸镁",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-080",
+      "number": 80,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "氢氧化铝",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-081",
+      "number": 81,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "枸橼酸铋钾",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-082",
+      "number": 82,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "胶体果胶铋",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-083",
+      "number": 83,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "硫糖铝",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-084",
+      "number": 84,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "瑞巴派特",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-085",
+      "number": 85,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "替普瑞酮",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-086",
+      "number": 86,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "吉法酯",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-087",
+      "number": 87,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "米索前列醇",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-088",
+      "number": 88,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "伏诺拉生",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-089",
+      "number": 89,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "铝镁加",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-090",
+      "number": 90,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "复方氢氧化铝",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-091",
+      "number": 91,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "磷酸铝",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-092",
+      "number": 92,
+      "categoryId": "drug-category-04",
+      "category": "胃酸相关与胃黏膜保护药",
+      "name": "替戈拉生",
+      "useTags": "胃酸相关疾病、溃疡及胃黏膜保护",
+      "riskSummary": "长期使用或反复症状应明确病因；注意与其他药物相互作用。"
+    },
+    {
+      "id": "drug-093",
+      "number": 93,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "多潘立酮",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-094",
+      "number": 94,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "莫沙必利",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-095",
+      "number": 95,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "伊托必利",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-096",
+      "number": 96,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "甲氧氯普胺",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-097",
+      "number": 97,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "昂丹司琼",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-098",
+      "number": 98,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "托烷司琼",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-099",
+      "number": 99,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "格拉司琼",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-100",
+      "number": 100,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "蒙脱石",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-101",
+      "number": 101,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "洛哌丁胺",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-102",
+      "number": 102,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "消旋卡多曲",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-103",
+      "number": 103,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "双歧杆菌三联活菌",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-104",
+      "number": 104,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "乳酸菌素",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-105",
+      "number": 105,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "聚乙二醇4000",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-106",
+      "number": 106,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "乳果糖",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-107",
+      "number": 107,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "比沙可啶",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-108",
+      "number": 108,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "甘油",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-109",
+      "number": 109,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "复方聚乙二醇电解质",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-110",
+      "number": 110,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "熊去氧胆酸",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-111",
+      "number": 111,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "多烯磷脂酰胆碱",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-112",
+      "number": 112,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "谷胱甘肽",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-113",
+      "number": 113,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "匹维溴铵",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-114",
+      "number": 114,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "曲美布汀",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-115",
+      "number": 115,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "利那洛肽",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-116",
+      "number": 116,
+      "categoryId": "drug-category-05",
+      "category": "胃肠动力、止吐、止泻与肝胆药",
+      "name": "普芦卡必利",
+      "useTags": "恶心呕吐、动力异常、腹泻便秘、肝胆疾病等",
+      "riskSummary": "持续呕吐、血便、剧烈腹痛或脱水不能仅自行对症处理。"
+    },
+    {
+      "id": "drug-117",
+      "number": 117,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "青霉素G",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-118",
+      "number": 118,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "苄星青霉素",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-119",
+      "number": 119,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "苯唑西林",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-120",
+      "number": 120,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "氯唑西林",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-121",
+      "number": 121,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "阿莫西林",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-122",
+      "number": 122,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "氨苄西林",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-123",
+      "number": 123,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "哌拉西林",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-124",
+      "number": 124,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "阿莫西林克拉维酸",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-125",
+      "number": 125,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "氨苄西林舒巴坦",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-126",
+      "number": 126,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "哌拉西林他唑巴坦",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-127",
+      "number": 127,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢氨苄",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-128",
+      "number": 128,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢拉定",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-129",
+      "number": 129,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢呋辛",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-130",
+      "number": 130,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢克洛",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-131",
+      "number": 131,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢克肟",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-132",
+      "number": 132,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢地尼",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-133",
+      "number": 133,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢曲松",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-134",
+      "number": 134,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢噻肟",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-135",
+      "number": 135,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢他啶",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-136",
+      "number": 136,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢哌酮舒巴坦",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-137",
+      "number": 137,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢唑林",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-138",
+      "number": 138,
+      "categoryId": "drug-category-06",
+      "category": "青霉素与头孢菌素类抗菌药",
+      "name": "头孢吡肟",
+      "useTags": "细菌感染（需医生判断病原与部位）",
+      "riskSummary": "处方抗菌药；注意严重过敏史，按医嘱足疗程使用，避免自行滥用。"
+    },
+    {
+      "id": "drug-139",
+      "number": 139,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "阿奇霉素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-140",
+      "number": 140,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "克拉霉素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-141",
+      "number": 141,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "罗红霉素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-142",
+      "number": 142,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "红霉素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-143",
+      "number": 143,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "克林霉素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-144",
+      "number": 144,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "林可霉素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-145",
+      "number": 145,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "多西环素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-146",
+      "number": 146,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "米诺环素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-147",
+      "number": 147,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "左氧氟沙星",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-148",
+      "number": 148,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "莫西沙星",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-149",
+      "number": 149,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "环丙沙星",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-150",
+      "number": 150,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "甲硝唑",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-151",
+      "number": 151,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "替硝唑",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-152",
+      "number": 152,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "奥硝唑",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-153",
+      "number": 153,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "磷霉素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-154",
+      "number": 154,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "呋喃妥因",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-155",
+      "number": 155,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "复方磺胺甲噁唑",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-156",
+      "number": 156,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "万古霉素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-157",
+      "number": 157,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "利奈唑胺",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-158",
+      "number": 158,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "美罗培南",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-159",
+      "number": 159,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "阿米卡星",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-160",
+      "number": 160,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "庆大霉素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-161",
+      "number": 161,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "亚胺培南西司他丁",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-162",
+      "number": 162,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "厄他培南",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-163",
+      "number": 163,
+      "categoryId": "drug-category-07",
+      "category": "其他常用抗菌药",
+      "name": "替加环素",
+      "useTags": "细菌/厌氧菌等感染（需医生判断）",
+      "riskSummary": "处方抗菌药；不同药物对孕期、儿童、肝肾功能和心律风险限制不同。"
+    },
+    {
+      "id": "drug-164",
+      "number": 164,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "异烟肼",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-165",
+      "number": 165,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "利福平",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-166",
+      "number": 166,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "利福喷丁",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-167",
+      "number": 167,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "乙胺丁醇",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-168",
+      "number": 168,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "吡嗪酰胺",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-169",
+      "number": 169,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "阿昔洛韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-170",
+      "number": 170,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "伐昔洛韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-171",
+      "number": 171,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "更昔洛韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-172",
+      "number": 172,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "奥司他韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-173",
+      "number": 173,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "扎那米韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-174",
+      "number": 174,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "阿比多尔",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-175",
+      "number": 175,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "恩替卡韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-176",
+      "number": 176,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "替诺福韦二吡呋酯",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-177",
+      "number": 177,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "丙酚替诺福韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-178",
+      "number": 178,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "拉米夫定",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-179",
+      "number": 179,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "阿德福韦酯",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-180",
+      "number": 180,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "索磷布韦维帕他韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-181",
+      "number": 181,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "达拉他韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-182",
+      "number": 182,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "利巴韦林",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-183",
+      "number": 183,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "依非韦伦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-184",
+      "number": 184,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "多替拉韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-185",
+      "number": 185,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "玛巴洛沙韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-186",
+      "number": 186,
+      "categoryId": "drug-category-08",
+      "category": "抗结核与抗病毒药",
+      "name": "奈玛特韦利托那韦",
+      "useTags": "结核、流感、疱疹、病毒性肝炎、HIV等",
+      "riskSummary": "需按疾病方案和疗程使用；关注肝肾功能、耐药与药物相互作用。"
+    },
+    {
+      "id": "drug-187",
+      "number": 187,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "氟康唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-188",
+      "number": 188,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "伊曲康唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-189",
+      "number": 189,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "伏立康唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-190",
+      "number": 190,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "泊沙康唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-191",
+      "number": 191,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "卡泊芬净",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-192",
+      "number": 192,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "米卡芬净",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-193",
+      "number": 193,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "两性霉素B",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-194",
+      "number": 194,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "制霉菌素",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-195",
+      "number": 195,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "特比萘芬",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-196",
+      "number": 196,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "酮康唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-197",
+      "number": 197,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "克霉唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-198",
+      "number": 198,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "咪康唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-199",
+      "number": 199,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "阿苯达唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-200",
+      "number": 200,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "甲苯咪唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-201",
+      "number": 201,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "吡喹酮",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-202",
+      "number": 202,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "氯喹",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-203",
+      "number": 203,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "伯氨喹",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-204",
+      "number": 204,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "青蒿琥酯",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-205",
+      "number": 205,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "蒿甲醚",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-206",
+      "number": 206,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "乙胺嘧啶",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-207",
+      "number": 207,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "伊维菌素",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-208",
+      "number": 208,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "左旋咪唑",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-209",
+      "number": 209,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "氟胞嘧啶",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-210",
+      "number": 210,
+      "categoryId": "drug-category-09",
+      "category": "抗真菌与抗寄生虫药",
+      "name": "奈替芬",
+      "useTags": "真菌感染及寄生虫病",
+      "riskSummary": "系统用药常需评估肝功能、相互作用和感染类型，避免盲目使用。"
+    },
+    {
+      "id": "drug-211",
+      "number": 211,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "卡托普利",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-212",
+      "number": 212,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "依那普利",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-213",
+      "number": 213,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "贝那普利",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-214",
+      "number": 214,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "培哚普利",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-215",
+      "number": 215,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "雷米普利",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-216",
+      "number": 216,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "福辛普利",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-217",
+      "number": 217,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "缬沙坦",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-218",
+      "number": 218,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "氯沙坦",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-219",
+      "number": 219,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "厄贝沙坦",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-220",
+      "number": 220,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "替米沙坦",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-221",
+      "number": 221,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "坎地沙坦",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-222",
+      "number": 222,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "奥美沙坦酯",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-223",
+      "number": 223,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "阿利沙坦酯",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-224",
+      "number": 224,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "氨氯地平",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-225",
+      "number": 225,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "硝苯地平",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-226",
+      "number": 226,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "非洛地平",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-227",
+      "number": 227,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "拉西地平",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-228",
+      "number": 228,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "贝尼地平",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-229",
+      "number": 229,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "乐卡地平",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-230",
+      "number": 230,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "维拉帕米",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-231",
+      "number": 231,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "尼群地平",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-232",
+      "number": 232,
+      "categoryId": "drug-category-10",
+      "category": "降压药：RAAS与钙通道阻滞剂",
+      "name": "尼卡地平",
+      "useTags": "高血压及部分心肾疾病",
+      "riskSummary": "可能引起低血压、肾功能或电解质变化；孕期等特殊情况需特别核对禁忌。"
+    },
+    {
+      "id": "drug-233",
+      "number": 233,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "美托洛尔",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-234",
+      "number": 234,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "比索洛尔",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-235",
+      "number": 235,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "阿替洛尔",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-236",
+      "number": 236,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "普萘洛尔",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-237",
+      "number": 237,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "卡维地洛",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-238",
+      "number": 238,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "拉贝洛尔",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-239",
+      "number": 239,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "氢氯噻嗪",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-240",
+      "number": 240,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "吲达帕胺",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-241",
+      "number": 241,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "呋塞米",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-242",
+      "number": 242,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "托拉塞米",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-243",
+      "number": 243,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "螺内酯",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-244",
+      "number": 244,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "依普利酮",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-245",
+      "number": 245,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "阿米洛利",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-246",
+      "number": 246,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "特拉唑嗪",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-247",
+      "number": 247,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "多沙唑嗪",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-248",
+      "number": 248,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "哌唑嗪",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-249",
+      "number": 249,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "可乐定",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-250",
+      "number": 250,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "甲基多巴",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-251",
+      "number": 251,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "乌拉地尔",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-252",
+      "number": 252,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "阿罗洛尔",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-253",
+      "number": 253,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "艾司洛尔",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-254",
+      "number": 254,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "布美他尼",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-255",
+      "number": 255,
+      "categoryId": "drug-category-11",
+      "category": "降压药：β受体阻滞剂、利尿剂及其他",
+      "name": "氯噻酮",
+      "useTags": "高血压、水肿及部分心血管疾病",
+      "riskSummary": "注意心率、血压、电解质和肾功能；部分药不能突然停用。"
+    },
+    {
+      "id": "drug-256",
+      "number": 256,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "硝酸甘油",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-257",
+      "number": 257,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "单硝酸异山梨酯",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-258",
+      "number": 258,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "硝酸异山梨酯",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-259",
+      "number": 259,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "地高辛",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-260",
+      "number": 260,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "胺碘酮",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-261",
+      "number": 261,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "普罗帕酮",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-262",
+      "number": 262,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "索他洛尔",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-263",
+      "number": 263,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "腺苷",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-264",
+      "number": 264,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "伊伐布雷定",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-265",
+      "number": 265,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "沙库巴曲缬沙坦",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-266",
+      "number": 266,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "左西孟旦",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-267",
+      "number": 267,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "多巴酚丁胺",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-268",
+      "number": 268,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "多巴胺",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-269",
+      "number": 269,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "米力农",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-270",
+      "number": 270,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "去乙酰毛花苷",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-271",
+      "number": 271,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "曲美他嗪",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-272",
+      "number": 272,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "尼可地尔",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-273",
+      "number": 273,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "地尔硫卓",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-274",
+      "number": 274,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "美西律",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-275",
+      "number": 275,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "决奈达隆",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-276",
+      "number": 276,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "硝普钠",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-277",
+      "number": 277,
+      "categoryId": "drug-category-12",
+      "category": "心绞痛、心衰与抗心律失常药",
+      "name": "兰地洛尔",
+      "useTags": "心绞痛、心力衰竭、心律失常等",
+      "riskSummary": "涉及心率、血压和致心律失常风险，多需专科监测。"
+    },
+    {
+      "id": "drug-278",
+      "number": 278,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "氯吡格雷",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-279",
+      "number": 279,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "替格瑞洛",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-280",
+      "number": 280,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "西洛他唑",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-281",
+      "number": 281,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "双嘧达莫",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-282",
+      "number": 282,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "华法林",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-283",
+      "number": 283,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "肝素",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-284",
+      "number": 284,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "低分子肝素钠",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-285",
+      "number": 285,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "依诺肝素",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-286",
+      "number": 286,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "利伐沙班",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-287",
+      "number": 287,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "阿哌沙班",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-288",
+      "number": 288,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "达比加群酯",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-289",
+      "number": 289,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "阿托伐他汀",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-290",
+      "number": 290,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "瑞舒伐他汀",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-291",
+      "number": 291,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "辛伐他汀",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-292",
+      "number": 292,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "匹伐他汀",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-293",
+      "number": 293,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "普伐他汀",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-294",
+      "number": 294,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "依折麦布",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-295",
+      "number": 295,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "非诺贝特",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-296",
+      "number": 296,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "苯扎贝特",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-297",
+      "number": 297,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "依洛尤单抗",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-298",
+      "number": 298,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "替罗非班",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-299",
+      "number": 299,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "阿利西尤单抗",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-300",
+      "number": 300,
+      "categoryId": "drug-category-13",
+      "category": "抗凝、抗血小板与调脂药",
+      "name": "英克司兰",
+      "useTags": "血栓预防/治疗及血脂管理",
+      "riskSummary": "抗栓药重点关注出血；调脂药关注肝功能/肌肉症状及相互作用。"
+    },
+    {
+      "id": "drug-301",
+      "number": 301,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "二甲双胍",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-302",
+      "number": 302,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "阿卡波糖",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-303",
+      "number": 303,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "伏格列波糖",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-304",
+      "number": 304,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "格列美脲",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-305",
+      "number": 305,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "格列齐特",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-306",
+      "number": 306,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "格列吡嗪",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-307",
+      "number": 307,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "格列喹酮",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-308",
+      "number": 308,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "瑞格列奈",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-309",
+      "number": 309,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "那格列奈",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-310",
+      "number": 310,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "西格列汀",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-311",
+      "number": 311,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "利格列汀",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-312",
+      "number": 312,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "沙格列汀",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-313",
+      "number": 313,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "维格列汀",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-314",
+      "number": 314,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "达格列净",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-315",
+      "number": 315,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "恩格列净",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-316",
+      "number": 316,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "卡格列净",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-317",
+      "number": 317,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "艾托格列净",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-318",
+      "number": 318,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "利拉鲁肽",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-319",
+      "number": 319,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "司美格鲁肽",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-320",
+      "number": 320,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "度拉糖肽",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-321",
+      "number": 321,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "甘精胰岛素",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-322",
+      "number": 322,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "门冬胰岛素",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-323",
+      "number": 323,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "德谷胰岛素",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-324",
+      "number": 324,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "谷赖胰岛素",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-325",
+      "number": 325,
+      "categoryId": "drug-category-14",
+      "category": "糖尿病药",
+      "name": "吡格列酮",
+      "useTags": "2型糖尿病及部分心肾代谢适应症",
+      "riskSummary": "注意低血糖、脱水、肾功能及围手术/急病期调整；剂量不能由 App 自动生成。"
+    },
+    {
+      "id": "drug-326",
+      "number": 326,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "左甲状腺素钠",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-327",
+      "number": 327,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "甲巯咪唑",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-328",
+      "number": 328,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "丙硫氧嘧啶",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-329",
+      "number": 329,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "氢化可的松",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-330",
+      "number": 330,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "泼尼松",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-331",
+      "number": 331,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "泼尼松龙",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-332",
+      "number": 332,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "地塞米松",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-333",
+      "number": 333,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "甲泼尼龙",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-334",
+      "number": 334,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "雌二醇",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-335",
+      "number": 335,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "黄体酮",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-336",
+      "number": 336,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "地屈孕酮",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-337",
+      "number": 337,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "炔雌醇",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-338",
+      "number": 338,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "左炔诺孕酮",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-339",
+      "number": 339,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "阿仑膦酸钠",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-340",
+      "number": 340,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "唑来膦酸",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-341",
+      "number": 341,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "骨化三醇",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-342",
+      "number": 342,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "碳酸钙",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-343",
+      "number": 343,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "维生素D3",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-344",
+      "number": 344,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "特立帕肽",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-345",
+      "number": 345,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "地舒单抗",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-346",
+      "number": 346,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "雷洛昔芬",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-347",
+      "number": 347,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "鲑降钙素",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-348",
+      "number": 348,
+      "categoryId": "drug-category-15",
+      "category": "甲状腺、激素与骨代谢药",
+      "name": "依降钙素",
+      "useTags": "甲状腺、激素替代/抑制、骨质疏松等",
+      "riskSummary": "激素及内分泌药常需实验室监测；不可随意加减量或突然停药。"
+    },
+    {
+      "id": "drug-349",
+      "number": 349,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "丙戊酸钠",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-350",
+      "number": 350,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "卡马西平",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-351",
+      "number": 351,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "奥卡西平",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-352",
+      "number": 352,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "拉莫三嗪",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-353",
+      "number": 353,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "左乙拉西坦",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-354",
+      "number": 354,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "托吡酯",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-355",
+      "number": 355,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "苯妥英钠",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-356",
+      "number": 356,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "苯巴比妥",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-357",
+      "number": 357,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "加巴喷丁",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-358",
+      "number": 358,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "普瑞巴林",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-359",
+      "number": 359,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "拉考沙胺",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-360",
+      "number": 360,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "氯硝西泮",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-361",
+      "number": 361,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "乙琥胺",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-362",
+      "number": 362,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "巴氯芬",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-363",
+      "number": 363,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "替扎尼定",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-364",
+      "number": 364,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "乙哌立松",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-365",
+      "number": 365,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "甲钴胺",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-366",
+      "number": 366,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "胞磷胆碱",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-367",
+      "number": 367,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "丁苯酞",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-368",
+      "number": 368,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "依达拉奉",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-369",
+      "number": 369,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "吡仑帕奈",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-370",
+      "number": 370,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "唑尼沙胺",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-371",
+      "number": 371,
+      "categoryId": "drug-category-16",
+      "category": "神经系统：抗癫痫与神经痛药",
+      "name": "依达拉奉右莰醇",
+      "useTags": "癫痫、神经病理性疼痛、肌痉挛等",
+      "riskSummary": "可能嗜睡、头晕或影响驾驶；多数不可突然停药。"
+    },
+    {
+      "id": "drug-372",
+      "number": 372,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "舍曲林",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-373",
+      "number": 373,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "氟西汀",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-374",
+      "number": 374,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "帕罗西汀",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-375",
+      "number": 375,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "艾司西酞普兰",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-376",
+      "number": 376,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "西酞普兰",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-377",
+      "number": 377,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "文拉法辛",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-378",
+      "number": 378,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "度洛西汀",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-379",
+      "number": 379,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "米氮平",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-380",
+      "number": 380,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "曲唑酮",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-381",
+      "number": 381,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "阿米替林",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-382",
+      "number": 382,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "多塞平",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-383",
+      "number": 383,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "奥氮平",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-384",
+      "number": 384,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "利培酮",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-385",
+      "number": 385,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "喹硫平",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-386",
+      "number": 386,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "阿立哌唑",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-387",
+      "number": 387,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "氯氮平",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-388",
+      "number": 388,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "碳酸锂",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-389",
+      "number": 389,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "唑吡坦",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-390",
+      "number": 390,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "右佐匹克隆",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-391",
+      "number": 391,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "艾司唑仑",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-392",
+      "number": 392,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "伏硫西汀",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-393",
+      "number": 393,
+      "categoryId": "drug-category-17",
+      "category": "精神科与睡眠相关药",
+      "name": "阿戈美拉汀",
+      "useTags": "抑郁、焦虑、精神病性障碍、失眠等",
+      "riskSummary": "需关注嗜睡、依赖/停药反应、情绪变化及药物相互作用。"
+    },
+    {
+      "id": "drug-394",
+      "number": 394,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "左旋多巴苄丝肼",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-395",
+      "number": 395,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "卡比多巴左旋多巴",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-396",
+      "number": 396,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "普拉克索",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-397",
+      "number": 397,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "罗匹尼罗",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-398",
+      "number": 398,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "恩他卡朋",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-399",
+      "number": 399,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "司来吉兰",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-400",
+      "number": 400,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "雷沙吉兰",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-401",
+      "number": 401,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "苯海索",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-402",
+      "number": 402,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "多奈哌齐",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-403",
+      "number": 403,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "美金刚",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-404",
+      "number": 404,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "卡巴拉汀",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-405",
+      "number": 405,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "加兰他敏",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-406",
+      "number": 406,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "倍他司汀",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-407",
+      "number": 407,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "氟桂利嗪",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-408",
+      "number": 408,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "舒马曲普坦",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-409",
+      "number": 409,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "佐米曲普坦",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-410",
+      "number": 410,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "利扎曲普坦",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-411",
+      "number": 411,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "那拉曲普坦",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-412",
+      "number": 412,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "桂利嗪",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-413",
+      "number": 413,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "尼莫地平",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-414",
+      "number": 414,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "尼麦角林",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-415",
+      "number": 415,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "艾地苯醌",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-416",
+      "number": 416,
+      "categoryId": "drug-category-18",
+      "category": "帕金森、认知障碍、偏头痛与眩晕药",
+      "name": "苯噻啶",
+      "useTags": "帕金森病、认知障碍、偏头痛、眩晕等",
+      "riskSummary": "需结合诊断使用；注意体位性低血压、中枢神经不良反应等。"
+    },
+    {
+      "id": "drug-417",
+      "number": 417,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "硫酸亚铁",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-418",
+      "number": 418,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "琥珀酸亚铁",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-419",
+      "number": 419,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "富马酸亚铁",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-420",
+      "number": 420,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "叶酸",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-421",
+      "number": 421,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "维生素B12",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-422",
+      "number": 422,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "维生素B1",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-423",
+      "number": 423,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "维生素B2",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-424",
+      "number": 424,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "维生素B6",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-425",
+      "number": 425,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "维生素C",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-426",
+      "number": 426,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "维生素K1",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-427",
+      "number": 427,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "复合维生素B",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-428",
+      "number": 428,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "维生素E",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-429",
+      "number": 429,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "葡萄糖酸钙",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-430",
+      "number": 430,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "氯化钙",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-431",
+      "number": 431,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "硫酸锌",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-432",
+      "number": 432,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "促红细胞生成素",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-433",
+      "number": 433,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "非格司亭",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-434",
+      "number": 434,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "聚乙二醇化非格司亭",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-435",
+      "number": 435,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "人血白蛋白",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-436",
+      "number": 436,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "静注人免疫球蛋白",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-437",
+      "number": 437,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "葡萄糖酸亚铁",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-438",
+      "number": 438,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "蔗糖铁",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-439",
+      "number": 439,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "右旋糖酐铁",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-440",
+      "number": 440,
+      "categoryId": "drug-category-19",
+      "category": "贫血、维生素、矿物质与血液支持药",
+      "name": "维生素A",
+      "useTags": "贫血、营养缺乏及血液支持治疗",
+      "riskSummary": "补充前最好明确缺乏原因；注射/生物制品需专业医疗条件。"
+    },
+    {
+      "id": "drug-441",
+      "number": 441,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "环磷酰胺",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-442",
+      "number": 442,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "异环磷酰胺",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-443",
+      "number": 443,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "甲氨蝶呤",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-444",
+      "number": 444,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "氟尿嘧啶",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-445",
+      "number": 445,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "卡培他滨",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-446",
+      "number": 446,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "吉西他滨",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-447",
+      "number": 447,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "阿糖胞苷",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-448",
+      "number": 448,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "巯嘌呤",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-449",
+      "number": 449,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "顺铂",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-450",
+      "number": 450,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "卡铂",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-451",
+      "number": 451,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "奥沙利铂",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-452",
+      "number": 452,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "紫杉醇",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-453",
+      "number": 453,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "多西他赛",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-454",
+      "number": 454,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "伊立替康",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-455",
+      "number": 455,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "依托泊苷",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-456",
+      "number": 456,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "多柔比星",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-457",
+      "number": 457,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "表柔比星",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-458",
+      "number": 458,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "博来霉素",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-459",
+      "number": 459,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "长春新碱",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-460",
+      "number": 460,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "培美曲塞",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-461",
+      "number": 461,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "替吉奥",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-462",
+      "number": 462,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "卡莫司汀",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-463",
+      "number": 463,
+      "categoryId": "drug-category-20",
+      "category": "肿瘤药：细胞毒与传统化疗",
+      "name": "达卡巴嗪",
+      "useTags": "恶性肿瘤化疗",
+      "riskSummary": "抗肿瘤专科药，可能造成骨髓抑制、感染、器官毒性；仅按肿瘤方案使用。"
+    },
+    {
+      "id": "drug-464",
+      "number": 464,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "伊马替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-465",
+      "number": 465,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "吉非替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-466",
+      "number": 466,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "厄洛替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-467",
+      "number": 467,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "奥希替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-468",
+      "number": 468,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "阿法替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-469",
+      "number": 469,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "克唑替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-470",
+      "number": 470,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "阿来替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-471",
+      "number": 471,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "塞瑞替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-472",
+      "number": 472,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "索拉非尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-473",
+      "number": 473,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "仑伐替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-474",
+      "number": 474,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "舒尼替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-475",
+      "number": 475,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "阿帕替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-476",
+      "number": 476,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "曲妥珠单抗",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-477",
+      "number": 477,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "贝伐珠单抗",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-478",
+      "number": 478,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "利妥昔单抗",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-479",
+      "number": 479,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "西妥昔单抗",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-480",
+      "number": 480,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "帕博利珠单抗",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-481",
+      "number": 481,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "纳武利尤单抗",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-482",
+      "number": 482,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "信迪利单抗",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-483",
+      "number": 483,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "卡瑞利珠单抗",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-484",
+      "number": 484,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "泽布替尼",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-485",
+      "number": 485,
+      "categoryId": "drug-category-21",
+      "category": "肿瘤药：靶向与免疫治疗",
+      "name": "奥拉帕利",
+      "useTags": "特定分子靶点或免疫相关肿瘤治疗",
+      "riskSummary": "抗肿瘤专科药，需基因/病理及不良反应监测；不得按名称自行选择。"
+    },
+    {
+      "id": "drug-486",
+      "number": 486,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "羟氯喹",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-487",
+      "number": 487,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "柳氮磺吡啶",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-488",
+      "number": 488,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "来氟米特",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-489",
+      "number": 489,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "硫唑嘌呤",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-490",
+      "number": 490,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "环孢素",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-491",
+      "number": 491,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "他克莫司",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-492",
+      "number": 492,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "吗替麦考酚酯",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-493",
+      "number": 493,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "托法替布",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-494",
+      "number": 494,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "巴瑞替尼",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-495",
+      "number": 495,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "阿达木单抗",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-496",
+      "number": 496,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "依那西普",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-497",
+      "number": 497,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "英夫利西单抗",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-498",
+      "number": 498,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "托珠单抗",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-499",
+      "number": 499,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "秋水仙碱",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-500",
+      "number": 500,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "别嘌醇",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-501",
+      "number": 501,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "非布司他",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-502",
+      "number": 502,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "苯溴马隆",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-503",
+      "number": 503,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "丙磺舒",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-504",
+      "number": 504,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "司库奇尤单抗",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-505",
+      "number": 505,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "乌司奴单抗",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-506",
+      "number": 506,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "阿巴西普",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-507",
+      "number": 507,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "乌帕替尼",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-508",
+      "number": 508,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "古塞奇尤单抗",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-509",
+      "number": 509,
+      "categoryId": "drug-category-22",
+      "category": "风湿免疫与痛风药",
+      "name": "依奇珠单抗",
+      "useTags": "类风湿等自身免疫病与高尿酸/痛风",
+      "riskSummary": "免疫抑制/生物制剂需筛查感染并监测血液、肝肾功能。"
+    },
+    {
+      "id": "drug-510",
+      "number": 510,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "炉甘石",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-511",
+      "number": 511,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "维A酸",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-512",
+      "number": 512,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "阿达帕林",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-513",
+      "number": 513,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "过氧化苯甲酰",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-514",
+      "number": 514,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "壬二酸",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-515",
+      "number": 515,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "莫匹罗星",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-516",
+      "number": 516,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "夫西地酸",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-517",
+      "number": 517,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "卤米松",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-518",
+      "number": 518,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "丁酸氢化可的松",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-519",
+      "number": 519,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "吡美莫司",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-520",
+      "number": 520,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "卡泊三醇",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-521",
+      "number": 521,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "氧氟沙星",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-522",
+      "number": 522,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "玻璃酸钠",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-523",
+      "number": 523,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "拉坦前列素",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-524",
+      "number": 524,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "噻吗洛尔",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-525",
+      "number": 525,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "布林佐胺",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-526",
+      "number": 526,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "毛果芸香碱",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-527",
+      "number": 527,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "妥布霉素",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-528",
+      "number": 528,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "氯霉素",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-529",
+      "number": 529,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "羟甲唑啉",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-530",
+      "number": 530,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "氮卓斯汀",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-531",
+      "number": 531,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "依美斯汀",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-532",
+      "number": 532,
+      "categoryId": "drug-category-23",
+      "category": "皮肤、眼科与耳鼻喉常用药",
+      "name": "曲安奈德",
+      "useTags": "皮肤、眼表、青光眼及鼻部常见疾病等",
+      "riskSummary": "局部药也可能有禁忌和疗程限制；眼用/鼻用制剂不得互相替代。"
+    },
+    {
+      "id": "drug-533",
+      "number": 533,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "坦索罗辛",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-534",
+      "number": 534,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "非那雄胺",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-535",
+      "number": 535,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "度他雄胺",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-536",
+      "number": 536,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "索利那新",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-537",
+      "number": 537,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "托特罗定",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-538",
+      "number": 538,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "米拉贝隆",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-539",
+      "number": 539,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "西地那非",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-540",
+      "number": 540,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "他达拉非",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-541",
+      "number": 541,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "达泊西汀",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-542",
+      "number": 542,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "枸橼酸氯米芬",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-543",
+      "number": 543,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "来曲唑",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-544",
+      "number": 544,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "戈舍瑞林",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-545",
+      "number": 545,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "亮丙瑞林",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-546",
+      "number": 546,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "曲普瑞林",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-547",
+      "number": 547,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "缩宫素",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-548",
+      "number": 548,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "卡前列素氨丁三醇",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-549",
+      "number": 549,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "米非司酮",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-550",
+      "number": 550,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "硝呋太尔",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-551",
+      "number": 551,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "聚甲酚磺醛",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-552",
+      "number": 552,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "雌三醇",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-553",
+      "number": 553,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "非索罗定",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-554",
+      "number": 554,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "西洛多辛",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-555",
+      "number": 555,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "戊酸雌二醇",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-556",
+      "number": 556,
+      "categoryId": "drug-category-24",
+      "category": "妇产科、泌尿与生殖相关药",
+      "name": "炔诺酮",
+      "useTags": "前列腺、膀胱、生殖内分泌和妇产科相关疾病",
+      "riskSummary": "与孕期、生育、血压和激素相关风险较多，必须核对适应症和禁忌。"
+    },
+    {
+      "id": "drug-557",
+      "number": 557,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "肾上腺素",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-558",
+      "number": 558,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "去甲肾上腺素",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-559",
+      "number": 559,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "异丙肾上腺素",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-560",
+      "number": 560,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "阿托品",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-561",
+      "number": 561,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "纳洛酮",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-562",
+      "number": 562,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "氟马西尼",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-563",
+      "number": 563,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "碘解磷定",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-564",
+      "number": 564,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "亚甲蓝",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-565",
+      "number": 565,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "二巯丙磺钠",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-566",
+      "number": 566,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "依地酸钙钠",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-567",
+      "number": 567,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "药用炭",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-568",
+      "number": 568,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "甘露醇",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-569",
+      "number": 569,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "氯化钠",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-570",
+      "number": 570,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "葡萄糖",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-571",
+      "number": 571,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "乳酸钠林格",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-572",
+      "number": 572,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "碳酸氢钠",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-573",
+      "number": 573,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "氯化钾",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-574",
+      "number": 574,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "硫酸镁",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-575",
+      "number": 575,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "右旋糖酐40",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-576",
+      "number": 576,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "复方氯化钠",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-577",
+      "number": 577,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "血管加压素",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-578",
+      "number": 578,
+      "categoryId": "drug-category-25",
+      "category": "急救、补液与解毒药",
+      "name": "去氧肾上腺素",
+      "useTags": "复苏、休克、补液、电解质纠正和中毒救治",
+      "riskSummary": "多数为急救或院内药物，需要专业监护和明确指征。"
+    },
+    {
+      "id": "drug-579",
+      "number": 579,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "连花清瘟胶囊",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-580",
+      "number": 580,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "感冒清热颗粒",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-581",
+      "number": 581,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "正柴胡饮颗粒",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-582",
+      "number": 582,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "银翘解毒丸",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-583",
+      "number": 583,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "双黄连口服液",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-584",
+      "number": 584,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "抗病毒口服液",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-585",
+      "number": 585,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "板蓝根颗粒",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-586",
+      "number": 586,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "清开灵颗粒",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-587",
+      "number": 587,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "蒲地蓝消炎口服液",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-588",
+      "number": 588,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "蓝芩口服液",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-589",
+      "number": 589,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "复方鲜竹沥液",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-590",
+      "number": 590,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "橘红颗粒",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-591",
+      "number": 591,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "通宣理肺丸",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-592",
+      "number": 592,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "蛇胆川贝液",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-593",
+      "number": 593,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "急支糖浆",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-594",
+      "number": 594,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "强力枇杷露",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-595",
+      "number": 595,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "小儿肺热咳喘口服液",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-596",
+      "number": 596,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "小儿豉翘清热颗粒",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-597",
+      "number": 597,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "疏风解毒胶囊",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-598",
+      "number": 598,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "金花清感颗粒",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-599",
+      "number": 599,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "苏黄止咳胶囊",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-600",
+      "number": 600,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "宣肺败毒颗粒",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-601",
+      "number": 601,
+      "categoryId": "drug-category-26",
+      "category": "中成药：感冒与肺系常用药",
+      "name": "杏苏止咳颗粒",
+      "useTags": "按说明书用于相应感冒、咳嗽、咽喉等证候/功能主治",
+      "riskSummary": "按说明书功能主治使用；注意不同复方成分重复、儿童/孕期及肝肾功能限制。"
+    },
+    {
+      "id": "drug-602",
+      "number": 602,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "藿香正气水",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-603",
+      "number": 603,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "保和丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-604",
+      "number": 604,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "健胃消食片",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-605",
+      "number": 605,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "香砂养胃丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-606",
+      "number": 606,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "香砂六君丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-607",
+      "number": 607,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "参苓白术散",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-608",
+      "number": 608,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "补中益气丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-609",
+      "number": 609,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "附子理中丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-610",
+      "number": 610,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "四神丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-611",
+      "number": 611,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "木香顺气丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-612",
+      "number": 612,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "气滞胃痛颗粒",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-613",
+      "number": 613,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "胃苏颗粒",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-614",
+      "number": 614,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "三九胃泰颗粒",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-615",
+      "number": 615,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "摩罗丹",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-616",
+      "number": 616,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "荆花胃康胶丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-617",
+      "number": 617,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "枫蓼肠胃康颗粒",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-618",
+      "number": 618,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "复方黄连素片",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-619",
+      "number": 619,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "麻仁润肠丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-620",
+      "number": 620,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "麻仁软胶囊",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-621",
+      "number": 621,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "枳实导滞丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-622",
+      "number": 622,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "枳术宽中胶囊",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-623",
+      "number": 623,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "补脾益肠丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-624",
+      "number": 624,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "四磨汤口服液",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-625",
+      "number": 625,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "肠炎宁片",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-626",
+      "number": 626,
+      "categoryId": "drug-category-27",
+      "category": "中成药：脾胃与消化系统",
+      "name": "保济丸",
+      "useTags": "按说明书用于相应脾胃、消化系统功能主治",
+      "riskSummary": "按说明书功能主治和适用人群使用；持续腹痛、出血等需就医。"
+    },
+    {
+      "id": "drug-627",
+      "number": 627,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "复方丹参片",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-628",
+      "number": 628,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "丹参滴丸",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-629",
+      "number": 629,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "速效救心丸",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-630",
+      "number": 630,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "麝香保心丸",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-631",
+      "number": 631,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "通心络胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-632",
+      "number": 632,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "血塞通胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-633",
+      "number": 633,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "血栓通胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-634",
+      "number": 634,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "脑心通胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-635",
+      "number": 635,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "银杏叶片",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-636",
+      "number": 636,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "灯盏生脉胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-637",
+      "number": 637,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "心可舒片",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-638",
+      "number": 638,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "稳心颗粒",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-639",
+      "number": 639,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "参松养心胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-640",
+      "number": 640,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "芪苈强心胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-641",
+      "number": 641,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "冠心苏合丸",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-642",
+      "number": 642,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "养血清脑颗粒",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-643",
+      "number": 643,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "天麻钩藤颗粒",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-644",
+      "number": 644,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "松龄血脉康胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-645",
+      "number": 645,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "华佗再造丸",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-646",
+      "number": 646,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "安宫牛黄丸",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-647",
+      "number": 647,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "脑安胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-648",
+      "number": 648,
+      "categoryId": "drug-category-28",
+      "category": "中成药：心脑血管与神志相关",
+      "name": "血府逐瘀胶囊",
+      "useTags": "按说明书用于相应心脑血管或神志类功能主治",
+      "riskSummary": "不能替代急性胸痛/卒中的急救；复方成分、禁忌和相互作用需看说明书。"
+    },
+    {
+      "id": "drug-649",
+      "number": 649,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "云南白药气雾剂",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-650",
+      "number": 650,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "云南白药胶囊",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-651",
+      "number": 651,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "活血止痛胶囊",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-652",
+      "number": 652,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "跌打丸",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-653",
+      "number": 653,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "舒筋活血片",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-654",
+      "number": 654,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "三七伤药片",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-655",
+      "number": 655,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "正红花油",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-656",
+      "number": 656,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "麝香壮骨膏",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-657",
+      "number": 657,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "消痛贴膏",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-658",
+      "number": 658,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "伤湿止痛膏",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-659",
+      "number": 659,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "颈复康颗粒",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-660",
+      "number": 660,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "腰痛宁胶囊",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-661",
+      "number": 661,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "仙灵骨葆胶囊",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-662",
+      "number": 662,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "藤黄健骨片",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-663",
+      "number": 663,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "独活寄生丸",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-664",
+      "number": 664,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "尪痹颗粒",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-665",
+      "number": 665,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "风湿骨痛胶囊",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-666",
+      "number": 666,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "祖师麻片",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-667",
+      "number": 667,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "盘龙七片",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-668",
+      "number": 668,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "狗皮膏",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-669",
+      "number": 669,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "通络祛痛膏",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-670",
+      "number": 670,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "骨通贴膏",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-671",
+      "number": 671,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "痹祺胶囊",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-672",
+      "number": 672,
+      "categoryId": "drug-category-29",
+      "category": "中成药：骨伤、风湿与外用",
+      "name": "追风透骨丸",
+      "useTags": "按说明书用于相应骨伤、风湿、疼痛或外用功能主治",
+      "riskSummary": "外用药避免破损皮肤/过敏；严重外伤、骨折、神经症状需正规评估。"
+    },
+    {
+      "id": "drug-673",
+      "number": 673,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "乌鸡白凤丸",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-674",
+      "number": 674,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "益母草颗粒",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-675",
+      "number": 675,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "逍遥丸",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-676",
+      "number": 676,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "加味逍遥丸",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-677",
+      "number": 677,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "桂枝茯苓胶囊",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-678",
+      "number": 678,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "妇科千金片",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-679",
+      "number": 679,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "康妇消炎栓",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-680",
+      "number": 680,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "宫炎平片",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-681",
+      "number": 681,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "艾附暖宫丸",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-682",
+      "number": 682,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "少腹逐瘀颗粒",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-683",
+      "number": 683,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "小儿消积止咳口服液",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-684",
+      "number": 684,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "醒脾养儿颗粒",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-685",
+      "number": 685,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "健儿消食口服液",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-686",
+      "number": 686,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "龙牡壮骨颗粒",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-687",
+      "number": 687,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "小儿柴桂退热颗粒",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-688",
+      "number": 688,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "六味地黄丸",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-689",
+      "number": 689,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "金匮肾气丸",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-690",
+      "number": 690,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "归脾丸",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-691",
+      "number": 691,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "天王补心丸",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-692",
+      "number": 692,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "牛黄解毒片",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-693",
+      "number": 693,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "妇炎康片",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-694",
+      "number": 694,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "坤泰胶囊",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-695",
+      "number": 695,
+      "categoryId": "drug-category-30",
+      "category": "中成药：妇科、儿科与常见调理类",
+      "name": "知柏地黄丸",
+      "useTags": "按说明书用于相应妇科、儿科或常见调理功能主治",
+      "riskSummary": "儿童、孕产期和长期使用需特别谨慎；按具体说明书功能主治使用。"
+    },
+    {
+      "id": "drug-696",
+      "number": 696,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "西地碘",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-697",
+      "number": 697,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "地喹氯铵",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-698",
+      "number": 698,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "西吡氯铵",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-699",
+      "number": 699,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "复方氯己定含漱液",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-700",
+      "number": 700,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "复方硼砂含漱液",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-701",
+      "number": 701,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "碘甘油",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-702",
+      "number": 702,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "苄达明",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-703",
+      "number": 703,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "度米芬",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-704",
+      "number": 704,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "溶菌酶",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-705",
+      "number": 705,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "西瓜霜润喉片",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-706",
+      "number": 706,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "冰硼散",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-707",
+      "number": 707,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "复方草珊瑚含片",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-708",
+      "number": 708,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "开喉剑喷雾剂",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-709",
+      "number": 709,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "银黄含片",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-710",
+      "number": 710,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "口腔溃疡散",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-711",
+      "number": 711,
+      "categoryId": "drug-category-31",
+      "category": "口腔与咽喉局部用药",
+      "name": "康复新液",
+      "useTags": "口腔黏膜、咽喉局部症状及部分局部感染/炎症（仅作检索分类）",
+      "riskSummary": "局部制剂也可能存在过敏、吞咽、碘暴露或特殊人群限制；适应症、疗程和禁忌以具体说明书为准。"
+    },
+    {
+      "id": "drug-712",
+      "number": 712,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "司维拉姆",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-713",
+      "number": 713,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "碳酸镧",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-714",
+      "number": 714,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "西那卡塞",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-715",
+      "number": 715,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "罗沙司他",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-716",
+      "number": 716,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "帕立骨化醇",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-717",
+      "number": 717,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "托伐普坦",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-718",
+      "number": 718,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "聚苯乙烯磺酸钙",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-719",
+      "number": 719,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "聚苯乙烯磺酸钠",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-720",
+      "number": 720,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "枸橼酸钾",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-721",
+      "number": 721,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "醋酸钙",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-722",
+      "number": 722,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "复方α-酮酸",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-723",
+      "number": 723,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "非奈利酮",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-724",
+      "number": 724,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "尿毒清颗粒",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-725",
+      "number": 725,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "海昆肾喜胶囊",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-726",
+      "number": 726,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "百令胶囊",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-727",
+      "number": 727,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "金水宝胶囊",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    },
+    {
+      "id": "drug-728",
+      "number": 728,
+      "categoryId": "drug-category-32",
+      "category": "肾病、透析与电解质相关药",
+      "name": "黄葵胶囊",
+      "useTags": "慢性肾病、透析相关并发症、电解质/矿物质代谢异常等（需专科评估）",
+      "riskSummary": "多需根据肾功能、血钾、钙磷/PTH、贫血指标等监测调整；不得由 App 自动给出剂量。"
+    }
+  ]
+}

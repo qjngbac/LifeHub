@@ -1,0 +1,48 @@
+name: 错误报告
+description: 报告可以稳定复现的 Android 功能或界面问题
+title: "[错误] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈。请勿上传真实健康资料、位置、备份、密码或签名文件。
+  - type: input
+    id: version
+    attributes:
+      label: LifeHub 版本
+      placeholder: 例如 V1.9.6
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: 手机与 Android 版本
+      placeholder: 例如 小米 14 / Android 16
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 请按顺序写出操作步骤。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: 补充信息
+      description: 可添加已脱敏的截图或日志。
