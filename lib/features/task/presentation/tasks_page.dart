@@ -43,6 +43,12 @@ class _TasksPageState extends ConsumerState<TasksPage> {
         actions: selecting
             ? [
                 IconButton(
+                  tooltip: '删除所选任务',
+                  color: Theme.of(context).colorScheme.error,
+                  icon: const Icon(Icons.delete_outline),
+                  onPressed: () => _deleteSelected(context, ref, repository),
+                ),
+                IconButton(
                   tooltip: '归档所选任务',
                   icon: const Icon(Icons.archive_outlined),
                   onPressed: () => _archiveSelected(context, ref, repository),
@@ -267,6 +273,42 @@ class _TasksPageState extends ConsumerState<TasksPage> {
         false;
     if (!confirmed) return;
     await repository.archiveMany(selectedIds);
+    if (!mounted) return;
+    setState(selectedIds.clear);
+    ref.read(refreshProvider.notifier).state++;
+    await refreshReminders(ref);
+  }
+
+  Future<void> _deleteSelected(
+    BuildContext context,
+    WidgetRef ref,
+    TaskRepository repository,
+  ) async {
+    final count = selectedIds.length;
+    final confirmed = await showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            title: Text('删除 $count 个任务？'),
+            content: const Text('删除后不会出现在任务、搜索或归档中；未选择的子任务会自动提升层级。'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('取消'),
+              ),
+              FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                ),
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text('删除'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+    if (!confirmed) return;
+    await repository.deleteMany(selectedIds);
     if (!mounted) return;
     setState(selectedIds.clear);
     ref.read(refreshProvider.notifier).state++;

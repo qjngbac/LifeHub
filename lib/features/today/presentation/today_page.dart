@@ -77,6 +77,7 @@ class _TodayPageState extends ConsumerState<TodayPage>
     final moduleOrder =
         todayPreferences?.loadOrder() ?? TodayPreferences.defaultOrder;
     final collapsed = todayPreferences?.loadCollapsed() ?? const <String>{};
+    final motto = todayPreferences?.loadMotto();
     final now = DateTime.now();
     return Scaffold(
       appBar: AppBar(
@@ -91,6 +92,12 @@ class _TodayPageState extends ConsumerState<TodayPage>
           ],
         ),
         actions: [
+          if (todayPreferences != null && motto == null)
+            IconButton(
+              tooltip: '添加首页标语',
+              icon: const Icon(Icons.campaign_outlined),
+              onPressed: () => _editMotto(context, todayPreferences),
+            ),
           IconButton(
             tooltip: '自定义今天',
             icon: const Icon(Icons.tune),
@@ -106,63 +113,90 @@ class _TodayPageState extends ConsumerState<TodayPage>
         tooltip: '新建任务',
         child: const Icon(Icons.add),
       ),
-      body: FutureBuilder<TodaySnapshot>(
-        future: TodayService(ref.read(databaseProvider)).load(now),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return _Message(
-              icon: Icons.error_outline,
-              text: '今天的数据暂时无法加载',
-              action: () => ref.read(refreshProvider.notifier).state++,
-            );
-          }
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final data = snapshot.data!;
-          final rankedTasks =
-              TodayModeRanking.tasks(data.tasks, settings.modes);
-          final rankedEvents =
-              TodayModeRanking.events(data.events, settings.modes);
-          if (data.tasks.isEmpty &&
-              data.events.isEmpty &&
-              data.habits.isEmpty &&
-              data.anniversaries.isEmpty &&
-              data.trips.isEmpty &&
-              data.goals.isEmpty &&
-              data.focus == null) {
-            return _Message(
-              icon: Icons.wb_sunny_outlined,
-              text: '今天还没有安排\n从一个简单任务开始吧',
-              action: () => createTaskDialog(context, ref, dueOn: now),
-              actionText: '添加任务',
-            );
-          }
-          return RefreshIndicator(
-            onRefresh: () async => ref.read(refreshProvider.notifier).state++,
-            child: ListView(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
-              children: [
-                _SummaryCard(data: data),
-                _ModeHint(modes: settings.modes),
-                for (final moduleId in moduleOrder)
-                  ..._moduleWidgets(
-                    context,
-                    moduleId,
-                    data,
-                    rankedTasks,
-                    rankedEvents,
-                    settings,
-                    now,
-                    todayPreferences,
-                    collapsed.contains(moduleId),
-                  ),
-              ],
+      body: Column(
+        children: [
+          if (motto != null)
+            _MottoTicker(
+              text: motto,
+              onTap: () => _editMotto(context, todayPreferences!),
             ),
-          );
-        },
+          Expanded(
+            child: FutureBuilder<TodaySnapshot>(
+              future: TodayService(ref.read(databaseProvider)).load(now),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return _Message(
+                    icon: Icons.error_outline,
+                    text: '今天的数据暂时无法加载',
+                    action: () => ref.read(refreshProvider.notifier).state++,
+                  );
+                }
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                final data = snapshot.data!;
+                final rankedTasks =
+                    TodayModeRanking.tasks(data.tasks, settings.modes);
+                final rankedEvents =
+                    TodayModeRanking.events(data.events, settings.modes);
+                if (data.tasks.isEmpty &&
+                    data.events.isEmpty &&
+                    data.habits.isEmpty &&
+                    data.anniversaries.isEmpty &&
+                    data.trips.isEmpty &&
+                    data.goals.isEmpty &&
+                    data.focus == null) {
+                  return _Message(
+                    icon: Icons.wb_sunny_outlined,
+                    text: '今天还没有安排\n从一个简单任务开始吧',
+                    action: () => createTaskDialog(context, ref, dueOn: now),
+                    actionText: '添加任务',
+                  );
+                }
+                return RefreshIndicator(
+                  onRefresh: () async =>
+                      ref.read(refreshProvider.notifier).state++,
+                  child: ListView(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
+                    children: [
+                      _SummaryCard(data: data),
+                      _ModeHint(modes: settings.modes),
+                      for (final moduleId in moduleOrder)
+                        ..._moduleWidgets(
+                          context,
+                          moduleId,
+                          data,
+                          rankedTasks,
+                          rankedEvents,
+                          settings,
+                          now,
+                          todayPreferences,
+                          collapsed.contains(moduleId),
+                        ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  Future<void> _editMotto(
+    BuildContext context,
+    TodayPreferences preferences,
+  ) async {
+    final current = preferences.loadMotto();
+    final value = await showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => _MottoDialog(initialValue: current),
+    );
+    if (value == null) return;
+    await preferences.saveMotto(value);
+    if (mounted) setState(() {});
   }
 
   List<Widget> _moduleWidgets(
@@ -388,6 +422,145 @@ class _TodayPageState extends ConsumerState<TodayPage>
       ),
     );
     if (mounted) setState(() {});
+  }
+}
+
+class _MottoDialog extends StatefulWidget {
+  const _MottoDialog({required this.initialValue});
+
+  final String? initialValue;
+
+  @override
+  State<_MottoDialog> createState() => _MottoDialogState();
+}
+
+class _MottoDialogState extends State<_MottoDialog> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialValue ?? '');
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+        title: Text(
+          widget.initialValue == null ? '设置首页标语' : '编辑首页标语',
+        ),
+        content: TextField(
+          controller: _controller,
+          autofocus: true,
+          maxLength: 80,
+          decoration: const InputDecoration(
+            labelText: '标语',
+            hintText: '例如：今天也要稳稳向前',
+          ),
+          onSubmitted: (value) => Navigator.pop(context, value),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('取消'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, _controller.text),
+            child: const Text('保存'),
+          ),
+        ],
+      );
+}
+
+class _MottoTicker extends StatefulWidget {
+  const _MottoTicker({required this.text, required this.onTap});
+
+  final String text;
+  final VoidCallback onTap;
+
+  @override
+  State<_MottoTicker> createState() => _MottoTickerState();
+}
+
+class _MottoTickerState extends State<_MottoTicker>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration:
+          Duration(seconds: (widget.text.runes.length / 3).ceil().clamp(8, 24)),
+    )..repeat();
+  }
+
+  @override
+  void didUpdateWidget(covariant _MottoTicker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.text != widget.text) {
+      _controller.duration =
+          Duration(seconds: (widget.text.runes.length / 3).ceil().clamp(8, 24));
+      _controller.forward(from: 0);
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme.titleSmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSecondaryContainer,
+          fontWeight: FontWeight.w600,
+        );
+    return Material(
+      color: Theme.of(context).colorScheme.secondaryContainer,
+      child: InkWell(
+        key: const Key('today_motto'),
+        onTap: widget.onTap,
+        child: SizedBox(
+          height: 42,
+          width: double.infinity,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final painter = TextPainter(
+                text: TextSpan(text: widget.text, style: style),
+                maxLines: 1,
+                textDirection: Directionality.of(context),
+              )..layout();
+              final distance = constraints.maxWidth + painter.width + 32;
+              return ClipRect(
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) => Transform.translate(
+                    offset: Offset(
+                      constraints.maxWidth + 16 - distance * _controller.value,
+                      0,
+                    ),
+                    child: child,
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget.text, maxLines: 1, style: style),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
 

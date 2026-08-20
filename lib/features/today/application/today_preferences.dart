@@ -16,6 +16,7 @@ class TodayPreferences {
 
   static const _orderKey = 'today.module.order';
   static const _collapsedKey = 'today.module.collapsed';
+  static const _mottoKey = 'today.motto';
 
   final SharedPreferences _preferences;
 
@@ -44,6 +45,20 @@ class TodayPreferences {
     final values = loadCollapsed();
     collapsed ? values.add(id) : values.remove(id);
     await _preferences.setStringList(_collapsedKey, values.toList()..sort());
+  }
+
+  String? loadMotto() {
+    final value = _preferences.getString(_mottoKey)?.trim();
+    return value == null || value.isEmpty ? null : value;
+  }
+
+  Future<void> saveMotto(String value) async {
+    final normalized = value.trim();
+    if (normalized.isEmpty) {
+      await _preferences.remove(_mottoKey);
+    } else {
+      await _preferences.setString(_mottoKey, normalized);
+    }
   }
 
   List<String> _normalize(List<String> ids) {

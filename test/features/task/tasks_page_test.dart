@@ -42,6 +42,32 @@ void main() {
     expect(await repository.list(), isEmpty);
     expect(find.text('创建第一个任务'), findsOneWidget);
   });
+
+  testWidgets('selection mode deletes multiple selected tasks', (tester) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+    final repository = TaskRepository(database);
+    await repository.create(const TaskDraft(title: '待删除一'));
+    await repository.create(const TaskDraft(title: '待删除二'));
+    await repository.create(const TaskDraft(title: '保留任务'));
+    await _pump(tester, database);
+
+    expect(find.byTooltip('删除所选任务'), findsNothing);
+    await tester.longPress(find.text('待删除一'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('待删除二'));
+    await tester.pumpAndSettle();
+
+    expect(find.byTooltip('删除所选任务'), findsOneWidget);
+    await tester.tap(find.byTooltip('删除所选任务'));
+    await tester.pumpAndSettle();
+    expect(find.text('删除 2 个任务？'), findsOneWidget);
+    await tester.tap(find.widgetWithText(FilledButton, '删除'));
+    await tester.pumpAndSettle();
+
+    expect((await repository.list()).map((task) => task.title), ['保留任务']);
+    expect(find.text('保留任务'), findsOneWidget);
+  });
 }
 
 Future<void> _pump(WidgetTester tester, AppDatabase database) async {

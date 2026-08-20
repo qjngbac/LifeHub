@@ -24,4 +24,17 @@ void main() {
     await subject.setCollapsed('events', false);
     expect(subject.loadCollapsed(), isEmpty);
   });
+
+  test('persists a trimmed homepage motto and clears blank content', () async {
+    final preferences = await SharedPreferences.getInstance();
+    final subject = TodayPreferences(preferences);
+
+    expect(subject.loadMotto(), isNull);
+
+    await subject.saveMotto('  今天也要稳稳向前  ');
+    expect(subject.loadMotto(), '今天也要稳稳向前');
+
+    await subject.saveMotto('   ');
+    expect(subject.loadMotto(), isNull);
+  });
 }

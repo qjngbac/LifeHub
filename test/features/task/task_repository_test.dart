@@ -199,4 +199,20 @@ void main() {
     expect((await repository.get(first.id)).status, TaskStatus.archived);
     expect((await repository.get(second.id)).status, TaskStatus.archived);
   });
+
+  test('bulk delete promotes unselected children and ignores duplicate ids',
+      () async {
+    final first = await repository.create(const TaskDraft(title: 'first'));
+    final child = await repository.create(
+      TaskDraft(title: 'child', parentTaskId: first.id),
+    );
+    final second = await repository.create(const TaskDraft(title: 'second'));
+
+    await repository.deleteMany([first.id, second.id, first.id]);
+
+    expect((await repository.list()).map((task) => task.title), ['child']);
+    expect((await repository.get(child.id)).parentTaskId, isNull);
+    expect((await repository.get(first.id)).deletedAt, isNotNull);
+    expect((await repository.get(second.id)).deletedAt, isNotNull);
+  });
 }

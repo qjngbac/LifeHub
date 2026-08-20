@@ -1,4 +1,4 @@
-# LifeHub V1.9.6 Android 安装与使用
+# LifeHub V1.9.7 Android 安装与使用
 
 ## 兼容范围
 
@@ -8,7 +8,7 @@
 
 ## 安装
 
-1. 从 GitHub Releases 下载 `LifeHub-V1.9.6.apk`。
+1. 从 GitHub Releases 下载 `LifeHub-V1.9.7.apk`。
 2. 将 APK 保存到 Android 手机，并在文件管理器中点击安装。
 3. 如系统拦截，请进入“设置 → 安全/隐私 → 安装未知应用”，仅对当前文件管理器临时允许。
 4. 安装完成后关闭“安装未知应用”权限。
@@ -42,11 +42,11 @@
 
 ## 安装包校验
 
-V1.9.6 正式 Release 安装包：
+V1.9.7 正式 Release 安装包：
 
 ```text
-文件名：LifeHub-V1.9.6.apk
-SHA-256：FC5D454F72BCFD9439FB06769DDE2788F537F0639C4BAC8A6FA988C7AA10BE1A
+文件名：LifeHub-V1.9.7.apk
+SHA-256：E5A91973D5D5D21A90F793D44671C54EA1CC5D66A012B24BE9898AB88A42A0F1
 包名：com.lifehub.app.lifehub
-版本号：1.9.6（13）
+版本号：1.9.7（14）
 ```

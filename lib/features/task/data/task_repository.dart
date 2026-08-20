@@ -269,18 +269,52 @@ class TaskRepository {
     });
   }
 
-  Future<void> delete(String id) async {
-    final current = await get(id);
+  Future<void> delete(String id) => deleteMany([id]);
+
+  Future<void> deleteMany(Iterable<String> ids) async {
+    final uniqueIds = ids.toSet();
+    if (uniqueIds.isEmpty) return;
+    final selected = await (_database.select(_database.tasks)
+          ..where((row) => row.id.isIn(uniqueIds) & row.deletedAt.isNull()))
+        .get();
+    if (selected.isEmpty) return;
+    final selectedById = {for (final task in selected) task.id: task};
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     await _database.transaction(() async {
-      await (_database.update(_database.tasks)
-            ..where((row) => row.id.equals(id)))
-          .write(TasksCompanion(
-        deletedAt: Value(now),
-        updatedAt: Value(now),
-        version: Value(current.version + 1),
-      ));
-      await _log(id, 'DELETE');
+      final children = await (_database.select(_database.tasks)
+            ..where((row) =>
+                row.parentTaskId.isIn(uniqueIds) & row.deletedAt.isNull()))
+          .get();
+      for (final child in children) {
+        if (uniqueIds.contains(child.id)) continue;
+        var parentId = child.parentTaskId;
+        final visited = <String>{};
+        while (parentId != null && uniqueIds.contains(parentId)) {
+          if (!visited.add(parentId)) {
+            parentId = null;
+            break;
+          }
+          parentId = selectedById[parentId]?.parentTaskId;
+        }
+        await (_database.update(_database.tasks)
+              ..where((row) => row.id.equals(child.id)))
+            .write(TasksCompanion(
+          parentTaskId: Value(parentId),
+          updatedAt: Value(now),
+          version: Value(child.version + 1),
+        ));
+        await _log(child.id, 'UPDATE');
+      }
+      for (final current in selected) {
+        await (_database.update(_database.tasks)
+              ..where((row) => row.id.equals(current.id)))
+            .write(TasksCompanion(
+          deletedAt: Value(now),
+          updatedAt: Value(now),
+          version: Value(current.version + 1),
+        ));
+        await _log(current.id, 'DELETE');
+      }
     });
   }
 
