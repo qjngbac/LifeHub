@@ -4,7 +4,7 @@
 
 - 仅支持 Android，不提供 iOS、Windows 或网页版。
 - 最低系统版本：Android 7.0（API 24）。
-- 安装包包含：arm64-v8a、armeabi-v7a、x86_64。
+- 安装包架构：arm64-v8a，适用于目前绝大多数 64 位 Android 手机。
 
 ## 安装
 
@@ -46,7 +46,7 @@ V1.9.7 正式 Release 安装包：
 
 ```text
 文件名：LifeHub-V1.9.7.apk
-SHA-256：E5A91973D5D5D21A90F793D44671C54EA1CC5D66A012B24BE9898AB88A42A0F1
+SHA-256：23C9486739ACA7764A85600107E5F29BB6A49E85DB43E51E78C62A00068304C7
 包名：com.lifehub.app.lifehub
 版本号：1.9.7（14）
 ```

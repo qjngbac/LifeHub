@@ -41,7 +41,29 @@ void main() {
     expect(find.text('今天也要稳稳向前'), findsOneWidget);
     expect(find.byTooltip('添加首页标语'), findsNothing);
 
-    await tester.tap(find.byKey(const Key('today_motto')));
+    final mottoFinder = find.byKey(const Key('today_motto'));
+    final mottoRect = tester.getRect(mottoFinder);
+    final customizeRect = tester.getRect(find.byTooltip('自定义今天'));
+    expect(
+      (mottoRect.center.dy - customizeRect.center.dy).abs(),
+      lessThan(12),
+      reason: '标语应当与顶部自定义按钮处于同一行，而不是另占一行',
+    );
+    final theme = Theme.of(tester.element(find.byType(Scaffold)));
+    final mottoText = tester.widget<Text>(find.text('今天也要稳稳向前'));
+    expect(mottoText.style?.color, theme.colorScheme.onSurface);
+    final mottoMaterials = tester.widgetList<Material>(
+      find.ancestor(of: mottoFinder, matching: find.byType(Material)),
+    );
+    expect(
+      mottoMaterials.any(
+        (material) => material.color == theme.colorScheme.secondaryContainer,
+      ),
+      isFalse,
+      reason: '标语应沿用顶部背景，不应再有单独的紫色底色',
+    );
+
+    await tester.tap(mottoFinder);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
     expect(find.text('编辑首页标语'), findsOneWidget);

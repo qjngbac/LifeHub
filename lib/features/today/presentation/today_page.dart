@@ -81,14 +81,27 @@ class _TodayPageState extends ConsumerState<TodayPage>
     final now = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        title: Row(
           children: [
-            const Text('今天'),
-            Text(
-              DateFormat('M月d日 EEEE', 'zh_CN').format(now),
-              style: Theme.of(context).textTheme.bodySmall,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('今天'),
+                Text(
+                  DateFormat('M月d日 EEEE', 'zh_CN').format(now),
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
             ),
+            if (motto != null) ...[
+              const SizedBox(width: 16),
+              Expanded(
+                child: _MottoTicker(
+                  text: motto,
+                  onTap: () => _editMotto(context, todayPreferences!),
+                ),
+              ),
+            ],
           ],
         ),
         actions: [
@@ -115,11 +128,6 @@ class _TodayPageState extends ConsumerState<TodayPage>
       ),
       body: Column(
         children: [
-          if (motto != null)
-            _MottoTicker(
-              text: motto,
-              onTap: () => _editMotto(context, todayPreferences!),
-            ),
           Expanded(
             child: FutureBuilder<TodaySnapshot>(
               future: TodayService(ref.read(databaseProvider)).load(now),
@@ -520,44 +528,40 @@ class _MottoTickerState extends State<_MottoTicker>
 
   @override
   Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme.titleSmall?.copyWith(
-          color: Theme.of(context).colorScheme.onSecondaryContainer,
-          fontWeight: FontWeight.w600,
+    final style = Theme.of(context).textTheme.bodyMedium?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface,
         );
-    return Material(
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      child: InkWell(
-        key: const Key('today_motto'),
-        onTap: widget.onTap,
-        child: SizedBox(
-          height: 42,
-          width: double.infinity,
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final painter = TextPainter(
-                text: TextSpan(text: widget.text, style: style),
-                maxLines: 1,
-                textDirection: Directionality.of(context),
-              )..layout();
-              final distance = constraints.maxWidth + painter.width + 32;
-              return ClipRect(
-                child: AnimatedBuilder(
-                  animation: _controller,
-                  builder: (context, child) => Transform.translate(
-                    offset: Offset(
-                      constraints.maxWidth + 16 - distance * _controller.value,
-                      0,
-                    ),
-                    child: child,
+    return InkWell(
+      key: const Key('today_motto'),
+      onTap: widget.onTap,
+      child: SizedBox(
+        height: 48,
+        width: double.infinity,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final painter = TextPainter(
+              text: TextSpan(text: widget.text, style: style),
+              maxLines: 1,
+              textDirection: Directionality.of(context),
+            )..layout();
+            final distance = constraints.maxWidth + painter.width + 32;
+            return ClipRect(
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) => Transform.translate(
+                  offset: Offset(
+                    constraints.maxWidth + 16 - distance * _controller.value,
+                    0,
                   ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget.text, maxLines: 1, style: style),
-                  ),
+                  child: child,
                 ),
-              );
-            },
-          ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(widget.text, maxLines: 1, style: style),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

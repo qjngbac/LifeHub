@@ -6,7 +6,7 @@ LifeHub 使用 Flutter 开发，把任务、日程、课程表、习惯、资料
 
 - 当前版本：**V1.9.7**
 - 支持平台：**Android 7.0（API 24）及以上**
-- 安装包架构：**arm64-v8a、armeabi-v7a、x86_64**
+- 安装包架构：**arm64-v8a**
 
 [前往 Releases 下载 Android APK](https://github.com/qjngbac/LifeHub/releases/latest)
 
