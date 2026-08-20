@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "reviewedAt": "2026-08-13",
+  "version": 3,
+  "reviewedAt": "2026-08-20",
   "notice": "仅供离线应急参考，不能替代急救培训、医疗诊断或当地救援指挥。先保证现场安全；危及生命时立即联系当地急救或救援。",
   "sources": [
     {
@@ -22,6 +22,26 @@
     {
       "title": "National Park Service Wilderness Safety",
       "url": "https://www.nps.gov/olym/planyourvisit/wilderness-safety.htm"
+    },
+    {
+      "title": "American Red Cross First Aid Guidelines",
+      "url": "https://www.redcross.org/take-a-class/resources/guidelines"
+    },
+    {
+      "title": "CDC Lightning Safety Guidelines",
+      "url": "https://www.cdc.gov/lightning/safety/index.html"
+    },
+    {
+      "title": "Poison Control Button Battery Guideline",
+      "url": "https://www.poison.org/battery/guideline"
+    },
+    {
+      "title": "NHS Knocked-out Tooth",
+      "url": "https://www.nhs.uk/conditions/knocked-out-tooth/"
+    },
+    {
+      "title": "NHS Child Accident First Aid",
+      "url": "https://www.nhs.uk/baby/first-aid-and-safety/first-aid/what-to-do-if-your-child-has-an-accident/"
     }
   ],
   "scenes": [
@@ -2961,6 +2981,94 @@
       "fallback": "清水不足时优先冲洗眼睛和深伤口，其他皮肤先用干净布去污后尽快彻底清洗。",
       "prohibitions": "禁止用湿地原水反复冲洗、向眼内滴入不明药水或封死明显污染的深伤口。",
       "risk": "HIGH"
+    },
+    {
+      "id": "supp_general_01",
+      "number": 254,
+      "sceneId": "scene_00",
+      "question": "开放性胸部伤口呼吸时有气泡或吸气声怎么办？",
+      "answer": "这是危及生命的急症。立即呼叫急救，让伤者保持最容易呼吸的姿势，并持续观察呼吸。",
+      "steps": "1. 确认现场安全并呼叫急救；2. 暴露伤口但不拔出嵌入物；3. 用洁净、不会完全密闭的敷料轻盖；4. 若呼吸恶化，移除覆盖物并按急救调度员指导处理；5. 无正常呼吸时开始心肺复苏并使用 AED。",
+      "fallback": "没有敷料时用干净布轻盖，重点是尽快求救和保持气道、呼吸监测。",
+      "prohibitions": "禁止把伤口完全密封、用力压迫胸腔、拔出异物或让伤者自行走动。",
+      "risk": "EMERGENCY"
+    },
+    {
+      "id": "supp_general_02",
+      "number": 255,
+      "sceneId": "scene_00",
+      "question": "手指或肢体离断后怎样保存离断部分？",
+      "answer": "先控制伤者出血并呼叫急救；离断部分用洁净湿纱布包好、装入密封袋，再把密封袋放在冰水混合物旁降温。",
+      "steps": "1. 对伤口持续直接加压止血；2. 找回离断部分且不要刷洗；3. 用生理盐水或清水微湿的洁净敷料包裹；4. 装入防水袋并封好；5. 将袋子放进另一装有冰水的容器，与伤者一同送医。",
+      "fallback": "没有冰时密封后置于阴凉处；没有纱布时用干净、不掉絮的布轻包。",
+      "prohibitions": "禁止让组织直接接触冰块、浸泡在水中、涂抹药物或因寻找离断部分延误伤者救治。",
+      "risk": "EMERGENCY"
+    },
+    {
+      "id": "supp_general_03",
+      "number": 256,
+      "sceneId": "scene_00",
+      "question": "脱落的恒牙怎样处理才能增加保留机会？",
+      "answer": "只拿牙冠、不碰牙根；轻柔冲掉明显污物后，能安全复位时放回牙槽，否则浸在牛奶或生理盐水中并立即就诊。乳牙不要放回。",
+      "steps": "1. 确认是恒牙；2. 拿住白色牙冠；3. 用牛奶、生理盐水或少量清水短暂轻冲；4. 成人清醒且能配合时可按原方向轻放回牙槽并咬住纱布；5. 无法复位则保湿保存，尽快前往口腔急诊。",
+      "fallback": "没有容器时，清醒成人可把牙齿放在口腔颊侧保湿；儿童或意识异常者不要采用，以免误吞。",
+      "prohibitions": "禁止触摸或刮擦牙根、用消毒液浸泡、让牙齿干燥，或把脱落乳牙重新放回。",
+      "risk": "HIGH"
+    },
+    {
+      "id": "supp_general_04",
+      "number": 257,
+      "sceneId": "scene_00",
+      "question": "误吞纽扣电池或强磁铁怎么办？",
+      "answer": "立即联系急救或中毒咨询并前往急诊，即使暂时没有症状也不能等待。纽扣电池和多枚磁铁都可能迅速造成严重损伤。",
+      "steps": "1. 记录吞咽时间、数量和包装型号；2. 立即求助并按专业人员指示行动；3. 保持呼吸道通畅；4. 携带同类电池、磁铁或包装去医院。",
+      "fallback": "无法确认是否吞下时也按可能吞入处理，尽快接受影像和专业评估。",
+      "prohibitions": "禁止催吐、盲目喂食、等待物品自行排出或用另一块磁铁试图吸出。",
+      "risk": "EMERGENCY"
+    },
+    {
+      "id": "supp_general_05",
+      "number": 258,
+      "sceneId": "scene_00",
+      "question": "严重哮喘发作、说话困难或嘴唇发青怎么办？",
+      "answer": "让患者坐直并立即呼叫急救，协助其按个人急救计划使用本人医生开具的缓解吸入药，持续观察呼吸。",
+      "steps": "1. 让患者保持坐姿并松开紧身衣物；2. 取出患者自己的吸入器和储雾罐；3. 按其个人计划或急救调度员指导协助使用；4. 症状不缓解或意识下降时再次报告急救；5. 无正常呼吸时开始心肺复苏。",
+      "fallback": "没有吸入器时不要让患者走动寻找药物，保持安静、通风并等待急救。",
+      "prohibitions": "禁止让患者平躺、强迫喝水、使用他人的处方药或因短暂好转取消急救。",
+      "risk": "EMERGENCY"
+    },
+    {
+      "id": "supp_grassland_03",
+      "number": 259,
+      "sceneId": "scene_08",
+      "question": "有人遭雷击倒地后可以直接施救吗？",
+      "answer": "雷击伤者不带电，可以安全接触。确认持续雷击风险后立即呼叫急救，检查呼吸，必要时心肺复苏并使用 AED。",
+      "steps": "1. 判断雷暴和落雷是否仍威胁施救者；2. 呼叫急救并报告位置和人数；3. 在安全前提下移到有防护处；4. 检查反应和正常呼吸；5. 无正常呼吸时立即心肺复苏并使用 AED；6. 同时检查烧伤、出血和跌落伤。",
+      "fallback": "没有 AED 时持续高质量胸外按压并按调度员指导施救，直到专业人员接替。",
+      "prohibitions": "禁止因担心伤者带电而延误施救、在孤立树下停留或忽视跌落造成的颈背伤。",
+      "risk": "EMERGENCY"
+    },
+    {
+      "id": "supp_river_03",
+      "number": 260,
+      "sceneId": "scene_12",
+      "question": "落入冷水后获救，持续发抖或意识变慢怎么办？",
+      "answer": "按低体温急症处理：移到避风处、脱去湿衣、隔离地面并缓慢保温；意识异常、呼吸异常或停止发抖时立即呼叫急救。",
+      "steps": "1. 轻柔搬运并让患者平卧；2. 剪开或脱下湿衣；3. 用干燥衣物、睡袋包裹躯干和头颈；4. 清醒且能吞咽者可少量饮用温热含糖饮料；5. 持续观察呼吸和意识。",
+      "fallback": "物资不足时用背包、塑料布隔离湿地，再用干衣和同伴体温从躯干开始保暖。",
+      "prohibitions": "禁止饮酒、揉搓四肢、直接用很烫的水或火烘烤，也不要让患者剧烈走动。",
+      "risk": "EMERGENCY"
+    },
+    {
+      "id": "supp_seaside_03",
+      "number": 261,
+      "sceneId": "scene_14",
+      "question": "跳水或冲浪后怀疑颈椎受伤怎么办？",
+      "answer": "立即呼叫水上救援和急救。只有为保持呼吸道通畅或脱离迫在眉睫的危险时才移动，尽量让头、颈和躯干保持一条直线。",
+      "steps": "1. 不盲目下水，先投递漂浮物并呼叫专业救援；2. 在水中支托头颈并保持面部出水；3. 上岸后用双手稳定头部；4. 检查正常呼吸；5. 无正常呼吸时以救命复苏为先。",
+      "fallback": "没有颈托时用双手固定头部，或在不影响呼吸的情况下用卷起毛巾从两侧辅助限位。",
+      "prohibitions": "禁止扭转颈部、强行坐起、让伤者自行行走或为等待固定器材而延误呼吸复苏。",
+      "risk": "EMERGENCY"
     }
   ]
 }

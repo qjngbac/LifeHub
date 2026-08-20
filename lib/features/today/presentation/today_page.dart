@@ -555,9 +555,20 @@ class _MottoTickerState extends State<_MottoTicker>
                   ),
                   child: child,
                 ),
-                child: Align(
+                child: OverflowBox(
                   alignment: Alignment.centerLeft,
-                  child: Text(widget.text, maxLines: 1, style: style),
+                  minWidth: 0,
+                  maxWidth: double.infinity,
+                  child: SizedBox(
+                    width: painter.width,
+                    child: Text(
+                      widget.text,
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.visible,
+                      style: style,
+                    ),
+                  ),
                 ),
               ),
             );

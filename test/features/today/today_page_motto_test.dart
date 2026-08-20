@@ -33,12 +33,14 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('设置首页标语'), findsOneWidget);
 
-    await tester.enterText(find.byType(TextField), '今天也要稳稳向前');
+    const longMotto = '今天也要稳稳向前，把每一个小步骤都做扎实，累积会让遥远的目标慢慢变成眼前的风景；'
+        '路很长，也要记得照顾自己，保持耐心，然后继续完成下一件重要的小事。';
+    await tester.enterText(find.byType(TextField), longMotto);
     await tester.tap(find.widgetWithText(FilledButton, '保存'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));
 
-    expect(find.text('今天也要稳稳向前'), findsOneWidget);
+    expect(find.text(longMotto), findsOneWidget);
     expect(find.byTooltip('添加首页标语'), findsNothing);
 
     final mottoFinder = find.byKey(const Key('today_motto'));
@@ -50,8 +52,15 @@ void main() {
       reason: '标语应当与顶部自定义按钮处于同一行，而不是另占一行',
     );
     final theme = Theme.of(tester.element(find.byType(Scaffold)));
-    final mottoText = tester.widget<Text>(find.text('今天也要稳稳向前'));
+    final mottoText = tester.widget<Text>(find.text(longMotto));
     expect(mottoText.style?.color, theme.colorScheme.onSurface);
+    expect(mottoText.softWrap, isFalse);
+    expect(mottoText.overflow, TextOverflow.visible);
+    expect(
+      tester.getSize(find.text(longMotto)).width,
+      greaterThan(mottoRect.width),
+      reason: '滚动子项必须按完整文本宽度布局，不能先被顶部可见宽度截断',
+    );
     final mottoMaterials = tester.widgetList<Material>(
       find.ancestor(of: mottoFinder, matching: find.byType(Material)),
     );

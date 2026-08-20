@@ -1,7 +1,7 @@
 name: lifehub
 description: Personal Life OS - 统一的学习、工作、生活、户外管理平台
 publish_to: 'none'
-version: 1.9.7+14
+version: 1.9.8+15
 
 environment:
   sdk: '>=3.2.0 <4.0.0'

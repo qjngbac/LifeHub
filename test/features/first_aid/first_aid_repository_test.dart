@@ -10,7 +10,7 @@ void main() {
     final repository = FirstAidRepository(bundle: rootBundle);
     final knowledge = await repository.load();
     expect(knowledge.scenes, hasLength(19));
-    expect(knowledge.items.length, greaterThan(227));
+    expect(knowledge.items.length, greaterThanOrEqualTo(261));
     expect(knowledge.items.every((item) => item.question.isNotEmpty), isTrue);
     expect(knowledge.scenes.map((scene) => scene.id).toSet(), hasLength(19));
     expect(
@@ -64,5 +64,13 @@ void main() {
     final results = await repository.search('止血');
     expect(results, isNotEmpty);
     expect(results.any((item) => item.risk == FirstAidRisk.emergency), isTrue);
+  });
+
+  test('includes newly added high-value emergency topics', () async {
+    final repository = FirstAidRepository(bundle: rootBundle);
+    expect(await repository.search('纽扣电池'), isNotEmpty);
+    expect(await repository.search('脱落的恒牙'), isNotEmpty);
+    expect(await repository.search('开放性胸部伤口'), isNotEmpty);
+    expect(await repository.search('雷击伤者不带电'), isNotEmpty);
   });
 }
