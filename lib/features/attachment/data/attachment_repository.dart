@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:lifehub/core/database/app_database.dart';
+import 'package:lifehub/features/attachment/data/attachment_storage.dart';
 import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 class AttachmentStorageSummary {
@@ -18,6 +18,7 @@ class AttachmentRepository {
 
   final AppDatabase _database;
   final Directory? _storageRoot;
+  static const maxAttachmentBytes = 25 * 1024 * 1024;
 
   Future<AttachmentEntry> importFile(
     String sourcePath, {
@@ -29,6 +30,14 @@ class AttachmentRepository {
     if (!await source.exists()) {
       throw ArgumentError.value(sourcePath, 'sourcePath', 'File not found.');
     }
+    final sourceLength = await source.length();
+    if (sourceLength > maxAttachmentBytes) {
+      throw ArgumentError.value(
+        sourcePath,
+        'sourcePath',
+        'Attachment exceeds the 25 MB limit.',
+      );
+    }
     final bytes = await source.readAsBytes();
     final digest = contentDigest(bytes);
     final duplicate = await (_database.select(_database.attachments)
@@ -39,8 +48,9 @@ class AttachmentRepository {
         .getSingleOrNull();
     if (duplicate != null) return duplicate;
 
-    final root = _storageRoot ?? await getApplicationDocumentsDirectory();
-    final directory = Directory(p.join(root.path, 'lifehub_attachments'));
+    final directory = _storageRoot == null
+        ? await AttachmentStorage.applicationDirectory()
+        : Directory(p.join(_storageRoot.path, AttachmentStorage.directoryName));
     await directory.create(recursive: true);
     final id = const Uuid().v4();
     final extension = p.extension(source.path).toLowerCase();

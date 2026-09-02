@@ -351,12 +351,14 @@ class TaskRepository {
     }
     final source =
         DateTime.fromMillisecondsSinceEpoch(sourceMillis, isUtc: true);
-    final next = Recurrence.expandStarts(
+    final occurrences = Recurrence.expandStarts(
       sourceStart: source,
       rule: current.repeatRule,
       windowStart: source.add(const Duration(milliseconds: 1)),
       windowEnd: source.add(const Duration(days: 3660)),
-    ).first;
+    );
+    if (occurrences.isEmpty) return;
+    final next = occurrences.first;
     final delta = next.difference(source);
     final nextId = const Uuid().v4();
     await _database.into(_database.tasks).insert(

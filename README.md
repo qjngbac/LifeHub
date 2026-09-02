@@ -4,7 +4,7 @@
 
 LifeHub 使用 Flutter 开发，把任务、日程、课程表、习惯、资料、旅行和常用生活知识放在同一个应用中。核心数据默认保存在手机本地，不需要注册账号，也不依赖服务器才能使用。
 
-- 当前版本：**V1.9.8**
+- 当前版本：**V1.9.9**
 - 支持平台：**Android 7.0（API 24）及以上**
 - 安装包架构：**arm64-v8a**
 
@@ -57,7 +57,7 @@ LifeHub 的任务、日程、课程表、资料、知识库、搜索、备份等
 
 ## 安装
 
-1. 在 [Releases](https://github.com/qjngbac/LifeHub/releases/latest) 下载 `LifeHub-V1.9.8.apk`。
+1. 在 [Releases](https://github.com/qjngbac/LifeHub/releases/latest) 下载 `LifeHub-V1.9.9.apk`。
 2. 在 Android 文件管理器中打开 APK。
 3. 如系统拦截，请仅为当前文件管理器临时允许“安装未知应用”。
 4. 首次打开后，按需要授予通知和定位权限。
@@ -107,7 +107,7 @@ flutter test
 flutter build apk --release
 ```
 
-发布签名配置不在仓库中。自行构建时，若没有配置发布密钥，项目会使用本地可用的调试签名；正式分发请配置自己的密钥，切勿提交 `key.properties`、`.jks` 或 `.keystore` 文件。
+发布签名配置不在仓库中。构建 release 前必须在 `android/key.properties` 配置自己的密钥；缺少配置时构建会直接失败，不会生成使用调试签名的 release。切勿提交 `key.properties`、`.jks` 或 `.keystore` 文件。
 
 ## 目录结构
 
@@ -128,7 +128,7 @@ lifehub/
 
 ## 项目状态
 
-V1.9.8 是 Android 1.x 系列的本地优先版本。项目仍会根据真实设备使用反馈修复兼容性和交互问题。当前不承诺兼容早期未公开测试 APK 的数据库；安装不同测试包前请先导出备份。
+V1.9.9 是 Android 1.x 系列的本地优先版本。项目仍会根据真实设备使用反馈修复兼容性和交互问题。当前不承诺兼容早期未公开测试 APK 的数据库；安装不同测试包前请先导出备份。
 
 ## 参与贡献
 

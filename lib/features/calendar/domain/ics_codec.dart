@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:timezone/data/latest.dart' as timezone_data;
 import 'package:timezone/timezone.dart' as timezone;
 
@@ -32,6 +34,9 @@ class IcsImportResult {
 }
 
 abstract final class IcsCodec {
+  static const maxImportBytes = 5 * 1024 * 1024;
+  static const maxImportItems = 5000;
+
   static String encode(List<CalendarExchangeItem> items) {
     final lines = <String>[
       'BEGIN:VCALENDAR',
@@ -69,6 +74,9 @@ abstract final class IcsCodec {
   }
 
   static IcsImportResult decode(String source) {
+    if (utf8.encode(source).length > maxImportBytes) {
+      throw const FormatException('ICS 文件超过 5 MB 限制。');
+    }
     timezone_data.initializeTimeZones();
     final raw = source.replaceAll('\r\n', '\n').split('\n');
     final lines = <String>[];
@@ -89,6 +97,9 @@ abstract final class IcsCodec {
       }
       if (line == 'END:VEVENT') {
         if (event != null) {
+          if (items.length >= maxImportItems) {
+            throw const FormatException('ICS 日程数量超过 5000 项限制。');
+          }
           try {
             items.add(_parseEvent(event));
           } on FormatException catch (error) {
@@ -171,28 +182,39 @@ abstract final class IcsCodec {
       '${_date(value)}T${value.hour.toString().padLeft(2, '0')}${value.minute.toString().padLeft(2, '0')}${value.second.toString().padLeft(2, '0')}Z';
 
   static DateTime _parseDate(String value) {
-    if (value.length != 8) throw const FormatException('无效的全天日期。');
-    return DateTime(
-      int.parse(value.substring(0, 4)),
-      int.parse(value.substring(4, 6)),
-      int.parse(value.substring(6, 8)),
-    );
+    if (!RegExp(r'^\d{8}$').hasMatch(value)) {
+      throw const FormatException('无效的全天日期。');
+    }
+    final year = int.parse(value.substring(0, 4));
+    final month = int.parse(value.substring(4, 6));
+    final day = int.parse(value.substring(6, 8));
+    final parsed = DateTime(year, month, day);
+    if (parsed.year != year || parsed.month != month || parsed.day != day) {
+      throw const FormatException('无效的全天日期。');
+    }
+    return parsed;
   }
 
   static DateTime _parseDateTime(String value, {String? timezoneId}) {
     final utc = value.endsWith('Z');
     final raw = utc ? value.substring(0, value.length - 1) : value;
-    if (raw.length < 15) throw const FormatException('无效的日历时间。');
+    if (!RegExp(r'^\d{8}T\d{6}$').hasMatch(raw)) {
+      throw const FormatException('无效的日历时间。');
+    }
     final year = int.parse(raw.substring(0, 4));
     final month = int.parse(raw.substring(4, 6));
     final day = int.parse(raw.substring(6, 8));
     final hour = int.parse(raw.substring(9, 11));
     final minute = int.parse(raw.substring(11, 13));
     final second = int.parse(raw.substring(13, 15));
-    if (utc) return DateTime.utc(year, month, day, hour, minute, second);
+    if (utc) {
+      final parsed = DateTime.utc(year, month, day, hour, minute, second);
+      _requireExactDateTime(parsed, year, month, day, hour, minute, second);
+      return parsed;
+    }
     if (timezoneId != null) {
       try {
-        return timezone.TZDateTime(
+        final parsed = timezone.TZDateTime(
           timezone.getLocation(timezoneId),
           year,
           month,
@@ -200,12 +222,35 @@ abstract final class IcsCodec {
           hour,
           minute,
           second,
-        ).toUtc();
+        );
+        _requireExactDateTime(parsed, year, month, day, hour, minute, second);
+        return parsed.toUtc();
       } on timezone.LocationNotFoundException {
         throw FormatException('日历使用了不支持的时区：$timezoneId');
       }
     }
-    return DateTime(year, month, day, hour, minute, second);
+    final parsed = DateTime(year, month, day, hour, minute, second);
+    _requireExactDateTime(parsed, year, month, day, hour, minute, second);
+    return parsed;
+  }
+
+  static void _requireExactDateTime(
+    DateTime value,
+    int year,
+    int month,
+    int day,
+    int hour,
+    int minute,
+    int second,
+  ) {
+    if (value.year != year ||
+        value.month != month ||
+        value.day != day ||
+        value.hour != hour ||
+        value.minute != minute ||
+        value.second != second) {
+      throw const FormatException('无效的日历时间。');
+    }
   }
 
   static String? _timezoneId(String propertyKey) {

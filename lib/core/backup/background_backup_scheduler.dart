@@ -7,23 +7,52 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 abstract final class BackgroundBackupScheduler {
-  static const uniqueName = 'lifehub-periodic-local-backup';
-  static const taskName = 'lifehub.localBackup';
+  static const legacyUniqueName = 'lifehub-periodic-local-backup';
+  static const automationUniqueName = 'lifehub-periodic-automation';
+  static const widgetUniqueName = 'lifehub-periodic-widget-refresh';
+  static const backupUniqueName = 'lifehub-periodic-local-backup-v2';
+  static const automationTaskName = 'lifehub.periodicAutomation';
+  static const widgetTaskName = 'lifehub.periodicWidgetRefresh';
+  static const backupTaskName = 'lifehub.periodicLocalBackup';
 
   static Future<void> initialize() =>
       Workmanager().initialize(lifeHubBackgroundDispatcher);
 
   static Future<void> sync(BackupFrequency frequency) async {
-    await Workmanager().registerPeriodicTask(
-      uniqueName,
-      taskName,
+    final workmanager = Workmanager();
+    await workmanager.cancelByUniqueName(legacyUniqueName);
+    await workmanager.registerPeriodicTask(
+      automationUniqueName,
+      automationTaskName,
       frequency: const Duration(minutes: 15),
+      constraints: Constraints(requiresBatteryNotLow: true),
+      existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
+      tag: 'lifehub-automation',
+    );
+    await workmanager.registerPeriodicTask(
+      widgetUniqueName,
+      widgetTaskName,
+      frequency: const Duration(minutes: 30),
+      constraints: Constraints(requiresBatteryNotLow: true),
+      existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
+      tag: 'lifehub-widget-refresh',
+    );
+    if (frequency == BackupFrequency.disabled) {
+      await workmanager.cancelByUniqueName(backupUniqueName);
+      return;
+    }
+    await workmanager.registerPeriodicTask(
+      backupUniqueName,
+      backupTaskName,
+      frequency: frequency == BackupFrequency.daily
+          ? const Duration(days: 1)
+          : const Duration(days: 7),
       constraints: Constraints(
         requiresBatteryNotLow: true,
         requiresStorageNotLow: true,
       ),
       existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
-      tag: 'lifehub-maintenance',
+      tag: 'lifehub-local-backup',
     );
   }
 }
@@ -31,23 +60,36 @@ abstract final class BackgroundBackupScheduler {
 @pragma('vm:entry-point')
 void lifeHubBackgroundDispatcher() {
   Workmanager().executeTask((taskName, inputData) async {
-    if (taskName != BackgroundBackupScheduler.taskName) return true;
+    if (!{
+      BackgroundBackupScheduler.automationTaskName,
+      BackgroundBackupScheduler.widgetTaskName,
+      BackgroundBackupScheduler.backupTaskName,
+    }.contains(taskName)) {
+      return true;
+    }
     WidgetsFlutterBinding.ensureInitialized();
     AppDatabase? database;
     try {
-      final preferences = await SharedPreferences.getInstance();
       database = AppDatabase();
       final now = DateTime.now();
-      await AutomationEngine(database).runDue(now);
-      await WidgetSnapshotService(database).refresh(
-        now: now,
-        preferences: preferences,
-        notifyNative: false,
-      );
-      await AutomaticBackupService(database, preferences).runIfDue(now: now);
+      switch (taskName) {
+        case BackgroundBackupScheduler.automationTaskName:
+          await AutomationEngine(database).runDue(now);
+        case BackgroundBackupScheduler.widgetTaskName:
+          final preferences = await SharedPreferences.getInstance();
+          await WidgetSnapshotService(database).refresh(
+            now: now,
+            preferences: preferences,
+            notifyNative: false,
+          );
+        case BackgroundBackupScheduler.backupTaskName:
+          final preferences = await SharedPreferences.getInstance();
+          await AutomaticBackupService(database, preferences)
+              .runIfDue(now: now);
+      }
       return true;
     } catch (error, stackTrace) {
-      debugPrint('Background backup failed: $error\n$stackTrace');
+      debugPrint('Background task $taskName failed: $error\n$stackTrace');
       return false;
     } finally {
       await database?.close();

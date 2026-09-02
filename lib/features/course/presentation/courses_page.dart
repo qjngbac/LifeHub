@@ -187,7 +187,9 @@ class _CoursesPageState extends ConsumerState<CoursesPage> {
     if (!context.mounted || action == null) return;
     if (action == 'widget') {
       try {
-        await WidgetSnapshotService(ref.read(databaseProvider)).refresh();
+        await WidgetSnapshotService(ref.read(databaseProvider)).refresh(
+          preferences: ref.read(sharedPreferencesProvider),
+        );
       } on Object {
         // The system pin dialog is still useful when snapshot refresh fails.
       }

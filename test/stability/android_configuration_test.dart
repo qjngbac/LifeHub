@@ -62,6 +62,32 @@ void main() {
     expect(source, contains('AutomaticBackupService(database, preferences)'));
   });
 
+  test('automation widget refresh and backup use independent background jobs',
+      () {
+    final source = File('lib/core/backup/background_backup_scheduler.dart')
+        .readAsStringSync();
+    expect(source, contains('lifehub.periodicAutomation'));
+    expect(source, contains('lifehub.periodicWidgetRefresh'));
+    expect(source, contains('lifehub.periodicLocalBackup'));
+    expect(source, contains('Duration(minutes: 30)'));
+    expect(source, contains('cancelByUniqueName(legacyUniqueName)'));
+  });
+
+  test('native widgets load the background snapshot file before rendering', () {
+    final store = File(
+      'android/app/src/main/kotlin/com/lifehub/app/lifehub/WidgetSnapshotStore.kt',
+    );
+    expect(store.existsSync(), isTrue);
+    expect(store.readAsStringSync(), contains('lifehub_widget_snapshot.json'));
+    for (final name in ['CourseWidgetProvider.kt', 'TodayWidgetProvider.kt']) {
+      final source = File(
+        'android/app/src/main/kotlin/com/lifehub/app/lifehub/$name',
+      ).readAsStringSync();
+      expect(
+          source, contains('WidgetSnapshotStore.refreshPreferences(context)'));
+    }
+  });
+
   test('destructive backup drill rejects physical devices before pm clear', () {
     final source =
         File('tool/stability/run_backup_restore_drill.ps1').readAsStringSync();
@@ -82,5 +108,28 @@ void main() {
     expect(manifest, contains('android:label="@string/app_name"'));
     expect(debugStrings.existsSync(), isTrue);
     expect(debugStrings.readAsStringSync(), contains('LifeHub Debug'));
+  });
+
+  test('release builds fail closed when signing credentials are missing', () {
+    final source = File('android/app/build.gradle.kts').readAsStringSync();
+    expect(source, contains('releaseBuildRequested'));
+    expect(source, contains('throw GradleException'));
+    expect(source, isNot(contains('signingConfigs.getByName("debug")')));
+  });
+
+  test('Android launcher includes adaptive and monochrome icon resources', () {
+    final adaptive = File(
+      'android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml',
+    );
+    final foreground = File(
+      'android/app/src/main/res/drawable/ic_launcher_foreground.xml',
+    );
+    final monochrome = File(
+      'android/app/src/main/res/drawable/ic_launcher_monochrome.xml',
+    );
+    expect(adaptive.existsSync(), isTrue);
+    expect(adaptive.readAsStringSync(), contains('<monochrome'));
+    expect(foreground.existsSync(), isTrue);
+    expect(monochrome.existsSync(), isTrue);
   });
 }

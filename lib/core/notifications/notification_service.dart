@@ -8,6 +8,7 @@ import 'package:lifehub/core/notifications/notification_ids.dart';
 import 'package:lifehub/core/notifications/notification_action_handler.dart';
 import 'package:lifehub/core/notifications/notification_payload.dart';
 import 'package:lifehub/core/notifications/v1_9_reminder_rules.dart';
+import 'package:lifehub/core/settings/app_settings.dart';
 import 'package:lifehub/core/time/date_keys.dart';
 import 'package:lifehub/features/course/data/course_repository.dart';
 import 'package:lifehub/features/event/data/event_repository.dart';
@@ -17,6 +18,7 @@ import 'package:lifehub/features/reminder/data/reminder_repository.dart';
 import 'package:lifehub/features/task/data/task_repository.dart';
 import 'package:timezone/data/latest.dart' as tz_data;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:shared_preferences/shared_preferences.dart';
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse response) async {
@@ -44,6 +46,7 @@ class NotificationService implements ReminderNotificationBridge {
       FlutterLocalNotificationsPlugin();
   bool _initialized = false;
   AppDatabase? _actionDatabase;
+  bool _privacyMode = false;
   static const _focusNotificationId = 910001;
 
   void configureActions(AppDatabase database) {
@@ -142,6 +145,7 @@ class NotificationService implements ReminderNotificationBridge {
   @override
   Future<void> scheduleReminder(ReminderEntry reminder, String title) async {
     await initialize();
+    await _loadPrivacyMode();
     final trigger = DateTime.fromMillisecondsSinceEpoch(
       reminder.triggerAt,
       isUtc: true,
@@ -213,6 +217,7 @@ class NotificationService implements ReminderNotificationBridge {
 
   Future<int> rebuildFuture(AppDatabase database) async {
     await initialize();
+    await _loadPrivacyMode();
     final previous = await database.select(database.reminders).get();
     final previousByNotificationId = {
       for (final reminder in previous) reminder.notificationId: reminder,
@@ -614,8 +619,8 @@ class NotificationService implements ReminderNotificationBridge {
     if (enabled) {
       await _plugin.zonedSchedule(
         id: id,
-        title: title,
-        body: body,
+        title: _privacyMode ? 'LifeHub 提醒' : title,
+        body: _privacyMode ? '打开 LifeHub 查看详情' : body,
         scheduledDate: tz.TZDateTime.from(effectiveTrigger, tz.local),
         notificationDetails: NotificationDetails(
           android: AndroidNotificationDetails(
@@ -663,6 +668,11 @@ class NotificationService implements ReminderNotificationBridge {
     } on FormatException {
       return false;
     }
+  }
+
+  Future<void> _loadPrivacyMode() async {
+    final preferences = await SharedPreferences.getInstance();
+    _privacyMode = preferences.getBool(AppSettings.privacyModeKey) ?? false;
   }
 
   RemindersCompanion _existingReminderCompanion(ReminderEntry reminder) =>
@@ -789,8 +799,8 @@ class NotificationService implements ReminderNotificationBridge {
     };
     await _plugin.zonedSchedule(
       id: id,
-      title: title,
-      body: body,
+      title: _privacyMode ? 'LifeHub 提醒' : title,
+      body: _privacyMode ? '打开 LifeHub 查看详情' : body,
       scheduledDate: tz.TZDateTime.from(trigger, tz.local),
       notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(

@@ -23,6 +23,23 @@ import 'package:lifehub/features/trip/data/trip_expense_repository.dart';
 import 'package:lifehub/features/trip/data/trip_repository.dart';
 
 void main() {
+  test('backup inspection rejects excessive record counts', () async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+    final payload = {
+      'exportVersion': 1,
+      'schemaVersion': database.schemaVersion,
+      'data': {
+        'tasks': List<Object?>.filled(100001, const {'id': 'unused'}),
+      },
+    };
+
+    expect(
+      () => BackupService(database).inspectJson(jsonEncode(payload)),
+      throwsFormatException,
+    );
+  });
+
   test('encrypted backup decrypts before validating and importing', () async {
     final source = AppDatabase.forTesting(NativeDatabase.memory());
     final target = AppDatabase.forTesting(NativeDatabase.memory());
@@ -737,6 +754,43 @@ void main() {
         base64Encode(utf8.encode('tampered bytes'));
 
     expect(service.importJson(jsonEncode(payload)), throwsFormatException);
+  });
+
+  test('attachment ids with path traversal are rejected before file writes',
+      () async {
+    final source = AppDatabase.forTesting(NativeDatabase.memory());
+    final target = AppDatabase.forTesting(NativeDatabase.memory());
+    final sourceFiles =
+        await Directory.systemTemp.createTemp('lifehub-traversal-source-');
+    final targetFiles =
+        await Directory.systemTemp.createTemp('lifehub-traversal-target-');
+    addTearDown(source.close);
+    addTearDown(target.close);
+    addTearDown(() => sourceFiles.delete(recursive: true));
+    addTearDown(() => targetFiles.delete(recursive: true));
+    final input = File('${sourceFiles.path}/note.txt');
+    await input.writeAsString('must stay inside attachment storage');
+    await AttachmentRepository(source, storageRoot: sourceFiles)
+        .importFile(input.path);
+    final payload = jsonDecode(await BackupService(source).exportJson())
+        as Map<String, dynamic>;
+    final data = payload['data'] as Map<String, dynamic>;
+    (data['attachments'] as List<dynamic>).single['id'] = '../escaped';
+    (data['attachmentFiles'] as List<dynamic>).single['attachmentId'] =
+        '../escaped';
+    final escaped = File('${targetFiles.parent.path}/escaped.txt');
+    if (await escaped.exists()) await escaped.delete();
+    addTearDown(() async {
+      if (await escaped.exists()) await escaped.delete();
+    });
+
+    await expectLater(
+      BackupService(target, attachmentStorageRoot: targetFiles)
+          .importJson(jsonEncode(payload)),
+      throwsFormatException,
+    );
+    expect(await escaped.exists(), isFalse);
+    expect(await target.select(target.attachments).get(), isEmpty);
   });
 
   test('replace import removes physical attachment files absent from backup',

@@ -7,6 +7,7 @@ import 'package:lifehub/core/backup/encrypted_backup_codec.dart';
 import 'package:lifehub/core/backup/automatic_backup_service.dart';
 import 'package:lifehub/core/backup/background_backup_scheduler.dart';
 import 'package:lifehub/core/notifications/notification_service.dart';
+import 'package:lifehub/core/platform/widget_snapshot_service.dart';
 import 'package:lifehub/core/providers.dart';
 import 'package:lifehub/core/settings/app_settings.dart';
 import 'package:lifehub/features/data_health/presentation/data_health_page.dart';
@@ -64,6 +65,13 @@ class MyPage extends ConsumerWidget {
                 title: const Text('通知权限与提醒'),
                 subtitle: const Text('开启权限并重建未来 60 天提醒'),
                 onTap: () => _enableNotifications(context, ref),
+              ),
+              SwitchListTile(
+                secondary: const Icon(Icons.visibility_off_outlined),
+                title: const Text('桌面组件与通知隐私'),
+                subtitle: const Text('隐藏课程、日程和任务名称，只保留时间与数量'),
+                value: settings.privacyMode,
+                onChanged: (value) => _setPrivacyMode(context, ref, value),
               ),
               ListTile(
                 leading: const Icon(Icons.notifications_active_outlined),
@@ -167,7 +175,7 @@ class MyPage extends ConsumerWidget {
             ]),
           ),
           const SizedBox(height: 20),
-          const Center(child: Text('LifeHub V1.9.1 · Android · 本地优先')),
+          const Center(child: Text('LifeHub V1.9.9 · Android · 本地优先')),
         ],
       ),
     );
@@ -213,6 +221,24 @@ class MyPage extends ConsumerWidget {
       if (context.mounted) _message(context, '已重建 $count 条未来提醒');
     } catch (_) {
       if (context.mounted) _message(context, '提醒设置失败，请检查系统通知权限');
+    }
+  }
+
+  Future<void> _setPrivacyMode(
+    BuildContext context,
+    WidgetRef ref,
+    bool enabled,
+  ) async {
+    await ref.read(appSettingsProvider.notifier).setPrivacyMode(enabled);
+    final preferences = ref.read(sharedPreferencesProvider);
+    try {
+      await WidgetSnapshotService(ref.read(databaseProvider)).refresh(
+        preferences: preferences,
+      );
+      await NotificationService.instance
+          .rebuildFuture(ref.read(databaseProvider));
+    } on Object {
+      if (context.mounted) _message(context, '隐私设置已保存，系统提醒将在下次刷新时更新');
     }
   }
 

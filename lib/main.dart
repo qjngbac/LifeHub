@@ -10,6 +10,7 @@ import 'package:lifehub/core/notifications/notification_service.dart';
 import 'package:lifehub/core/providers.dart';
 import 'package:lifehub/core/platform/widget_snapshot_service.dart';
 import 'package:lifehub/features/automation/application/automation_engine.dart';
+import 'package:lifehub/features/attachment/data/attachment_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -27,6 +28,11 @@ Future<void> main() async {
     await database.close();
     runApp(_StartupFailureApp(error: error));
     return;
+  }
+  try {
+    await AttachmentStorage.migrateLegacyFiles(database);
+  } catch (error) {
+    debugPrint('Attachment storage migration skipped: $error');
   }
   final container = ProviderContainer(
     overrides: [

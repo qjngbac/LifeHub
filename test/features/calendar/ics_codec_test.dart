@@ -2,6 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lifehub/features/calendar/domain/ics_codec.dart';
 
 void main() {
+  test('oversized ICS input is rejected before parsing', () {
+    final source = List.filled(5 * 1024 * 1024 + 1, 'A').join();
+    expect(() => IcsCodec.decode(source), throwsFormatException);
+  });
+
   test('timed and all-day items round trip with escaped text', () {
     final source = [
       CalendarExchangeItem(
@@ -45,5 +50,42 @@ void main() {
     expect(result.warnings, isEmpty);
     expect(result.items.single.start, DateTime.utc(2026, 8, 10, 1));
     expect(result.items.single.end, DateTime.utc(2026, 8, 10, 2));
+  });
+
+  test('invalid calendar dates are rejected instead of normalized', () {
+    for (final invalidStart in [
+      '20261301T090000Z',
+      '20260230T090000Z',
+      '20260810T250000Z',
+    ]) {
+      final result = IcsCodec.decode('BEGIN:VCALENDAR\r\n'
+          'VERSION:2.0\r\n'
+          'BEGIN:VEVENT\r\n'
+          'UID:invalid-date\r\n'
+          'SUMMARY:Invalid date\r\n'
+          'DTSTART:$invalidStart\r\n'
+          'DTEND:20260810T260000Z\r\n'
+          'END:VEVENT\r\n'
+          'END:VCALENDAR\r\n');
+
+      expect(result.items, isEmpty, reason: invalidStart);
+      expect(result.warnings, isNotEmpty, reason: invalidStart);
+    }
+  });
+
+  test('invalid all-day dates are rejected instead of normalized', () {
+    const source = 'BEGIN:VCALENDAR\r\n'
+        'VERSION:2.0\r\n'
+        'BEGIN:VEVENT\r\n'
+        'UID:invalid-all-day\r\n'
+        'SUMMARY:Invalid all day\r\n'
+        'DTSTART;VALUE=DATE:20260230\r\n'
+        'DTEND;VALUE=DATE:20260302\r\n'
+        'END:VEVENT\r\n'
+        'END:VCALENDAR\r\n';
+
+    final result = IcsCodec.decode(source);
+    expect(result.items, isEmpty);
+    expect(result.warnings, isNotEmpty);
   });
 }

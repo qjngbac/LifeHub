@@ -27,6 +27,7 @@ class TodayWidgetProvider : AppWidgetProvider() {
             manager: AppWidgetManager,
             widgetId: Int,
         ) {
+            WidgetSnapshotStore.refreshPreferences(context)
             val preferences = context.getSharedPreferences(
                 MainActivity.WIDGET_PREFERENCES,
                 Context.MODE_PRIVATE,

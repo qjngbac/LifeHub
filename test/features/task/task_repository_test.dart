@@ -73,6 +73,21 @@ void main() {
     expect(next.status, TaskStatus.todo);
   });
 
+  test('completing a task with an extreme repeat interval does not roll back',
+      () async {
+    final task = await repository.create(TaskDraft(
+      title: 'legacy imported repeat',
+      dueAt: DateTime(2026, 8, 8, 20),
+      repeatRule: 'FREQ=DAILY;INTERVAL=1000000',
+    ));
+
+    await repository.setStatus(task.id, TaskStatus.done);
+
+    final completed = await repository.get(task.id);
+    expect(completed.status, TaskStatus.done);
+    expect(await repository.list(), hasLength(1));
+  });
+
   test('filters by category priority date and parent task', () async {
     final parent = await repository.create(TaskDraft(
       title: 'parent',

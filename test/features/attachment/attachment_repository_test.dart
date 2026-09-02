@@ -4,6 +4,7 @@ import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/features/attachment/data/attachment_repository.dart';
+import 'package:lifehub/features/attachment/data/attachment_storage.dart';
 
 void main() {
   late AppDatabase database;
@@ -41,6 +42,20 @@ void main() {
     );
   });
 
+  test('rejects an attachment larger than the local safety limit', () async {
+    final source = File('${temporary.path}/oversized.bin');
+    await source.open(mode: FileMode.write).then((handle) async {
+      await handle.truncate(25 * 1024 * 1024 + 1);
+      await handle.close();
+    });
+
+    await expectLater(
+      repository.importFile(source.path),
+      throwsArgumentError,
+    );
+    expect(await database.select(database.attachments).get(), isEmpty);
+  });
+
   test('unlink and delete orphan removes its private file', () async {
     final source = File('${temporary.path}/photo.jpg');
     await source.writeAsBytes([1, 2, 3, 4]);
@@ -55,5 +70,33 @@ void main() {
 
     expect(File(attachment.storedPath).existsSync(), isFalse);
     expect(await repository.forEntity('SAVED_ITEM', 'note-1'), isEmpty);
+  });
+
+  test('legacy app_flutter attachments migrate into FileProvider files storage',
+      () async {
+    final legacyBase =
+        await Directory.systemTemp.createTemp('lifehub-legacy-files-');
+    final filesBase =
+        await Directory.systemTemp.createTemp('lifehub-provider-files-');
+    addTearDown(() => legacyBase.delete(recursive: true));
+    addTearDown(() => filesBase.delete(recursive: true));
+    final source = File('${temporary.path}/legacy-note.txt');
+    await source.writeAsString('legacy attachment');
+    final legacy = await AttachmentRepository(
+      database,
+      storageRoot: legacyBase,
+    ).importFile(source.path);
+
+    final migrated = await AttachmentStorage.migrateLegacyFiles(
+      database,
+      filesBase: filesBase,
+      legacyBase: legacyBase,
+    );
+
+    final restored = await repository.get(legacy.id);
+    expect(migrated, 1);
+    expect(restored.storedPath, startsWith(filesBase.path));
+    expect(await File(restored.storedPath).readAsString(), 'legacy attachment');
+    expect(await File(legacy.storedPath).exists(), isFalse);
   });
 }

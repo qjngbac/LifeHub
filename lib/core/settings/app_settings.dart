@@ -14,17 +14,26 @@ extension LifeModeLabel on LifeMode {
 }
 
 class AppSettings {
+  static const privacyModeKey = 'privacy_mode';
+
   const AppSettings({
     this.themeMode = ThemeMode.system,
     this.modes = const {LifeMode.daily},
+    this.privacyMode = false,
   });
   final ThemeMode themeMode;
   final Set<LifeMode> modes;
+  final bool privacyMode;
 
-  AppSettings copyWith({ThemeMode? themeMode, Set<LifeMode>? modes}) =>
+  AppSettings copyWith({
+    ThemeMode? themeMode,
+    Set<LifeMode>? modes,
+    bool? privacyMode,
+  }) =>
       AppSettings(
         themeMode: themeMode ?? this.themeMode,
         modes: modes ?? this.modes,
+        privacyMode: privacyMode ?? this.privacyMode,
       );
 }
 
@@ -46,6 +55,7 @@ class AppSettingsNotifier extends StateNotifier<AppSettings> {
     return AppSettings(
       themeMode: theme ?? ThemeMode.system,
       modes: modes == null || modes.isEmpty ? {LifeMode.daily} : modes,
+      privacyMode: preferences?.getBool(AppSettings.privacyModeKey) ?? false,
     );
   }
 
@@ -66,6 +76,13 @@ class AppSettingsNotifier extends StateNotifier<AppSettings> {
     state = state.copyWith(modes: modes);
     await ref.read(sharedPreferencesProvider)?.setStringList(
         'life_modes', modes.map((value) => value.name).toList());
+  }
+
+  Future<void> setPrivacyMode(bool enabled) async {
+    state = state.copyWith(privacyMode: enabled);
+    await ref
+        .read(sharedPreferencesProvider)
+        ?.setBool(AppSettings.privacyModeKey, enabled);
   }
 }
 

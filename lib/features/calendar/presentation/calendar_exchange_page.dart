@@ -50,13 +50,14 @@ class CalendarExchangePage extends ConsumerWidget {
       final picked = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: const ['ics'],
-        withData: true,
+        withData: false,
       );
       if (picked == null || picked.files.isEmpty) return;
       final file = picked.files.single;
-      final source = file.bytes != null
-          ? utf8.decode(file.bytes!)
-          : await File(file.path!).readAsString();
+      if (file.size > IcsCodec.maxImportBytes || file.path == null) {
+        throw const FormatException('ICS 文件过大或无法读取');
+      }
+      final source = await File(file.path!).readAsString();
       final result = IcsCodec.decode(source);
       if (!context.mounted) return;
       final confirmed = await showDialog<bool>(

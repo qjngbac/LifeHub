@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:drift/drift.dart';
 import 'package:file_picker/file_picker.dart';
@@ -8,6 +9,7 @@ import 'package:lifehub/core/backup/encrypted_backup_codec.dart';
 import 'package:lifehub/core/time/date_keys.dart';
 import 'package:lifehub/features/event/domain/recurrence.dart';
 import 'package:lifehub/features/attachment/data/attachment_repository.dart';
+import 'package:lifehub/features/attachment/data/attachment_storage.dart';
 import 'package:lifehub/features/habit/domain/habit_rules.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -64,8 +66,11 @@ class BackupService {
       : _attachmentStorageRoot = attachmentStorageRoot;
   final AppDatabase _database;
   final Directory? _attachmentStorageRoot;
+  static const maxImportBytes = 64 * 1024 * 1024;
+  static const maxImportRecords = 100000;
 
   BackupInspection inspectJson(String source) {
+    _validateSourceSize(source);
     final decoded = jsonDecode(source);
     if (decoded is! Map<String, dynamic> || decoded['exportVersion'] != 1) {
       throw const FormatException('不支持的备份版本');
@@ -82,6 +87,7 @@ class BackupService {
     for (final entry in data.entries) {
       if (entry.value is List) counts[entry.key] = (entry.value as List).length;
     }
+    _validateRecordCount(counts.values.fold(0, (sum, value) => sum + value));
     final rawExportedAt = decoded['exportedAt'];
     final exportedAt = rawExportedAt is num
         ? DateTime.fromMillisecondsSinceEpoch(
@@ -276,7 +282,9 @@ class BackupService {
             : <Map<String, Object?>>[],
       },
     };
-    return const JsonEncoder.withIndent('  ').convert(payload);
+    final output = const JsonEncoder.withIndent('  ').convert(payload);
+    _validateSourceSize(output);
+    return output;
   }
 
   Future<String> exportEncryptedJson(
@@ -311,6 +319,9 @@ class BackupService {
     for (final value in values) {
       final file = File(value.storedPath);
       if (!await file.exists()) continue;
+      if (await file.length() > AttachmentRepository.maxAttachmentBytes) {
+        throw const FormatException('附件超过 25 MB，无法写入备份');
+      }
       result.add({
         'attachmentId': value.id,
         'fileName': p.basename(value.storedPath),
@@ -379,12 +390,11 @@ class BackupService {
       dialogTitle: '选择 LifeHub JSON 备份',
       type: FileType.custom,
       allowedExtensions: const ['json'],
-      withData: true,
+      withData: false,
     );
     if (result == null || result.files.isEmpty) return null;
     final file = result.files.single;
-    if (file.bytes != null) return utf8.decode(file.bytes!);
-    if (file.path != null) return File(file.path!).readAsString();
+    if (file.path != null) return _readBoundedFile(File(file.path!));
     throw const FileSystemException('无法读取所选备份');
   }
 
@@ -393,12 +403,11 @@ class BackupService {
       dialogTitle: '选择 LifeHub 备份',
       type: FileType.custom,
       allowedExtensions: const ['json', 'lifehubx'],
-      withData: true,
+      withData: false,
     );
     if (result == null || result.files.isEmpty) return null;
     final file = result.files.single;
-    if (file.bytes != null) return utf8.decode(file.bytes!);
-    if (file.path != null) return File(file.path!).readAsString();
+    if (file.path != null) return _readBoundedFile(File(file.path!));
     throw const FileSystemException('无法读取所选备份');
   }
 
@@ -416,12 +425,13 @@ class BackupService {
   }
 
   Future<void> importFile(File file) async =>
-      importJson(await file.readAsString());
+      importJson(await _readBoundedFile(file));
 
   Future<void> importJson(
     String source, {
     ImportMode mode = ImportMode.replace,
   }) async {
+    _validateSourceSize(source);
     final decoded = jsonDecode(source);
     if (decoded is! Map<String, dynamic> || decoded['exportVersion'] != 1) {
       throw const FormatException('不支持的备份版本');
@@ -438,6 +448,10 @@ class BackupService {
     if (rawData is! Map<String, dynamic>) {
       throw const FormatException('备份缺少 data');
     }
+    _validateRecordCount(rawData.values.whereType<List>().fold<int>(
+          0,
+          (sum, value) => sum + value.length,
+        ));
     List<Map<String, dynamic>> rows(String key) {
       final value = rawData[key];
       if (value is! List) throw FormatException('备份缺少 $key');
@@ -1150,11 +1164,7 @@ class BackupService {
   }
 
   Future<Directory> _attachmentRoot() async =>
-      _attachmentStorageRoot ??
-      Directory(p.join(
-        (await getApplicationDocumentsDirectory()).path,
-        'lifehub_attachments',
-      ));
+      _attachmentStorageRoot ?? await AttachmentStorage.applicationDirectory();
 
   Future<void> _removeReplacedAttachmentFiles(
     List<String> previousPaths,
@@ -1481,6 +1491,11 @@ class BackupService {
         _uniqueIds('savedItems', savedItems.map((row) => row.id));
     final attachmentIds =
         _uniqueIds('attachments', attachments.map((row) => row.id));
+    for (final id in attachmentIds) {
+      if (!RegExp(r'^[A-Za-z0-9_-]{1,128}$').hasMatch(id)) {
+        throw const FormatException('附件 ID 包含无效路径字符');
+      }
+    }
     final locationIds = _uniqueIds('locations', locations.map((row) => row.id));
     final tripIds =
         _uniqueIds('tripProfiles', tripProfiles.map((row) => row.id));
@@ -1800,7 +1815,10 @@ class BackupService {
       _validateSync('attachments', row.toJson());
       _requiredText('attachments.displayName', row.displayName);
       _requiredText('attachments.contentDigest', row.contentDigest);
-      if (row.byteSize < 0) throw const FormatException('附件大小无效');
+      if (row.byteSize < 0 ||
+          row.byteSize > AttachmentRepository.maxAttachmentBytes) {
+        throw const FormatException('附件大小无效或超过 25 MB 限制');
+      }
     }
     final attachmentFileIds = <String>{};
     final attachmentsById = {for (final row in attachments) row.id: row};
@@ -2243,5 +2261,33 @@ class BackupService {
         minute > 59) {
       throw const FormatException('习惯提醒时间无效');
     }
+  }
+
+  void _validateSourceSize(String source) {
+    if (utf8.encode(source).length > maxImportBytes) {
+      throw const FormatException('备份文件超过 64 MB 限制');
+    }
+  }
+
+  void _validateRecordCount(int count) {
+    if (count > maxImportRecords) {
+      throw const FormatException('备份记录数量超过 100000 条限制');
+    }
+  }
+
+  Future<String> _readBoundedFile(File file) async {
+    if (await file.length() > maxImportBytes) {
+      throw const FormatException('备份文件超过 64 MB 限制');
+    }
+    final bytes = BytesBuilder(copy: false);
+    var total = 0;
+    await for (final chunk in file.openRead()) {
+      total += chunk.length;
+      if (total > maxImportBytes) {
+        throw const FormatException('备份文件超过 64 MB 限制');
+      }
+      bytes.add(chunk);
+    }
+    return utf8.decode(bytes.takeBytes());
   }
 }
