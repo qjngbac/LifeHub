@@ -175,7 +175,7 @@ class MyPage extends ConsumerWidget {
             ]),
           ),
           const SizedBox(height: 20),
-          const Center(child: Text('LifeHub V1.9.9 · Android · 本地优先')),
+          const Center(child: Text('LifeHub V1.9.10 · Android · 本地优先')),
         ],
       ),
     );

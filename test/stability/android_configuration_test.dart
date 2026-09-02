@@ -117,19 +117,23 @@ void main() {
     expect(source, isNot(contains('signingConfigs.getByName("debug")')));
   });
 
-  test('Android launcher includes adaptive and monochrome icon resources', () {
+  test('Android launcher keeps full artwork inside the adaptive icon mask', () {
     final adaptive = File(
       'android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml',
     );
-    final foreground = File(
-      'android/app/src/main/res/drawable/ic_launcher_foreground.xml',
+    final artwork = File(
+      'android/app/src/main/res/drawable-nodpi/ic_launcher_artwork.png',
     );
     final monochrome = File(
       'android/app/src/main/res/drawable/ic_launcher_monochrome.xml',
     );
     expect(adaptive.existsSync(), isTrue);
-    expect(adaptive.readAsStringSync(), contains('<monochrome'));
-    expect(foreground.existsSync(), isTrue);
+    final source = adaptive.readAsStringSync();
+    expect(source, contains('@drawable/ic_launcher_artwork'));
+    expect(source, contains('@android:color/transparent'));
+    expect(source, contains('<monochrome'));
+    expect(artwork.existsSync(), isTrue);
+    expect(artwork.lengthSync(), greaterThan(0));
     expect(monochrome.existsSync(), isTrue);
   });
 }
