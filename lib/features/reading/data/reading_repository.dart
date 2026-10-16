@@ -36,11 +36,15 @@ class ReadingRepository {
     final title = draft.title.trim();
     if (title.isEmpty) throw ArgumentError.value(draft.title, 'title');
     ReadingProgressRules.fraction(
-        current: draft.currentProgress, total: draft.totalProgress);
+      current: draft.currentProgress,
+      total: draft.totalProgress,
+    );
     if (draft.rating != null && (draft.rating! < 0 || draft.rating! > 10)) {
       throw RangeError('评分必须在 0 到 10 之间');
     }
-    return _database.into(_database.readingItems).insertReturning(
+    return _database
+        .into(_database.readingItems)
+        .insertReturning(
           ReadingItemsCompanion.insert(
             title: title,
             author: Value(_optional(draft.author)),
@@ -57,9 +61,9 @@ class ReadingRepository {
   }
 
   Future<ReadingItemEntry> get(String id) async {
-    final row = await (_database.select(_database.readingItems)
-          ..where((item) => item.id.equals(id)))
-        .getSingleOrNull();
+    final row = await (_database.select(
+      _database.readingItems,
+    )..where((item) => item.id.equals(id))).getSingleOrNull();
     if (row == null) throw StateError('Reading item not found: $id');
     return row;
   }
@@ -76,34 +80,41 @@ class ReadingRepository {
     }
     final current = await get(id);
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
-    final completed = draft.totalProgress != null &&
+    final completed =
+        draft.totalProgress != null &&
         draft.totalProgress! > 0 &&
         draft.currentProgress == draft.totalProgress;
-    await (_database.update(_database.readingItems)
-          ..where((item) => item.id.equals(id)))
-        .write(ReadingItemsCompanion(
-      title: Value(title),
-      author: Value(_optional(draft.author)),
-      readingType: Value(draft.readingType.name.toUpperCase()),
-      progressUnit: Value(draft.progressUnit.name.toUpperCase()),
-      currentProgress: Value(draft.currentProgress),
-      totalProgress: Value(draft.totalProgress),
-      status: Value(completed
-          ? ReadingStatus.completed.dbValue
-          : draft.currentProgress > 0
+    await (_database.update(
+      _database.readingItems,
+    )..where((item) => item.id.equals(id))).write(
+      ReadingItemsCompanion(
+        title: Value(title),
+        author: Value(_optional(draft.author)),
+        readingType: Value(draft.readingType.name.toUpperCase()),
+        progressUnit: Value(draft.progressUnit.name.toUpperCase()),
+        currentProgress: Value(draft.currentProgress),
+        totalProgress: Value(draft.totalProgress),
+        status: Value(
+          completed
+              ? ReadingStatus.completed.dbValue
+              : draft.currentProgress > 0
               ? ReadingStatus.reading.dbValue
-              : draft.status.dbValue),
-      rating: Value(draft.rating),
-      notes: Value(_optional(draft.notes)),
-      coverPath: Value(_optional(draft.coverPath)),
-      startedAt: Value(draft.currentProgress > 0
-          ? current.startedAt ?? now
-          : current.startedAt),
-      lastReadAt: Value(draft.currentProgress > 0 ? now : current.lastReadAt),
-      completedAt: Value(completed ? now : null),
-      updatedAt: Value(now),
-      version: Value(current.version + 1),
-    ));
+              : draft.status.dbValue,
+        ),
+        rating: Value(draft.rating),
+        notes: Value(_optional(draft.notes)),
+        coverPath: Value(_optional(draft.coverPath)),
+        startedAt: Value(
+          draft.currentProgress > 0
+              ? current.startedAt ?? now
+              : current.startedAt,
+        ),
+        lastReadAt: Value(draft.currentProgress > 0 ? now : current.lastReadAt),
+        completedAt: Value(completed ? now : null),
+        updatedAt: Value(now),
+        version: Value(current.version + 1),
+      ),
+    );
     return get(id);
   }
 
@@ -120,28 +131,36 @@ class ReadingRepository {
   Future<List<ReadingItemEntry>> search(String query) {
     final value = query.trim();
     if (value.isEmpty) return list();
-    final pattern = '%${value.replaceAll('%', r'\%').replaceAll('_', r'\_')}%';
+    final pattern =
+        '%${value.replaceAll(r'\', r'\\').replaceAll('%', r'\%').replaceAll('_', r'\_')}%';
     return (_database.select(_database.readingItems)
-          ..where((row) =>
-              row.deletedAt.isNull() &
-              (row.title.like(pattern) |
-                  row.author.like(pattern) |
-                  row.notes.like(pattern)))
+          ..where(
+            (row) =>
+                row.deletedAt.isNull() &
+                (row.title.like(pattern, escapeChar: r'\') |
+                    row.author.like(pattern, escapeChar: r'\') |
+                    row.notes.like(pattern, escapeChar: r'\')),
+          )
           ..orderBy([(row) => OrderingTerm.desc(row.updatedAt)]))
         .get();
   }
 
-  Future<List<ReadingItemEntry>> continueReading() => (_database
-          .select(_database.readingItems)
-        ..where((row) => row.deletedAt.isNull() & row.status.equals('READING'))
-        ..orderBy([
-          (row) => OrderingTerm.desc(row.lastReadAt),
-          (row) => OrderingTerm.desc(row.updatedAt),
-        ]))
-      .get();
+  Future<List<ReadingItemEntry>> continueReading() =>
+      (_database.select(_database.readingItems)
+            ..where(
+              (row) => row.deletedAt.isNull() & row.status.equals('READING'),
+            )
+            ..orderBy([
+              (row) => OrderingTerm.desc(row.lastReadAt),
+              (row) => OrderingTerm.desc(row.updatedAt),
+            ]))
+          .get();
 
-  Future<ReadingItemEntry> updateProgress(String id, int next,
-      {DateTime? now}) async {
+  Future<ReadingItemEntry> updateProgress(
+    String id,
+    int next, {
+    DateTime? now,
+  }) async {
     final row = await get(id);
     final time = now ?? DateTime.now();
     final update = ReadingProgressRules.update(
@@ -151,31 +170,36 @@ class ReadingRepository {
       status: ReadingStatus.fromDb(row.status),
       now: time,
     );
-    await (_database.update(_database.readingItems)
-          ..where((item) => item.id.equals(id)))
-        .write(ReadingItemsCompanion(
-      currentProgress: Value(update.current),
-      status: Value(update.status.dbValue),
-      startedAt: Value(
-          row.startedAt ?? (next > 0 ? time.millisecondsSinceEpoch : null)),
-      lastReadAt: Value(time.millisecondsSinceEpoch),
-      completedAt: Value(update.completedAt?.millisecondsSinceEpoch),
-      updatedAt: Value(DateTime.now().toUtc().millisecondsSinceEpoch),
-      version: Value(row.version + 1),
-    ));
+    await (_database.update(
+      _database.readingItems,
+    )..where((item) => item.id.equals(id))).write(
+      ReadingItemsCompanion(
+        currentProgress: Value(update.current),
+        status: Value(update.status.dbValue),
+        startedAt: Value(
+          row.startedAt ?? (next > 0 ? time.millisecondsSinceEpoch : null),
+        ),
+        lastReadAt: Value(time.millisecondsSinceEpoch),
+        completedAt: Value(update.completedAt?.millisecondsSinceEpoch),
+        updatedAt: Value(DateTime.now().toUtc().millisecondsSinceEpoch),
+        version: Value(row.version + 1),
+      ),
+    );
     return get(id);
   }
 
   Future<void> delete(String id) async {
     final row = await get(id);
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
-    await (_database.update(_database.readingItems)
-          ..where((item) => item.id.equals(id)))
-        .write(ReadingItemsCompanion(
-      deletedAt: Value(now),
-      updatedAt: Value(now),
-      version: Value(row.version + 1),
-    ));
+    await (_database.update(
+      _database.readingItems,
+    )..where((item) => item.id.equals(id))).write(
+      ReadingItemsCompanion(
+        deletedAt: Value(now),
+        updatedAt: Value(now),
+        version: Value(row.version + 1),
+      ),
+    );
   }
 }
 

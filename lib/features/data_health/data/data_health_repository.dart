@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:lifehub/core/database/app_database.dart';
+import 'package:lifehub/core/time/date_keys.dart';
+import 'package:lifehub/features/matches/domain/match_models.dart';
 
 enum DataHealthSeverity { warning, error }
 
@@ -428,6 +430,72 @@ class DataHealthRepository {
         ));
       }
     }
+    for (final match in (await _database.select(_database.matchRecords).get())
+        .where((value) => value.deletedAt == null)) {
+      var invalidDate = false;
+      try {
+        DateKeys.fromLocalDateKey(match.matchDate);
+      } on FormatException {
+        invalidDate = true;
+      }
+      final needsSchedule = match.status == MatchStatuses.scheduled ||
+          match.status == MatchStatuses.pendingResult;
+      final invalidTiming = match.startAt != null && match.startAt! < 0 ||
+          needsSchedule &&
+              (match.startAt == null ||
+                  match.timezoneId == null ||
+                  match.timezoneId!.trim().isEmpty);
+      final invalidScore = (match.scoreA == null) != (match.scoreB == null) ||
+          match.scoreA != null && (match.scoreA! < 0 || match.scoreB! < 0);
+      if (invalidDate) {
+        issues.add(DataHealthIssue(
+          code: 'INVALID_MATCH_DATE',
+          severity: DataHealthSeverity.error,
+          entityType: 'MATCH',
+          entityId: match.id,
+          message: '比赛“${match.competition}”的日期无效。',
+        ));
+      }
+      if (!MatchStatuses.values.contains(match.status)) {
+        issues.add(DataHealthIssue(
+          code: 'INVALID_MATCH_STATUS',
+          severity: DataHealthSeverity.error,
+          entityType: 'MATCH',
+          entityId: match.id,
+          message: '比赛“${match.competition}”的状态无效。',
+        ));
+      }
+      if (invalidTiming) {
+        issues.add(DataHealthIssue(
+          code: 'INVALID_MATCH_TIME',
+          severity: DataHealthSeverity.error,
+          entityType: 'MATCH',
+          entityId: match.id,
+          message: '比赛“${match.competition}”缺少有效开始时间或时区。',
+        ));
+      }
+      if (invalidScore) {
+        issues.add(DataHealthIssue(
+          code: 'INVALID_MATCH_SCORE',
+          severity: DataHealthSeverity.error,
+          entityType: 'MATCH',
+          entityId: match.id,
+          message: '比赛“${match.competition}”的比分无效。',
+        ));
+      }
+      if (match.status == MatchStatuses.finished &&
+          match.scoreA == null &&
+          match.scoreB == null &&
+          (match.scoreDetail == null || match.scoreDetail!.trim().isEmpty)) {
+        issues.add(DataHealthIssue(
+          code: 'INCOMPLETE_MATCH_RESULT',
+          severity: DataHealthSeverity.warning,
+          entityType: 'MATCH',
+          entityId: match.id,
+          message: '已结束比赛“${match.competition}”没有比分或结果说明。',
+        ));
+      }
+    }
     return DataHealthReport(List.unmodifiable(issues));
   }
 
@@ -461,6 +529,7 @@ class DataHealthRepository {
       'MAINTENANCE_LOG' => 'maintenance_logs',
       'READING' => 'reading_items',
       'PARCEL' => 'parcels',
+      'MATCH' => 'match_records',
       _ => null,
     };
     if (table == null) return false;
@@ -525,6 +594,11 @@ class DataHealthRepository {
         return row == null || row.deletedAt != null;
       case 'PARCEL':
         final row = await (_database.select(_database.parcels)
+              ..where((value) => value.id.equals(id)))
+            .getSingleOrNull();
+        return row == null || row.deletedAt != null;
+      case 'MATCH':
+        final row = await (_database.select(_database.matchRecords)
               ..where((value) => value.id.equals(id)))
             .getSingleOrNull();
         return row == null || row.deletedAt != null;

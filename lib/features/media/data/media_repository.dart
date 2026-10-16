@@ -100,7 +100,9 @@ class MediaRepository {
 
   Future<MediaSeriesEntry> createSeries(MediaSeriesDraft draft) {
     _validateSeries(draft);
-    return _database.into(_database.mediaSeries).insertReturning(
+    return _database
+        .into(_database.mediaSeries)
+        .insertReturning(
           MediaSeriesCompanion.insert(
             title: draft.title.trim(),
             category: draft.category.dbValue,
@@ -114,29 +116,35 @@ class MediaRepository {
   }
 
   Future<MediaSeriesEntry> updateSeries(
-      String id, MediaSeriesDraft draft) async {
+    String id,
+    MediaSeriesDraft draft,
+  ) async {
     _validateSeries(draft);
     final now = _now();
-    await (_database.update(_database.mediaSeries)
-          ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
-        .write(MediaSeriesCompanion(
-      title: Value(draft.title.trim()),
-      category: Value(draft.category.dbValue),
-      description: Value(_optional(draft.description)),
-      coverPath: Value(_optional(draft.coverPath)),
-      releaseYear: Value(draft.releaseYear),
-      rating: Value(draft.rating),
-      note: Value(_optional(draft.note)),
-      updatedAt: Value(now),
-    ));
+    await (_database.update(
+      _database.mediaSeries,
+    )..where((row) => row.id.equals(id) & row.deletedAt.isNull())).write(
+      MediaSeriesCompanion(
+        title: Value(draft.title.trim()),
+        category: Value(draft.category.dbValue),
+        description: Value(_optional(draft.description)),
+        coverPath: Value(_optional(draft.coverPath)),
+        releaseYear: Value(draft.releaseYear),
+        rating: Value(draft.rating),
+        note: Value(_optional(draft.note)),
+        updatedAt: Value(now),
+      ),
+    );
     final entries = await listEntries(seriesId: id);
     if (entries.any((entry) => entry.category != draft.category.dbValue)) {
       await (_database.update(_database.mediaEntries)
             ..where((row) => row.seriesId.equals(id) & row.deletedAt.isNull()))
-          .write(MediaEntriesCompanion(
-        category: Value(draft.category.dbValue),
-        updatedAt: Value(now),
-      ));
+          .write(
+            MediaEntriesCompanion(
+              category: Value(draft.category.dbValue),
+              updatedAt: Value(now),
+            ),
+          );
     }
     return (await getSeries(id))!;
   }
@@ -161,8 +169,34 @@ class MediaRepository {
 
   Future<MediaEntry> createEntry(MediaEntryDraft draft) async {
     await _validateEntry(draft);
+    return _insertEntry(draft);
+  }
+
+  Future<List<MediaEntry>> createEntries(List<MediaEntryDraft> drafts) async {
+    if (drafts.isEmpty) {
+      throw ArgumentError('至少添加一季影视作品。');
+    }
+    for (final draft in drafts) {
+      await _validateEntry(draft);
+    }
+    return _database.transaction(() async {
+      final entries = <MediaEntry>[];
+      for (final draft in drafts) {
+        entries.add(await _insertEntry(draft));
+      }
+      return entries;
+    });
+  }
+
+  Future<MediaEntry> _insertEntry(MediaEntryDraft draft) async {
+    final progress = _normalizeProgress(draft);
     final sortKey = draft.sortKey ?? await _nextSortKey(draft.seriesId);
-    return _database.into(_database.mediaEntries).insertReturning(
+    final watchedAt =
+        draft.lastWatchedAt ??
+        (progress.status == MediaWatchStatus.completed ? DateTime.now() : null);
+    return _database
+        .into(_database.mediaEntries)
+        .insertReturning(
           MediaEntriesCompanion.insert(
             seriesId: Value(draft.seriesId),
             category: draft.category.dbValue,
@@ -174,16 +208,15 @@ class MediaRepository {
             releaseYear: Value(draft.releaseYear),
             coverPath: Value(_optional(draft.coverPath)),
             description: Value(_optional(draft.description)),
-            watchStatus: Value(draft.watchStatus.dbValue),
+            watchStatus: Value(progress.status.dbValue),
             totalEpisodes: Value(draft.totalEpisodes),
-            completedEpisodes: Value(draft.completedEpisodes),
+            completedEpisodes: Value(progress.completedEpisodes),
             durationSeconds: Value(draft.durationSeconds),
-            playbackPositionSeconds: Value(draft.playbackPositionSeconds),
-            lastWatchedAt: Value(draft.lastWatchedAt?.millisecondsSinceEpoch),
+            playbackPositionSeconds: Value(progress.playbackPositionSeconds),
+            lastWatchedAt: Value(watchedAt?.millisecondsSinceEpoch),
             completedAt: Value(
-              draft.watchStatus == MediaWatchStatus.completed
-                  ? (draft.lastWatchedAt ?? DateTime.now())
-                      .millisecondsSinceEpoch
+              progress.status == MediaWatchStatus.completed
+                  ? watchedAt!.millisecondsSinceEpoch
                   : null,
             ),
             rating: Value(draft.rating),
@@ -195,33 +228,39 @@ class MediaRepository {
   Future<MediaEntry> updateEntry(String id, MediaEntryDraft draft) async {
     await _validateEntry(draft);
     final existing = await _requireEntry(id);
-    final completedAt = draft.watchStatus == MediaWatchStatus.completed
+    final progress = _normalizeProgress(draft);
+    final completedAt = progress.status == MediaWatchStatus.completed
         ? existing.completedAt ?? _now()
         : null;
-    await (_database.update(_database.mediaEntries)
-          ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
-        .write(MediaEntriesCompanion(
-      seriesId: Value(draft.seriesId),
-      category: Value(draft.category.dbValue),
-      entryType: Value(draft.entryType.dbValue),
-      title: Value(draft.title.trim()),
-      subtitle: Value(_optional(draft.subtitle)),
-      sortKey: Value(draft.sortKey ?? existing.sortKey),
-      seasonNumber: Value(draft.seasonNumber),
-      releaseYear: Value(draft.releaseYear),
-      coverPath: Value(_optional(draft.coverPath)),
-      description: Value(_optional(draft.description)),
-      watchStatus: Value(draft.watchStatus.dbValue),
-      totalEpisodes: Value(draft.totalEpisodes),
-      completedEpisodes: Value(draft.completedEpisodes),
-      durationSeconds: Value(draft.durationSeconds),
-      playbackPositionSeconds: Value(draft.playbackPositionSeconds),
-      lastWatchedAt: Value(draft.lastWatchedAt?.millisecondsSinceEpoch),
-      completedAt: Value(completedAt),
-      rating: Value(draft.rating),
-      note: Value(_optional(draft.note)),
-      updatedAt: Value(_now()),
-    ));
+    final watchedAt =
+        draft.lastWatchedAt?.millisecondsSinceEpoch ??
+        (progress.status == MediaWatchStatus.completed ? _now() : null);
+    await (_database.update(
+      _database.mediaEntries,
+    )..where((row) => row.id.equals(id) & row.deletedAt.isNull())).write(
+      MediaEntriesCompanion(
+        seriesId: Value(draft.seriesId),
+        category: Value(draft.category.dbValue),
+        entryType: Value(draft.entryType.dbValue),
+        title: Value(draft.title.trim()),
+        subtitle: Value(_optional(draft.subtitle)),
+        sortKey: Value(draft.sortKey ?? existing.sortKey),
+        seasonNumber: Value(draft.seasonNumber),
+        releaseYear: Value(draft.releaseYear),
+        coverPath: Value(_optional(draft.coverPath)),
+        description: Value(_optional(draft.description)),
+        watchStatus: Value(progress.status.dbValue),
+        totalEpisodes: Value(draft.totalEpisodes),
+        completedEpisodes: Value(progress.completedEpisodes),
+        durationSeconds: Value(draft.durationSeconds),
+        playbackPositionSeconds: Value(progress.playbackPositionSeconds),
+        lastWatchedAt: Value(watchedAt),
+        completedAt: Value(completedAt),
+        rating: Value(draft.rating),
+        note: Value(_optional(draft.note)),
+        updatedAt: Value(_now()),
+      ),
+    );
     return _requireEntry(id);
   }
 
@@ -261,9 +300,11 @@ class MediaRepository {
 
   Future<List<MediaEntry>> continueWatching({int limit = 10}) {
     final query = _database.select(_database.mediaEntries)
-      ..where((row) =>
-          row.deletedAt.isNull() &
-          row.watchStatus.equals(MediaWatchStatus.watching.dbValue))
+      ..where(
+        (row) =>
+            row.deletedAt.isNull() &
+            row.watchStatus.equals(MediaWatchStatus.watching.dbValue),
+      )
       ..orderBy([
         (row) => OrderingTerm.desc(row.lastWatchedAt),
         (row) => OrderingTerm.desc(row.updatedAt),
@@ -275,39 +316,50 @@ class MediaRepository {
   Future<List<MediaLocalSearchResult>> search(String query) async {
     final term = query.trim();
     if (term.isEmpty) return const [];
-    final pattern = '%${term.replaceAll('%', r'\%').replaceAll('_', r'\_')}%';
-    final series = await (_database.select(_database.mediaSeries)
-          ..where((row) =>
-              row.deletedAt.isNull() &
-              (row.title.like(pattern) |
-                  row.description.like(pattern) |
-                  row.note.like(pattern)))
-          ..limit(50))
-        .get();
-    final entries = await (_database.select(_database.mediaEntries)
-          ..where((row) =>
-              row.deletedAt.isNull() &
-              (row.title.like(pattern) |
-                  row.subtitle.like(pattern) |
-                  row.description.like(pattern) |
-                  row.note.like(pattern)))
-          ..limit(100))
-        .get();
+    final pattern =
+        '%${term.replaceAll(r'\', r'\\').replaceAll('%', r'\%').replaceAll('_', r'\_')}%';
+    final series =
+        await (_database.select(_database.mediaSeries)
+              ..where(
+                (row) =>
+                    row.deletedAt.isNull() &
+                    (row.title.like(pattern, escapeChar: r'\') |
+                        row.description.like(pattern, escapeChar: r'\') |
+                        row.note.like(pattern, escapeChar: r'\')),
+              )
+              ..limit(50))
+            .get();
+    final entries =
+        await (_database.select(_database.mediaEntries)
+              ..where(
+                (row) =>
+                    row.deletedAt.isNull() &
+                    (row.title.like(pattern, escapeChar: r'\') |
+                        row.subtitle.like(pattern, escapeChar: r'\') |
+                        row.description.like(pattern, escapeChar: r'\') |
+                        row.note.like(pattern, escapeChar: r'\')),
+              )
+              ..limit(100))
+            .get();
     return [
-      ...series.map((item) => MediaLocalSearchResult(
-            id: item.id,
-            title: item.title,
-            isSeries: true,
-            category: MediaCategory.fromDb(item.category),
-            subtitle: '系列',
-          )),
-      ...entries.map((item) => MediaLocalSearchResult(
-            id: item.id,
-            title: item.title,
-            isSeries: false,
-            category: MediaCategory.fromDb(item.category),
-            subtitle: item.subtitle,
-          )),
+      ...series.map(
+        (item) => MediaLocalSearchResult(
+          id: item.id,
+          title: item.title,
+          isSeries: true,
+          category: MediaCategory.fromDb(item.category),
+          subtitle: '系列',
+        ),
+      ),
+      ...entries.map(
+        (item) => MediaLocalSearchResult(
+          id: item.id,
+          title: item.title,
+          isSeries: false,
+          category: MediaCategory.fromDb(item.category),
+          subtitle: item.subtitle,
+        ),
+      ),
     ];
   }
 
@@ -324,15 +376,19 @@ class MediaRepository {
       status: MediaWatchStatus.fromDb(entry.watchStatus),
       now: now ?? DateTime.now(),
     );
-    await (_database.update(_database.mediaEntries)
-          ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
-        .write(MediaEntriesCompanion(
-      completedEpisodes: Value(update.value),
-      watchStatus: Value(update.status.dbValue),
-      lastWatchedAt: Value(update.lastWatchedAt.millisecondsSinceEpoch),
-      completedAt: Value(update.completedAt?.millisecondsSinceEpoch),
-      updatedAt: Value(_now()),
-    ));
+    await (_database.update(
+      _database.mediaEntries,
+    )..where((row) => row.id.equals(id) & row.deletedAt.isNull())).write(
+      MediaEntriesCompanion(
+        completedEpisodes: Value(update.value),
+        watchStatus: Value(update.status.dbValue),
+        lastWatchedAt: completedEpisodes > entry.completedEpisodes
+            ? Value(update.lastWatchedAt.millisecondsSinceEpoch)
+            : const Value.absent(),
+        completedAt: Value(update.completedAt?.millisecondsSinceEpoch),
+        updatedAt: Value(_now()),
+      ),
+    );
     return _requireEntry(id);
   }
 
@@ -348,30 +404,62 @@ class MediaRepository {
       status: MediaWatchStatus.fromDb(entry.watchStatus),
       now: now ?? DateTime.now(),
     );
-    await (_database.update(_database.mediaEntries)
-          ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
-        .write(MediaEntriesCompanion(
-      playbackPositionSeconds: Value(update.value),
-      watchStatus: Value(update.status.dbValue),
-      lastWatchedAt: Value(update.lastWatchedAt.millisecondsSinceEpoch),
-      completedAt: Value(update.completedAt?.millisecondsSinceEpoch),
-      updatedAt: Value(_now()),
-    ));
+    await (_database.update(
+      _database.mediaEntries,
+    )..where((row) => row.id.equals(id) & row.deletedAt.isNull())).write(
+      MediaEntriesCompanion(
+        playbackPositionSeconds: Value(update.value),
+        watchStatus: Value(update.status.dbValue),
+        lastWatchedAt: positionSeconds > entry.playbackPositionSeconds
+            ? Value(update.lastWatchedAt.millisecondsSinceEpoch)
+            : const Value.absent(),
+        completedAt: Value(update.completedAt?.millisecondsSinceEpoch),
+        updatedAt: Value(_now()),
+      ),
+    );
     return _requireEntry(id);
   }
 
   Future<MediaEntry> setStatus(String id, MediaWatchStatus status) async {
+    final entry = await _requireEntry(id);
     final now = _now();
-    await (_database.update(_database.mediaEntries)
-          ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
-        .write(MediaEntriesCompanion(
-      watchStatus: Value(status.dbValue),
-      lastWatchedAt: status == MediaWatchStatus.watching
-          ? Value(now)
-          : const Value.absent(),
-      completedAt: Value(status == MediaWatchStatus.completed ? now : null),
-      updatedAt: Value(now),
-    ));
+    var completedEpisodes = entry.completedEpisodes;
+    var playbackPositionSeconds = entry.playbackPositionSeconds;
+    if (status == MediaWatchStatus.completed) {
+      if (MediaEntryType.fromDb(entry.entryType).usesEpisodeProgress) {
+        completedEpisodes = entry.totalEpisodes ?? completedEpisodes;
+      } else {
+        playbackPositionSeconds =
+            entry.durationSeconds ?? playbackPositionSeconds;
+      }
+    }
+    final normalizedStatus = _normalizedStatus(
+      requested: status,
+      progress: MediaEntryType.fromDb(entry.entryType).usesEpisodeProgress
+          ? completedEpisodes
+          : playbackPositionSeconds,
+      total: MediaEntryType.fromDb(entry.entryType).usesEpisodeProgress
+          ? entry.totalEpisodes
+          : entry.durationSeconds,
+    );
+    await (_database.update(
+      _database.mediaEntries,
+    )..where((row) => row.id.equals(id) & row.deletedAt.isNull())).write(
+      MediaEntriesCompanion(
+        watchStatus: Value(normalizedStatus.dbValue),
+        completedEpisodes: Value(completedEpisodes),
+        playbackPositionSeconds: Value(playbackPositionSeconds),
+        lastWatchedAt:
+            normalizedStatus == MediaWatchStatus.watching ||
+                normalizedStatus == MediaWatchStatus.completed
+            ? Value(now)
+            : const Value.absent(),
+        completedAt: Value(
+          normalizedStatus == MediaWatchStatus.completed ? now : null,
+        ),
+        updatedAt: Value(now),
+      ),
+    );
     return _requireEntry(id);
   }
 
@@ -383,12 +471,14 @@ class MediaRepository {
     }
     await _database.transaction(() async {
       for (var index = 0; index < orderedIds.length; index++) {
-        await (_database.update(_database.mediaEntries)
-              ..where((row) => row.id.equals(orderedIds[index])))
-            .write(MediaEntriesCompanion(
-          sortKey: Value((index + 1) * 10.0),
-          updatedAt: Value(_now()),
-        ));
+        await (_database.update(
+          _database.mediaEntries,
+        )..where((row) => row.id.equals(orderedIds[index]))).write(
+          MediaEntriesCompanion(
+            sortKey: Value((index + 1) * 10.0),
+            updatedAt: Value(_now()),
+          ),
+        );
       }
     });
   }
@@ -400,12 +490,14 @@ class MediaRepository {
     final nextId = MediaProgressRules.nextEntryId(
       currentId: current.id,
       entries: entries
-          .map((entry) => MediaSequenceItem(
-                id: entry.id,
-                sortKey: entry.sortKey,
-                completed:
-                    entry.watchStatus == MediaWatchStatus.completed.dbValue,
-              ))
+          .map(
+            (entry) => MediaSequenceItem(
+              id: entry.id,
+              sortKey: entry.sortKey,
+              completed:
+                  entry.watchStatus == MediaWatchStatus.completed.dbValue,
+            ),
+          )
           .toList(),
     );
     return nextId == null ? null : getEntry(nextId);
@@ -415,7 +507,8 @@ class MediaRepository {
     final entries = await listEntries(seriesId: seriesId);
     final completed = entries
         .where(
-            (entry) => entry.watchStatus == MediaWatchStatus.completed.dbValue)
+          (entry) => entry.watchStatus == MediaWatchStatus.completed.dbValue,
+        )
         .length;
     MediaEntry? current;
     for (final entry in entries) {
@@ -444,30 +537,43 @@ class MediaRepository {
   Future<void> deleteSeries(String id, {bool deleteEntries = false}) async {
     final now = _now();
     await _database.transaction(() async {
-      await (_database.update(_database.mediaSeries)
-            ..where((row) => row.id.equals(id)))
-          .write(MediaSeriesCompanion(
-        deletedAt: Value(now),
-        updatedAt: Value(now),
-      ));
+      await (_database.update(
+        _database.mediaSeries,
+      )..where((row) => row.id.equals(id))).write(
+        MediaSeriesCompanion(deletedAt: Value(now), updatedAt: Value(now)),
+      );
       await (_database.update(_database.mediaEntries)
             ..where((row) => row.seriesId.equals(id) & row.deletedAt.isNull()))
-          .write(MediaEntriesCompanion(
-        seriesId: deleteEntries ? const Value.absent() : const Value(null),
-        deletedAt: deleteEntries ? Value(now) : const Value.absent(),
-        updatedAt: Value(now),
-      ));
+          .write(
+            MediaEntriesCompanion(
+              seriesId: deleteEntries
+                  ? const Value.absent()
+                  : const Value(null),
+              deletedAt: deleteEntries ? Value(now) : const Value.absent(),
+              updatedAt: Value(now),
+            ),
+          );
     });
   }
 
   Future<void> deleteEntry(String id) async {
     final now = _now();
-    await (_database.update(_database.mediaEntries)
-          ..where((row) => row.id.equals(id)))
-        .write(MediaEntriesCompanion(
-      deletedAt: Value(now),
-      updatedAt: Value(now),
-    ));
+    await (_database.update(
+      _database.mediaEntries,
+    )..where((row) => row.id.equals(id))).write(
+      MediaEntriesCompanion(deletedAt: Value(now), updatedAt: Value(now)),
+    );
+  }
+
+  Future<void> restoreEntry(String id) async {
+    await (_database.update(
+      _database.mediaEntries,
+    )..where((row) => row.id.equals(id))).write(
+      MediaEntriesCompanion(
+        deletedAt: const Value(null),
+        updatedAt: Value(_now()),
+      ),
+    );
   }
 
   Future<MediaEntry> _requireEntry(String id) async {
@@ -480,10 +586,12 @@ class MediaRepository {
     final max = _database.mediaEntries.sortKey.max();
     final query = _database.selectOnly(_database.mediaEntries)
       ..addColumns([max]);
-    query.where(_database.mediaEntries.deletedAt.isNull() &
-        (seriesId == null
-            ? _database.mediaEntries.seriesId.isNull()
-            : _database.mediaEntries.seriesId.equals(seriesId)));
+    query.where(
+      _database.mediaEntries.deletedAt.isNull() &
+          (seriesId == null
+              ? _database.mediaEntries.seriesId.isNull()
+              : _database.mediaEntries.seriesId.equals(seriesId)),
+    );
     final current = (await query.getSingle()).read(max);
     return current == null ? 10 : current + 10;
   }
@@ -520,6 +628,57 @@ class MediaRepository {
     }
     _validateRating(draft.rating);
   }
+}
+
+class _NormalizedProgress {
+  const _NormalizedProgress({
+    required this.status,
+    required this.completedEpisodes,
+    required this.playbackPositionSeconds,
+  });
+
+  final MediaWatchStatus status;
+  final int completedEpisodes;
+  final int playbackPositionSeconds;
+}
+
+_NormalizedProgress _normalizeProgress(MediaEntryDraft draft) {
+  var completedEpisodes = draft.completedEpisodes;
+  var playbackPositionSeconds = draft.playbackPositionSeconds;
+  final usesEpisodes = draft.entryType.usesEpisodeProgress;
+  if (draft.watchStatus == MediaWatchStatus.completed) {
+    if (usesEpisodes && draft.totalEpisodes != null) {
+      completedEpisodes = draft.totalEpisodes!;
+    } else if (!usesEpisodes && draft.durationSeconds != null) {
+      playbackPositionSeconds = draft.durationSeconds!;
+    }
+  }
+  return _NormalizedProgress(
+    status: _normalizedStatus(
+      requested: draft.watchStatus,
+      progress: usesEpisodes ? completedEpisodes : playbackPositionSeconds,
+      total: usesEpisodes ? draft.totalEpisodes : draft.durationSeconds,
+    ),
+    completedEpisodes: completedEpisodes,
+    playbackPositionSeconds: playbackPositionSeconds,
+  );
+}
+
+MediaWatchStatus _normalizedStatus({
+  required MediaWatchStatus requested,
+  required int progress,
+  required int? total,
+}) {
+  if (total != null && total > 0 && progress >= total) {
+    return MediaWatchStatus.completed;
+  }
+  if (requested == MediaWatchStatus.completed ||
+      requested == MediaWatchStatus.paused ||
+      requested == MediaWatchStatus.dropped ||
+      requested == MediaWatchStatus.watching) {
+    return requested;
+  }
+  return progress > 0 ? MediaWatchStatus.watching : MediaWatchStatus.plan;
 }
 
 int _now() => DateTime.now().toUtc().millisecondsSinceEpoch;

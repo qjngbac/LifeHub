@@ -177,14 +177,43 @@ class CourseRepository {
         .getSingleOrNull();
     if (semester == null) throw StateError('Semester not found.');
     _validatePeriods(periods);
-    final key = 'course.periods.$semesterId';
-    await _database.into(_database.moduleConfigs).insertOnConflictUpdate(
-          ModuleConfigsCompanion.insert(
-            key: key,
-            value:
-                jsonEncode(periods.map((period) => period.toJson()).toList()),
-          ),
+    await _database.transaction(() async {
+      final previousPeriods = await loadPeriods(semesterId);
+      final schedules = await schedulesForSemester(semesterId);
+      final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+      for (final schedule in schedules) {
+        final startIndex = previousPeriods.indexWhere(
+          (period) => period.startMinutes == schedule.startMinutes,
         );
+        final endIndex = previousPeriods.indexWhere(
+          (period) => period.endMinutes == schedule.endMinutes,
+        );
+        if (startIndex < 0 || endIndex < startIndex || endIndex >= periods.length) {
+          continue;
+        }
+        final startMinutes = periods[startIndex].startMinutes;
+        final endMinutes = periods[endIndex].endMinutes;
+        if (startMinutes == schedule.startMinutes && endMinutes == schedule.endMinutes) {
+          continue;
+        }
+        await (_database.update(_database.courseSchedules)
+              ..where((row) => row.id.equals(schedule.id)))
+            .write(CourseSchedulesCompanion(
+          startMinutes: Value(startMinutes),
+          endMinutes: Value(endMinutes),
+          updatedAt: Value(now),
+          version: Value(schedule.version + 1),
+        ));
+        await _log('COURSE_SCHEDULE', schedule.id, operation: 'UPDATE');
+      }
+      final key = 'course.periods.$semesterId';
+      await _database.into(_database.moduleConfigs).insertOnConflictUpdate(
+            ModuleConfigsCompanion.insert(
+              key: key,
+              value: jsonEncode(periods.map((period) => period.toJson()).toList()),
+            ),
+          );
+    });
   }
 
   Future<CourseSaveResult> saveCourseWithSchedule({
@@ -393,6 +422,39 @@ class CourseRepository {
         deletedAt: Value(now),
         updatedAt: Value(now),
       ));
+
+      // Cascade soft-delete materials linked to this course
+      final linkedMaterials = await (_database.select(_database.entityLinks)
+            ..where((row) =>
+                (row.sourceType.equals('COURSE') &
+                    row.sourceId.equals(id) &
+                    row.targetType.equals('SAVED_ITEM')) |
+                (row.targetType.equals('COURSE') &
+                    row.targetId.equals(id) &
+                    row.sourceType.equals('SAVED_ITEM'))))
+          .get();
+      final materialIds = <String>{
+        for (final link in linkedMaterials)
+          link.sourceType == 'SAVED_ITEM' ? link.sourceId : link.targetId,
+      };
+
+      if (materialIds.isNotEmpty) {
+        await (_database.update(_database.savedItems)
+              ..where((row) => row.id.isIn(materialIds)))
+            .write(SavedItemsCompanion(
+          deletedAt: Value(now),
+          updatedAt: Value(now),
+        ));
+      }
+      await (_database.update(_database.savedItems)
+            ..where((row) =>
+                row.associationType.equals('COURSE') &
+                row.associationId.equals(id)))
+          .write(SavedItemsCompanion(
+        deletedAt: Value(now),
+        updatedAt: Value(now),
+      ));
+
       await (_database.update(_database.courses)
             ..where((row) => row.id.equals(id)))
           .write(CoursesCompanion(

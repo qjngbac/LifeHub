@@ -103,9 +103,12 @@ abstract final class MediaProgressRules {
       value: value,
       status: complete
           ? MediaWatchStatus.completed
-          : value > 0 || status == MediaWatchStatus.completed
+          : value > 0
               ? MediaWatchStatus.watching
-              : status,
+              : status == MediaWatchStatus.paused ||
+                      status == MediaWatchStatus.dropped
+                  ? status
+                  : MediaWatchStatus.plan,
       lastWatchedAt: now,
       completedAt: complete ? now : null,
     );
@@ -129,9 +132,12 @@ abstract final class MediaProgressRules {
       value: positionSeconds,
       status: complete
           ? MediaWatchStatus.completed
-          : positionSeconds > 0 || status == MediaWatchStatus.completed
+          : positionSeconds > 0
               ? MediaWatchStatus.watching
-              : status,
+              : status == MediaWatchStatus.paused ||
+                      status == MediaWatchStatus.dropped
+                  ? status
+                  : MediaWatchStatus.plan,
       lastWatchedAt: now,
       completedAt: complete ? now : null,
     );

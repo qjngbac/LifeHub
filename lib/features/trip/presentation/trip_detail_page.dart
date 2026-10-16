@@ -21,6 +21,25 @@ class TripDetailPage extends ConsumerWidget {
       future: repository.overview(tripId),
       builder: (context, snapshot) {
         final value = snapshot.data;
+        if (snapshot.hasError ||
+            (snapshot.connectionState == ConnectionState.done &&
+                (value == null || value.trip.deletedAt != null))) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('旅行详情')),
+            body: Center(
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(snapshot.hasError
+                    ? '加载失败，记录可能不存在或已删除'
+                    : '记录不存在或已删除'),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  onPressed: () => ref.read(refreshProvider.notifier).state++,
+                  icon: const Icon(Icons.refresh), label: const Text('重试'),
+                ),
+              ]),
+            ),
+          );
+        }
         return Scaffold(
           appBar: AppBar(title: Text(value?.project.name ?? '旅行详情')),
           body: value == null
@@ -29,25 +48,71 @@ class TripDetailPage extends ConsumerWidget {
                   padding: const EdgeInsets.all(16),
                   children: [
                     Card(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        side: BorderSide(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .outlineVariant
+                              .withValues(alpha: 0.5),
+                        ),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(children: [
+                              Icon(Icons.calendar_month_outlined,
+                                  size: 20,
+                                  color: Theme.of(context).colorScheme.primary),
+                              const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
                                   '${_date(value.trip.startDate)} - ${_date(value.trip.endDate)}',
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
                               ),
-                              Chip(label: Text(_status(value.trip.status))),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 3),
+                                decoration: BoxDecoration(
+                                  color: (value.trip.status == 'COMPLETED'
+                                          ? Colors.green
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .primary)
+                                      .withValues(alpha: 0.12),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Text(
+                                  _status(value.trip.status),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: value.trip.status == 'COMPLETED'
+                                        ? Colors.green
+                                        : Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                              ),
                             ]),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 10),
                             Text(
-                              '项目聚合 · ${value.tasks.length} 个任务 · '
-                              '${value.events.length} 个日程 · ${value.lists.length} 个清单',
+                              '全景聚合 · ${value.tasks.length} 个任务 · '
+                              '${value.events.length + value.lifeEvents.length} 个日程 · ${value.lists.length} 个清单 · ${value.locations.length} 处地点',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
+                              ),
                             ),
                           ],
                         ),
@@ -298,15 +363,41 @@ class _Section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
+        elevation: 0,
+        margin: const EdgeInsets.only(bottom: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(
+            color: Theme.of(context)
+                .colorScheme
+                .outlineVariant
+                .withValues(alpha: 0.5),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(children: [
-                Icon(icon),
-                const SizedBox(width: 8),
-                Text(title, style: Theme.of(context).textTheme.titleMedium),
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primaryContainer
+                        .withValues(alpha: 0.4),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(icon,
+                      size: 18, color: Theme.of(context).colorScheme.primary),
+                ),
+                const SizedBox(width: 10),
+                Text(title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.bold)),
                 const Spacer(),
                 if (onAdd != null)
                   IconButton(

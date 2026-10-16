@@ -8,6 +8,7 @@ import 'package:lifehub/features/life_records/data/life_event_repository.dart';
 import 'package:lifehub/features/life_records/data/mood_repository.dart';
 import 'package:lifehub/features/life_records/data/relationship_repository.dart';
 import 'package:lifehub/features/life_records/domain/mood_catalog.dart';
+import 'package:lifehub/features/life_records/presentation/anniversary_form_page.dart';
 import 'package:lifehub/shared/ui/keyboard_safe_form_dialog.dart';
 
 Future<MoodDraft?> showMoodRecordDialog(
@@ -114,18 +115,30 @@ Future<LifeEventDraft?> showLifeEventDialog(
     context: context,
     barrierDismissible: false,
     builder: (context) => StatefulBuilder(
-      builder: (context, setState) => AlertDialog(
+      builder: (context, setState) => KeyboardSafeFormDialog(
         title: Text(current == null ? '添加当天事件' : '修改当天事件'),
-        content: SingleChildScrollView(
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 6),
             TextField(
               controller: title,
               autofocus: true,
               maxLength: 500,
-              decoration: const InputDecoration(labelText: '发生了什么'),
+              decoration: InputDecoration(
+                labelText: '发生了什么',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 12,
+                ),
+              ),
             ),
+            const SizedBox(height: 8),
             ListTile(
-              contentPadding: EdgeInsets.zero,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 4),
               leading: const Icon(Icons.schedule_outlined),
               title: Text(time == null ? '不设置具体时间' : time!.format(context)),
               trailing: time == null
@@ -144,11 +157,21 @@ Future<LifeEventDraft?> showLifeEventDialog(
                 if (value != null) setState(() => time = value);
               },
             ),
+            const SizedBox(height: 8),
             TextField(
               controller: note,
               minLines: 2,
               maxLines: 4,
-              decoration: const InputDecoration(labelText: '补充记录（可选）'),
+              decoration: InputDecoration(
+                labelText: '补充记录（可选）',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 12,
+                ),
+              ),
             ),
             if (current != null) ...[
               const SizedBox(height: 12),
@@ -162,7 +185,7 @@ Future<LifeEventDraft?> showLifeEventDialog(
                 padding: EdgeInsets.only(top: 12),
                 child: Text('保存事件后，再次打开即可添加附件。'),
               ),
-          ]),
+          ],
         ),
         actions: [
           TextButton(
@@ -329,77 +352,17 @@ Future<AnniversaryDraft?> showAnniversaryDialog(
   AnniversaryEntry? current,
   String? relationshipId,
   DateTime? initialDate,
-}) async {
-  final title = TextEditingController(text: current?.title ?? '');
-  var date = current == null
-      ? (initialDate ?? DateTime.now())
-      : DateKeys.fromLocalDateKey(current.date);
-  var repeat = current?.repeatYearly ?? true;
-  var showInToday = current?.showInToday ?? true;
-  final result = await showDialog<AnniversaryDraft>(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) => StatefulBuilder(
-      builder: (context, setState) => KeyboardSafeFormDialog(
-        title: Text(current == null ? '添加纪念日' : '修改纪念日'),
-        body: Column(mainAxisSize: MainAxisSize.min, children: [
-          TextField(
-            controller: title,
-            autofocus: true,
-            decoration: const InputDecoration(labelText: '名称'),
-          ),
-          _DateField(
-            label: '日期',
-            date: date,
-            allowClear: false,
-            onChanged: (value) {
-              if (value != null) setState(() => date = value);
-            },
-          ),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('每年重复'),
-            value: repeat,
-            onChanged: (value) => setState(() => repeat = value),
-          ),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('显示在今天'),
-            value: showInToday,
-            onChanged: (value) => setState(() => showInToday = value),
-          ),
-        ]),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('取消'),
-          ),
-          FilledButton(
-            onPressed: () {
-              if (title.text.trim().isEmpty) return;
-              Navigator.pop(
-                context,
-                AnniversaryDraft(
-                  title: title.text,
-                  date: date,
-                  repeatYearly: repeat,
-                  relationshipId: relationshipId ?? current?.relationshipId,
-                  category:
-                      relationshipId != null || current?.relationshipId != null
-                          ? 'RELATIONSHIP'
-                          : 'LIFE',
-                  showInToday: showInToday,
-                ),
-              );
-            },
-            child: const Text('保存'),
-          ),
-        ],
+}) {
+  return Navigator.push<AnniversaryDraft>(
+    context,
+    MaterialPageRoute(
+      builder: (_) => AnniversaryFormPage(
+        current: current,
+        relationshipId: relationshipId,
+        initialDate: initialDate,
       ),
     ),
   );
-  title.dispose();
-  return result;
 }
 
 class _DateField extends StatelessWidget {

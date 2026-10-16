@@ -54,77 +54,266 @@ class _TripsPageState extends ConsumerState<TripsPage> {
               }
               if (trips.isEmpty) {
                 return Center(
-                  child: Text(status == 'PLANNING'
-                      ? '暂无旅行计划'
-                      : status == 'COMPLETED'
-                          ? '还没有完成的旅行'
-                          : '还没有归档的旅行'),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.flight_takeoff_outlined,
+                          size: 56,
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          status == 'PLANNING'
+                              ? '暂无旅行计划'
+                              : status == 'COMPLETED'
+                                  ? '还没有完成的旅行'
+                                  : '还没有归档的旅行',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          '将行前任务、每日行程、随身清单与花费账单全景聚合。',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurfaceVariant,
+                          ),
+                        ),
+                        if (status == 'PLANNING') ...[
+                          const SizedBox(height: 16),
+                          FilledButton.icon(
+                            onPressed: () => _create(context, repository),
+                            icon: const Icon(Icons.add),
+                            label: const Text('开启新旅程'),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
                 );
               }
               return ListView(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 100),
                 children: [
-                  const Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        '旅行是项目聚合：任务、日程、清单和花费仍使用原模块，不重复存储。',
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primaryContainer
+                          .withValues(alpha: 0.25),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withValues(alpha: 0.15),
                       ),
                     ),
-                  ),
-                  ...trips.map((trip) => FutureBuilder<ProjectEntry>(
-                        future: repository.projectFor(trip),
-                        builder: (context, project) => Card(
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              child: Icon(trip.status == 'COMPLETED'
-                                  ? Icons.verified_outlined
-                                  : Icons.luggage_outlined),
-                            ),
-                            title: Text(project.data?.name ?? '旅行计划'),
-                            subtitle: Text(
-                              '${_date(trip.startDate)} - ${_date(trip.endDate)}',
-                            ),
-                            onTap: project.data == null
-                                ? null
-                                : () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) =>
-                                            TripDetailPage(tripId: trip.id),
-                                      ),
-                                    );
-                                    _refresh();
-                                  },
-                            trailing: PopupMenuButton<String>(
-                              itemBuilder: (_) => [
-                                if (trip.status == 'PLANNING')
-                                  const PopupMenuItem(
-                                    value: 'complete',
-                                    child: Text('标记完成'),
-                                  ),
-                                if (trip.status == 'ARCHIVED')
-                                  const PopupMenuItem(
-                                    value: 'restore',
-                                    child: Text('恢复到计划中'),
-                                  )
-                                else
-                                  const PopupMenuItem(
-                                    value: 'archive',
-                                    child: Text('归档'),
-                                  ),
-                                const PopupMenuItem(
-                                  value: 'delete',
-                                  child: Text('删除',
-                                      style: TextStyle(color: Colors.red)),
-                                ),
-                              ],
-                              onSelected: (action) =>
-                                  _tripAction(repository, trip, action),
+                    child: Row(
+                      children: [
+                        Icon(Icons.info_outline,
+                            size: 16,
+                            color: Theme.of(context).colorScheme.primary),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            '旅行是项目聚合：任务、日程、清单和花费深度联动，不重复存储。',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                  ...trips.map((trip) => FutureBuilder<TripOverview>(
+                        future: repository.overview(trip.id),
+                        builder: (context, overviewSnapshot) {
+                          final overview = overviewSnapshot.data;
+                          final projectName = overview?.project.name ?? '旅行计划';
+                          final tasksCount = overview?.tasks.length ?? 0;
+                          final doneTasks = overview?.tasks
+                                  .where((t) => t.status == 'DONE')
+                                  .length ??
+                              0;
+                          final eventsCount = (overview?.events.length ?? 0) +
+                              (overview?.lifeEvents.length ?? 0);
+                          final placesCount = overview?.locations.length ?? 0;
+                          final expensesCount = overview?.expenses.length ?? 0;
+                          final totalDays = DateKeys.fromLocalDateKey(
+                                      trip.endDate)
+                                  .difference(DateKeys.fromLocalDateKey(
+                                      trip.startDate))
+                                  .inDays +
+                              1;
+
+                          return Card(
+                            elevation: 0,
+                            margin: const EdgeInsets.only(bottom: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              side: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant
+                                    .withValues(alpha: 0.5),
+                              ),
+                            ),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(16),
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        TripDetailPage(tripId: trip.id),
+                                  ),
+                                );
+                                _refresh();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            color: (trip.status == 'COMPLETED'
+                                                    ? Colors.green
+                                                    : Colors.teal)
+                                                .withValues(alpha: 0.12),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Icon(
+                                            trip.status == 'COMPLETED'
+                                                ? Icons.verified_outlined
+                                                : Icons.luggage_outlined,
+                                            color: trip.status == 'COMPLETED'
+                                                ? Colors.green
+                                                : Colors.teal,
+                                            size: 22,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                projectName,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(height: 2),
+                                              Text(
+                                                '${_date(trip.startDate)} - ${_date(trip.endDate)} · 共 $totalDays 天',
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurfaceVariant,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        _tripStatusBadge(context, trip),
+                                        PopupMenuButton<String>(
+                                          padding: EdgeInsets.zero,
+                                          iconSize: 20,
+                                          itemBuilder: (_) => [
+                                            if (trip.status == 'PLANNING')
+                                              const PopupMenuItem(
+                                                value: 'complete',
+                                                child: Text('标记完成'),
+                                              ),
+                                            if (trip.status == 'ARCHIVED')
+                                              const PopupMenuItem(
+                                                value: 'restore',
+                                                child: Text('恢复到计划中'),
+                                              )
+                                            else
+                                              const PopupMenuItem(
+                                                value: 'archive',
+                                                child: Text('归档'),
+                                              ),
+                                            const PopupMenuItem(
+                                              value: 'delete',
+                                              child: Text('删除',
+                                                  style: TextStyle(
+                                                      color: Colors.red)),
+                                            ),
+                                          ],
+                                          onSelected: (action) =>
+                                              _tripAction(repository, trip, action),
+                                        ),
+                                      ],
+                                    ),
+                                    if (overview != null &&
+                                        (tasksCount > 0 ||
+                                            eventsCount > 0 ||
+                                            placesCount > 0 ||
+                                            expensesCount > 0)) ...[
+                                      const SizedBox(height: 12),
+                                      Wrap(
+                                        spacing: 8,
+                                        runSpacing: 6,
+                                        children: [
+                                          if (tasksCount > 0)
+                                            _metricPill(
+                                              Icons.check_circle_outline,
+                                              '任务 $doneTasks/$tasksCount',
+                                              doneTasks == tasksCount
+                                                  ? Colors.green
+                                                  : Colors.blue,
+                                            ),
+                                          if (eventsCount > 0)
+                                            _metricPill(
+                                              Icons.calendar_today_outlined,
+                                              '行程 $eventsCount 项',
+                                              Colors.purple,
+                                            ),
+                                          if (placesCount > 0)
+                                            _metricPill(
+                                              Icons.place_outlined,
+                                              '地点 $placesCount 处',
+                                              Colors.orange,
+                                            ),
+                                          if (expensesCount > 0)
+                                            _metricPill(
+                                              Icons.payments_outlined,
+                                              '账单 $expensesCount 笔',
+                                              Colors.teal,
+                                            ),
+                                        ],
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       )),
                 ],
               );
@@ -136,6 +325,81 @@ class _TripsPageState extends ConsumerState<TripsPage> {
   }
 
   void _refresh() => ref.read(refreshProvider.notifier).state++;
+
+  Widget _tripStatusBadge(BuildContext context, TripProfileEntry trip) {
+    if (trip.status == 'COMPLETED') {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+          color: Colors.green.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: const Text('已完成',
+            style: TextStyle(
+                fontSize: 11,
+                color: Colors.green,
+                fontWeight: FontWeight.bold)),
+      );
+    }
+    if (trip.status == 'ARCHIVED') {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+          color: Colors.grey.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: const Text('已归档',
+            style: TextStyle(fontSize: 11, color: Colors.grey)),
+      );
+    }
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final start = DateKeys.fromLocalDateKey(trip.startDate);
+    final end = DateKeys.fromLocalDateKey(trip.endDate);
+
+    if (today.isBefore(start)) {
+      final diff = start.difference(today).inDays;
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+          color: Colors.orange.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Text(
+          diff == 0 ? '今天出发 🛫' : '还有 $diff 天出发',
+          style: const TextStyle(
+              fontSize: 11,
+              color: Colors.deepOrange,
+              fontWeight: FontWeight.bold),
+        ),
+      );
+    } else if (!today.isAfter(end)) {
+      final currentDay = today.difference(start).inDays + 1;
+      final totalDays = end.difference(start).inDays + 1;
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+          color: Colors.teal.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Text(
+          '旅途中 ($currentDay/$totalDays天) 🧳',
+          style: const TextStyle(
+              fontSize: 11, color: Colors.teal, fontWeight: FontWeight.bold),
+        ),
+      );
+    } else {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+          color: Colors.blueGrey.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: const Text('待总结',
+            style: TextStyle(fontSize: 11, color: Colors.blueGrey)),
+      );
+    }
+  }
 
   Future<void> _tripAction(
     TripRepository repository,
@@ -276,3 +540,29 @@ String _templatePreview(String template) => switch (template) {
 
 String _date(int key) =>
     DateFormat('MM月d日').format(DateKeys.fromLocalDateKey(key));
+
+Widget _metricPill(IconData icon, String text, Color color) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+    decoration: BoxDecoration(
+      color: color.withValues(alpha: 0.08),
+      borderRadius: BorderRadius.circular(6),
+      border: Border.all(color: color.withValues(alpha: 0.2)),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 13, color: color),
+        const SizedBox(width: 4),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
+      ],
+    ),
+  );
+}

@@ -7,13 +7,17 @@ import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/core/notifications/notification_ids.dart';
 import 'package:lifehub/core/notifications/notification_action_handler.dart';
 import 'package:lifehub/core/notifications/notification_payload.dart';
+import 'package:lifehub/core/notifications/reminder_operation_queue.dart';
 import 'package:lifehub/core/notifications/v1_9_reminder_rules.dart';
 import 'package:lifehub/core/settings/app_settings.dart';
 import 'package:lifehub/core/time/date_keys.dart';
+import 'package:lifehub/core/time/time_zone_resolver.dart';
 import 'package:lifehub/features/course/data/course_repository.dart';
 import 'package:lifehub/features/event/data/event_repository.dart';
 import 'package:lifehub/features/habit/data/habit_repository.dart';
 import 'package:lifehub/features/habit/domain/habit_rules.dart';
+import 'package:lifehub/features/matches/domain/match_models.dart';
+import 'package:lifehub/features/matches/domain/match_rules.dart';
 import 'package:lifehub/features/reminder/data/reminder_repository.dart';
 import 'package:lifehub/features/task/data/task_repository.dart';
 import 'package:timezone/data/latest.dart' as tz_data;
@@ -27,15 +31,21 @@ void notificationTapBackground(NotificationResponse response) async {
   if (actionId == null || actionId.isEmpty) return;
   final database = AppDatabase();
   try {
-    await NotificationActionHandler(database)
-        .handle(actionId, response.payload);
-    if (actionId == 'SNOOZE_10') {
-      await NotificationService.instance
-          ._rescheduleSnoozed(database, response.payload);
-    }
+    await NotificationService.instance._handleResponse(database, response);
   } finally {
     await database.close();
   }
+}
+
+class _ReminderPlan {
+  const _ReminderPlan(this.row, this.title, this.body, {this.fixed = false});
+  final RemindersCompanion row;
+  final String title;
+  final String body;
+  final bool fixed;
+
+  _ReminderPlan withRow(RemindersCompanion value) =>
+      _ReminderPlan(value, title, body, fixed: fixed);
 }
 
 class NotificationService implements ReminderNotificationBridge {
@@ -65,18 +75,26 @@ class NotificationService implements ReminderNotificationBridge {
         final database = _actionDatabase;
         final actionId = response.actionId;
         if (database == null || actionId == null || actionId.isEmpty) return;
-        await NotificationActionHandler(database).handle(
-          actionId,
-          response.payload,
-        );
-        if (actionId == 'SNOOZE_10') {
-          await _rescheduleSnoozed(database, response.payload);
-        }
+        await _handleResponse(database, response);
       },
       onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
     );
     _initialized = true;
   }
+
+  Future<void> _handleResponse(
+          AppDatabase database, NotificationResponse response) =>
+      ReminderOperationQueue.enqueue(() async {
+        final result = await NotificationActionHandler(database)
+            .handle(response.actionId!, response.payload);
+        if (result != NotificationActionResult.handled) return;
+        if (response.actionId == 'SNOOZE_10') {
+          await _rescheduleSnoozed(database, response.payload);
+        } else if (response.actionId == 'TASK_DONE' ||
+            response.actionId == 'HABIT_DONE') {
+          await rebuildFuture(database);
+        }
+      });
 
   Future<bool> requestPermission() async {
     await initialize();
@@ -161,6 +179,7 @@ class NotificationService implements ReminderNotificationBridge {
       title: title,
       body: '稍后提醒',
       trigger: trigger,
+      fixed: reminder.entityType == 'MATCH',
     );
   }
 
@@ -172,6 +191,7 @@ class NotificationService implements ReminderNotificationBridge {
     final parsed = NotificationPayload.parse(payload);
     if (parsed == null) return;
     final type = parsed.type;
+    if (type == 'MATCH') return;
     final entityId = parsed.entityId;
     final reminder = await (database.select(database.reminders)
           ..where((row) {
@@ -215,14 +235,17 @@ class NotificationService implements ReminderNotificationBridge {
     );
   }
 
-  Future<int> rebuildFuture(AppDatabase database) async {
+  Future<int> rebuildFuture(AppDatabase database) =>
+      ReminderOperationQueue.run(() => _rebuildFuture(database));
+
+  Future<int> _rebuildFuture(AppDatabase database) async {
     await initialize();
     await _loadPrivacyMode();
     final previous = await database.select(database.reminders).get();
     final previousByNotificationId = {
       for (final reminder in previous) reminder.notificationId: reminder,
     };
-    final replacements = <RemindersCompanion>[];
+    final replacements = <_ReminderPlan>[];
     final now = DateTime.now();
     final horizon = now.add(const Duration(days: 60));
     var count = 0;
@@ -309,8 +332,13 @@ class NotificationService implements ReminderNotificationBridge {
               row.localDate.isBetweenValues(startDateKey, endDateKey) &
               row.value.isBiggerThanValue(0)))
         .get();
-    final completedDates =
-        completedLogs.map((row) => '${row.habitId}:${row.localDate}').toSet();
+    final habitsById = {for (final habit in habits) habit.id: habit};
+    final completedDates = completedLogs
+        .where((row) =>
+            row.value >=
+            (habitsById[row.habitId]?.targetCount ?? double.infinity))
+        .map((row) => '${row.habitId}:${row.localDate}')
+        .toSet();
     for (final habit in habits) {
       final parts = habit.reminderPolicy?.split(':');
       if (parts == null || parts.length != 2) continue;
@@ -356,7 +384,7 @@ class NotificationService implements ReminderNotificationBridge {
         .map((row) => '${row.planId}:${row.localDate}:${row.timeMinutes}')
         .toSet();
     for (final plan in medicationPlans) {
-      final rawTimes = jsonDecode(plan.reminderTimesJson) as List<dynamic>;
+      final rawTimes = _jsonList(plan.reminderTimesJson);
       for (var offset = 0; offset < 14; offset++) {
         final date = DateTime(now.year, now.month, now.day + offset);
         final dateKey = DateKeys.toLocalDateKey(date);
@@ -364,7 +392,7 @@ class NotificationService implements ReminderNotificationBridge {
             (plan.endDate != null && dateKey > plan.endDate!)) {
           continue;
         }
-        for (final raw in rawTimes.cast<String>()) {
+        for (final raw in rawTimes.whereType<String>()) {
           final parts = raw.split(':');
           if (parts.length != 2) continue;
           final minutes =
@@ -372,6 +400,8 @@ class NotificationService implements ReminderNotificationBridge {
                   ? null
                   : int.parse(parts[0]) * 60 + int.parse(parts[1]);
           if (minutes == null ||
+              minutes < 0 ||
+              minutes >= 24 * 60 ||
               medicationCheckIns.contains('${plan.id}:$dateKey:$minutes')) {
             continue;
           }
@@ -404,10 +434,11 @@ class NotificationService implements ReminderNotificationBridge {
     for (final subscription in subscriptions) {
       List<int> reminderDays;
       try {
-        reminderDays = (jsonDecode(subscription.reminderDaysJson) as List)
-            .whereType<num>()
-            .map((value) => value.toInt())
-            .toList();
+        reminderDays =
+            _jsonList(subscription.reminderDaysJson, fallback: const [7, 3, 1])
+                .whereType<num>()
+                .map((value) => value.toInt())
+                .toList();
       } on FormatException {
         reminderDays = const [7, 3, 1];
       }
@@ -530,43 +561,182 @@ class NotificationService implements ReminderNotificationBridge {
       );
       count++;
     }
+    await database.customStatement(
+      'UPDATE match_records SET status = ? '
+      'WHERE deleted_at IS NULL AND status = ? AND start_at IS NOT NULL '
+      'AND start_at <= ?',
+      [
+        MatchStatuses.pendingResult,
+        MatchStatuses.scheduled,
+        now.toUtc().millisecondsSinceEpoch,
+      ],
+    );
+    final matches = await (database.select(database.matchRecords)
+          ..where((row) =>
+              row.deletedAt.isNull() &
+              row.status.equals(MatchStatuses.scheduled) &
+              row.startAt.isNotNull()))
+        .get();
+    for (final match in matches) {
+      final start = DateTime.fromMillisecondsSinceEpoch(
+        match.startAt!,
+        isUtc: true,
+      );
+      if (!start.isAfter(now) || !start.isBefore(horizon)) continue;
+      final localStart = TimeZoneResolver.atInstant(start, match.timezoneId!);
+      final title = '${match.sportType} · ${match.competition}：'
+          '${match.participantA} vs ${match.participantB}';
+      final body = '${localStart.month}月${localStart.day}日 '
+          '${localStart.hour.toString().padLeft(2, '0')}:'
+          '${localStart.minute.toString().padLeft(2, '0')} 开赛';
+      for (final trigger in MatchRules.computeReminderTriggers(start, now)) {
+        await _schedule(
+          replacements,
+          'MATCH',
+          match.id,
+          title,
+          body,
+          trigger.triggerAt,
+          previousByNotificationId,
+          kind: trigger.kind,
+          fixed: true,
+        );
+        count++;
+      }
+    }
     for (final reminder in previousByNotificationId.values) {
       if (!reminder.enabled ||
           !_isSnoozed(reminder) ||
           reminder.triggerAt <= now.toUtc().millisecondsSinceEpoch ||
-          !await _entityStillExists(database, reminder)) {
+          !await _entityStillExists(
+              database, reminder.entityType, reminder.entityId)) {
         continue;
       }
-      final trigger = DateTime.fromMillisecondsSinceEpoch(
-        reminder.triggerAt,
-        isUtc: true,
-      ).toLocal();
-      await _schedulePlugin(
-        id: reminder.notificationId,
-        type: reminder.entityType,
-        entityId: reminder.entityId,
-        title: 'LifeHub 稍后提醒',
-        body: '你稍后的提醒已保留',
-        trigger: trigger,
-      );
-      replacements.add(_existingReminderCompanion(reminder));
+      replacements.add(_ReminderPlan(
+          _existingReminderCompanion(reminder), 'LifeHub 稍后提醒', '你稍后的提醒已保留'));
     }
-    final newIds = replacements
-        .map((row) => row.notificationId.value)
-        .whereType<int>()
-        .toSet();
-    for (final reminder in previous) {
-      if (!newIds.contains(reminder.notificationId)) {
-        await _plugin.cancel(id: reminder.notificationId);
-      }
+    final removedIds = await _commitPlans(database, previous, replacements);
+    for (final id in removedIds) {
+      await _synchronizePlan(database, id);
     }
-    await database.transaction(() async {
-      await database.delete(database.reminders).go();
-      for (final reminder in replacements) {
-        await database.into(database.reminders).insert(reminder);
-      }
-    });
+    for (final plan in replacements) {
+      await _synchronizePlan(database, plan.row.notificationId.value,
+          plan: plan);
+    }
     return count;
+  }
+
+  // Keep the database lock short: native scheduling happens after the commit.
+  // A second Flutter isolate may have changed a reminder since planning began.
+  Future<Set<int>> _commitPlans(AppDatabase database,
+          List<ReminderEntry> previous, List<_ReminderPlan> plans) =>
+      database.transaction(() async {
+        final latest = await database.select(database.reminders).get();
+        final originalById = {
+          for (final row in previous) row.notificationId: row
+        };
+        final latestById = {for (final row in latest) row.notificationId: row};
+        final plannedIds = <int>{};
+        final activeEntities = <(String, String), bool>{};
+        for (var index = 0; index < plans.length; index++) {
+          final plan = plans[index];
+          final id = plan.row.notificationId.value;
+          final current = latestById[id];
+          final original = originalById[id];
+          final entity = (plan.row.entityType.value, plan.row.entityId.value);
+          final active = activeEntities[entity] ??=
+              await _entityStillExists(database, entity.$1, entity.$2);
+          if (!active || (original != null && current == null)) {
+            plans.removeAt(index--);
+            continue;
+          }
+          plannedIds.add(id);
+          if (current != null &&
+              (original == null || !_sameSchedulingState(current, original))) {
+            plans[index] = plan.withRow(_existingReminderCompanion(current));
+          }
+        }
+        for (final current in latest) {
+          if (plannedIds.contains(current.notificationId)) continue;
+          final original = originalById[current.notificationId];
+          if ((original == null || !_sameSchedulingState(current, original)) &&
+              await _entityStillExists(
+                  database, current.entityType, current.entityId)) {
+            plans.add(_ReminderPlan(_existingReminderCompanion(current),
+                'LifeHub 提醒', '打开 LifeHub 查看详情',
+                fixed: current.entityType == 'MATCH'));
+            plannedIds.add(current.notificationId);
+          }
+        }
+        await database.delete(database.reminders).go();
+        for (final plan in plans) {
+          await database.into(database.reminders).insert(plan.row);
+        }
+        return {...originalById.keys, ...latestById.keys}
+            .where((id) => !plannedIds.contains(id))
+            .toSet();
+      });
+
+  Future<void> _synchronizePlan(AppDatabase database, int id,
+      {_ReminderPlan? plan}) async {
+    while (true) {
+      final current = await (database.select(database.reminders)
+            ..where((row) => row.notificationId.equals(id)))
+          .getSingleOrNull();
+      try {
+        if (current == null ||
+            current.deletedAt != null ||
+            !current.enabled ||
+            current.triggerAt <=
+                DateTime.now().toUtc().millisecondsSinceEpoch) {
+          await _plugin.cancel(id: id);
+        } else {
+          await _schedulePlugin(
+            id: id,
+            type: current.entityType,
+            entityId: current.entityId,
+            title: plan?.title ?? 'LifeHub 提醒',
+            body: plan?.body ?? '打开 LifeHub 查看详情',
+            trigger: DateTime.fromMillisecondsSinceEpoch(current.triggerAt,
+                isUtc: true),
+            fixed: plan?.fixed ?? current.entityType == 'MATCH',
+          );
+        }
+      } catch (error, stackTrace) {
+        // Retain the row so a later background rebuild can retry this alarm.
+        debugPrint('Reminder $id scheduling failed: $error\n$stackTrace');
+        return;
+      }
+      final latest = await (database.select(database.reminders)
+            ..where((row) => row.notificationId.equals(id)))
+          .getSingleOrNull();
+      if (current == null && latest == null) return;
+      if (current != null &&
+          latest != null &&
+          _sameSchedulingState(current, latest)) {
+        return;
+      }
+    }
+  }
+
+  bool _sameSchedulingState(ReminderEntry a, ReminderEntry b) =>
+      a.id == b.id &&
+      a.version == b.version &&
+      a.updatedAt == b.updatedAt &&
+      a.triggerAt == b.triggerAt &&
+      a.enabled == b.enabled &&
+      a.deletedAt == b.deletedAt &&
+      a.metadata == b.metadata;
+
+  List<dynamic> _jsonList(String value, {List<dynamic> fallback = const []}) {
+    try {
+      final decoded = jsonDecode(value);
+      if (decoded is List) return decoded;
+    } on FormatException {
+      // Invalid configuration affects this source only.
+    }
+    debugPrint('Skipping invalid reminder list configuration');
+    return fallback;
   }
 
   SimpleSelectStatement<$TasksTable, TaskEntry> _activeTasks(
@@ -582,7 +752,7 @@ class NotificationService implements ReminderNotificationBridge {
             ]));
 
   Future<void> _schedule(
-    List<RemindersCompanion> replacements,
+    List<_ReminderPlan> replacements,
     String type,
     String entityId,
     String title,
@@ -590,75 +760,49 @@ class NotificationService implements ReminderNotificationBridge {
     DateTime trigger,
     Map<int, ReminderEntry> previousByNotificationId, {
     String kind = 'DEFAULT',
+    bool fixed = false,
   }) async {
     final milliseconds = trigger.toUtc().millisecondsSinceEpoch;
     final idType = kind == 'DEFAULT' ? type : '${type}_$kind';
     final id = NotificationIds.forOccurrence(idType, entityId, milliseconds);
     final previous = previousByNotificationId.remove(id);
-    final enabled = previous?.enabled ?? true;
-    final effectiveMilliseconds = previous != null && _isSnoozed(previous)
-        ? previous.triggerAt
-        : milliseconds;
-    final effectiveTrigger = DateTime.fromMillisecondsSinceEpoch(
-      effectiveMilliseconds,
-      isUtc: true,
-    ).toLocal();
-    final primaryActions = switch (type) {
-      'TASK' => const [
-          AndroidNotificationAction('TASK_DONE', '完成'),
-        ],
-      'HABIT' => const [
-          AndroidNotificationAction('HABIT_DONE', '打卡'),
-        ],
-      _ => const <AndroidNotificationAction>[],
-    };
-    final actions = [
-      ...primaryActions,
-      const AndroidNotificationAction('SNOOZE_10', '稍后 10 分钟'),
-    ];
-    if (enabled) {
-      await _plugin.zonedSchedule(
-        id: id,
-        title: _privacyMode ? 'LifeHub 提醒' : title,
-        body: _privacyMode ? '打开 LifeHub 查看详情' : body,
-        scheduledDate: tz.TZDateTime.from(effectiveTrigger, tz.local),
-        notificationDetails: NotificationDetails(
-          android: AndroidNotificationDetails(
-            'lifehub_reminders',
-            'LifeHub 提醒',
-            channelDescription: '任务、日程与课程提醒',
-            importance: Importance.high,
-            priority: Priority.high,
-            actions: actions,
-          ),
-        ),
-        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        payload: NotificationPayload(
-          type: type,
-          entityId: entityId,
-          notificationId: id,
-        ).encode(),
-      );
-    } else {
-      await _plugin.cancel(id: id);
+    final enabled = fixed ? true : (previous?.enabled ?? true);
+    final snoozed = !fixed && previous != null && _isSnoozed(previous);
+    final retainSnooze = snoozed &&
+        previous.triggerAt > DateTime.now().toUtc().millisecondsSinceEpoch;
+    final effectiveMilliseconds =
+        retainSnooze ? previous.triggerAt : milliseconds;
+    String? metadata = previous?.metadata;
+    if (snoozed && !retainSnooze) {
+      final decoded = jsonDecode(metadata!) as Map<String, dynamic>;
+      decoded.remove('snoozed');
+      metadata = jsonEncode(decoded);
     }
-    replacements.add(RemindersCompanion.insert(
-      id: previous == null ? const Value.absent() : Value(previous.id),
-      entityType: type,
-      entityId: entityId,
-      triggerAt: effectiveMilliseconds,
-      notificationId: id,
-      enabled: Value(enabled),
-      reminderKind: Value(kind),
-      createdAt:
-          previous == null ? const Value.absent() : Value(previous.createdAt),
-      updatedAt:
-          previous == null ? const Value.absent() : Value(previous.updatedAt),
-      version:
-          previous == null ? const Value.absent() : Value(previous.version),
-      metadata:
-          previous == null ? const Value.absent() : Value(previous.metadata),
-    ));
+    replacements.add(_ReminderPlan(
+        RemindersCompanion.insert(
+          id: previous == null ? const Value.absent() : Value(previous.id),
+          entityType: type,
+          entityId: entityId,
+          triggerAt: effectiveMilliseconds,
+          notificationId: id,
+          enabled: Value(enabled),
+          reminderKind: Value(kind),
+          createdAt: previous == null
+              ? const Value.absent()
+              : Value(previous.createdAt),
+          updatedAt: previous == null
+              ? const Value.absent()
+              : Value(snoozed && !retainSnooze
+                  ? DateTime.now().toUtc().millisecondsSinceEpoch
+                  : previous.updatedAt),
+          version: previous == null
+              ? const Value.absent()
+              : Value(previous.version + (snoozed && !retainSnooze ? 1 : 0)),
+          metadata: metadata == null ? const Value.absent() : Value(metadata),
+        ),
+        title,
+        body,
+        fixed: fixed));
   }
 
   bool _isSnoozed(ReminderEntry reminder) {
@@ -694,18 +838,19 @@ class NotificationService implements ReminderNotificationBridge {
 
   Future<bool> _entityStillExists(
     AppDatabase database,
-    ReminderEntry reminder,
+    String entityType,
+    String entityId,
   ) async {
-    switch (reminder.entityType) {
+    switch (entityType) {
       case 'TASK':
         return await (_activeTasks(database)
-                  ..where((row) => row.id.equals(reminder.entityId)))
+                  ..where((row) => row.id.equals(entityId)))
                 .getSingleOrNull() !=
             null;
       case 'EVENT':
         return await (database.select(database.events)
                   ..where((row) =>
-                      row.id.equals(reminder.entityId) &
+                      row.id.equals(entityId) &
                       row.deletedAt.isNull() &
                       row.archived.equals(false)))
                 .getSingleOrNull() !=
@@ -713,14 +858,13 @@ class NotificationService implements ReminderNotificationBridge {
       case 'COURSE':
         return await (database.select(database.courses)
                   ..where((row) =>
-                      row.id.equals(reminder.entityId) &
-                      row.deletedAt.isNull()))
+                      row.id.equals(entityId) & row.deletedAt.isNull()))
                 .getSingleOrNull() !=
             null;
       case 'HABIT':
         return await (database.select(database.habits)
                   ..where((row) =>
-                      row.id.equals(reminder.entityId) &
+                      row.id.equals(entityId) &
                       row.deletedAt.isNull() &
                       row.active.equals(true)))
                 .getSingleOrNull() !=
@@ -728,7 +872,7 @@ class NotificationService implements ReminderNotificationBridge {
       case 'MEDICATION':
         return await (database.select(database.medicationPlans)
                   ..where((row) =>
-                      row.id.equals(reminder.entityId) &
+                      row.id.equals(entityId) &
                       row.deletedAt.isNull() &
                       row.active.equals(true)))
                 .getSingleOrNull() !=
@@ -736,7 +880,7 @@ class NotificationService implements ReminderNotificationBridge {
       case 'SUBSCRIPTION':
         return await (database.select(database.subscriptions)
                   ..where((row) =>
-                      row.id.equals(reminder.entityId) &
+                      row.id.equals(entityId) &
                       row.deletedAt.isNull() &
                       row.status.equals('ACTIVE')))
                 .getSingleOrNull() !=
@@ -744,7 +888,7 @@ class NotificationService implements ReminderNotificationBridge {
       case 'HOUSEHOLD':
         return await (database.select(database.householdItems)
                   ..where((row) =>
-                      row.id.equals(reminder.entityId) &
+                      row.id.equals(entityId) &
                       row.deletedAt.isNull() &
                       row.status.equals('ARCHIVED').not()))
                 .getSingleOrNull() !=
@@ -752,7 +896,7 @@ class NotificationService implements ReminderNotificationBridge {
       case 'MAINTENANCE':
         return await (database.select(database.maintenancePlans)
                   ..where((row) =>
-                      row.id.equals(reminder.entityId) &
+                      row.id.equals(entityId) &
                       row.deletedAt.isNull() &
                       row.active.equals(true)))
                 .getSingleOrNull() !=
@@ -760,7 +904,7 @@ class NotificationService implements ReminderNotificationBridge {
       case 'PARCEL':
         return await (database.select(database.parcels)
                   ..where((row) =>
-                      row.id.equals(reminder.entityId) &
+                      row.id.equals(entityId) &
                       row.deletedAt.isNull() &
                       row.status.equals('READY')))
                 .getSingleOrNull() !=
@@ -768,11 +912,22 @@ class NotificationService implements ReminderNotificationBridge {
       case 'CREDENTIAL':
         return await (database.select(database.credentialRecords)
                   ..where((row) =>
-                      row.id.equals(reminder.entityId) &
+                      row.id.equals(entityId) &
                       row.deletedAt.isNull() &
                       row.status.equals('ACTIVE') &
                       row.reminderDays.isBiggerOrEqualValue(0) &
                       row.expiryDate.isNotNull()))
+                .getSingleOrNull() !=
+            null;
+      case 'MATCH':
+        return await (database.select(database.matchRecords)
+                  ..where((row) =>
+                      row.id.equals(entityId) &
+                      row.deletedAt.isNull() &
+                      row.status.equals(MatchStatuses.scheduled) &
+                      row.startAt.isNotNull() &
+                      row.startAt.isBiggerThanValue(
+                          DateTime.now().toUtc().millisecondsSinceEpoch)))
                 .getSingleOrNull() !=
             null;
       default:
@@ -787,6 +942,7 @@ class NotificationService implements ReminderNotificationBridge {
     required String title,
     required String body,
     required DateTime trigger,
+    bool fixed = false,
   }) async {
     final primaryActions = switch (type) {
       'TASK' => const [
@@ -809,13 +965,15 @@ class NotificationService implements ReminderNotificationBridge {
           channelDescription: '任务、日程与课程提醒',
           importance: Importance.high,
           priority: Priority.high,
-          actions: [
-            ...primaryActions,
-            const AndroidNotificationAction(
-              'SNOOZE_10',
-              '稍后 10 分钟',
-            ),
-          ],
+          actions: fixed
+              ? primaryActions
+              : [
+                  ...primaryActions,
+                  const AndroidNotificationAction(
+                    'SNOOZE_10',
+                    '稍后 10 分钟',
+                  ),
+                ],
         ),
       ),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,

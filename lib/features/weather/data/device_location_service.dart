@@ -51,7 +51,7 @@ class DeviceLocationService {
         accuracy: LocationAccuracy.medium,
         timeLimit: Duration(seconds: 12),
       ),
-    ).onError((_, __) {
+    ).onError((_, _) {
       if (last != null) return last;
       throw const DeviceLocationException(
           DeviceLocationFailure.serviceDisabled);

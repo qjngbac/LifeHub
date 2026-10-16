@@ -24,7 +24,9 @@ class ParcelDraft {
     this.pickupDeadline,
     this.locationId,
     this.notes,
-    this.sensitive = true,
+    // 快递取件是日常流水信息，默认不标私密：界面上没有二级密码门禁，
+    // 标了反而会让备份/同步类逻辑把它当敏感数据处理。
+    this.sensitive = false,
   });
 
   final String title;
@@ -52,6 +54,10 @@ class ParcelRepository {
         draft.pickupDeadline!.isBefore(draft.arrivedAt!)) {
       throw ArgumentError('Pickup deadline cannot be before arrival.');
     }
+    final int? calculatedArrival = draft.arrivedAt?.millisecondsSinceEpoch ??
+        (draft.status == ParcelStatus.ready
+            ? DateTime.now().millisecondsSinceEpoch
+            : null);
     return _database.into(_database.parcels).insertReturning(
           ParcelsCompanion.insert(
             title: title,
@@ -60,7 +66,7 @@ class ParcelRepository {
             pickupCode: Value(_optional(draft.pickupCode)),
             status: Value(draft.status.dbValue),
             expectedAt: Value(draft.expectedAt?.millisecondsSinceEpoch),
-            arrivedAt: Value(draft.arrivedAt?.millisecondsSinceEpoch),
+            arrivedAt: Value(calculatedArrival),
             pickupDeadline: Value(draft.pickupDeadline?.millisecondsSinceEpoch),
             locationId: Value(draft.locationId),
             notes: Value(_optional(draft.notes)),
@@ -129,8 +135,26 @@ class ParcelRepository {
       ParcelStatus.ready => ParcelStatus.collected,
       _ => current,
     };
-    return _setStatus(id, next, at: at);
+    final now = (at ?? DateTime.now()).millisecondsSinceEpoch;
+    // 到达取件点时补记 arrivedAt（此前该字段从不写入，
+    // 导致"到柜多久没取"算不出来，取件倒计时也失去基准）
+    final Value<int?> arrivedAt =
+        next == ParcelStatus.ready && row.arrivedAt == null
+            ? Value<int?>(now)
+            : const Value<int?>.absent();
+    await (_database.update(_database.parcels)
+          ..where((item) => item.id.equals(id)))
+        .write(ParcelsCompanion(
+      status: Value(next.dbValue),
+      arrivedAt: arrivedAt,
+      updatedAt: Value(now),
+      version: Value(row.version + 1),
+    ));
+    return get(id);
   }
+
+  Future<ParcelEntry> markReturned(String id, {DateTime? at}) =>
+      _setStatus(id, ParcelStatus.returned, at: at);
 
   Future<List<ParcelEntry>> pendingPickup() => (_database
           .select(_database.parcels)
@@ -138,23 +162,35 @@ class ParcelRepository {
         ..orderBy([(row) => OrderingTerm.asc(row.pickupDeadline)]))
       .get();
 
+  /// 检索：标题、快递公司、单号、取件码之外，**也覆盖物品信息**。
+  ///
+  /// 用户常把"顺丰到付 3 件"这类信息写在物品信息里，此前完全搜不到。
   Future<List<ParcelEntry>> search(String query) {
     final value = query.trim();
     if (value.isEmpty) return list();
-    final pattern = '%${value.replaceAll('%', r'\%').replaceAll('_', r'\_')}%';
+    final pattern =
+        '%${value.replaceAll(r'\', r'\\').replaceAll('%', r'\%').replaceAll('_', r'\_')}%';
     return (_database.select(_database.parcels)
           ..where((row) =>
               row.deletedAt.isNull() &
-              (row.title.like(pattern) |
-                  row.carrier.like(pattern) |
-                  row.trackingNumber.like(pattern) |
-                  row.pickupCode.like(pattern)))
+              (row.title.like(pattern, escapeChar: r'\') |
+                  row.carrier.like(pattern, escapeChar: r'\') |
+                  row.trackingNumber.like(pattern, escapeChar: r'\') |
+                  row.pickupCode.like(pattern, escapeChar: r'\') |
+                  row.notes.like(pattern, escapeChar: r'\')))
           ..orderBy([(row) => OrderingTerm.desc(row.updatedAt)]))
         .get();
   }
 
   Future<ParcelEntry> markCollected(String id, {DateTime? at}) =>
       _setStatus(id, ParcelStatus.collected, at: at);
+
+  Future<void> markAllCollected({DateTime? at}) async {
+    final items = await pendingPickup();
+    for (final item in items) {
+      await markCollected(item.id, at: at);
+    }
+  }
 
   Future<ParcelEntry> archive(String id) =>
       _setStatus(id, ParcelStatus.archived);

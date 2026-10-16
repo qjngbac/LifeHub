@@ -31,6 +31,8 @@ coverage/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.*
+!.env.example
 android/key.properties
 android/app/*.jks
 android/app/*.keystore
@@ -57,3 +59,31 @@ lib/generated/
 /android/.gradle/
 /android/.kotlin/
 *.iml
+
+# Local assistant state, machine-specific instructions and internal notes.
+/.superpowers/
+/AGENTS.md
+/AI_HANDOVER.md
+/LifeHub_版本差异与融合优化清单.md
+
+# Deliver APKs through Releases; keep runtime data and exports out of source Git.
+*.apk
+*.aab
+*.apks
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite3
+/backups/
+/exports/
+/attachments/
+/tmp/
+/temp/
+/*.zip
+/*.7z
+/*.rar
+*.hprof
+*.dmp

@@ -16,6 +16,19 @@ extension FirstAidRiskUi on FirstAidRisk {
       };
 }
 
+class FirstAidSource {
+  const FirstAidSource({required this.title, required this.url});
+
+  factory FirstAidSource.fromJson(Map<String, dynamic> json) =>
+      FirstAidSource(
+        title: json['title'] as String? ?? '',
+        url: json['url'] as String? ?? '',
+      );
+
+  final String title;
+  final String url;
+}
+
 class FirstAidScene {
   const FirstAidScene({
     required this.id,
@@ -94,14 +107,38 @@ class FirstAidKnowledge {
   const FirstAidKnowledge({
     required this.notice,
     required this.reviewedAt,
+    required this.sources,
     required this.scenes,
     required this.items,
   });
 
   final String notice;
   final String reviewedAt;
+  final List<FirstAidSource> sources;
   final List<FirstAidScene> scenes;
   final List<FirstAidItem> items;
+
+  FirstAidScene? sceneById(String id) {
+    for (final scene in scenes) {
+      if (scene.id == id) return scene;
+    }
+    return null;
+  }
+
+  /// 场景在列表里的展示顺序（按 rank），用于把搜索结果也按场景归类排序。
+  int sceneRank(String sceneId) => sceneById(sceneId)?.rank ?? 1 << 20;
+
+  Map<FirstAidRisk, int> get riskCounts {
+    final counts = <FirstAidRisk, int>{
+      FirstAidRisk.emergency: 0,
+      FirstAidRisk.high: 0,
+      FirstAidRisk.routine: 0,
+    };
+    for (final item in items) {
+      counts[item.risk] = (counts[item.risk] ?? 0) + 1;
+    }
+    return counts;
+  }
 }
 
 Color _hexColor(String value) {

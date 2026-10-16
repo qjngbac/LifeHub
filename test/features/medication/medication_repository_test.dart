@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifehub/core/database/app_database.dart';
@@ -83,5 +84,42 @@ void main() {
     );
     expect(card.birthDate, 20030225);
     expect(card.notes, '紧急情况下联系家人');
+  });
+
+  test('normal check-ins require an active plan within its inclusive date range',
+      () async {
+    final plan = await repository.createPlan(MedicationPlanDraft(
+      name: 'plan', startDate: DateTime(2026, 8, 10),
+      endDate: DateTime(2026, 8, 12), reminderTimes: const ['08:00'],
+    ));
+    for (final date in [DateTime(2026, 8, 9), DateTime(2026, 8, 13)]) {
+      await expectLater(repository.checkIn(plan.id, date, 480), throwsStateError);
+    }
+    await repository.checkIn(plan.id, DateTime(2026, 8, 10), 480);
+    await repository.checkIn(plan.id, DateTime(2026, 8, 12), 480);
+    await repository.updatePlan(plan.id, MedicationPlanDraft(
+      name: 'plan', startDate: DateTime(2026, 8, 10),
+      endDate: DateTime(2026, 8, 12), reminderTimes: const ['08:00'], active: false,
+    ));
+    await expectLater(repository.checkIn(plan.id, DateTime(2026, 8, 11), 480),
+        throwsStateError);
+    await expectLater(repository.checkIn(plan.id, DateTime(2026, 8, 10), 480),
+        throwsStateError);
+    expect(await database.select(database.medicationLogs).get(), hasLength(2));
+  });
+
+  test('checking in after a canceled log restores the same slot', () async {
+    final plan = await repository.createPlan(MedicationPlanDraft(
+      name: 'plan', startDate: DateTime(2026, 8, 1), reminderTimes: const ['08:00'],
+    ));
+    final log = await repository.checkIn(plan.id, DateTime(2026, 8, 12), 480);
+    await (database.update(database.medicationLogs)
+          ..where((row) => row.id.equals(log.id)))
+        .write(const MedicationLogsCompanion(deletedAt: Value(1)));
+    final restored = await repository.checkIn(plan.id, DateTime(2026, 8, 12), 480);
+    expect(restored.id, log.id);
+    expect(restored.deletedAt, isNull);
+    expect(restored.status, 'TAKEN');
+    expect(await database.select(database.medicationLogs).get(), hasLength(1));
   });
 }

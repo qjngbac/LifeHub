@@ -223,92 +223,277 @@ class RelationRepository {
     }
   }
 
-  Future<List<RelatedEntity>> candidates({String query = ''}) async {
-    final keyword = query.trim().toLowerCase();
-    final result = <RelatedEntity>[];
-    Future<void> add(EntityReference ref) async {
-      final value = await resolveEntity(ref);
-      if (value != null &&
-          (keyword.isEmpty || value.title.toLowerCase().contains(keyword))) {
-        result.add(value);
+  Future<RelationOverviewStats> getOverviewStats() async {
+    final links = await (_database.select(_database.entityLinks)
+          ..where((row) => row.deletedAt.isNull()))
+        .get();
+    final counts = <String, (EntityReference, int)>{};
+    for (final row in links) {
+      final source = EntityReference(type: row.sourceType, id: row.sourceId);
+      final target = EntityReference(type: row.targetType, id: row.targetId);
+      counts[source.key] = (source, (counts[source.key]?.$2 ?? 0) + 1);
+      counts[target.key] = (target, (counts[target.key]?.$2 ?? 0) + 1);
+    }
+    final sorted = counts.values.toList()
+      ..sort((a, b) => b.$2.compareTo(a.$2));
+    final topHubs = <HubItem>[];
+    for (final item in sorted.take(3)) {
+      final entity = await resolveEntity(item.$1);
+      if (entity != null) {
+        topHubs.add(HubItem(entity: entity, count: item.$2));
       }
     }
+    return RelationOverviewStats(
+      totalLinks: links.length,
+      linkedEntitiesCount: counts.length,
+      topHubs: topHubs,
+    );
+  }
 
-    for (final row in await (_database.select(_database.tasks)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'TASK', id: row.id));
+  Future<List<RelatedEntity>> candidates({
+    String query = '',
+    String? type,
+  }) async {
+    final keyword = query.trim().toLowerCase();
+    final targetType = type?.toUpperCase();
+    final escaped = keyword
+        .replaceAll(r'\', r'\\')
+        .replaceAll('%', r'\%')
+        .replaceAll('_', r'\_');
+    final pattern = '%$escaped%';
+    final result = <RelatedEntity>[];
+    void add(String t, String id, String title) {
+      result.add(
+        RelatedEntity(
+          reference: EntityReference(type: t, id: id),
+          title: title,
+        ),
+      );
     }
-    for (final row in await (_database.select(_database.events)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'EVENT', id: row.id));
+
+    bool shouldInclude(String t) =>
+        targetType == null || targetType == 'ALL' || targetType == t;
+
+    if (shouldInclude('TASK')) {
+      for (final row
+          in await (_database.select(_database.tasks)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.title.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('TASK', row.id, row.title);
+      }
     }
-    for (final row in await (_database.select(_database.courses)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'COURSE', id: row.id));
+    if (shouldInclude('EVENT')) {
+      for (final row
+          in await (_database.select(_database.events)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.title.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('EVENT', row.id, row.title);
+      }
     }
-    for (final row in await (_database.select(_database.goals)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'GOAL', id: row.id));
+    if (shouldInclude('COURSE')) {
+      for (final row
+          in await (_database.select(_database.courses)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.name.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('COURSE', row.id, row.name);
+      }
     }
-    for (final row in await (_database.select(_database.projects)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'PROJECT', id: row.id));
+    if (shouldInclude('GOAL')) {
+      for (final row
+          in await (_database.select(_database.goals)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.name.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('GOAL', row.id, row.name);
+      }
     }
-    for (final row in await (_database.select(_database.locations)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'LOCATION', id: row.id));
+    if (shouldInclude('PROJECT')) {
+      for (final row
+          in await (_database.select(_database.projects)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.name.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('PROJECT', row.id, row.name);
+      }
     }
-    for (final row in await (_database.select(_database.savedItems)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'SAVED_ITEM', id: row.id));
+    if (shouldInclude('LOCATION')) {
+      for (final row
+          in await (_database.select(_database.locations)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.name.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('LOCATION', row.id, row.name);
+      }
     }
-    for (final row in await (_database.select(_database.tripProfiles)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'TRIP', id: row.id));
+    if (shouldInclude('SAVED_ITEM')) {
+      for (final row
+          in await (_database.select(_database.savedItems)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.title.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('SAVED_ITEM', row.id, row.title);
+      }
     }
-    for (final row in await (_database.select(_database.householdItems)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'HOUSEHOLD', id: row.id));
+    if (shouldInclude('TRIP')) {
+      for (final row
+          in await _database
+              .customSelect(
+                "SELECT t.id, COALESCE(p.name, '旅行') AS title FROM trip_profiles t "
+                "LEFT JOIN projects p ON p.id = t.project_id WHERE t.deleted_at IS NULL "
+                "AND COALESCE(p.name, '旅行') LIKE ? ESCAPE '\\' LIMIT 30",
+                variables: [Variable.withString(pattern)],
+                readsFrom: {_database.tripProfiles, _database.projects},
+              )
+              .get()) {
+        add('TRIP', row.read<String>('id'), row.read<String>('title'));
+      }
     }
-    for (final row in await (_database.select(_database.financeEntries)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'FINANCE', id: row.id));
+    if (shouldInclude('HOUSEHOLD')) {
+      for (final row
+          in await (_database.select(_database.householdItems)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.name.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('HOUSEHOLD', row.id, row.name);
+      }
     }
-    for (final row in await (_database.select(_database.credentialRecords)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'CREDENTIAL', id: row.id));
+    if (shouldInclude('FINANCE')) {
+      for (final row
+          in await _database
+              .customSelect(
+                "SELECT id, COALESCE(note, CASE WHEN direction = 'INCOME' THEN '收入' ELSE '支出' END) AS title "
+                "FROM finance_entries WHERE deleted_at IS NULL "
+                "AND COALESCE(note, CASE WHEN direction = 'INCOME' THEN '收入' ELSE '支出' END) "
+                "LIKE ? ESCAPE '\\' LIMIT 30",
+                variables: [Variable.withString(pattern)],
+                readsFrom: {_database.financeEntries},
+              )
+              .get()) {
+        add('FINANCE', row.read<String>('id'), row.read<String>('title'));
+      }
     }
-    for (final row in await (_database.select(_database.subscriptions)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'SUBSCRIPTION', id: row.id));
+    if (shouldInclude('CREDENTIAL')) {
+      for (final row
+          in await (_database.select(_database.credentialRecords)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.name.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('CREDENTIAL', row.id, row.name);
+      }
     }
-    for (final row in await (_database.select(_database.maintenancePlans)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'MAINTENANCE', id: row.id));
+    if (shouldInclude('SUBSCRIPTION')) {
+      for (final row
+          in await (_database.select(_database.subscriptions)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.name.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('SUBSCRIPTION', row.id, row.name);
+      }
     }
-    for (final row in await (_database.select(_database.readingItems)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'READING', id: row.id));
+    if (shouldInclude('MAINTENANCE')) {
+      for (final row
+          in await (_database.select(_database.maintenancePlans)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.title.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('MAINTENANCE', row.id, row.title);
+      }
     }
-    for (final row in await (_database.select(_database.parcels)
-          ..where((r) => r.deletedAt.isNull()))
-        .get()) {
-      await add(EntityReference(type: 'PARCEL', id: row.id));
+    if (shouldInclude('READING')) {
+      for (final row
+          in await (_database.select(_database.readingItems)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.title.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('READING', row.id, row.title);
+      }
+    }
+    if (shouldInclude('PARCEL')) {
+      for (final row
+          in await (_database.select(_database.parcels)
+                ..where(
+                  (r) =>
+                      r.deletedAt.isNull() &
+                      r.title.like(pattern, escapeChar: r'\'),
+                )
+                ..limit(30))
+              .get()) {
+        add('PARCEL', row.id, row.title);
+      }
     }
     return result;
   }
+}
+
+class RelationOverviewStats {
+  const RelationOverviewStats({
+    required this.totalLinks,
+    required this.linkedEntitiesCount,
+    required this.topHubs,
+  });
+
+  final int totalLinks;
+  final int linkedEntitiesCount;
+  final List<HubItem> topHubs;
+}
+
+class HubItem {
+  const HubItem({
+    required this.entity,
+    required this.count,
+  });
+
+  final RelatedEntity entity;
+  final int count;
 }

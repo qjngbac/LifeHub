@@ -9,12 +9,14 @@ import 'package:lifehub/core/backup/background_backup_scheduler.dart';
 import 'package:lifehub/core/notifications/notification_service.dart';
 import 'package:lifehub/core/platform/widget_snapshot_service.dart';
 import 'package:lifehub/core/providers.dart';
+import 'package:lifehub/core/security/app_lock.dart';
 import 'package:lifehub/core/settings/app_settings.dart';
 import 'package:lifehub/features/data_health/presentation/data_health_page.dart';
 import 'package:lifehub/features/automation/presentation/automation_page.dart';
 import 'package:lifehub/features/calendar/presentation/calendar_exchange_page.dart';
 import 'package:lifehub/features/reminder/presentation/reminder_center_page.dart';
 import 'package:lifehub/features/onboarding/presentation/onboarding_page.dart';
+import 'package:lifehub/features/settings/presentation/app_lock_page.dart';
 
 class MyPage extends ConsumerWidget {
   const MyPage({super.key});
@@ -102,6 +104,29 @@ class MyPage extends ConsumerWidget {
             ]),
           ),
           const SizedBox(height: 20),
+          Text('安全与隐私', style: Theme.of(context).textTheme.titleMedium),
+          Card(
+            child: Column(children: [
+              ListTile(
+                leading: Icon(
+                  ref.watch(appLockProvider).configured
+                      ? Icons.lock
+                      : Icons.lock_open_outlined,
+                ),
+                title: const Text('二级密码'),
+                subtitle: Text(
+                  ref.watch(appLockProvider).configured
+                      ? '已开启 · 查看私密便签需验证'
+                      : '未开启 · 查看私密便签暂无保护',
+                ),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AppLockPage()),
+                ),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 20),
           Text('本地数据', style: Theme.of(context).textTheme.titleMedium),
           Card(
             child: Column(children: [
@@ -175,7 +200,7 @@ class MyPage extends ConsumerWidget {
             ]),
           ),
           const SizedBox(height: 20),
-          const Center(child: Text('LifeHub V1.9.10 · Android · 本地优先')),
+          const Center(child: Text('LifeHub V1.10.19 · Android · 本地优先')),
         ],
       ),
     );
@@ -311,6 +336,7 @@ class MyPage extends ConsumerWidget {
 
   Future<void> _importPicked(BuildContext context, WidgetRef ref) async {
     final service = BackupService(ref.read(databaseProvider));
+    var committed = false;
     try {
       var source = await service.pickBackupText();
       if (source == null || !context.mounted) return;
@@ -349,6 +375,7 @@ class MyPage extends ConsumerWidget {
       if (mode == null) return;
       if (mode == ImportMode.replace) await service.exportToFile();
       await service.importJson(source, mode: mode);
+      committed = true;
       ref.read(refreshProvider.notifier).state++;
       await NotificationService.instance
           .rebuildFuture(ref.read(databaseProvider));
@@ -359,7 +386,11 @@ class MyPage extends ConsumerWidget {
         );
       }
     } catch (_) {
-      if (context.mounted) _message(context, '备份无效，当前数据未被修改');
+      if (context.mounted) {
+        _message(context, committed
+            ? '备份已导入，提醒刷新失败；数据已更新'
+            : '备份无效，当前数据未被修改');
+      }
     }
   }
 
@@ -456,14 +487,20 @@ class MyPage extends ConsumerWidget {
       ),
     );
     if (confirmed != true) return;
+    var committed = false;
     try {
       await service.importFile(files.first);
+      committed = true;
       ref.read(refreshProvider.notifier).state++;
       await NotificationService.instance
           .rebuildFuture(ref.read(databaseProvider));
       if (context.mounted) _message(context, '备份恢复完成');
     } catch (_) {
-      if (context.mounted) _message(context, '备份无效，当前数据未被修改');
+      if (context.mounted) {
+        _message(context, committed
+            ? '备份已恢复，提醒刷新失败；数据已更新'
+            : '备份无效，当前数据未被修改');
+      }
     }
   }
 

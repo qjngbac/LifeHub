@@ -2,6 +2,23 @@ import 'dart:convert';
 
 import 'package:drift/drift.dart';
 import 'package:lifehub/core/database/app_database.dart';
+import 'package:lifehub/core/notifications/reminder_operation_queue.dart';
+
+const reminderTypeLabels = <String, String>{
+  'TASK': '任务',
+  'EVENT': '日程',
+  'COURSE': '课程',
+  'COURSE_SCHEDULE': '课程',
+  'HABIT': '习惯',
+  'ANNIVERSARY': '纪念日',
+  'MEDICATION': '用药',
+  'CREDENTIAL': '证件',
+  'SUBSCRIPTION': '订阅',
+  'HOUSEHOLD': '消耗品',
+  'MAINTENANCE': '维护',
+  'PARCEL': '快递',
+  'MATCH': '比赛',
+};
 
 abstract interface class ReminderNotificationBridge {
   Future<void> cancelReminder(int notificationId);
@@ -17,7 +34,7 @@ class ReminderView {
     required this.title,
     required this.triggerAt,
     required this.enabled,
-    required this.missed,
+    required this.pastDue,
   });
 
   final String id;
@@ -26,26 +43,16 @@ class ReminderView {
   final String title;
   final DateTime triggerAt;
   final bool enabled;
-  final bool missed;
+  final bool pastDue;
 
-  String get typeLabel => switch (entityType) {
-        'TASK' => '任务',
-        'EVENT' => '日程',
-        'COURSE' || 'COURSE_SCHEDULE' => '课程',
-        'HABIT' => '习惯',
-        'ANNIVERSARY' => '纪念日',
-        'SUBSCRIPTION' => '订阅',
-        'HOUSEHOLD' => '消耗品',
-        'MAINTENANCE' => '维护',
-        'PARCEL' => '快递',
-        _ => entityType,
-      };
+  String get typeLabel => reminderTypeLabels[entityType] ?? entityType;
 }
 
 class ReminderRepository {
-  ReminderRepository(this._database,
-      {ReminderNotificationBridge? notifications})
-      : _notifications = notifications;
+  ReminderRepository(
+    this._database, {
+    this._notifications,
+  });
 
   final AppDatabase _database;
   final ReminderNotificationBridge? _notifications;
@@ -59,7 +66,9 @@ class ReminderRepository {
     final query = _database.select(_database.reminders)
       ..where((row) {
         var filter =
-            row.deletedAt.isNull() & row.triggerAt.isSmallerOrEqualValue(end);
+            row.deletedAt.isNull() &
+            row.entityType.equals('MATCH').not() &
+            row.triggerAt.isSmallerOrEqualValue(end);
         if (!includeDisabled) filter = filter & row.enabled.equals(true);
         return filter;
       })
@@ -69,30 +78,42 @@ class ReminderRepository {
     for (final row in rows) {
       final title = await _title(row.entityType, row.entityId);
       if (title == null) continue;
-      final trigger =
-          DateTime.fromMillisecondsSinceEpoch(row.triggerAt, isUtc: true);
-      result.add(ReminderView(
-        id: row.id,
-        entityType: row.entityType,
-        entityId: row.entityId,
-        title: title,
-        triggerAt: trigger,
-        enabled: row.enabled,
-        missed: trigger.isBefore(now.toUtc()),
-      ));
+      final trigger = DateTime.fromMillisecondsSinceEpoch(
+        row.triggerAt,
+        isUtc: true,
+      );
+      result.add(
+        ReminderView(
+          id: row.id,
+          entityType: row.entityType,
+          entityId: row.entityId,
+          title: title,
+          triggerAt: trigger,
+          enabled: row.enabled,
+          pastDue: trigger.isBefore(now.toUtc()),
+        ),
+      );
     }
     return result;
   }
 
-  Future<void> setEnabled(String id, bool enabled) async {
+  Future<void> setEnabled(String id, bool enabled) =>
+      ReminderOperationQueue.run(() => _setEnabled(id, enabled));
+
+  Future<void> _setEnabled(String id, bool enabled) async {
     final current = await _get(id);
-    await (_database.update(_database.reminders)
-          ..where((row) => row.id.equals(id)))
-        .write(RemindersCompanion(
-      enabled: Value(enabled),
-      updatedAt: Value(DateTime.now().toUtc().millisecondsSinceEpoch),
-      version: Value(current.version + 1),
-    ));
+    if (current.entityType == 'MATCH') {
+      throw StateError('比赛提醒由系统固定管理，不能修改。');
+    }
+    await (_database.update(
+      _database.reminders,
+    )..where((row) => row.id.equals(id))).write(
+      RemindersCompanion(
+        enabled: Value(enabled),
+        updatedAt: Value(DateTime.now().toUtc().millisecondsSinceEpoch),
+        version: Value(current.version + 1),
+      ),
+    );
     final notifications = _notifications;
     if (notifications == null) return;
     if (!enabled) {
@@ -104,17 +125,25 @@ class ReminderRepository {
     if (title != null) await notifications.scheduleReminder(updated, title);
   }
 
-  Future<void> snooze(String id, DateTime triggerAt) async {
+  Future<void> snooze(String id, DateTime triggerAt) =>
+      ReminderOperationQueue.run(() => _snooze(id, triggerAt));
+
+  Future<void> _snooze(String id, DateTime triggerAt) async {
     final current = await _get(id);
-    await (_database.update(_database.reminders)
-          ..where((row) => row.id.equals(id)))
-        .write(RemindersCompanion(
-      triggerAt: Value(triggerAt.toUtc().millisecondsSinceEpoch),
-      enabled: const Value(true),
-      metadata: Value(jsonEncode({'snoozed': true})),
-      updatedAt: Value(DateTime.now().toUtc().millisecondsSinceEpoch),
-      version: Value(current.version + 1),
-    ));
+    if (current.entityType == 'MATCH') {
+      throw StateError('比赛提醒由系统固定管理，不能稍后提醒。');
+    }
+    await (_database.update(
+      _database.reminders,
+    )..where((row) => row.id.equals(id))).write(
+      RemindersCompanion(
+        triggerAt: Value(triggerAt.toUtc().millisecondsSinceEpoch),
+        enabled: const Value(true),
+        metadata: Value(jsonEncode({'snoozed': true})),
+        updatedAt: Value(DateTime.now().toUtc().millisecondsSinceEpoch),
+        version: Value(current.version + 1),
+      ),
+    );
     final notifications = _notifications;
     if (notifications != null) {
       final updated = await _get(id);
@@ -124,9 +153,10 @@ class ReminderRepository {
   }
 
   Future<ReminderEntry> _get(String id) async {
-    final value = await (_database.select(_database.reminders)
-          ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
-        .getSingleOrNull();
+    final value =
+        await (_database.select(_database.reminders)
+              ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
+            .getSingleOrNull();
     if (value == null) throw StateError('Reminder not found: $id');
     return value;
   }
@@ -149,17 +179,29 @@ class ReminderRepository {
             .map((row) => row.name)
             .getSingleOrNull();
       case 'COURSE_SCHEDULE':
-        final schedule = await (_database.select(_database.courseSchedules)
-              ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
-            .getSingleOrNull();
+        final schedule =
+            await (_database.select(_database.courseSchedules)
+                  ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
+                .getSingleOrNull();
         if (schedule == null) return null;
-        return (_database.select(_database.courses)
-              ..where((row) =>
-                  row.id.equals(schedule.courseId) & row.deletedAt.isNull()))
+        return (_database.select(_database.courses)..where(
+              (row) =>
+                  row.id.equals(schedule.courseId) & row.deletedAt.isNull(),
+            ))
             .map((row) => row.name)
             .getSingleOrNull();
       case 'HABIT':
         return (_database.select(_database.habits)
+              ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
+            .map((row) => row.name)
+            .getSingleOrNull();
+      case 'MEDICATION':
+        return (_database.select(_database.medicationPlans)
+              ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
+            .map((row) => row.name)
+            .getSingleOrNull();
+      case 'CREDENTIAL':
+        return (_database.select(_database.credentialRecords)
               ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
             .map((row) => row.name)
             .getSingleOrNull();
@@ -188,6 +230,13 @@ class ReminderRepository {
               ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
             .map((row) => row.title)
             .getSingleOrNull();
+      case 'MATCH':
+        final match =
+            await (_database.select(_database.matchRecords)
+                  ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
+                .getSingleOrNull();
+        if (match == null) return null;
+        return '${match.competition}：${match.participantA} vs ${match.participantB}';
       default:
         return null;
     }

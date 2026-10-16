@@ -32,4 +32,16 @@ class FocusController {
   Future<void> reload() async {
     session = await _repository.active();
   }
+
+  Future<FocusSessionEntry> pause() async {
+    final current = session;
+    if (current == null) throw StateError('No active focus session.');
+    return session = await _repository.pause(current.id);
+  }
+
+  Future<FocusSessionEntry> resume() async {
+    final current = session;
+    if (current == null) throw StateError('No active focus session.');
+    return session = await _repository.resume(current.id);
+  }
 }

@@ -44,6 +44,26 @@ void main() {
     expect(results.single.latitude, 39.96);
   });
 
+  test('searches county district like 柘城 from local database even when remote returns empty',
+      () async {
+    final repository = WeatherRepository(
+      database,
+      client: MockClient((request) async {
+        return http.Response(jsonEncode({'results': []}), 200);
+      }),
+    );
+
+    final results = await repository.searchDistricts('柘城');
+    expect(results.isNotEmpty, isTrue);
+    final match = results.firstWhere((r) => r.name.contains('柘城'));
+    expect(match.name, '柘城县');
+    expect(match.admin1, '河南省');
+    expect(match.admin2, '商丘市');
+    expect(match.displayName, '中国 · 河南省 · 商丘市 · 柘城县');
+    expect(match.latitude, closeTo(34.09, 0.05));
+    expect(match.longitude, closeTo(115.30, 0.05));
+  });
+
   test('keeps one default and uses a cached forecast when the network fails',
       () async {
     var networkWorks = true;
@@ -227,5 +247,38 @@ void main() {
           .precipitationProbability,
       70,
     );
+  });
+
+  test('offline current weather uses latest prior-day cache and actual fetched time',
+      () async {
+    final repository = WeatherRepository(database,
+        client: MockClient((_) async => throw http.ClientException('offline')));
+    final location = await repository.saveLocation(const WeatherLocationDraft(
+      name: '缓存地区', latitude: 25, longitude: 102, timezone: 'Asia/Shanghai',
+    ));
+    final now = DateTime.now();
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+    final fetchedAt = yesterday.toUtc().millisecondsSinceEpoch;
+    final payload = jsonEncode({
+      'kind': 'current', 'temperature': 20, 'apparentTemperature': 19,
+      'humidity': 50, 'weatherCode': 1, 'windSpeed': 4, 'windDirection': 90,
+      'precipitationProbability': 5, 'maximumTemperature': 25,
+      'minimumTemperature': 15, 'sunrise': yesterday.toIso8601String(),
+      'sunset': yesterday.toIso8601String(), 'airQualityIndex': 35,
+    });
+    final previousKey = -(yesterday.year * 10000 + yesterday.month * 100 + yesterday.day);
+    await database.into(database.weatherForecastCaches).insert(
+      WeatherForecastCachesCompanion.insert(locationId: location.id,
+          forecastDate: previousKey, fetchedAt: fetchedAt, payloadJson: payload),
+    );
+    await database.into(database.weatherForecastCaches).insert(
+      WeatherForecastCachesCompanion.insert(locationId: location.id,
+          forecastDate: now.year * 10000 + now.month * 100 + now.day,
+          fetchedAt: fetchedAt + 1000, payloadJson: '{}'),
+    );
+    final cached = await repository.current(location);
+    expect(cached.temperature, 20);
+    expect(cached.stale, isTrue);
+    expect(cached.fetchedAt.millisecondsSinceEpoch, fetchedAt);
   });
 }

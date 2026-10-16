@@ -124,9 +124,19 @@ void main() {
     ));
 
     await _pump(tester, db, const ReadingPage());
+    await tester.dragUntilVisible(
+      find.text('测试读物'),
+      find.byType(ListView),
+      const Offset(0, -200),
+    );
     await tester.tap(find.text('测试读物'));
     await tester.pumpAndSettle();
     expect(find.text('关联关系'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('附件'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('附件'), findsOneWidget);
 
     await _pump(tester, db, const ParcelsPage());

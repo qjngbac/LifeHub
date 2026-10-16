@@ -74,4 +74,24 @@ void main() {
       throwsArgumentError,
     );
   });
+
+  for (final context in [null, 'relation-1']) {
+    test('deleted mood can be saved again in context $context', () async {
+      final first = await repository.save(MoodDraft(
+        date: DateTime(2026, 8, 9), moodCode: MoodCatalog.happy,
+        relationshipId: context,
+      ));
+      await repository.delete(first.id);
+      final restored = await repository.save(MoodDraft(
+        date: DateTime(2026, 8, 9), moodCode: MoodCatalog.calm,
+        intensity: 4, note: '重新记录', relationshipId: context,
+      ));
+      expect(restored.id, first.id);
+      expect(restored.deletedAt, isNull);
+      expect(restored.moodCode, MoodCatalog.calm);
+      expect(restored.note, '重新记录');
+      expect(restored.version, first.version + 2);
+      expect(await database.select(database.moodLogs).get(), hasLength(1));
+    });
+  }
 }

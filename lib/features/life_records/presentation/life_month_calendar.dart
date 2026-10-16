@@ -82,8 +82,9 @@ class LifeMonthCalendar extends StatelessWidget {
                                 .colorScheme
                                 .secondaryContainer
                                 .withValues(alpha: .55)
-                            : moodColor?.withValues(alpha: .42) ??
-                                Colors.transparent,
+                            : moodColor != null
+                                ? moodColor.withValues(alpha: inMonth ? .42 : .16)
+                                : Colors.transparent,
                     borderRadius: BorderRadius.circular(14),
                     border: selected || isToday
                         ? Border.all(
@@ -110,7 +111,10 @@ class LifeMonthCalendar extends StatelessWidget {
                     ),
                     const SizedBox(height: 1),
                     if (emoji != null)
-                      Text(emoji, style: const TextStyle(fontSize: 17)),
+                      Opacity(
+                        opacity: inMonth ? 1.0 : 0.45,
+                        child: Text(emoji, style: const TextStyle(fontSize: 17)),
+                      ),
                     const Spacer(),
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       if (cycleDates.contains(key))

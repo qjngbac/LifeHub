@@ -38,6 +38,17 @@ class _RelationshipSpacePageState extends ConsumerState<RelationshipSpacePage> {
         title: const Text('关系空间'),
         actions: [
           IconButton(
+            tooltip: '回到今天',
+            icon: const Icon(Icons.today_outlined),
+            onPressed: () {
+              final now = DateTime.now();
+              setState(() {
+                month = DateTime(now.year, now.month);
+                selectedDate = DateTime(now.year, now.month, now.day);
+              });
+            },
+          ),
+          IconButton(
             tooltip: '添加关系档案',
             onPressed: () => _editProfile(database, null),
             icon: const Icon(Icons.person_add_alt_1_outlined),
@@ -82,59 +93,125 @@ class _RelationshipSpacePageState extends ConsumerState<RelationshipSpacePage> {
             padding: const EdgeInsets.fromLTRB(16, 4, 16, 96),
             children: [
               Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: BorderSide(
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.18),
+                    width: 1,
+                  ),
+                ),
+                color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.22),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(18, 8, 8, 12),
-                  child: Column(children: [
-                    Row(children: [
-                      const CircleAvatar(
-                        backgroundColor: Color(0xFFFFDDE9),
-                        child: Icon(Icons.favorite_outline),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: profile.id,
-                            isExpanded: true,
-                            items: data.profiles
-                                .map((value) => DropdownMenuItem(
-                                      value: value.id,
-                                      child: Text(value.nickname?.isNotEmpty ==
-                                              true
-                                          ? '${value.name} · ${value.nickname}'
-                                          : value.name),
-                                    ))
-                                .toList(),
-                            onChanged: (value) => setState(() {
-                              selectedRelationshipId = value;
-                              revision++;
-                            }),
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 44,
+                            height: 44,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFFDDE9),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFFFF80AB).withValues(alpha: 0.3),
+                                width: 1.5,
+                              ),
+                            ),
+                            child: const Icon(Icons.favorite, color: Color(0xFFE91E63), size: 22),
                           ),
-                        ),
-                      ),
-                      PopupMenuButton<String>(
-                        onSelected: (action) {
-                          if (action == 'edit') {
-                            _editProfile(database, profile);
-                          } else {
-                            _archiveProfile(database, profile);
-                          }
-                        },
-                        itemBuilder: (_) => const [
-                          PopupMenuItem(value: 'edit', child: Text('修改档案')),
-                          PopupMenuItem(value: 'archive', child: Text('归档档案')),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        profile.name,
+                                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    if (profile.nickname?.isNotEmpty == true) ...[
+                                      const SizedBox(width: 6),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                          borderRadius: BorderRadius.circular(6),
+                                        ),
+                                        child: Text(
+                                          profile.nickname!,
+                                          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                                if (profile.startDate != null) ...[
+                                  const SizedBox(height: 6),
+                                  _companionshipWidget(context, profile.startDate!),
+                                ],
+                              ],
+                            ),
+                          ),
+                          if (data.profiles.length > 1)
+                            PopupMenuButton<String>(
+                              tooltip: '切换档案',
+                              icon: const Icon(Icons.swap_horiz_rounded),
+                              onSelected: (id) => setState(() {
+                                selectedRelationshipId = id;
+                                revision++;
+                              }),
+                              itemBuilder: (_) => [
+                                for (final p in data.profiles)
+                                  PopupMenuItem(
+                                    value: p.id,
+                                    child: Row(
+                                      children: [
+                                        if (p.id == profile.id)
+                                          const Icon(Icons.check, size: 16, color: Colors.pink)
+                                        else
+                                          const SizedBox(width: 16),
+                                        const SizedBox(width: 8),
+                                        Text(p.nickname?.isNotEmpty == true
+                                            ? '${p.name} (${p.nickname})'
+                                            : p.name),
+                                      ],
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          PopupMenuButton<String>(
+                            onSelected: (action) {
+                              if (action == 'edit') {
+                                _editProfile(database, profile);
+                              } else {
+                                _archiveProfile(database, profile);
+                              }
+                            },
+                            itemBuilder: (_) => const [
+                              PopupMenuItem(value: 'edit', child: Text('修改档案')),
+                              PopupMenuItem(value: 'archive', child: Text('归档档案')),
+                            ],
+                          ),
                         ],
                       ),
-                    ]),
-                    if (profile.startDate != null)
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '已经相伴 ${_daysTogether(profile.startDate!)} 天',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ),
-                  ]),
+                      if (_cycleCareBanner(context, database, data.cycles) != null) ...[
+                        const SizedBox(height: 10),
+                        _cycleCareBanner(context, database, data.cycles)!,
+                      ],
+                    ],
+                  ),
                 ),
               ),
               Row(children: [
@@ -156,81 +233,205 @@ class _RelationshipSpacePageState extends ConsumerState<RelationshipSpacePage> {
                   icon: const Icon(Icons.chevron_right),
                 ),
               ]),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: LifeMonthCalendar(
-                    month: month,
-                    selectedDate: selectedDate,
-                    onSelected: (value) => setState(() {
-                      selectedDate = value;
-                      if (value.year != month.year ||
-                          value.month != month.month) {
-                        month = DateTime(value.year, value.month);
-                      }
-                    }),
-                    moodEmojis: {
-                      for (final entry in data.moods.entries)
-                        entry.key: MoodCatalog.emoji(entry.value.moodCode),
-                    },
-                    moodColors: {
-                      for (final entry in data.moods.entries)
-                        entry.key: MoodCatalog.color(entry.value.moodCode),
-                    },
-                    eventDates:
-                        data.events.map((value) => value.localDate).toSet(),
-                    cycleDates: data.cycleDateKeys,
-                    anniversaryDates: data.anniversaryDateKeys,
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onHorizontalDragEnd: (details) {
+                  final velocity = details.primaryVelocity ?? 0;
+                  if (velocity < -120) {
+                    _setMonth(1);
+                  } else if (velocity > 120) {
+                    _setMonth(-1);
+                  }
+                },
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: LifeMonthCalendar(
+                      month: month,
+                      selectedDate: selectedDate,
+                      onSelected: (value) => setState(() {
+                        selectedDate = value;
+                        if (value.year != month.year ||
+                            value.month != month.month) {
+                          month = DateTime(value.year, value.month);
+                        }
+                      }),
+                      moodEmojis: {
+                        for (final entry in data.moods.entries)
+                          entry.key: MoodCatalog.emoji(entry.value.moodCode),
+                      },
+                      moodColors: {
+                        for (final entry in data.moods.entries)
+                          entry.key: MoodCatalog.color(entry.value.moodCode),
+                      },
+                      eventDates:
+                          data.events.map((value) => value.localDate).toSet(),
+                      cycleDates: data.cycleDateKeys,
+                      anniversaryDates: data.anniversaryDateKeys,
+                    ),
                   ),
                 ),
               ),
-              Text(
-                '${selectedDate.month}月${selectedDate.day}日',
-                style: Theme.of(context).textTheme.titleLarge,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(4, 14, 4, 8),
+                child: Row(
+                  children: [
+                    const Icon(Icons.event_note_outlined, size: 18),
+                    const SizedBox(width: 6),
+                    Text(
+                      '${selectedDate.month}月${selectedDate.day}日 · 共同记录',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 8),
               Card(
-                child: ListTile(
-                  leading: Text(
-                    mood == null ? '😶' : MoodCatalog.emoji(mood.moodCode),
-                    style: const TextStyle(fontSize: 30),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  side: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.5),
+                    width: 0.8,
                   ),
-                  title: Text(mood == null
-                      ? '还没有记录对方心情'
-                      : '${MoodCatalog.label(mood.moodCode)} · 强度 ${mood.intensity}/5'),
-                  subtitle: mood?.note == null ? null : Text(mood!.note!),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () => _recordMood(database, profile.id, mood),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            mood == null ? '😶' : MoodCatalog.emoji(mood.moodCode),
+                            style: const TextStyle(fontSize: 28),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  mood == null
+                                      ? '对方心情（暂未记录）'
+                                      : '${MoodCatalog.label(mood.moodCode)} · 强度 ${mood.intensity}/5',
+                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                if (mood?.note?.isNotEmpty == true) ...[
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    mood!.note!,
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                        ),
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
+                          TextButton.icon(
+                            style: TextButton.styleFrom(visualDensity: VisualDensity.compact),
+                            onPressed: () => _recordMood(database, profile.id, mood),
+                            icon: Icon(mood == null ? Icons.edit_note : Icons.edit, size: 16),
+                            label: Text(mood == null ? '写备注' : '修改'),
+                          ),
+                        ],
+                      ),
+                      if (mood == null) ...[
+                        const SizedBox(height: 8),
+                        const Divider(height: 1),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            for (final opt in [
+                              MoodCatalog.values.firstWhere((o) => o.code == MoodCatalog.happy),
+                              MoodCatalog.values.firstWhere((o) => o.code == MoodCatalog.calm),
+                              MoodCatalog.values.firstWhere((o) => o.code == MoodCatalog.hopeful),
+                              MoodCatalog.values.firstWhere((o) => o.code == MoodCatalog.tired),
+                              MoodCatalog.values.firstWhere((o) => o.code == MoodCatalog.sad),
+                            ])
+                              InkWell(
+                                borderRadius: BorderRadius.circular(20),
+                                onTap: () => _quickSaveMood(database, profile.id, opt.code),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  child: Column(
+                                    children: [
+                                      Text(opt.emoji, style: const TextStyle(fontSize: 22)),
+                                      const SizedBox(height: 2),
+                                      Text(opt.label, style: const TextStyle(fontSize: 10)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
               ),
               if (cycles.isNotEmpty)
                 Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                    side: BorderSide(
+                      color: const Color(0xFFFF80AB).withValues(alpha: 0.25),
+                      width: 0.8,
+                    ),
+                  ),
+                  color: const Color(0xFFFFF0F5),
                   child: ListTile(
                     leading: const CircleAvatar(
                       backgroundColor: Color(0xFFFFD8E6),
-                      child: Icon(Icons.water_drop_outlined),
+                      child: Icon(Icons.water_drop_outlined, color: Color(0xFFE91E63)),
                     ),
-                    title: const Text('生理期记录'),
-                    subtitle: const Text('当天在手动记录的日期范围内'),
+                    title: const Text(
+                      '生理期记录',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: const Text('当天在手动记录的生理周期范围内'),
                     trailing: PopupMenuButton<String>(
                       onSelected: (_) => _deleteCycle(database, cycles.first),
                       itemBuilder: (_) => const [
                         PopupMenuItem(
                           value: 'delete',
-                          child:
-                              Text('删除', style: TextStyle(color: Colors.red)),
+                          child: Text('删除', style: TextStyle(color: Colors.red)),
                         ),
                       ],
                     ),
                   ),
                 ),
               ...events.map((value) => Card(
-                    child: ListTile(
-                      leading: const CircleAvatar(
-                        backgroundColor: Color(0xFFDCE9FF),
-                        child: Icon(Icons.auto_stories_outlined),
+                    elevation: 0,
+                    margin: const EdgeInsets.symmetric(vertical: 4),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      side: BorderSide(
+                        color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.4),
+                        width: 0.8,
                       ),
-                      title: Text(value.title),
+                    ),
+                    child: ListTile(
+                      leading: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFDCE9FF),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(Icons.auto_stories_outlined, color: Color(0xFF1976D2), size: 20),
+                      ),
+                      title: Text(
+                        value.title,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       subtitle: Text(value.note ?? '共同事件'),
                       trailing: PopupMenuButton<String>(
                         onSelected: (action) {
@@ -244,8 +445,7 @@ class _RelationshipSpacePageState extends ConsumerState<RelationshipSpacePage> {
                           PopupMenuItem(value: 'edit', child: Text('修改')),
                           PopupMenuItem(
                             value: 'delete',
-                            child:
-                                Text('删除', style: TextStyle(color: Colors.red)),
+                            child: Text('删除', style: TextStyle(color: Colors.red)),
                           ),
                         ],
                       ),
@@ -253,13 +453,31 @@ class _RelationshipSpacePageState extends ConsumerState<RelationshipSpacePage> {
                     ),
                   )),
               ...anniversaries.map((value) => Card(
-                    child: ListTile(
-                      leading: const CircleAvatar(
-                        backgroundColor: Color(0xFFFFEDBF),
-                        child: Icon(Icons.celebration_outlined),
+                    elevation: 0,
+                    margin: const EdgeInsets.symmetric(vertical: 4),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      side: BorderSide(
+                        color: const Color(0xFFFFB300).withValues(alpha: 0.3),
+                        width: 0.8,
                       ),
-                      title: Text(value.title),
-                      subtitle: Text(value.repeatYearly ? '每年重复' : '仅此一次'),
+                    ),
+                    color: const Color(0xFFFFFDF5),
+                    child: ListTile(
+                      leading: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFFEDBF),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(Icons.celebration_outlined, color: Color(0xFFF57F17), size: 20),
+                      ),
+                      title: Text(
+                        value.title,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(value.repeatYearly ? '每年重复纪念' : '重要日期记录'),
                     ),
                   )),
             ],
@@ -302,18 +520,20 @@ class _RelationshipSpacePageState extends ConsumerState<RelationshipSpacePage> {
     }
     selectedRelationshipId = profile.id;
     final first = DateTime(month.year, month.month);
-    final last = DateTime(month.year, month.month + 1, 0);
+    // 覆盖 42 格日历网格的完整起止时间，让跨月溢出的前后月日期也能完整显示心情与事件
+    final gridStart = first.subtract(Duration(days: first.weekday - 1));
+    final gridEnd = gridStart.add(const Duration(days: 41));
     final moods = await MoodRepository(database)
-        .forMonth(month, relationshipId: profile.id);
+        .listRange(gridStart, gridEnd, relationshipId: profile.id);
     final events = await LifeEventRepository(database)
-        .listRange(first, last, relationshipId: profile.id);
+        .listRange(gridStart, gridEnd, relationshipId: profile.id);
     final cycles = await CycleRepository(database).forMonth(profile.id, month);
     final anniversaries =
         await AnniversaryRepository(database).list(relationshipId: profile.id);
     final cycleRepository = CycleRepository(database);
     final cycleKeys = <int>{};
-    for (var date = first;
-        !date.isAfter(last);
+    for (var date = gridStart;
+        !date.isAfter(gridEnd);
         date = date.add(const Duration(days: 1))) {
       if (cycles.any((value) => cycleRepository.containsDate(value, date))) {
         cycleKeys.add(DateKeys.toLocalDateKey(date));
@@ -415,6 +635,20 @@ class _RelationshipSpacePageState extends ConsumerState<RelationshipSpacePage> {
       current: current,
     );
     if (draft != null) await MoodRepository(database).save(draft);
+    _refresh();
+  }
+
+  Future<void> _quickSaveMood(
+    AppDatabase database,
+    String relationshipId,
+    String moodCode,
+  ) async {
+    await MoodRepository(database).save(MoodDraft(
+      date: selectedDate,
+      moodCode: moodCode,
+      intensity: 3,
+      relationshipId: relationshipId,
+    ));
     _refresh();
   }
 
@@ -589,4 +823,125 @@ int? _monthDateKey(AnniversaryEntry value, DateTime month) {
   if (source.month != month.month) return null;
   final day = source.day.clamp(1, DateTime(month.year, month.month + 1, 0).day);
   return DateKeys.toLocalDateKey(DateTime(month.year, month.month, day));
+}
+
+Widget _companionshipWidget(BuildContext context, int startDateKey) {
+  final days = _daysTogether(startDateKey);
+  const milestones = [
+    100,
+    200,
+    365,
+    500,
+    520,
+    1000,
+    1314,
+    1500,
+    2000,
+    2500,
+    3000,
+    5000,
+    10000,
+  ];
+  int? nextMilestone;
+  for (final m in milestones) {
+    if (m > days) {
+      nextMilestone = m;
+      break;
+    }
+  }
+  return Wrap(
+    crossAxisAlignment: WrapCrossAlignment.center,
+    spacing: 8,
+    runSpacing: 4,
+    children: [
+      Text(
+        '已经相伴 $days 天',
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+      ),
+      if (nextMilestone != null)
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFDDE9),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Text(
+            '距 $nextMilestone 天还有 ${nextMilestone - days} 天',
+            style: const TextStyle(
+              fontSize: 11,
+              color: Color(0xFFC2185B),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+    ],
+  );
+}
+
+Widget? _cycleCareBanner(
+  BuildContext context,
+  AppDatabase database,
+  List<CycleRecordEntry> cycles,
+) {
+  if (cycles.isEmpty) return null;
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final repo = CycleRepository(database);
+  final inCycle = cycles.any((c) => repo.containsDate(c, today));
+  if (inCycle) {
+    return Container(
+      margin: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFEBF1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: const Row(
+        children: [
+          Icon(Icons.water_drop, size: 16, color: Color(0xFFE91E63)),
+          SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              '当前处于生理周期关怀期，请多给予温暖与陪伴',
+              style: TextStyle(fontSize: 12, color: Color(0xFFC2185B)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  final sorted = [...cycles]
+    ..sort((a, b) => b.startDate.compareTo(a.startDate));
+  final latest = sorted.first;
+  final latestStart = DateKeys.fromLocalDateKey(latest.startDate);
+  final estimatedNext = latestStart.add(const Duration(days: 28));
+  if (estimatedNext.isAfter(today)) {
+    final diff = estimatedNext.difference(today).inDays;
+    if (diff <= 7) {
+      return Container(
+        margin: const EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFF0F5),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.favorite, size: 16, color: Color(0xFFE91E63)),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                '预计生理期约 $diff 天后到来，多准备温水、避免受凉哦',
+                style: const TextStyle(fontSize: 12, color: Color(0xFFC2185B)),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+  return null;
 }

@@ -35,8 +35,8 @@ class _ReminderCenterPageState extends ConsumerState<ReminderCenterPage> {
           if (reminders.isEmpty) {
             return const _EmptyReminders();
           }
-          final missed = reminders.where((item) => item.missed).toList();
-          final future = reminders.where((item) => !item.missed).toList();
+          final past = reminders.where((item) => item.pastDue).toList();
+          final future = reminders.where((item) => !item.pastDue).toList();
           return ListView(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
             children: [
@@ -47,21 +47,25 @@ class _ReminderCenterPageState extends ConsumerState<ReminderCenterPage> {
                   subtitle: Text('系统权限可在上一级“通知权限与提醒”中检查'),
                 ),
               ),
-              if (missed.isNotEmpty) ...[
-                const _SectionTitle('已经错过'),
-                ...missed.map((item) => _ReminderTile(
-                      item: item,
-                      repository: repository,
-                      onChanged: _refresh,
-                    )),
+              if (past.isNotEmpty) ...[
+                const _SectionTitle('过去的提醒'),
+                ...past.map(
+                  (item) => _ReminderTile(
+                    item: item,
+                    repository: repository,
+                    onChanged: _refresh,
+                  ),
+                ),
               ],
               if (future.isNotEmpty) ...[
                 const _SectionTitle('即将提醒'),
-                ...future.map((item) => _ReminderTile(
-                      item: item,
-                      repository: repository,
-                      onChanged: _refresh,
-                    )),
+                ...future.map(
+                  (item) => _ReminderTile(
+                    item: item,
+                    repository: repository,
+                    onChanged: _refresh,
+                  ),
+                ),
               ],
             ],
           );
@@ -78,16 +82,16 @@ class _EmptyReminders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView(
-        padding: const EdgeInsets.all(24),
-        children: const [
-          SizedBox(height: 80),
-          Icon(Icons.notifications_none, size: 64),
-          SizedBox(height: 16),
-          Text('未来 7 天没有提醒', textAlign: TextAlign.center),
-          SizedBox(height: 8),
-          Text('为任务、日程、课程、习惯或纪念日设置时间后会显示在这里。', textAlign: TextAlign.center),
-        ],
-      );
+    padding: const EdgeInsets.all(24),
+    children: const [
+      SizedBox(height: 80),
+      Icon(Icons.notifications_none, size: 64),
+      SizedBox(height: 16),
+      Text('未来 7 天没有提醒', textAlign: TextAlign.center),
+      SizedBox(height: 8),
+      Text('为任务、日程、课程、习惯或纪念日设置时间后会显示在这里。', textAlign: TextAlign.center),
+    ],
+  );
 }
 
 class _SectionTitle extends StatelessWidget {
@@ -95,9 +99,9 @@ class _SectionTitle extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.fromLTRB(4, 16, 4, 8),
-        child: Text(text, style: Theme.of(context).textTheme.titleMedium),
-      );
+    padding: const EdgeInsets.fromLTRB(4, 16, 4, 8),
+    child: Text(text, style: Theme.of(context).textTheme.titleMedium),
+  );
 }
 
 class _ReminderTile extends StatelessWidget {

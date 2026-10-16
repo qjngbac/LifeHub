@@ -79,52 +79,183 @@ class _MoodCalendarPageState extends ConsumerState<MoodCalendarPage> {
                 next: () => _setMonth(1),
                 choose: _chooseMonth,
               ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: LifeMonthCalendar(
-                    month: month,
-                    selectedDate: selectedDate,
-                    onSelected: (value) => setState(() {
-                      selectedDate = value;
-                      if (value.month != month.month ||
-                          value.year != month.year) {
-                        month = DateTime(value.year, value.month);
-                      }
-                    }),
-                    moodEmojis: {
-                      for (final entry in data.moods.entries)
-                        entry.key: MoodCatalog.emoji(entry.value.moodCode),
-                    },
-                    moodColors: {
-                      for (final entry in data.moods.entries)
-                        entry.key: MoodCatalog.color(entry.value.moodCode),
-                    },
-                    eventDates:
-                        data.events.map((value) => value.localDate).toSet(),
-                    anniversaryDates: data.anniversaryDateKeys,
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onHorizontalDragEnd: (details) {
+                  final velocity = details.primaryVelocity ?? 0;
+                  if (velocity < -120) {
+                    _setMonth(1);
+                  } else if (velocity > 120) {
+                    _setMonth(-1);
+                  }
+                },
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: LifeMonthCalendar(
+                      month: month,
+                      selectedDate: selectedDate,
+                      onSelected: (value) => setState(() {
+                        selectedDate = value;
+                        if (value.month != month.month ||
+                            value.year != month.year) {
+                          month = DateTime(value.year, value.month);
+                        }
+                      }),
+                      moodEmojis: {
+                        for (final entry in data.moods.entries)
+                          entry.key: MoodCatalog.emoji(entry.value.moodCode),
+                      },
+                      moodColors: {
+                        for (final entry in data.moods.entries)
+                          entry.key: MoodCatalog.color(entry.value.moodCode),
+                      },
+                      eventDates:
+                          data.events.map((value) => value.localDate).toSet(),
+                      anniversaryDates: data.anniversaryDateKeys,
+                    ),
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
+              Card(
+                color: Theme.of(context)
+                    .colorScheme
+                    .surfaceContainerHighest
+                    .withValues(alpha: 0.5),
+                elevation: 0,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                  child: Row(
+                    children: [
+                      Icon(Icons.insights,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          _monthSummaryText(data.moods),
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
               Text(
                 '${selectedDate.month}月${selectedDate.day}日',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 10),
-              Card(
-                child: ListTile(
-                  leading: Text(
-                    mood == null ? '😶' : MoodCatalog.emoji(mood.moodCode),
-                    style: const TextStyle(fontSize: 30),
+              if (mood == null) ...[
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              selectedKey == DateKeys.toLocalDateKey(DateTime.now())
+                                  ? '今日心情极速速记'
+                                  : '当天心情极速速记',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            TextButton(
+                              onPressed: () => _recordMood(database, mood),
+                              child: const Text('详细记录'),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            for (final option in [
+                              MoodCatalog.option(MoodCatalog.happy),
+                              MoodCatalog.option(MoodCatalog.calm),
+                              MoodCatalog.option(MoodCatalog.tired),
+                              MoodCatalog.option(MoodCatalog.low),
+                              MoodCatalog.option(MoodCatalog.irritated),
+                            ])
+                              InkWell(
+                                key: ValueKey('quick-mood-${option.code}'),
+                                borderRadius: BorderRadius.circular(12),
+                                onTap: () async {
+                                  try {
+                                    await MoodRepository(database).save(
+                                      MoodDraft(
+                                        date: selectedDate,
+                                        moodCode: option.code,
+                                        intensity: 3,
+                                      ),
+                                    );
+                                    _refresh();
+                                    if (!context.mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                            '已记录为 ${option.emoji} ${option.label}，点击可修改'),
+                                        duration: const Duration(seconds: 2),
+                                      ),
+                                    );
+                                  } catch (e) {
+                                    if (!context.mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('记录失败：$e')),
+                                    );
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 6),
+                                  child: Column(
+                                    children: [
+                                      Text(option.emoji,
+                                          style: const TextStyle(fontSize: 28)),
+                                      const SizedBox(height: 4),
+                                      Text(option.label,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  title: Text(mood == null
-                      ? '还没有记录心情'
-                      : '${MoodCatalog.label(mood.moodCode)} · 强度 ${mood.intensity}/5'),
-                  subtitle: mood?.note == null ? null : Text(mood!.note!),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () => _recordMood(database, mood),
                 ),
-              ),
+              ] else ...[
+                Card(
+                  child: ListTile(
+                    leading: Text(
+                      MoodCatalog.emoji(mood.moodCode),
+                      style: const TextStyle(fontSize: 30),
+                    ),
+                    title: Text(
+                        '${MoodCatalog.label(mood.moodCode)} · 强度 ${mood.intensity}/5'),
+                    subtitle: mood.note == null ? null : Text(mood.note!),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => _recordMood(database, mood),
+                  ),
+                ),
+              ],
               if (events.isNotEmpty) ...[
                 const _SectionTitle(title: '当天事件'),
                 ...events.map((value) => Card(
@@ -171,11 +302,36 @@ class _MoodCalendarPageState extends ConsumerState<MoodCalendarPage> {
     );
   }
 
+  String _monthSummaryText(Map<int, MoodLogEntry> moods) {
+    // 仅统计属于当月的心情，避免跨月网格溢出数据影响当月统计
+    final currentMonthMoods = moods.values.where((m) {
+      final date = DateKeys.fromLocalDateKey(m.localDate);
+      return date.year == month.year && date.month == month.month;
+    }).toList();
+    if (currentMonthMoods.isEmpty) return '本月还没有记录心情';
+    final count = currentMonthMoods.length;
+    final freq = <String, int>{};
+    for (final m in currentMonthMoods) {
+      freq[m.moodCode] = (freq[m.moodCode] ?? 0) + 1;
+    }
+    var topCode = currentMonthMoods.first.moodCode;
+    var maxCount = 0;
+    freq.forEach((code, c) {
+      if (c > maxCount) {
+        maxCount = c;
+        topCode = code;
+      }
+    });
+    return '本月已记录 $count 天 · 最常感受：${MoodCatalog.emoji(topCode)} ${MoodCatalog.label(topCode)} ($maxCount次)';
+  }
+
   Future<_MoodCalendarData> _load(AppDatabase database) async {
     final first = DateTime(month.year, month.month);
-    final last = DateTime(month.year, month.month + 1, 0);
-    final moods = await MoodRepository(database).forMonth(month);
-    final events = await LifeEventRepository(database).listRange(first, last);
+    // 覆盖 42 格日历网格的完整起止时间，让跨月溢出的非本月日期也能完整显示心情与事件
+    final gridStart = first.subtract(Duration(days: first.weekday - 1));
+    final gridEnd = gridStart.add(const Duration(days: 41));
+    final moods = await MoodRepository(database).listRange(gridStart, gridEnd);
+    final events = await LifeEventRepository(database).listRange(gridStart, gridEnd);
     final anniversaries = await AnniversaryRepository(database).list();
     return _MoodCalendarData(
       moods: {for (final value in moods) value.localDate: value},

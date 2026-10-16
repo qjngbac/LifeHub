@@ -132,26 +132,26 @@ class CalendarExchangePage extends ConsumerWidget {
   Future<void> _export(BuildContext context, WidgetRef ref) async {
     try {
       final now = DateTime.now();
-      final events = await EventRepository(ref.read(databaseProvider))
-          .listWindow(now, now.add(const Duration(days: 366)));
-      final items = events
-          .map((event) => CalendarExchangeItem(
-                uid: event.id,
-                title: event.title,
-                start: DateTime.fromMillisecondsSinceEpoch(
-                  event.startAt,
-                  isUtc: true,
-                ).toLocal(),
-                end: DateTime.fromMillisecondsSinceEpoch(
-                  event.endAt,
-                  isUtc: true,
-                ).toLocal(),
-                allDay: event.allDay,
-                location: event.location,
-                notes: event.notes,
+      final occurrences = await EventRepository(ref.read(databaseProvider))
+          .occurrencesWindow(now, now.add(const Duration(days: 366)));
+      final items = occurrences
+          .map((occurrence) => CalendarExchangeItem(
+                uid: occurrence.id,
+                title: occurrence.event.title,
+                start: occurrence.start,
+                end: occurrence.end,
+                allDay: occurrence.event.allDay,
+                location: occurrence.event.location,
+                notes: occurrence.event.notes,
               ))
           .toList();
+      if (items.length > IcsCodec.maxImportItems) {
+        throw const FormatException('日历日程数量超过导入容量，请改用完整备份。');
+      }
       final bytes = Uint8List.fromList(utf8.encode(IcsCodec.encode(items)));
+      if (bytes.length > IcsCodec.maxImportBytes) {
+        throw const FormatException('日历文件超过导入容量，请改用完整备份。');
+      }
       final path = await FilePicker.platform.saveFile(
         dialogTitle: '导出 LifeHub 日历',
         fileName: 'lifehub_calendar.ics',
@@ -163,10 +163,11 @@ class CalendarExchangePage extends ConsumerWidget {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('日历已导出')));
       }
-    } catch (_) {
+    } catch (error) {
       if (context.mounted) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('日历导出失败')));
+            .showSnackBar(SnackBar(content: Text(error is FormatException
+                ? error.message : '日历导出失败')));
       }
     }
   }

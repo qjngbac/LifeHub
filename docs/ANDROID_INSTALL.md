@@ -1,4 +1,4 @@
-# LifeHub V1.9.8 Android 安装与使用
+# LifeHub Android 安装与使用
 
 ## 兼容范围
 
@@ -8,7 +8,7 @@
 
 ## 安装
 
-1. 从 GitHub Releases 下载 `LifeHub-V1.9.8.apk`。
+1. 从 [GitHub Releases](https://github.com/qjngbac/LifeHub/releases) 选择已上传的版本，下载对应的 `LifeHub-V<版本>-arm64.apk`。
 2. 将 APK 保存到 Android 手机，并在文件管理器中点击安装。
 3. 如系统拦截，请进入“设置 → 安全/隐私 → 安装未知应用”，仅对当前文件管理器临时允许。
 4. 安装完成后关闭“安装未知应用”权限。
@@ -42,11 +42,12 @@
 
 ## 安装包校验
 
-V1.9.8 正式 Release 安装包：
+包名为 `com.lifehub.app.lifehub`。请对照所下载版本的 Release 说明核对版本和 SHA-256，不要使用旧版安装包的校验值。
 
-```text
-文件名：LifeHub-V1.9.8.apk
-SHA-256：94FCA668F8DEF304E4594C510681E3391601EC553D1FA3A273FA166CA1E8FBB1
-包名：com.lifehub.app.lifehub
-版本号：1.9.8（15）
+例如 Windows PowerShell 中可运行：
+
+```powershell
+Get-FileHash .\LifeHub-V1.10.29-arm64.apk -Algorithm SHA256
 ```
+
+V1.10.29 包的信息见 [V1.10.29 说明](releases/V1.10.29.md)，请从对应 Release 下载原始 APK。

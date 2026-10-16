@@ -16,8 +16,8 @@ void main() {
       overrides: [databaseProvider.overrideWithValue(database)],
       child: const MaterialApp(home: LibraryPage()),
     ));
-    expect(find.text('资料库'), findsOneWidget);
-    expect(find.text('添加便签'), findsOneWidget);
+    expect(find.text('便签'), findsOneWidget);
+    expect(find.text('记便签'), findsOneWidget);
   });
 
   testWidgets('地点页说明不需要定位权限', (tester) async {

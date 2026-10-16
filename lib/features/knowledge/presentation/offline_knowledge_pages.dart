@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lifehub/features/knowledge/data/offline_knowledge_repository.dart';
 import 'package:lifehub/features/knowledge/domain/offline_knowledge_models.dart';
+import 'package:lifehub/features/medication/presentation/medication_page.dart';
 
 class ConsumerGuidePage extends StatefulWidget {
   const ConsumerGuidePage({super.key});
@@ -191,19 +193,68 @@ class _ConsumerResults extends StatelessWidget {
               )
             : SliverList.separated(
                 itemCount: items.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 8),
+                separatorBuilder: (_, _) => const SizedBox(height: 8),
                 itemBuilder: (context, index) {
                   final item = items[index];
+                  final theme = Theme.of(context);
                   return Card(
-                    child: ListTile(
-                      leading: const Icon(Icons.shopping_bag_outlined),
-                      title: Text(item.name),
-                      subtitle: Text(
-                        item.buyingTip,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                    elevation: 0,
+                    margin: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      side: BorderSide(
+                        color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+                        width: 0.8,
                       ),
-                      trailing: const Icon(Icons.chevron_right),
+                    ),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                      leading: Container(
+                        width: 42,
+                        height: 42,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF2563EB).withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(Icons.shopping_bag_outlined, color: Color(0xFF2563EB), size: 22),
+                      ),
+                      title: Text(
+                        item.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.surfaceContainerHighest,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                item.category,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              item.buyingTip,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: theme.colorScheme.onSurfaceVariant,
+                                height: 1.35,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      trailing: const Icon(Icons.chevron_right, size: 20),
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -233,19 +284,70 @@ class _DrugResults extends StatelessWidget {
               )
             : SliverList.separated(
                 itemCount: items.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 8),
+                separatorBuilder: (_, _) => const SizedBox(height: 8),
                 itemBuilder: (context, index) {
                   final item = items[index];
+                  final theme = Theme.of(context);
                   return Card(
-                    child: ListTile(
-                      leading: const Icon(Icons.medication_outlined),
-                      title: Text(item.name),
-                      subtitle: Text(
-                        item.useTags,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                    elevation: 0,
+                    margin: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      side: BorderSide(
+                        color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+                        width: 0.8,
                       ),
-                      trailing: const Icon(Icons.chevron_right),
+                    ),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                      leading: Container(
+                        width: 42,
+                        height: 42,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF059669).withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(Icons.medication_outlined, color: Color(0xFF059669), size: 22),
+                      ),
+                      title: Text(
+                        item.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF059669).withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                item.category,
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF047857),
+                                ),
+                              ),
+                            ),
+                            if (item.useTags.isNotEmpty) ...[
+                              const SizedBox(height: 4),
+                              Text(
+                                item.useTags,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                  height: 1.35,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                      trailing: const Icon(Icons.chevron_right, size: 20),
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -264,20 +366,137 @@ class _ConsumerDetailPage extends StatelessWidget {
   final ConsumerGuideItem item;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text(item.name)),
-        body: _KnowledgeBackground(
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              _DetailCard(title: '30 秒选购', body: item.buyingTip),
-              _DetailCard(title: '标准与监管关键词', body: item.standards),
-              _DetailCard(title: '常见误区', body: item.misconception),
-              _DetailCard(title: '分类', body: item.category),
-            ],
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(item.name),
+        actions: [
+          IconButton(
+            tooltip: '复制选购要点',
+            icon: const Icon(Icons.copy_rounded),
+            onPressed: () {
+              Clipboard.setData(ClipboardData(
+                text: '【${item.name}选购要点】\n⚡ 选购要点：${item.buyingTip}\n🔍 标准依据：${item.standards}\n⚠️ 避坑提醒：${item.misconception}',
+              ));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('已复制“${item.name}”选购要点到剪贴板'),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
           ),
+        ],
+      ),
+      body: _KnowledgeBackground(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.only(bottom: 12),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+                  width: 0.8,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2563EB).withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(Icons.shopping_bag_outlined, color: Color(0xFF2563EB), size: 26),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.name,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.surfaceContainerHighest,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            item.category,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            _StyledCard(
+              icon: Icons.bolt_rounded,
+              iconColor: const Color(0xFF16A34A),
+              titleColor: const Color(0xFF15803D),
+              bgColor: const Color(0xFFF0FDF4),
+              borderColor: const Color(0xFFBBF7D0),
+              title: '30 秒选购要点',
+              body: item.buyingTip,
+            ),
+            _StyledCard(
+              icon: Icons.verified_outlined,
+              iconColor: const Color(0xFF0284C7),
+              titleColor: const Color(0xFF0369A1),
+              bgColor: const Color(0xFFF0F9FF),
+              borderColor: const Color(0xFFBAE6FD),
+              title: '执行标准与监管关键词',
+              body: item.standards,
+            ),
+            _StyledCard(
+              icon: Icons.warning_amber_rounded,
+              iconColor: const Color(0xFFD97706),
+              titleColor: const Color(0xFFB45309),
+              bgColor: const Color(0xFFFFFBEB),
+              borderColor: const Color(0xFFFDE68A),
+              title: '避坑指南 · 常见误区',
+              body: item.misconception,
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              icon: const Icon(Icons.copy_rounded, size: 18),
+              label: const Text('复制选购要点（网购下单对照）'),
+              onPressed: () {
+                Clipboard.setData(ClipboardData(
+                  text: '【${item.name}选购要点】\n⚡ 选购要点：${item.buyingTip}\n🔍 标准依据：${item.standards}\n⚠️ 避坑提醒：${item.misconception}',
+                ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('已复制“${item.name}”选购要点到剪贴板'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }
 
 class _DrugDetailPage extends StatelessWidget {
@@ -285,26 +504,178 @@ class _DrugDetailPage extends StatelessWidget {
   final DrugInfoItem item;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text(item.name)),
-        body: _KnowledgeBackground(
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              const _DrugNotice(inset: false),
-              _DetailCard(title: '通用名称', body: item.name),
-              _DetailCard(title: '药品类别', body: item.category),
-              _DetailCard(title: '用途标签（仅供检索）', body: item.useTags),
-              _DetailCard(title: '重点提醒', body: item.riskSummary),
-              const _DetailCard(
-                title: '使用前核对',
-                body: '具体剂型、规格、处方/OTC 属性、用法用量、禁忌和相互作用，'
-                    '必须以手中药品说明书及医生或药师意见为准。',
-              ),
-            ],
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(item.name),
+        actions: [
+          IconButton(
+            tooltip: '复制药品信息',
+            icon: const Icon(Icons.copy_rounded),
+            onPressed: () {
+              Clipboard.setData(ClipboardData(
+                text: '【药品信息】${item.name}（${item.category}）\n⚠️ 重点提醒：${item.riskSummary}\n用途标签：${item.useTags}',
+              ));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('已复制“${item.name}”药品信息到剪贴板'),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
           ),
+        ],
+      ),
+      body: _KnowledgeBackground(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
+          children: [
+            const _DrugNotice(inset: false),
+            Container(
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.only(bottom: 12),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+                  width: 0.8,
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF059669).withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Icon(Icons.medication_outlined, color: Color(0xFF059669), size: 26),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.name,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF059669).withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                item.category,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF047857),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (item.useTags.isNotEmpty) ...[
+                    const SizedBox(height: 12),
+                    const Divider(height: 1),
+                    const SizedBox(height: 10),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '用途检索标签：',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                        Expanded(
+                          child: SelectableText(
+                            item.useTags,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            _StyledCard(
+              icon: Icons.error_outline_rounded,
+              iconColor: const Color(0xFFE11D48),
+              titleColor: const Color(0xFFBE123C),
+              bgColor: const Color(0xFFFFF1F2),
+              borderColor: const Color(0xFFFECDD3),
+              title: '重点用药安全提醒',
+              body: item.riskSummary,
+            ),
+            const _StyledCard(
+              icon: Icons.fact_check_outlined,
+              iconColor: Color(0xFF2563EB),
+              titleColor: Color(0xFF1D4ED8),
+              bgColor: Color(0xFFEFF6FF),
+              borderColor: Color(0xFFBFDBFE),
+              title: '使用前核对标准',
+              body: '具体剂型、规格、处方/OTC 属性、用法用量、禁忌和相互作用，必须以手中实际药品说明书及主治医生或执业药师意见为准。',
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: FilledButton.tonalIcon(
+                    icon: const Icon(Icons.alarm_add_outlined, size: 18),
+                    label: const Text('打开用药提醒'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const MedicationPage()),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton.outlined(
+                  tooltip: '复制药品信息',
+                  icon: const Icon(Icons.copy_rounded, size: 18),
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(
+                      text: '【药品信息】${item.name}（${item.category}）\n⚠️ 重点提醒：${item.riskSummary}\n用途标签：${item.useTags}',
+                    ));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('已复制“${item.name}”药品信息到剪贴板'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }
 
 class _KnowledgeBackground extends StatelessWidget {
@@ -312,16 +683,29 @@ class _KnowledgeBackground extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) => DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFFFBF8FF), Color(0xFFF1F7FF)],
-          ),
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: isDark
+              ? [
+                  theme.colorScheme.surface,
+                  theme.colorScheme.surfaceContainerLowest,
+                ]
+              : [
+                  const Color(0xFFFAF9FD),
+                  const Color(0xFFF2F6FC),
+                ],
         ),
-        child: child,
-      );
+      ),
+      child: child,
+    );
+  }
 }
 
 class _SearchBox extends StatelessWidget {
@@ -338,8 +722,12 @@ class _SearchBox extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.fromLTRB(14, 12, 14, 8),
         child: SearchBar(
+          elevation: const WidgetStatePropertyAll(0),
+          backgroundColor: WidgetStatePropertyAll(
+            Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+          ),
           controller: controller,
-          leading: const Icon(Icons.search),
+          leading: const Icon(Icons.search, size: 20),
           hintText: hint,
           onChanged: onChanged,
           trailing: [
@@ -350,7 +738,7 @@ class _SearchBox extends StatelessWidget {
                   controller.clear();
                   onChanged('');
                 },
-                icon: const Icon(Icons.close),
+                icon: const Icon(Icons.close, size: 18),
               ),
           ],
         ),
@@ -367,6 +755,17 @@ class _CategoryGrid extends StatelessWidget {
   final IconData icon;
   final ValueChanged<KnowledgeCategory> onTap;
 
+  static const _palettes = [
+    (Color(0xFFEEF2FF), Color(0xFF4F46E5)),
+    (Color(0xFFF0FDF4), Color(0xFF16A34A)),
+    (Color(0xFFEFF6FF), Color(0xFF2563EB)),
+    (Color(0xFFFFF7ED), Color(0xFFEA580C)),
+    (Color(0xFFFAF5FF), Color(0xFF9333EA)),
+    (Color(0xFFFFF1F2), Color(0xFFE11D48)),
+    (Color(0xFFF0FDFA), Color(0xFF0D9488)),
+    (Color(0xFFFEFCE8), Color(0xFFCA8A04)),
+  ];
+
   @override
   Widget build(BuildContext context) => SliverPadding(
         padding: const EdgeInsets.fromLTRB(14, 6, 14, 24),
@@ -375,39 +774,65 @@ class _CategoryGrid extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            mainAxisExtent: 142,
+            mainAxisExtent: 132,
           ),
           itemCount: categories.length,
           itemBuilder: (context, index) {
             final category = categories[index];
-            final colors = const [
-              Color(0xFFE9E0FF),
-              Color(0xFFDCEBFF),
-              Color(0xFFDAF0E7),
-              Color(0xFFFFE6D5),
-              Color(0xFFF9DEEA),
-              Color(0xFFFFF0C9),
-            ];
+            final (bgColor, accentColor) = _palettes[index % _palettes.length];
             return Card(
-              color: colors[index % colors.length],
-              clipBehavior: Clip.antiAlias,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+                side: BorderSide(
+                  color: accentColor.withValues(alpha: 0.18),
+                  width: 0.8,
+                ),
+              ),
+              color: bgColor,
               child: InkWell(
+                borderRadius: BorderRadius.circular(16),
                 onTap: () => onTap(category),
                 child: Padding(
                   padding: const EdgeInsets.all(14),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(icon),
+                      Container(
+                        width: 36,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          color: accentColor.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(icon, color: accentColor, size: 20),
+                      ),
                       const Spacer(),
                       Text(
                         category.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                       ),
                       const SizedBox(height: 4),
-                      Text('${category.count} 条'),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
+                        decoration: BoxDecoration(
+                          color: accentColor.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          '${category.count} 条',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: accentColor,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -426,38 +851,99 @@ class _DrugNotice extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: inset
             ? const EdgeInsets.fromLTRB(14, 12, 14, 0)
-            : const EdgeInsets.only(bottom: 4),
-        child: const Card(
-          color: Color(0xFFFFE1E6),
-          child: Padding(
-            padding: EdgeInsets.all(14),
-            child: Text(
-              '仅供药品信息查询，不用于诊断、推荐用药或计算剂量。'
-              '请以具体药品说明书和医生、药师意见为准。',
+            : const EdgeInsets.only(bottom: 8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFF1F2),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: const Color(0xFFFECDD3),
+              width: 0.8,
             ),
           ),
-        ),
-      );
-}
-
-class _DetailCard extends StatelessWidget {
-  const _DetailCard({required this.title, required this.body});
-  final String title;
-  final String body;
-
-  @override
-  Widget build(BuildContext context) => Card(
-        margin: const EdgeInsets.only(bottom: 10),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
+          child: const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: 8),
-              SelectableText(body),
+              Icon(Icons.info_outline, size: 18, color: Color(0xFFE11D48)),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  '仅供离线药品信息查阅，不用于诊断、处方推荐或计算剂量。'
+                  '实际用药请以药品实物说明书及医生、药师意见为准。',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF9F1239),
+                    height: 1.4,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       );
 }
+
+class _StyledCard extends StatelessWidget {
+  const _StyledCard({
+    required this.icon,
+    required this.iconColor,
+    required this.titleColor,
+    required this.bgColor,
+    required this.borderColor,
+    required this.title,
+    required this.body,
+  });
+
+  final IconData icon;
+  final Color iconColor;
+  final Color titleColor;
+  final Color bgColor;
+  final Color borderColor;
+  final String title;
+  final String body;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: borderColor, width: 0.8),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 20, color: iconColor),
+                const SizedBox(width: 8),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: titleColor,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            SelectableText(
+              body,
+              style: TextStyle(
+                fontSize: 14,
+                height: 1.5,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

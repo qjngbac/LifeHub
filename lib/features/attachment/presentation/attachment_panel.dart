@@ -72,7 +72,7 @@ class AttachmentPanel extends ConsumerWidget {
                             height: 150,
                             width: double.infinity,
                             fit: BoxFit.contain,
-                            errorBuilder: (_, __, ___) => const SizedBox(
+                            errorBuilder: (_, _, _) => const SizedBox(
                                 height: 80,
                                 child: Icon(Icons.broken_image_outlined)),
                           ),
@@ -199,7 +199,7 @@ class _ImagePreview extends StatelessWidget {
             child: Image.file(
               File(path),
               fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => const Column(
+              errorBuilder: (_, _, _) => const Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.broken_image_outlined,

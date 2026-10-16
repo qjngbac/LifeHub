@@ -3,7 +3,7 @@
     android:id="@+id/widget_course_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3EEFF"
+    android:background="@drawable/widget_card_rounded_bg"
     android:orientation="vertical"
     android:padding="16dp">
 

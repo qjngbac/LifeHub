@@ -76,6 +76,29 @@ class GoalRepository {
     return row;
   }
 
+  Future<GoalEntry> update(String id, GoalDraft draft) async {
+    _validate(draft);
+    final existing = await get(id);
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    await (_database.update(_database.goals)
+          ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
+        .write(GoalsCompanion(
+      name: Value(draft.name.trim()),
+      description: Value(_optional(draft.description)),
+      category: Value(draft.category),
+      color: Value(draft.color),
+      status: Value(draft.status),
+      startAt: Value(draft.startAt?.toUtc().millisecondsSinceEpoch),
+      targetAt: Value(draft.targetAt?.toUtc().millisecondsSinceEpoch),
+      progressMode: Value(draft.progressMode),
+      manualProgress: Value(draft.manualProgress),
+      updatedAt: Value(now),
+      version: Value(existing.version + 1),
+    ));
+    await _log('GOAL', id, 'UPDATE');
+    return get(id);
+  }
+
   Future<List<GoalEntry>> list({bool includeArchived = false}) {
     final query = _database.select(_database.goals)
       ..where((row) {
@@ -158,13 +181,24 @@ class GoalRepository {
     await get(goalId);
     final existing = await (_database.select(_database.entityLinks)
           ..where((row) =>
-              row.deletedAt.isNull() &
               row.sourceType.equals('GOAL') &
               row.sourceId.equals(goalId) &
               row.targetType.equals(targetType) &
               row.targetId.equals(targetId)))
         .getSingleOrNull();
-    if (existing != null) return;
+    if (existing != null) {
+      if (existing.deletedAt != null) {
+        final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+        await (_database.update(_database.entityLinks)
+              ..where((row) => row.id.equals(existing.id)))
+            .write(EntityLinksCompanion(
+          deletedAt: const Value(null),
+          updatedAt: Value(now),
+          version: Value(existing.version + 1),
+        ));
+      }
+      return;
+    }
     await _database.into(_database.entityLinks).insert(
           EntityLinksCompanion.insert(
             sourceType: 'GOAL',

@@ -133,4 +133,80 @@ void main() {
     expect(find.text('开始时间'), findsOneWidget);
     expect(find.text('选择时间'), findsNothing);
   });
+
+  testWidgets('unmatched courses stay editable without changing custom times',
+      (tester) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+    final repository = CourseRepository(database);
+    final now = DateTime.now();
+    final start = DateTime(now.year, now.month, now.day - 7);
+    final semester = await repository.createSemester(SemesterDraft(
+      name: 'term', start: start, end: start.add(const Duration(days: 111)),
+      totalWeeks: 16,
+    ));
+    await repository.savePeriods(semester.id, const [
+      CoursePeriod(startMinutes: 480, endMinutes: 530),
+      CoursePeriod(startMinutes: 540, endMinutes: 590),
+    ]);
+    final course = await repository.createCourse(
+      CourseDraft(name: '保留自定义时间', semesterId: semester.id),
+    );
+    await repository.createSchedule(CourseScheduleDraft(
+      courseId: course.id, weekday: now.weekday,
+      startMinutes: 545, endMinutes: 585, weekSet: '1,4',
+      excludedDateKeys: const {20261101}, reminderMinutes: 15,
+      roomOverride: '保留教室',
+    ));
+    await repository.savePeriods(semester.id, const [
+      CoursePeriod(startMinutes: 510, endMinutes: 560),
+    ]);
+    await tester.pumpWidget(ProviderScope(
+      overrides: [databaseProvider.overrideWithValue(database)],
+      child: const MaterialApp(home: CoursesPage()),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('保留自定义时间'), findsOneWidget);
+    await tester.tap(find.text('编辑'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('保留自定义时间'));
+    await tester.pumpAndSettle();
+    expect(find.byType(KeyboardSafeFormDialog), findsOneWidget);
+    await tester.tap(find.text('保存'));
+    await tester.pumpAndSettle();
+    final schedule = (await repository.schedules(course.id)).single;
+    expect((schedule.startMinutes, schedule.endMinutes), (545, 585));
+    expect(schedule.weekSet, '1,4');
+    expect(schedule.excludedDates, '[20261101]');
+    expect(schedule.reminderMinutes, 15);
+    expect(schedule.roomOverride, '保留教室');
+    await tester.tap(find.text('保留自定义时间'));
+    await tester.pumpAndSettle();
+    final startPeriodField = find.ancestor(
+      of: find.text('开始节次'),
+      matching: find.byType(DropdownButtonFormField<int>),
+    );
+    await tester.ensureVisible(startPeriodField);
+    await tester.tap(startPeriodField);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('第 1 节').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('保存'));
+    await tester.pumpAndSettle();
+    final adjusted = (await repository.schedules(course.id)).single;
+    expect((adjusted.startMinutes, adjusted.endMinutes), (510, 560));
+    expect(adjusted.weekSet, '1,4');
+    expect(find.text('未匹配节次的排课'), findsNothing);
+    await tester.tap(find.byTooltip('上一周'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('保留自定义时间'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('全学期'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('保存'));
+    await tester.pumpAndSettle();
+    expect((await repository.schedules(course.id)).single.weekSet,
+        '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16');
+    expect(tester.takeException(), isNull);
+  });
 }

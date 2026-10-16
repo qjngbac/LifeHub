@@ -2,6 +2,20 @@ import 'package:drift/drift.dart';
 import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/features/task/data/task_repository.dart';
 import 'package:uuid/uuid.dart';
+class ListWithStats {
+  const ListWithStats({
+    required this.list,
+    required this.total,
+    required this.checked,
+  });
+
+  final ListEntry list;
+  final int total;
+  final int checked;
+
+  double get progress => total == 0 ? 0.0 : checked / total;
+  bool get isCompleted => total > 0 && checked == total;
+}
 
 class ListRepository {
   ListRepository(this._database);
@@ -142,6 +156,33 @@ class ListRepository {
     return query.watch();
   }
 
+  Future<List<ListWithStats>> listsWithStats({bool includeArchived = false}) async {
+    final allLists = await lists(includeArchived: includeArchived);
+    if (allLists.isEmpty) return [];
+
+    final activeItems = await (_database.select(_database.listItems)
+          ..where((row) => row.deletedAt.isNull()))
+        .get();
+
+    final statsMap = <String, ({int total, int checked})>{};
+    for (final item in activeItems) {
+      final current = statsMap[item.listId] ?? (total: 0, checked: 0);
+      statsMap[item.listId] = (
+        total: current.total + 1,
+        checked: current.checked + (item.checked ? 1 : 0),
+      );
+    }
+
+    return allLists.map((list) {
+      final stat = statsMap[list.id] ?? (total: 0, checked: 0);
+      return ListWithStats(
+        list: list,
+        total: stat.total,
+        checked: stat.checked,
+      );
+    }).toList();
+  }
+
   Future<ListItemEntry> addItem(String listId, String text) async {
     await getList(listId);
     final value = text.trim();
@@ -227,6 +268,60 @@ class ListRepository {
               ..where((row) => row.id.equals(item.id)))
             .write(ListItemsCompanion(
           sortKey: Value(index.toDouble()),
+          updatedAt: Value(now),
+          version: Value(item.version + 1),
+        ));
+        await _log('LIST_ITEM', item.id, 'UPDATE');
+      }
+    });
+  }
+
+  Future<List<ListItemEntry>> addItems(String listId, List<String> texts) async {
+    final validTexts =
+        texts.map((t) => t.trim()).where((t) => t.isNotEmpty).toList();
+    if (validTexts.isEmpty) return [];
+    await getList(listId);
+    final maxSort = _database.listItems.sortKey.max();
+    final result = await (_database.selectOnly(_database.listItems)
+          ..addColumns([maxSort])
+          ..where(_database.listItems.listId.equals(listId) &
+              _database.listItems.deletedAt.isNull()))
+        .getSingle();
+    var currentSort = (result.read(maxSort) ?? -1) + 1;
+    final createdList = <ListItemEntry>[];
+    await _database.transaction(() async {
+      for (final text in validTexts) {
+        final id = const Uuid().v4();
+        await _database.into(_database.listItems).insert(
+              ListItemsCompanion.insert(
+                id: Value(id),
+                listId: listId,
+                textValue: text,
+                sortKey: Value(currentSort++),
+              ),
+            );
+        await _log('LIST_ITEM', id, 'CREATE');
+        createdList.add(await getItem(id));
+      }
+    });
+    return createdList;
+  }
+
+  Future<void> resetAllItems(String listId) async {
+    final checked = await (_database.select(_database.listItems)
+          ..where((row) =>
+              row.listId.equals(listId) &
+              row.checked.equals(true) &
+              row.deletedAt.isNull()))
+        .get();
+    if (checked.isEmpty) return;
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    await _database.transaction(() async {
+      for (final item in checked) {
+        await (_database.update(_database.listItems)
+              ..where((row) => row.id.equals(item.id)))
+            .write(ListItemsCompanion(
+          checked: const Value(false),
           updatedAt: Value(now),
           version: Value(item.version + 1),
         ));

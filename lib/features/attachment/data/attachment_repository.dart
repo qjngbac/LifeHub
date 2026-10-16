@@ -13,8 +13,7 @@ class AttachmentStorageSummary {
 }
 
 class AttachmentRepository {
-  AttachmentRepository(this._database, {Directory? storageRoot})
-      : _storageRoot = storageRoot;
+  AttachmentRepository(this._database, {this._storageRoot});
 
   final AppDatabase _database;
   final Directory? _storageRoot;
@@ -134,19 +133,28 @@ class AttachmentRepository {
     String entityType,
     String entityId,
   ) async {
-    await unlink(attachmentId, entityType, entityId);
-    final remaining = await (_database.select(_database.attachmentLinks)
-          ..where((row) =>
-              row.deletedAt.isNull() & row.attachmentId.equals(attachmentId)))
-        .getSingleOrNull();
-    if (remaining != null) return false;
-    final attachment = await get(attachmentId);
-    final file = File(attachment.storedPath);
-    if (await file.exists()) await file.delete();
-    await (_database.delete(_database.attachments)
-          ..where((row) => row.id.equals(attachmentId)))
-        .go();
-    return true;
+    File? orphanFile;
+    final deleted = await _database.transaction(() async {
+      await unlink(attachmentId, entityType, entityId);
+      final remaining = await (_database.select(_database.attachmentLinks)
+            ..where((row) =>
+                row.deletedAt.isNull() & row.attachmentId.equals(attachmentId))
+            ..limit(1))
+          .getSingleOrNull();
+      if (remaining != null) return false;
+      final attachment = await get(attachmentId);
+      await (_database.delete(_database.attachmentLinks)
+            ..where((row) => row.attachmentId.equals(attachmentId)))
+          .go();
+      await (_database.delete(_database.attachments)
+            ..where((row) => row.id.equals(attachmentId)))
+          .go();
+      orphanFile = File(attachment.storedPath);
+      return true;
+    });
+    final file = orphanFile;
+    if (file != null && await file.exists()) await file.delete();
+    return deleted;
   }
 
   Future<AttachmentStorageSummary> storageSummary() async {
@@ -160,25 +168,32 @@ class AttachmentRepository {
   }
 
   Future<int> deleteOrphans() async {
-    final attachments = await (_database.select(_database.attachments)
-          ..where((row) => row.deletedAt.isNull()))
-        .get();
-    var deleted = 0;
-    for (final attachment in attachments) {
-      final link = await (_database.select(_database.attachmentLinks)
-            ..where((row) =>
-                row.deletedAt.isNull() &
-                row.attachmentId.equals(attachment.id)))
-          .getSingleOrNull();
-      if (link != null) continue;
-      final file = File(attachment.storedPath);
+    final orphanFiles = <File>[];
+    await _database.transaction(() async {
+      final attachments = await (_database.select(_database.attachments)
+            ..where((row) => row.deletedAt.isNull()))
+          .get();
+      for (final attachment in attachments) {
+        final link = await (_database.select(_database.attachmentLinks)
+              ..where((row) =>
+                  row.deletedAt.isNull() &
+                  row.attachmentId.equals(attachment.id))
+              ..limit(1))
+            .getSingleOrNull();
+        if (link != null) continue;
+        await (_database.delete(_database.attachmentLinks)
+              ..where((row) => row.attachmentId.equals(attachment.id)))
+            .go();
+        await (_database.delete(_database.attachments)
+              ..where((row) => row.id.equals(attachment.id)))
+            .go();
+        orphanFiles.add(File(attachment.storedPath));
+      }
+    });
+    for (final file in orphanFiles) {
       if (await file.exists()) await file.delete();
-      await (_database.delete(_database.attachments)
-            ..where((row) => row.id.equals(attachment.id)))
-          .go();
-      deleted++;
     }
-    return deleted;
+    return orphanFiles.length;
   }
 
   static String contentDigest(List<int> bytes) {

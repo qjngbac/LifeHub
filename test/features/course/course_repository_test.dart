@@ -205,4 +205,61 @@ void main() {
     expect(await repository.courses(semesterId: semester.id), hasLength(1));
     expect(await repository.schedulesForSemester(semester.id), hasLength(1));
   });
+
+  test('period changes migrate matching spans and preserve custom or removed times',
+      () async {
+    final semester = await repository.createSemester(SemesterDraft(
+      name: 'term', start: DateTime(2026, 8, 31),
+      end: DateTime(2026, 12, 20), totalWeeks: 16,
+    ));
+    await repository.savePeriods(semester.id, const [
+      CoursePeriod(startMinutes: 480, endMinutes: 530),
+      CoursePeriod(startMinutes: 540, endMinutes: 590),
+      CoursePeriod(startMinutes: 600, endMinutes: 650),
+    ]);
+    final course = await repository.createCourse(
+      CourseDraft(name: 'course', semesterId: semester.id),
+    );
+    for (final times in [(480, 590), (600, 650), (485, 529)]) {
+      await repository.createSchedule(CourseScheduleDraft(
+        courseId: course.id, weekday: 1, startMinutes: times.$1,
+        endMinutes: times.$2, weekSet: '1-16',
+      ));
+    }
+    await repository.savePeriods(semester.id, const [
+      CoursePeriod(startMinutes: 510, endMinutes: 560),
+      CoursePeriod(startMinutes: 570, endMinutes: 620),
+    ]);
+    final schedules = await repository.schedules(course.id);
+    expect(schedules.map((row) => (row.startMinutes, row.endMinutes)),
+        unorderedEquals([(510, 620), (600, 650), (485, 529)]));
+    final events = await repository.projectedEvents(
+      DateTime(2026, 8, 31), DateTime(2026, 9, 1),
+    );
+    expect(events.map((row) => row.start),
+        contains(DateTime(2026, 8, 31, 8, 30)));
+  });
+
+  test('period configuration and schedule migration roll back together', () async {
+    final semester = await repository.createSemester(SemesterDraft(
+      name: 'term', start: DateTime(2026, 8, 31),
+      end: DateTime(2026, 12, 20), totalWeeks: 16,
+    ));
+    final course = await repository.createCourse(
+      CourseDraft(name: 'course', semesterId: semester.id),
+    );
+    await repository.createSchedule(CourseScheduleDraft(
+      courseId: course.id, weekday: 1, startMinutes: 480,
+      endMinutes: 530, weekSet: '1-16',
+    ));
+    await database.customStatement('''
+      CREATE TRIGGER reject_period_migration BEFORE UPDATE ON course_schedules
+      BEGIN SELECT RAISE(ABORT, 'reject migration'); END
+    ''');
+    await expectLater(repository.savePeriods(semester.id, const [
+      CoursePeriod(startMinutes: 510, endMinutes: 560),
+    ]), throwsA(isA<Exception>()));
+    expect(await repository.loadPeriods(semester.id), CourseRepository.defaultPeriods);
+    expect((await repository.schedules(course.id)).single.startMinutes, 480);
+  });
 }

@@ -1,6 +1,6 @@
 # 贡献指南
 
-感谢你帮助改进 LifeHub。项目当前只维护 Android 版本，提交改动前请先确认问题能够在当前 `main` 分支复现。
+感谢你帮助改进 LifeHub。项目当前只维护 Android arm64 版本，提交改动前请先确认问题能在当前默认分支复现。环境要求见 [README](README.md)。
 
 ## 报告问题
 
@@ -17,7 +17,6 @@
 
 ```bash
 flutter pub get
-dart run build_runner build --delete-conflicting-outputs
 flutter analyze
 flutter test
 ```
@@ -25,10 +24,20 @@ flutter test
 ## 提交代码
 
 1. 从 `main` 创建功能或修复分支。
-2. 保持改动聚焦，不混入无关格式化或生成文件。
+2. 保持改动聚焦，不混入无关格式化、构建产物或本机配置。`pubspec.lock` 和必要的数据库生成文件需要保留。
 3. 为可测试的逻辑补充测试。
 4. 提交前运行 `flutter analyze` 和 `flutter test`。
 5. Pull Request 使用中文说明改动原因、用户影响和验证方式。
+
+## 数据库与界面
+
+- 修改数据库结构时，更新 `schemaVersion`、迁移和必要的自愈逻辑，再执行 `dart run build_runner build --delete-conflicting-outputs`；提交对应的生成代码并验证旧数据库升级。
+- 优先运行受影响模块的测试，涉及存储、提醒或跨模块流程时扩大验证范围。
+- 界面需要检查窄屏、大字体、键盘弹出和长文本；关键信息应完整呈现，避免无意义省略号。
+- 保留本地优先的架构，不为核心功能引入强制云端服务。
+- `third_party/workmanager_android` 是当前依赖覆盖，修改时需说明与上游的差异并保留许可证。
+
+发布 APK 是独立操作：只有明确发布/打包请求时才递增版本并构建。源码上传不需要重新打包。不要提交应用数据库、用户备份或签名材料。
 
 ## 内容库贡献
 

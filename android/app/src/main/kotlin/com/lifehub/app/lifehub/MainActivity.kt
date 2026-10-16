@@ -25,6 +25,27 @@ class MainActivity : FlutterActivity() {
     private var shareChannel: MethodChannel? = null
     private var pendingDestination: String? = null
     private var pendingShare: String? = null
+    private val whiteNoisePlayer = WhiteNoisePlayerOwner {
+        object : WhiteNoisePlayerOwner.Player {
+            private val player = android.media.MediaPlayer()
+
+            override fun prepare(asset: String, volume: Double) {
+                val assetKey = io.flutter.FlutterInjector.instance().flutterLoader().getLookupKeyForAsset(asset)
+                applicationContext.assets.openFd(assetKey).use { afd ->
+                    player.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+                }
+                player.isLooping = true
+                player.setVolume(volume.toFloat(), volume.toFloat())
+                player.prepare()
+            }
+
+            override fun start() = player.start()
+            override fun pause() = player.pause()
+            override fun release() = player.release()
+            override fun isPlaying() = player.isPlaying
+            override fun setVolume(volume: Double) = player.setVolume(volume.toFloat(), volume.toFloat())
+        }
+    }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -71,7 +92,13 @@ class MainActivity : FlutterActivity() {
                 return@setMethodCallHandler
             }
             val values = call.arguments as? Map<*, *> ?: emptyMap<String, Any>()
-            val editor = getSharedPreferences(WIDGET_PREFERENCES, MODE_PRIVATE).edit()
+            val widgetPreferences = getSharedPreferences(WIDGET_PREFERENCES, MODE_PRIVATE)
+            val incomingUpdatedAt = (values["updatedAt"] as? Number)?.toLong() ?: 0L
+            if (incomingUpdatedAt < widgetPreferences.getLong("updatedAt", 0L)) {
+                result.success(false)
+                return@setMethodCallHandler
+            }
+            val editor = widgetPreferences.edit()
             values.forEach { (key, value) ->
                 when (value) {
                     is Int -> editor.putInt(key.toString(), value)
@@ -96,6 +123,71 @@ class MainActivity : FlutterActivity() {
             val path = (call.arguments as? Map<*, *>)?.get("path") as? String
             result.success(openAttachment(path))
         }
+        MethodChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            "lifehub/white_noise",
+        ).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "play" -> {
+                    val asset = call.argument<String>("asset")
+                    val volume = call.argument<Double>("volume") ?: 0.5
+                    if (asset != null) {
+                        try {
+                            whiteNoisePlayer.play(asset, volume)
+                            result.success(true)
+                        } catch (e: Exception) {
+                            result.error("AUDIO_ERROR", e.message, null)
+                        }
+                    } else {
+                        result.error("INVALID_ARGS", "asset is null", null)
+                    }
+                }
+                "pause" -> {
+                    try {
+                        whiteNoisePlayer.pause()
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.error("AUDIO_ERROR", e.message, null)
+                    }
+                }
+                "resume" -> {
+                    try {
+                        whiteNoisePlayer.resume()
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.error("AUDIO_ERROR", e.message, null)
+                    }
+                }
+                "stop" -> {
+                    try {
+                        whiteNoisePlayer.stop()
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.error("AUDIO_ERROR", e.message, null)
+                    }
+                }
+                "setVolume" -> {
+                    val volume = call.argument<Double>("volume") ?: 0.5
+                    try {
+                        whiteNoisePlayer.setVolume(volume)
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.error("AUDIO_ERROR", e.message, null)
+                    }
+                }
+                "isPlaying" -> {
+                    result.success(whiteNoisePlayer.isPlaying())
+                }
+                else -> result.notImplemented()
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        try {
+            whiteNoisePlayer.stop()
+        } catch (_: Exception) {}
+        super.onDestroy()
     }
 
     override fun onNewIntent(intent: Intent) {

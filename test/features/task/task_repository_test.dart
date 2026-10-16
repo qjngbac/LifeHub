@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifehub/core/database/app_database.dart';
@@ -86,6 +89,159 @@ void main() {
     final completed = await repository.get(task.id);
     expect(completed.status, TaskStatus.done);
     expect(await repository.list(), hasLength(1));
+  });
+
+  test('recompleting a repeating task reuses its persisted next occurrence',
+      () async {
+    final task = await repository.create(TaskDraft(
+      title: '每日复习',
+      dueAt: DateTime(2026, 8, 8, 20),
+      repeatRule: 'FREQ=DAILY;INTERVAL=1',
+    ));
+    await (database.update(database.tasks)
+          ..where((row) => row.id.equals(task.id)))
+        .write(const TasksCompanion(
+      metadata: Value('{"custom":{"label":"保留"},"source":"manual"}'),
+    ));
+    await repository.setStatus(task.id, TaskStatus.done);
+    final next = (await repository.list()).singleWhere((row) => row.id != task.id);
+    await repository.setStatus(task.id, TaskStatus.todo);
+    await TaskRepository(database).setStatus(task.id, TaskStatus.done);
+
+    expect(await repository.list(), hasLength(2));
+    expect((await repository.get(next.id)).dueAt,
+        DateTime(2026, 8, 9, 20).millisecondsSinceEpoch);
+    final metadata = jsonDecode((await repository.get(task.id)).metadata) as Map;
+    expect(metadata['custom'], {'label': '保留'});
+    expect(metadata['source'], 'manual');
+    await repository.setStatus(next.id, TaskStatus.done);
+    expect(await repository.list(), hasLength(3));
+  });
+
+  test('concurrent completion creates only one next occurrence', () async {
+    final task = await repository.create(TaskDraft(
+      title: '每日复习',
+      dueAt: DateTime(2026, 8, 8, 20),
+      repeatRule: 'FREQ=DAILY;INTERVAL=1',
+    ));
+    await Future.wait([
+      repository.setStatus(task.id, TaskStatus.done),
+      repository.setStatus(task.id, TaskStatus.done),
+    ]);
+
+    expect(await repository.list(), hasLength(2));
+  });
+
+  test('recompletion does not restore a deleted next occurrence', () async {
+    final task = await repository.create(TaskDraft(
+      title: '每日复习',
+      dueAt: DateTime(2026, 8, 8, 20),
+      repeatRule: 'FREQ=DAILY;INTERVAL=1',
+    ));
+    await repository.setStatus(task.id, TaskStatus.done);
+    final next = (await repository.list()).singleWhere((row) => row.id != task.id);
+    await repository.delete(next.id);
+    await repository.setStatus(task.id, TaskStatus.todo);
+    await repository.setStatus(task.id, TaskStatus.done);
+
+    expect(await database.select(database.tasks).get(), hasLength(2));
+    expect((await repository.get(next.id)).deletedAt, isNotNull);
+  });
+
+  test('repeating completion tolerates legacy metadata without discarding it',
+      () async {
+    final task = await repository.create(TaskDraft(
+      title: '旧任务',
+      dueAt: DateTime(2026, 8, 8, 20),
+      repeatRule: 'FREQ=DAILY;INTERVAL=1',
+    ));
+    await (database.update(database.tasks)
+          ..where((row) => row.id.equals(task.id)))
+        .write(const TasksCompanion(metadata: Value('legacy text')));
+    await repository.setStatus(task.id, TaskStatus.done);
+    await repository.setStatus(task.id, TaskStatus.todo);
+    await repository.setStatus(task.id, TaskStatus.done);
+
+    expect(await repository.list(), hasLength(2));
+    final metadata = jsonDecode((await repository.get(task.id)).metadata) as Map;
+    expect(metadata.values, contains('legacy text'));
+  });
+
+  test('postpone revalidates only the selected filtered task ids', () async {
+    for (final id in ['project-a', 'project-b']) {
+      await database.into(database.projects).insert(
+            ProjectsCompanion.insert(id: Value(id), name: id),
+          );
+    }
+    final now = DateTime.now();
+    final oldDue = DateTime(now.year, now.month, now.day - 1, 18);
+    final fixtures = <TaskEntry>[];
+    for (final draft in [
+      TaskDraft(title: 'eligible', projectId: 'project-a',
+          category: TaskCategory.work, priority: 3, dueAt: oldDue),
+      TaskDraft(title: 'other project', projectId: 'project-b',
+          category: TaskCategory.work, priority: 3, dueAt: oldDue),
+      TaskDraft(title: 'other category', projectId: 'project-a',
+          category: TaskCategory.life, priority: 3, dueAt: oldDue),
+      TaskDraft(title: 'other priority', projectId: 'project-a',
+          category: TaskCategory.work, priority: 1, dueAt: oldDue),
+      TaskDraft(title: 'canceled', projectId: 'project-a',
+          category: TaskCategory.work, priority: 3, dueAt: oldDue),
+      TaskDraft(title: 'done', projectId: 'project-a',
+          category: TaskCategory.work, priority: 3, dueAt: oldDue),
+      TaskDraft(title: 'archived', projectId: 'project-a',
+          category: TaskCategory.work, priority: 3, dueAt: oldDue),
+      TaskDraft(title: 'deleted', projectId: 'project-a',
+          category: TaskCategory.work, priority: 3, dueAt: oldDue),
+      TaskDraft(title: 'future', projectId: 'project-a',
+          category: TaskCategory.work, priority: 3,
+          dueAt: DateTime(now.year, now.month, now.day + 1, 18)),
+    ]) {
+      fixtures.add(await repository.create(draft));
+    }
+    final selected = await repository.list(
+      projectId: 'project-a', category: TaskCategory.work, priority: 3,
+    );
+    await repository.setStatus(fixtures[4].id, TaskStatus.canceled);
+    await repository.setStatus(fixtures[5].id, TaskStatus.done);
+    await repository.archive(fixtures[6].id);
+    await repository.delete(fixtures[7].id);
+
+    final count = await repository.postponeOverdueTasks(
+      now, taskIds: [...selected.map((row) => row.id), fixtures.first.id, 'missing'],
+    );
+
+    expect(count, 1);
+    expect((await repository.get(fixtures.first.id)).dueAt,
+        DateTime(now.year, now.month, now.day, 18).millisecondsSinceEpoch);
+    for (final unchanged in fixtures.skip(1)) {
+      expect((await repository.get(unchanged.id)).dueAt, unchanged.dueAt);
+    }
+    expect(await repository.postponeOverdueTasks(now, taskIds: []), 0);
+  });
+
+  test('batch postponement rolls back all dates when one update fails', () async {
+    final now = DateTime.now();
+    final oldDue = DateTime(now.year, now.month, now.day - 1, 18);
+    final first = await repository.create(TaskDraft(title: 'first', dueAt: oldDue));
+    final second = await repository.create(TaskDraft(title: 'second', dueAt: oldDue));
+    final targetMillis = DateTime(now.year, now.month, now.day, 18)
+        .millisecondsSinceEpoch;
+    await database.customStatement('''
+      CREATE TRIGGER reject_second_postpone BEFORE UPDATE ON tasks
+      WHEN NEW.due_at = $targetMillis AND
+        EXISTS (SELECT 1 FROM tasks WHERE due_at = $targetMillis)
+      BEGIN SELECT RAISE(ABORT, 'reject second update'); END
+    ''');
+
+    await expectLater(
+      repository.postponeOverdueTasks(now, taskIds: [first.id, second.id]),
+      throwsA(isA<Exception>()),
+    );
+
+    expect((await repository.get(first.id)).dueAt, oldDue.millisecondsSinceEpoch);
+    expect((await repository.get(second.id)).dueAt, oldDue.millisecondsSinceEpoch);
+    expect(await database.select(database.changeLogs).get(), hasLength(2));
   });
 
   test('filters by category priority date and parent task', () async {

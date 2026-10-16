@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:lifehub/core/backup/automatic_backup_service.dart';
 import 'package:lifehub/core/database/app_database.dart';
+import 'package:lifehub/core/notifications/notification_service.dart';
 import 'package:lifehub/core/platform/widget_snapshot_service.dart';
 import 'package:lifehub/features/automation/application/automation_engine.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +15,8 @@ abstract final class BackgroundBackupScheduler {
   static const automationTaskName = 'lifehub.periodicAutomation';
   static const widgetTaskName = 'lifehub.periodicWidgetRefresh';
   static const backupTaskName = 'lifehub.periodicLocalBackup';
+  static const reminderUniqueName = 'lifehub-periodic-reminder-refresh';
+  static const reminderTaskName = 'lifehub.periodicReminderRefresh';
 
   static Future<void> initialize() =>
       Workmanager().initialize(lifeHubBackgroundDispatcher);
@@ -36,6 +39,13 @@ abstract final class BackgroundBackupScheduler {
       constraints: Constraints(requiresBatteryNotLow: true),
       existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
       tag: 'lifehub-widget-refresh',
+    );
+    await workmanager.registerPeriodicTask(
+      reminderUniqueName,
+      reminderTaskName,
+      frequency: const Duration(hours: 12),
+      existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
+      tag: 'lifehub-reminder-refresh',
     );
     if (frequency == BackupFrequency.disabled) {
       await workmanager.cancelByUniqueName(backupUniqueName);
@@ -64,6 +74,7 @@ void lifeHubBackgroundDispatcher() {
       BackgroundBackupScheduler.automationTaskName,
       BackgroundBackupScheduler.widgetTaskName,
       BackgroundBackupScheduler.backupTaskName,
+      BackgroundBackupScheduler.reminderTaskName,
     }.contains(taskName)) {
       return true;
     }
@@ -86,6 +97,8 @@ void lifeHubBackgroundDispatcher() {
           final preferences = await SharedPreferences.getInstance();
           await AutomaticBackupService(database, preferences)
               .runIfDue(now: now);
+        case BackgroundBackupScheduler.reminderTaskName:
+          await NotificationService.instance.rebuildFuture(database);
       }
       return true;
     } catch (error, stackTrace) {

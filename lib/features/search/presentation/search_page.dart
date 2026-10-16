@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifehub/core/providers.dart';
@@ -14,8 +16,50 @@ class SearchPage extends ConsumerStatefulWidget {
 
 class _SearchPageState extends ConsumerState<SearchPage> {
   String query = '';
+  Timer? _debounce;
+  Future<List<SearchResult>>? _results;
+  int _revision = 0;
+  int? _refreshRevision;
+
+  void _queryChanged(String value) {
+    _debounce?.cancel();
+    final revision = ++_revision;
+    setState(() {
+      query = value;
+      _results = null;
+    });
+    if (value.trim().isEmpty) return;
+    _debounce = Timer(const Duration(milliseconds: 300), () {
+      if (!mounted) return;
+      setState(() {
+        _results = _search(revision);
+      });
+    });
+  }
+
+  Future<List<SearchResult>> _search(int revision) => SearchRepository(
+    ref.read(databaseProvider), firstAid: FirstAidRepository(),
+  ).search(query, isCurrent: () => mounted && revision == _revision);
+
   @override
-  Widget build(BuildContext context) => Scaffold(
+  void dispose() {
+    _debounce?.cancel();
+    _revision++;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final refresh = ref.watch(refreshProvider);
+    if (_refreshRevision != refresh) {
+      final hadPreviousRefresh = _refreshRevision != null;
+      _refreshRevision = refresh;
+      if (hadPreviousRefresh && query.trim().isNotEmpty) {
+        _debounce?.cancel();
+        _results = _search(++_revision);
+      }
+    }
+    return Scaffold(
         appBar: AppBar(title: const Text('全局搜索')),
         body: Column(children: [
           Padding(
@@ -24,17 +68,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               autoFocus: true,
               hintText: '搜索任务、目标、资料、地点和旅行',
               leading: const Icon(Icons.search),
-              onChanged: (value) => setState(() => query = value),
+              onChanged: _queryChanged,
             ),
           ),
           Expanded(
             child: query.trim().isEmpty
                 ? const Center(child: Text('输入关键词开始搜索'))
                 : FutureBuilder<List<SearchResult>>(
-                    future: SearchRepository(
-                      ref.read(databaseProvider),
-                      firstAid: FirstAidRepository(),
-                    ).search(query),
+                    future: _results,
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return const Center(child: Text('搜索失败'));
@@ -64,6 +105,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           ),
         ]),
       );
+  }
 }
 
 Future<void> _openResult(BuildContext context, SearchResult result) async {
@@ -112,7 +154,7 @@ String _label(String type) => switch (type) {
       'FIRST_AID' => '急救知识',
       'HOUSEHOLD' => '家庭物品',
       'MEDICATION' => '用药提醒',
-      'FINANCE' => '轻量收支',
+      'FINANCE' => '财务收支',
       'SUBSCRIPTION' => '订阅与续费',
       _ => type,
     };

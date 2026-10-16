@@ -183,4 +183,44 @@ void main() {
       }),
     );
   });
+
+  test('reports invalid matches and reminders targeting missing matches',
+      () async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+    await database.into(database.matchRecords).insert(
+          MatchRecordsCompanion.insert(
+            id: const Value('invalid-match'),
+            sportType: '足球',
+            competition: '测试赛事',
+            participantA: '甲队',
+            participantB: '乙队',
+            matchDate: 20261340,
+            scoreA: const Value(1),
+          ),
+        );
+    await database.into(database.reminders).insert(
+          RemindersCompanion.insert(
+            entityType: 'MATCH',
+            entityId: 'missing-match',
+            triggerAt: DateTime.utc(2027, 1, 1).millisecondsSinceEpoch,
+            notificationId: 31002,
+            reminderKind: const Value('BEFORE_1H'),
+          ),
+        );
+
+    final codes = (await DataHealthRepository(database).inspect())
+        .issues
+        .map((issue) => issue.code)
+        .toSet();
+    expect(
+      codes,
+      containsAll({
+        'INVALID_MATCH_DATE',
+        'INVALID_MATCH_TIME',
+        'INVALID_MATCH_SCORE',
+        'REMINDER_DELETED_ENTITY',
+      }),
+    );
+  });
 }

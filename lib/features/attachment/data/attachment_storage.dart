@@ -29,7 +29,9 @@ abstract final class AttachmentStorage {
       return 0;
     }
     await targetRoot.create(recursive: true);
-    final attachments = await database.select(database.attachments).get();
+    final attachments = await (database.select(database.attachments)
+          ..where((row) => row.deletedAt.isNull()))
+        .get();
     var migrated = 0;
     for (final attachment in attachments) {
       final source = File(attachment.storedPath);
@@ -40,9 +42,14 @@ abstract final class AttachmentStorage {
       }
       final target = File(p.join(targetRoot.path, p.basename(source.path)));
       if (!await target.exists()) await source.copy(target.path);
+      final now = DateTime.now().toUtc().millisecondsSinceEpoch;
       await (database.update(database.attachments)
             ..where((row) => row.id.equals(attachment.id)))
-          .write(AttachmentsCompanion(storedPath: Value(target.path)));
+          .write(AttachmentsCompanion(
+        storedPath: Value(target.path),
+        updatedAt: Value(now),
+        version: Value(attachment.version + 1),
+      ));
       if (!p.equals(source.absolute.path, target.absolute.path)) {
         await source.delete();
       }

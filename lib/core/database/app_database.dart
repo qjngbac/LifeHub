@@ -148,8 +148,8 @@ class HabitLogs extends SyncTable {
 
   @override
   List<Set<Column<Object>>> get uniqueKeys => [
-        {habitId, localDate},
-      ];
+    {habitId, localDate},
+  ];
 }
 
 @DataClassName('RelationshipProfileEntry')
@@ -176,8 +176,8 @@ class MoodLogs extends SyncTable {
 
   @override
   List<Set<Column<Object>>> get uniqueKeys => [
-        {localDate, contextKey},
-      ];
+    {localDate, contextKey},
+  ];
 }
 
 @DataClassName('LifeEventEntry')
@@ -243,8 +243,8 @@ class EntityLinks extends SyncTable {
 
   @override
   List<Set<Column<Object>>> get uniqueKeys => [
-        {sourceType, sourceId, targetType, targetId},
-      ];
+    {sourceType, sourceId, targetType, targetId},
+  ];
 }
 
 @DataClassName('FocusSessionEntry')
@@ -274,8 +274,8 @@ class Reviews extends SyncTable {
 
   @override
   List<Set<Column<Object>>> get uniqueKeys => [
-        {periodType, startDate, endDate},
-      ];
+    {periodType, startDate, endDate},
+  ];
 }
 
 @DataClassName('InboxItemEntry')
@@ -309,8 +309,8 @@ class AutomationRuns extends SyncTable {
 
   @override
   List<Set<Column<Object>>> get uniqueKeys => [
-        {idempotencyKey},
-      ];
+    {idempotencyKey},
+  ];
 }
 
 @DataClassName('SavedItemEntry')
@@ -343,8 +343,8 @@ class AttachmentLinks extends SyncTable {
 
   @override
   List<Set<Column<Object>>> get uniqueKeys => [
-        {attachmentId, entityType, entityId},
-      ];
+    {attachmentId, entityType, entityId},
+  ];
 }
 
 @DataClassName('LocationEntry')
@@ -369,8 +369,8 @@ class TripProfiles extends SyncTable {
 
   @override
   List<Set<Column<Object>>> get uniqueKeys => [
-        {projectId},
-      ];
+    {projectId},
+  ];
 }
 
 @DataClassName('TripExpenseEntry')
@@ -411,8 +411,8 @@ class WeatherForecastCaches extends SyncTable {
 
   @override
   List<Set<Column<Object>>> get uniqueKeys => [
-        {locationId, forecastDate},
-      ];
+    {locationId, forecastDate},
+  ];
 }
 
 @DataClassName('EveningPrepItemEntry')
@@ -469,8 +469,8 @@ class MedicationLogs extends SyncTable {
 
   @override
   List<Set<Column<Object>>> get uniqueKeys => [
-        {planId, localDate, timeMinutes},
-      ];
+    {planId, localDate, timeMinutes},
+  ];
 }
 
 @DataClassName('EmergencyCardEntry')
@@ -486,6 +486,23 @@ class EmergencyCards extends SyncTable {
   BoolColumn get sensitive => boolean().withDefault(const Constant(true))();
 }
 
+@DataClassName('FinanceAccountEntry')
+class FinanceAccounts extends SyncTable {
+  TextColumn get name => text().withLength(min: 1, max: 100)();
+  TextColumn get accountType => text().withDefault(const Constant('DEBIT'))();
+  IntColumn get balanceMinor => integer().withDefault(const Constant(0))();
+  TextColumn get currency => text().withDefault(const Constant('CNY'))();
+  TextColumn get cardLastFour => text().nullable()();
+  TextColumn get color => text().withDefault(const Constant('#4F46E5'))();
+  TextColumn get iconName => text().nullable()();
+  BoolColumn get includeInNetWorth =>
+      boolean().withDefault(const Constant(true))();
+  IntColumn get billingDay => integer().nullable()();
+  IntColumn get repaymentDay => integer().nullable()();
+  IntColumn get creditLimitMinor => integer().nullable()();
+  TextColumn get notes => text().nullable()();
+}
+
 @DataClassName('FinanceEntry')
 class FinanceEntries extends SyncTable {
   TextColumn get direction => text()();
@@ -495,6 +512,15 @@ class FinanceEntries extends SyncTable {
   IntColumn get occurredAt => integer()();
   TextColumn get note => text().nullable()();
   BoolColumn get sensitive => boolean().withDefault(const Constant(false))();
+  TextColumn get accountId => text().nullable()();
+  TextColumn get targetAccountId => text().nullable()();
+  TextColumn get subCategory => text().nullable()();
+  TextColumn get expenseNature => text().withDefault(const Constant('NEED'))();
+  BoolColumn get isReimbursable =>
+      boolean().withDefault(const Constant(false))();
+  TextColumn get reimburseStatus => text().nullable()();
+  TextColumn get tagsJson => text().nullable()();
+  TextColumn get relatedEntryId => text().nullable()();
 }
 
 @DataClassName('CredentialRecordEntry')
@@ -647,6 +673,30 @@ class EntityTags extends Table {
   Set<Column<Object>> get primaryKey => {entityType, entityId, tagId};
 }
 
+@DataClassName('MatchRecordEntry')
+class MatchRecords extends SyncTable {
+  TextColumn get sportType => text().withLength(min: 1, max: 40)();
+  TextColumn get competition => text().withLength(min: 1, max: 300)();
+  TextColumn get season => text().nullable()();
+  TextColumn get stageOrRound => text().nullable()();
+  TextColumn get participantA => text().withLength(min: 1, max: 300)();
+  TextColumn get participantB => text().withLength(min: 1, max: 300)();
+  IntColumn get matchDate => integer()();
+  IntColumn get startAt => integer().nullable()();
+  TextColumn get timezoneId => text().nullable()();
+  IntColumn get scoreA => integer().nullable()();
+  IntColumn get scoreB => integer().nullable()();
+  TextColumn get scoreDetail => text().nullable()();
+  TextColumn get status => text().withDefault(const Constant('SCHEDULED'))();
+  TextColumn get venue => text().nullable()();
+  TextColumn get broadcast => text().nullable()();
+  TextColumn get notes => text().nullable()();
+  BoolColumn get favorite => boolean().withDefault(const Constant(false))();
+  TextColumn get sourceType => text().withDefault(const Constant('MANUAL'))();
+  TextColumn get sourceKey => text().nullable()();
+  TextColumn get sourceLabel => text().nullable()();
+}
+
 @DataClassName('ReminderEntry')
 class Reminders extends SyncTable {
   TextColumn get entityType => text()();
@@ -716,6 +766,7 @@ class ChangeLogs extends Table {
     MedicationPlans,
     MedicationLogs,
     EmergencyCards,
+    FinanceAccounts,
     FinanceEntries,
     CredentialRecords,
     MediaSeries,
@@ -728,6 +779,7 @@ class ChangeLogs extends Table {
     Parcels,
     Tags,
     EntityTags,
+    MatchRecords,
     Reminders,
     ModuleConfigs,
     ChangeLogs,
@@ -739,75 +791,79 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 11;
+  int get schemaVersion => 13;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-        onCreate: (migrator) async {
-          await migrator.createAll();
-          await _createIndexes();
-        },
-        onUpgrade: (migrator, from, to) async {
-          if (from < 2) {
-            await migrator.createTable(relationshipProfiles);
-            await migrator.createTable(moodLogs);
-            await migrator.createTable(lifeEvents);
-            await migrator.createTable(cycleRecords);
-            await migrator.createTable(anniversaries);
-          }
-          if (from < 3) {
-            await migrator.addColumn(events, events.archived);
-            await migrator.addColumn(courseSchedules, courseSchedules.archived);
-            await customStatement(
-              'UPDATE events SET archived = 1, deleted_at = NULL '
-              'WHERE deleted_at IS NOT NULL',
-            );
-            await customStatement(
-              'UPDATE course_schedules SET archived = 1, deleted_at = NULL '
-              'WHERE deleted_at IS NOT NULL',
-            );
-          }
-          if (from < 4) {
-            await migrator.createTable(goals);
-            await migrator.createTable(milestones);
-            await migrator.createTable(entityLinks);
-            await migrator.createTable(focusSessions);
-            await migrator.createTable(reviews);
-          }
-          if (from < 5) {
-            await migrator.createTable(inboxItems);
-            await migrator.createTable(automationRules);
-            await migrator.createTable(automationRuns);
-          }
-          if (from < 6) {
-            await migrator.createTable(savedItems);
-            await migrator.createTable(attachments);
-            await migrator.createTable(attachmentLinks);
-            await migrator.createTable(locations);
-            await migrator.createTable(tripProfiles);
-            await migrator.createTable(tripExpenses);
-          }
-          if (from < 7) {
-            await migrator.addColumn(entityLinks, entityLinks.relationType);
-            await migrator.addColumn(entityLinks, entityLinks.note);
-            await migrator.createTable(weatherLocations);
-            await migrator.createTable(weatherForecastCaches);
-            await migrator.createTable(eveningPrepItems);
-            await migrator.createTable(householdItems);
-            await migrator.createTable(medicationPlans);
-            await migrator.createTable(medicationLogs);
-            await migrator.createTable(emergencyCards);
-            await migrator.createTable(financeEntries);
-            await migrator.createTable(credentialRecords);
-          }
-          if (from < 8) {
-            await migrator.createTable(mediaSeries);
-            await migrator.createTable(mediaEntries);
-          }
-          if (from < 9) {
-            await migrator.addColumn(events, events.preparationMinutes);
-            await migrator.addColumn(events, events.travelMinutes);
-            await migrator.addColumn(events, events.departureReminderEnabled);
+    onCreate: (migrator) async {
+      await migrator.createAll();
+      await _createIndexes();
+    },
+    onUpgrade: (migrator, from, to) async {
+      await transaction(() async {
+        if (from < 2) {
+          await migrator.createTable(relationshipProfiles);
+          await migrator.createTable(moodLogs);
+          await migrator.createTable(lifeEvents);
+          await migrator.createTable(cycleRecords);
+          await migrator.createTable(anniversaries);
+        }
+        if (from < 3) {
+          await migrator.addColumn(events, events.archived);
+          await migrator.addColumn(courseSchedules, courseSchedules.archived);
+          await customStatement(
+            'UPDATE events SET archived = 1, deleted_at = NULL '
+            'WHERE deleted_at IS NOT NULL',
+          );
+          await customStatement(
+            'UPDATE course_schedules SET archived = 1, deleted_at = NULL '
+            'WHERE deleted_at IS NOT NULL',
+          );
+        }
+        if (from < 4) {
+          await migrator.createTable(goals);
+          await migrator.createTable(milestones);
+          await migrator.createTable(entityLinks);
+          await migrator.createTable(focusSessions);
+          await migrator.createTable(reviews);
+        }
+        if (from < 5) {
+          await migrator.createTable(inboxItems);
+          await migrator.createTable(automationRules);
+          await migrator.createTable(automationRuns);
+        }
+        if (from < 6) {
+          await migrator.createTable(savedItems);
+          await migrator.createTable(attachments);
+          await migrator.createTable(attachmentLinks);
+          await migrator.createTable(locations);
+          await migrator.createTable(tripProfiles);
+          await migrator.createTable(tripExpenses);
+        }
+        if (from >= 4 && from < 7) {
+          await migrator.addColumn(entityLinks, entityLinks.relationType);
+          await migrator.addColumn(entityLinks, entityLinks.note);
+        }
+        if (from < 7) {
+          await migrator.createTable(weatherLocations);
+          await migrator.createTable(weatherForecastCaches);
+          await migrator.createTable(eveningPrepItems);
+          await migrator.createTable(householdItems);
+          await migrator.createTable(medicationPlans);
+          await migrator.createTable(medicationLogs);
+          await migrator.createTable(emergencyCards);
+          await migrator.createTable(financeEntries);
+          await migrator.createTable(credentialRecords);
+        }
+        if (from < 8) {
+          await migrator.createTable(mediaSeries);
+          await migrator.createTable(mediaEntries);
+        }
+        if (from < 9) {
+          await migrator.addColumn(events, events.preparationMinutes);
+          await migrator.addColumn(events, events.travelMinutes);
+          await migrator.addColumn(events, events.departureReminderEnabled);
+          if (from >= 7) {
             await migrator.addColumn(householdItems, householdItems.itemKind);
             await migrator.addColumn(householdItems, householdItems.quantity);
             await migrator.addColumn(householdItems, householdItems.unit);
@@ -817,31 +873,447 @@ class AppDatabase extends _$AppDatabase {
               householdItems,
               householdItems.minimumQuantity,
             );
-            await migrator.addColumn(reminders, reminders.reminderKind);
-            await migrator.createTable(courseGrades);
-            await migrator.createTable(subscriptions);
-            await migrator.createTable(maintenancePlans);
-            await migrator.createTable(maintenanceLogs);
-            await migrator.createTable(readingItems);
-            await migrator.createTable(parcels);
           }
-          if (from >= 4 && from < 11) {
-            await migrator.addColumn(focusSessions, focusSessions.mode);
-          }
-          if (from >= 7 && from < 10) {
-            await migrator.addColumn(emergencyCards, emergencyCards.birthDate);
-            await customStatement(
-              'UPDATE emergency_cards '
-              'SET birth_date = birth_year * 10000 + 101 '
-              'WHERE birth_date IS NULL AND birth_year IS NOT NULL',
-            );
-          }
-          await _createIndexes();
-        },
-        beforeOpen: (details) async {
-          await customStatement('PRAGMA foreign_keys = ON');
-        },
+          await migrator.addColumn(reminders, reminders.reminderKind);
+          await migrator.createTable(courseGrades);
+          await migrator.createTable(subscriptions);
+          await migrator.createTable(maintenancePlans);
+          await migrator.createTable(maintenanceLogs);
+          await migrator.createTable(readingItems);
+          await migrator.createTable(parcels);
+        }
+        if (from >= 4 && from < 11) {
+          await migrator.addColumn(focusSessions, focusSessions.mode);
+        }
+        if (from >= 7 && from < 10) {
+          await migrator.addColumn(emergencyCards, emergencyCards.birthDate);
+          await customStatement(
+            'UPDATE emergency_cards '
+            'SET birth_date = birth_year * 10000 + 101 '
+            'WHERE birth_date IS NULL AND birth_year IS NOT NULL',
+          );
+        }
+        if (from < 12) {
+          await migrator.createTable(matchRecords);
+        }
+        if (from < 13) {
+          await migrator.createTable(financeAccounts);
+          await _addColumnIfMissing(
+            migrator,
+            financeEntries,
+            financeEntries.accountId,
+          );
+          await _addColumnIfMissing(
+            migrator,
+            financeEntries,
+            financeEntries.targetAccountId,
+          );
+          await _addColumnIfMissing(
+            migrator,
+            financeEntries,
+            financeEntries.subCategory,
+          );
+          await _addColumnIfMissing(
+            migrator,
+            financeEntries,
+            financeEntries.expenseNature,
+          );
+          await _addColumnIfMissing(
+            migrator,
+            financeEntries,
+            financeEntries.isReimbursable,
+          );
+          await _addColumnIfMissing(
+            migrator,
+            financeEntries,
+            financeEntries.reimburseStatus,
+          );
+          await _addColumnIfMissing(
+            migrator,
+            financeEntries,
+            financeEntries.tagsJson,
+          );
+          await _addColumnIfMissing(
+            migrator,
+            financeEntries,
+            financeEntries.relatedEntryId,
+          );
+        }
+        await _createIndexes();
+      });
+    },
+    beforeOpen: (details) async {
+      await customStatement('PRAGMA busy_timeout = 5000');
+      await customStatement('PRAGMA foreign_keys = ON');
+      await customStatement(
+        'CREATE INDEX IF NOT EXISTS idx_finance_account '
+        'ON finance_entries(account_id, occurred_at)',
       );
+      await healMisclassifiedTransfers();
+      await healFoodSubcategories();
+      await healCampusAndRepaymentEntries();
+    },
+  );
+
+  Future<int> healMisclassifiedTransfers() async {
+    final rows =
+        await (select(financeEntries)..where(
+              (row) =>
+                  row.deletedAt.isNull() &
+                  row.direction.equals('TRANSFER') &
+                  row.targetAccountId.isNull() &
+                  (row.subCategory.isNull() |
+                      row.subCategory.equals('活动奖励')) &
+                  (row.note.like('%活动奖励%') |
+                      row.note.like('%现金奖励%') |
+                      row.note.like('%领现金%') |
+                      row.note.like('%补贴到账%') |
+                      row.note.like('%收到红包%') |
+                      row.note.like('%红包收入%') |
+                      row.note.like('%领取红包%') |
+                      row.note.like('%获得红包%') |
+                      row.note.like('%收益%') |
+                      row.subCategory.equals('活动奖励')),
+            ))
+            .get();
+
+    if (rows.isEmpty) return 0;
+
+    final accountDeltas = <String, int>{};
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    var updatedCount = 0;
+
+    await transaction(() async {
+      for (final entry in rows) {
+        final note = entry.note ?? '';
+        if (note.contains('转出') || note.contains('付款') ||
+            note.contains('支出') || note.contains('发出红包')) {
+          continue;
+        }
+        final isPlatformProfit =
+            note.contains('百度') ||
+            note.contains('小说') ||
+            note.contains('音乐') ||
+            note.contains('剧场') ||
+            note.contains('快手') ||
+            note.contains('收益');
+        final isRedPacket = note.contains('红包');
+
+        final String category;
+        final String subCategory;
+        if (isRedPacket) {
+          category = 'SOCIAL';
+          subCategory = '微信红包';
+        } else if (isPlatformProfit) {
+          category = 'SIDE_INCOME';
+          subCategory = '平台收益';
+        } else {
+          category = 'SIDE_INCOME';
+          subCategory = '活动奖励';
+        }
+
+        final changed = await (update(
+          financeEntries,
+        )..where((row) =>
+            row.id.equals(entry.id) &
+            row.deletedAt.isNull() &
+            row.direction.equals('TRANSFER') &
+            row.targetAccountId.isNull() &
+            row.version.equals(entry.version))).write(
+          FinanceEntriesCompanion(
+            direction: const Value('INCOME'),
+            category: Value(category),
+            subCategory: Value(subCategory),
+            expenseNature: const Value('WANT'),
+            updatedAt: Value(now),
+            version: Value(entry.version + 1),
+          ),
+        );
+        if (changed == 0) continue;
+        updatedCount++;
+
+        if (entry.accountId != null) {
+          accountDeltas.update(
+            entry.accountId!,
+            (v) => v + entry.amountMinor * 2,
+            ifAbsent: () => entry.amountMinor * 2,
+          );
+        }
+      }
+
+      for (final e in accountDeltas.entries) {
+        final account = await (select(
+          financeAccounts,
+        )..where((row) => row.id.equals(e.key))).getSingleOrNull();
+        if (account != null) {
+          await (update(
+            financeAccounts,
+          )..where((row) => row.id.equals(e.key))).write(
+            FinanceAccountsCompanion(
+              balanceMinor: Value(account.balanceMinor + e.value),
+              updatedAt: Value(now),
+              version: Value(account.version + 1),
+            ),
+          );
+        }
+      }
+    });
+
+    return updatedCount;
+  }
+
+  /// Fills missing food subcategories without replacing user classifications.
+  Future<int> healFoodSubcategories() async {
+    final rows =
+        await (select(financeEntries)..where(
+              (row) =>
+                  row.deletedAt.isNull() &
+                  row.direction.equals('EXPENSE') &
+                  row.category.equals('FOOD') &
+                  row.subCategory.isNull(),
+            ))
+            .get();
+
+    if (rows.isEmpty) return 0;
+
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    int updatedCount = 0;
+
+    await transaction(() async {
+      for (final entry in rows) {
+        final currentSub = entry.subCategory;
+        final note = (entry.note ?? '').toLowerCase();
+        final dt = DateTime.fromMillisecondsSinceEpoch(entry.occurredAt);
+        final hour = dt.hour;
+
+        String newSub;
+
+        // 1. Drinks
+        if (note.contains('咖啡') ||
+            note.contains('星巴克') ||
+            note.contains('瑞幸') ||
+            note.contains('喜茶') ||
+            note.contains('奈雪') ||
+            note.contains('茶百道') ||
+            note.contains('古茗') ||
+            note.contains('蜜雪冰城') ||
+            note.contains('一点点') ||
+            note.contains('coco') ||
+            note.contains('霸王茶姬') ||
+            note.contains('奶茶')) {
+          newSub = '咖啡奶茶';
+        }
+        // 2. Snacks / Fruit / E-commerce food
+        else if (note.contains('水果') ||
+            note.contains('鲜果') ||
+            note.contains('百果园') ||
+            note.contains('零食') ||
+            note.contains('坚果') ||
+            note.contains('面包') ||
+            note.contains('蛋糕') ||
+            note.contains('烘焙') ||
+            note.contains('良品铺子') ||
+            note.contains('三只松鼠') ||
+            note.contains('百草味') ||
+            ((note.contains('淘宝') ||
+                    note.contains('天猫') ||
+                    note.contains('京东') ||
+                    note.contains('拼多多')) &&
+                (note.contains('食品') ||
+                    note.contains('特产') ||
+                    note.contains('速食') ||
+                    note.contains('零食')))) {
+          newSub = '零食水果';
+        }
+        // 3. Convenience store / Supermarket
+        else if (note.contains('便利店') ||
+            note.contains('罗森') ||
+            note.contains('全家') ||
+            note.contains('7-11') ||
+            note.contains('美宜佳') ||
+            note.contains('超市') ||
+            note.contains('永辉') ||
+            note.contains('沃尔玛') ||
+            note.contains('盒马') ||
+            note.contains('大润发') ||
+            note.contains('物美') ||
+            note.contains('小卖部')) {
+          newSub = '商超便利';
+        }
+        // 4. Grocery cooking
+        else if (note.contains('买菜') ||
+            note.contains('菜市场') ||
+            note.contains('农贸') ||
+            note.contains('生鲜') ||
+            note.contains('叮咚') ||
+            note.contains('朴朴')) {
+          newSub = '买菜做饭';
+        }
+        // 5. Hotpot / Gatherings
+        else if (note.contains('海底捞') ||
+            note.contains('酒楼') ||
+            note.contains('聚餐')) {
+          newSub = '朋友聚餐';
+        }
+        // 6. Infer the meal period only for an unclassified food entry.
+        else {
+          if (hour >= 5 && hour < 10) {
+            newSub = '早餐饮食';
+          } else if (hour >= 10 && hour < 17) {
+            newSub = '外卖午餐';
+          } else if (hour >= 17 && hour < 21) {
+            newSub = '外卖晚餐';
+          } else {
+            newSub = '夜宵外卖';
+          }
+        }
+
+        if (newSub != currentSub) {
+          final changed = await (update(
+            financeEntries,
+          )..where((row) =>
+              row.id.equals(entry.id) &
+              row.deletedAt.isNull() &
+              row.subCategory.isNull() &
+              row.version.equals(entry.version))).write(
+            FinanceEntriesCompanion(
+              subCategory: Value(newSub),
+              updatedAt: Value(now),
+              version: Value(entry.version + 1),
+            ),
+          );
+          updatedCount += changed;
+        }
+      }
+    });
+
+    return updatedCount;
+  }
+
+  /// Classifies unclassified outgoing records, preserving income and transfers
+  /// between two accounts.
+  Future<int> healCampusAndRepaymentEntries() async {
+    final rows =
+        await (select(financeEntries)..where(
+              (row) =>
+                  row.deletedAt.isNull() &
+                  row.subCategory.isNull() &
+                  row.category.isIn(const ['OTHER', 'TRANSFER']) &
+                  (row.direction.equals('EXPENSE') |
+                      (row.direction.equals('TRANSFER') &
+                          row.targetAccountId.isNull())) &
+                  (row.note.like('%一卡通%') |
+                      row.note.like('%校园卡%') |
+                      row.note.like('%校园充值%') |
+                      row.note.like('%趣智%') |
+                      row.note.like('%饭卡%') |
+                      row.note.like('%还款%') |
+                      row.note.like('%月付%') |
+                      row.note.like('%美团金融%') |
+                      row.note.like('%京东金融%') |
+                      row.note.like('%度小满%') |
+                      row.note.like('%微粒贷%') |
+                      row.note.like('%分期乐%') |
+                      row.note.like('%借呗%') |
+                      row.note.like('%花呗%') |
+                      row.note.like('%白条%') |
+                      row.note.like('%金融%')),
+            ))
+            .get();
+
+    if (rows.isEmpty) return 0;
+
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    int updatedCount = 0;
+
+    await transaction(() async {
+      for (final entry in rows) {
+        final note = (entry.note ?? '').toLowerCase();
+        String? newCat;
+        String? newSub;
+        String? newDir;
+
+        if (note.contains('还款') ||
+            note.contains('月付') ||
+            note.contains('美团金融') ||
+            note.contains('京东金融') ||
+            note.contains('度小满') ||
+            note.contains('微粒贷') ||
+            note.contains('分期乐') ||
+            note.contains('借呗') ||
+            note.contains('花呗') ||
+            note.contains('白条') ||
+            (note.contains('金融') && !note.contains('理财'))) {
+          newCat = 'FINANCE_EXPENSE';
+          newDir = 'EXPENSE';
+          if (note.contains('月付')) {
+            newSub = '月付还款';
+          } else if (note.contains('信用卡')) {
+            newSub = '信用卡还款';
+          } else if (note.contains('花呗')) {
+            newSub = '花呗还款';
+          } else if (note.contains('白条') || note.contains('京东金融')) {
+            newSub = '白条还款';
+          } else if (note.contains('分期')) {
+            newSub = '分期还款';
+          } else {
+            newSub = '信贷还款';
+          }
+        } else if (note.contains('一卡通') ||
+            note.contains('校园卡') ||
+            note.contains('校园充值') ||
+            note.contains('趣智') ||
+            note.contains('饭卡') ||
+            (note.contains('大学') && note.contains('充值'))) {
+          if (!note.contains('住宿') && !note.contains('学费')) {
+            newCat = 'EDUCATION';
+            newSub = '校园一卡通';
+            newDir = 'EXPENSE';
+          }
+        }
+
+        if (newCat != null &&
+            (newCat != entry.category ||
+                newSub != entry.subCategory ||
+                newDir != entry.direction)) {
+          final changed = await (update(
+            financeEntries,
+          )..where((row) =>
+              row.id.equals(entry.id) &
+              row.deletedAt.isNull() &
+              row.subCategory.isNull() &
+              row.direction.equals(entry.direction) &
+              row.version.equals(entry.version))).write(
+            FinanceEntriesCompanion(
+              category: Value(newCat),
+              subCategory: Value(newSub ?? entry.subCategory),
+              direction: Value(newDir ?? entry.direction),
+              expenseNature: const Value('NEED'),
+              updatedAt: Value(now),
+              version: Value(entry.version + 1),
+            ),
+          );
+          updatedCount += changed;
+        }
+      }
+    });
+
+    return updatedCount;
+  }
+
+  Future<void> _addColumnIfMissing(
+    Migrator migrator,
+    TableInfo table,
+    GeneratedColumn column,
+  ) async {
+    final result = await customSelect(
+      'PRAGMA table_info(${table.actualTableName})',
+    ).get();
+    final columnNames = result.map((row) => row.read<String>('name')).toSet();
+    if (!columnNames.contains(column.name)) {
+      await migrator.addColumn(table, column);
+    }
+  }
 
   Future<void> _createIndexes() async {
     await customStatement(
@@ -964,6 +1436,10 @@ class AppDatabase extends _$AppDatabase {
       'ON finance_entries(occurred_at, direction, category)',
     );
     await customStatement(
+      'CREATE INDEX IF NOT EXISTS idx_finance_account '
+      'ON finance_entries(account_id, occurred_at)',
+    );
+    await customStatement(
       'CREATE INDEX IF NOT EXISTS idx_credentials_expiry '
       'ON credential_records(status, expiry_date)',
     );
@@ -1002,6 +1478,18 @@ class AppDatabase extends _$AppDatabase {
     await customStatement(
       'CREATE INDEX IF NOT EXISTS idx_parcels_status_deadline '
       'ON parcels(status, pickup_deadline)',
+    );
+    await customStatement(
+      'CREATE INDEX IF NOT EXISTS idx_match_records_upcoming '
+      'ON match_records(status, match_date, start_at, deleted_at)',
+    );
+    await customStatement(
+      'CREATE INDEX IF NOT EXISTS idx_match_records_archive '
+      'ON match_records(status, match_date, sport_type, competition, deleted_at)',
+    );
+    await customStatement(
+      'CREATE INDEX IF NOT EXISTS idx_match_records_source '
+      'ON match_records(source_key, deleted_at)',
     );
   }
 }

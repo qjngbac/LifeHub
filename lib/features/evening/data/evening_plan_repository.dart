@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/core/time/date_keys.dart';
+import 'package:lifehub/features/event/data/event_repository.dart';
+import 'package:lifehub/features/task/data/task_repository.dart';
 
 class PlannedCourse {
   const PlannedCourse({required this.course, required this.schedule});
@@ -18,6 +20,7 @@ class EveningPlan {
     required this.events,
     required this.courses,
     required this.prepItems,
+    this.overdueTasks = const [],
   });
 
   final DateTime date;
@@ -25,6 +28,7 @@ class EveningPlan {
   final List<EventEntry> events;
   final List<PlannedCourse> courses;
   final List<EveningPrepItemEntry> prepItems;
+  final List<TaskEntry> overdueTasks;
 }
 
 class EveningPlanRepository {
@@ -37,24 +41,34 @@ class EveningPlanRepository {
     final start = day.millisecondsSinceEpoch;
     final end = day.add(const Duration(days: 1)).millisecondsSinceEpoch;
     final dateKey = DateKeys.toLocalDateKey(day);
+    final overdueTasks = await (_database.select(_database.tasks)
+          ..where((row) =>
+              row.deletedAt.isNull() &
+              row.status.isIn(TaskStatus.actionable) &
+              row.dueAt.isNotNull() &
+              row.dueAt.isSmallerThanValue(start))
+          ..orderBy([(row) => OrderingTerm(expression: row.dueAt)]))
+        .get();
     final tasks = await (_database.select(_database.tasks)
           ..where((row) =>
               row.deletedAt.isNull() &
-              row.status.equals('DONE').not() &
-              row.status.equals('CANCELED').not() &
+              row.status.isIn(TaskStatus.actionable) &
               row.dueAt.isBiggerOrEqualValue(start) &
               row.dueAt.isSmallerThanValue(end))
           ..orderBy([(row) => OrderingTerm(expression: row.dueAt)]))
         .get();
-    final events = await (_database.select(_database.events)
-          ..where((row) =>
-              row.deletedAt.isNull() &
-              row.archived.equals(false) &
-              row.startAt.isSmallerThanValue(end) &
-              row.endAt.isBiggerThanValue(start) &
-              (row.sourceType.isNull() | row.sourceType.equals('COURSE').not()))
-          ..orderBy([(row) => OrderingTerm(expression: row.startAt)]))
-        .get();
+    final occurrences = await EventRepository(_database)
+        .occurrencesWindow(day, DateTime(day.year, day.month, day.day + 1));
+    final events = occurrences
+        .where((occurrence) => occurrence.event.sourceType != 'COURSE')
+        .map((occurrence) => occurrence.event.copyWith(
+              startAt: occurrence.start.toUtc().millisecondsSinceEpoch,
+              endAt: occurrence.end.toUtc().millisecondsSinceEpoch,
+              localDate: occurrence.event.allDay
+                  ? Value(DateKeys.toLocalDateKey(occurrence.start))
+                  : const Value.absent(),
+            ))
+        .toList();
     final prepItems = await (_database.select(_database.eveningPrepItems)
           ..where(
               (row) => row.deletedAt.isNull() & row.localDate.equals(dateKey))
@@ -113,7 +127,13 @@ class EveningPlanRepository {
       events: events,
       courses: courses,
       prepItems: prepItems,
+      overdueTasks: overdueTasks,
     );
+  }
+
+  Future<int> deferTasks(List<String> taskIds, DateTime targetDate) {
+    final day = DateTime(targetDate.year, targetDate.month, targetDate.day, 23, 59);
+    return TaskRepository(_database).postponeTasks(taskIds, day);
   }
 
   Future<EveningPrepItemEntry> addPrepItem(

@@ -5,6 +5,7 @@ import 'package:lifehub/features/habit/data/habit_repository.dart';
 import 'package:lifehub/features/task/data/task_repository.dart';
 import 'package:drift/drift.dart';
 import 'package:lifehub/core/notifications/notification_payload.dart';
+import 'package:lifehub/core/notifications/reminder_operation_queue.dart';
 
 enum NotificationActionResult { handled, openOnly, ignored }
 
@@ -13,6 +14,13 @@ class NotificationActionHandler {
   final AppDatabase _database;
 
   Future<NotificationActionResult> handle(
+    String actionId,
+    String? payload, {
+    DateTime? now,
+  }) =>
+      ReminderOperationQueue.run(() => _handle(actionId, payload, now: now));
+
+  Future<NotificationActionResult> _handle(
     String actionId,
     String? payload, {
     DateTime? now,

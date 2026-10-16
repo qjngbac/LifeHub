@@ -142,6 +142,14 @@ class ReviewRepository {
         ..orderBy([(row) => OrderingTerm.desc(row.startDate)]))
       .get();
 
+  Future<ReviewEntry?> forPeriod(String periodType, DateTime start, DateTime end) =>
+      (_database.select(_database.reviews)
+            ..where((row) => row.deletedAt.isNull() &
+                row.periodType.equals(periodType) &
+                row.startDate.equals(DateKeys.toLocalDateKey(start)) &
+                row.endDate.equals(DateKeys.toLocalDateKey(end))))
+          .getSingleOrNull();
+
   static String? _optional(String? value) {
     final trimmed = value?.trim();
     return trimmed == null || trimmed.isEmpty ? null : trimmed;

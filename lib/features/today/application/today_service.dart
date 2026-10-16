@@ -16,12 +16,14 @@ class TodayEvent {
       required this.start,
       required this.end,
       this.location,
+      this.allDay = false,
       this.isCourse = false});
   final String id;
   final String title;
   final DateTime start;
   final DateTime end;
   final String? location;
+  final bool allDay;
   final bool isCourse;
 }
 
@@ -164,6 +166,7 @@ class TodayService {
               start: value.start,
               end: value.end,
               location: value.event.location,
+              allDay: value.event.allDay,
             ))
         .toList()
       ..sort((a, b) => a.start.compareTo(b.start));

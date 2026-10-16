@@ -65,6 +65,25 @@ class LocationRepository {
     return value;
   }
 
+  Future<LocationEntry> update(String id, LocationDraft draft) async {
+    _validate(draft);
+    final current = await get(id);
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    await (_database.update(_database.locations)
+          ..where((row) => row.id.equals(id)))
+        .write(LocationsCompanion(
+      name: Value(draft.name.trim()),
+      locationType: Value(draft.locationType),
+      address: Value(_optional(draft.address)),
+      latitude: Value(draft.latitude),
+      longitude: Value(draft.longitude),
+      notes: Value(_optional(draft.notes)),
+      updatedAt: Value(now),
+      version: Value(current.version + 1),
+    ));
+    return get(id);
+  }
+
   Future<List<LocationEntry>> list({bool archived = false}) =>
       (_database.select(_database.locations)
             ..where((row) =>
@@ -76,14 +95,15 @@ class LocationRepository {
   Future<List<LocationEntry>> search(String query) {
     final value = query.trim();
     if (value.isEmpty) return list();
-    final pattern = '%$value%';
+    final pattern =
+        '%${value.replaceAll(r'\', r'\\').replaceAll('%', r'\%').replaceAll('_', r'\_')}%';
     return (_database.select(_database.locations)
           ..where((row) =>
               row.deletedAt.isNull() &
               row.status.equals('ACTIVE') &
-              (row.name.like(pattern) |
-                  row.address.like(pattern) |
-                  row.notes.like(pattern))))
+              (row.name.like(pattern, escapeChar: r'\') |
+                  row.address.like(pattern, escapeChar: r'\') |
+                  row.notes.like(pattern, escapeChar: r'\'))))
         .get();
   }
 

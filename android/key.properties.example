@@ -1,0 +1,7 @@
+# Copy this file to key.properties and enter your own release signing values.
+# Keep the real key.properties and keystore outside version control.
+# Use an absolute keystore path; forward slashes also work on Windows.
+storeFile=C:/path/to/private/lifehub-upload.jks
+storePassword=CHANGE_ME
+keyAlias=CHANGE_ME
+keyPassword=CHANGE_ME

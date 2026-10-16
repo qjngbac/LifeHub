@@ -109,6 +109,22 @@ class ProjectRepository {
     return done / eligible.length;
   }
 
+  Future<({int total, int completed, double progress})> taskStats(String id) async {
+    final tasks = await TaskRepository(_database).list(projectId: id);
+    final eligible =
+        tasks.where((task) => task.status != TaskStatus.canceled).toList();
+    if (eligible.isEmpty) {
+      return (total: 0, completed: 0, progress: 0.0);
+    }
+    final done =
+        eligible.where((task) => task.status == TaskStatus.done).length;
+    return (
+      total: eligible.length,
+      completed: done,
+      progress: done / eligible.length,
+    );
+  }
+
   Future<void> archive(String id) async {
     final project = await get(id);
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
@@ -118,6 +134,23 @@ class ProjectRepository {
           .write(
         ProjectsCompanion(
           status: const Value('ARCHIVED'),
+          updatedAt: Value(now),
+          version: Value(project.version + 1),
+        ),
+      );
+      await _log(id, 'UPDATE');
+    });
+  }
+
+  Future<void> unarchive(String id) async {
+    final project = await get(id);
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    await _database.transaction(() async {
+      await (_database.update(_database.projects)
+            ..where((row) => row.id.equals(id)))
+          .write(
+        ProjectsCompanion(
+          status: const Value('ACTIVE'),
           updatedAt: Value(now),
           version: Value(project.version + 1),
         ),

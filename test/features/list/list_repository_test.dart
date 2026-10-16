@@ -72,4 +72,18 @@ void main() {
     await repository.deleteList(list.id);
     expect(await repository.lists(includeArchived: true), isEmpty);
   });
+
+  test('listsWithStats accurately computes total and checked counts', () async {
+    final list = await repository.createList('准备清单');
+    final item1 = await repository.addItem(list.id, '事项1');
+    await repository.addItem(list.id, '事项2');
+    await repository.toggleItem(item1.id, checked: true);
+
+    final stats = await repository.listsWithStats();
+    expect(stats, hasLength(1));
+    expect(stats.first.total, 2);
+    expect(stats.first.checked, 1);
+    expect(stats.first.progress, 0.5);
+    expect(stats.first.isCompleted, isFalse);
+  });
 }

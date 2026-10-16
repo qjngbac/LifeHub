@@ -33,8 +33,7 @@ class MoodRepository {
     final existing = await (_database.select(_database.moodLogs)
           ..where((row) =>
               row.localDate.equals(localDate) &
-              row.contextKey.equals(contextKey) &
-              row.deletedAt.isNull()))
+              row.contextKey.equals(contextKey)))
         .getSingleOrNull();
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     if (existing == null) {
@@ -63,6 +62,7 @@ class MoodRepository {
         intensity: Value(draft.intensity),
         note: Value(_optional(draft.note)),
         relationshipId: Value(relationshipId),
+        deletedAt: const Value(null),
         updatedAt: Value(now),
         version: Value(existing.version + 1),
       ));
@@ -94,22 +94,30 @@ class MoodRepository {
         .getSingleOrNull();
   }
 
+  Future<List<MoodLogEntry>> listRange(
+    DateTime start,
+    DateTime end, {
+    String? relationshipId,
+  }) {
+    final relation = _optional(relationshipId);
+    final context = relation == null ? 'SELF' : 'REL:$relation';
+    final query = _database.select(_database.moodLogs)
+      ..where((row) =>
+          row.localDate.isBiggerOrEqualValue(DateKeys.toLocalDateKey(start)) &
+          row.localDate.isSmallerOrEqualValue(DateKeys.toLocalDateKey(end)) &
+          row.contextKey.equals(context) &
+          row.deletedAt.isNull())
+      ..orderBy([(row) => OrderingTerm(expression: row.localDate)]);
+    return query.get();
+  }
+
   Future<List<MoodLogEntry>> forMonth(
     DateTime month, {
     String? relationshipId,
   }) {
     final first = DateTime(month.year, month.month);
     final last = DateTime(month.year, month.month + 1, 0);
-    final relation = _optional(relationshipId);
-    final context = relation == null ? 'SELF' : 'REL:$relation';
-    final query = _database.select(_database.moodLogs)
-      ..where((row) =>
-          row.localDate.isBiggerOrEqualValue(DateKeys.toLocalDateKey(first)) &
-          row.localDate.isSmallerOrEqualValue(DateKeys.toLocalDateKey(last)) &
-          row.contextKey.equals(context) &
-          row.deletedAt.isNull())
-      ..orderBy([(row) => OrderingTerm(expression: row.localDate)]);
-    return query.get();
+    return listRange(first, last, relationshipId: relationshipId);
   }
 
   Future<void> delete(String id) async {

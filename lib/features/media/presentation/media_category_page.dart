@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/core/providers.dart';
@@ -7,15 +8,19 @@ import 'package:lifehub/features/media/domain/media_models.dart';
 import 'package:lifehub/features/media/presentation/media_editors.dart';
 import 'package:lifehub/features/media/presentation/media_entry_page.dart';
 import 'package:lifehub/features/media/presentation/media_series_page.dart';
+import 'package:lifehub/features/media/presentation/media_ui_helpers.dart';
 
 class MediaCategoryPage extends ConsumerStatefulWidget {
   const MediaCategoryPage({
-    required this.category,
+    this.category,
+    this.initialCategory,
     this.initialStatus,
     super.key,
   });
 
-  final MediaCategory category;
+  /// Backwards-compatible alias for callers that open one category directly.
+  final MediaCategory? category;
+  final MediaCategory? initialCategory;
   final MediaWatchStatus? initialStatus;
 
   @override
@@ -23,12 +28,14 @@ class MediaCategoryPage extends ConsumerStatefulWidget {
 }
 
 class _MediaCategoryPageState extends ConsumerState<MediaCategoryPage> {
+  MediaCategory? category;
   MediaWatchStatus? status;
   var revision = 0;
 
   @override
   void initState() {
     super.initState();
+    category = widget.initialCategory ?? widget.category;
     status = widget.initialStatus;
   }
 
@@ -36,36 +43,50 @@ class _MediaCategoryPageState extends ConsumerState<MediaCategoryPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text(widget.category.label)),
+        appBar: AppBar(
+          title: Text(category?.label ?? status?.label ?? '全部影视'),
+        ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: _add,
           icon: const Icon(Icons.add),
-          label: const Text('添加'),
+          label: const Text('添加影视'),
         ),
         body: Column(children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
-            child: Row(children: [
+          _FilterRow(
+            children: [
               ChoiceChip(
-                label: const Text('全部'),
+                label: const Text('全部分类'),
+                selected: category == null,
+                onSelected: (_) => setState(() => category = null),
+              ),
+              for (final value in MediaCategory.values)
+                ChoiceChip(
+                  label: Text(value.label),
+                  selected: category == value,
+                  onSelected: (_) => setState(() => category = value),
+                ),
+            ],
+          ),
+          _FilterRow(
+            children: [
+              ChoiceChip(
+                label: const Text('全部状态'),
                 selected: status == null,
                 onSelected: (_) => setState(() => status = null),
               ),
-              const SizedBox(width: 8),
-              for (final value in MediaWatchStatus.values) ...[
+              for (final value in MediaWatchStatus.values)
                 ChoiceChip(
                   label: Text(value.label),
                   selected: status == value,
                   onSelected: (_) => setState(() => status = value),
                 ),
-                const SizedBox(width: 8),
-              ],
-            ]),
+            ],
           ),
           Expanded(
             child: FutureBuilder<_CategoryData>(
-              key: ValueKey('$revision-${status?.dbValue}'),
+              key: ValueKey(
+                '$revision-${category?.dbValue}-${status?.dbValue}',
+              ),
               future: _load(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -73,7 +94,30 @@ class _MediaCategoryPageState extends ConsumerState<MediaCategoryPage> {
                 }
                 final data = snapshot.data!;
                 if (data.series.isEmpty && data.entries.isEmpty) {
-                  return Center(child: Text('还没有${widget.category.label}记录'));
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(status == null && category == null
+                            ? '还没有影视记录'
+                            : '没有符合筛选的影视记录'),
+                        const SizedBox(height: 12),
+                        if (status != null || category != null)
+                          OutlinedButton(
+                            onPressed: () => setState(() {
+                              status = null;
+                              category = null;
+                            }),
+                            child: const Text('清除筛选'),
+                          )
+                        else
+                          FilledButton(
+                            onPressed: _add,
+                            child: const Text('添加影视'),
+                          ),
+                      ],
+                    ),
+                  );
                 }
                 return ListView(
                   padding: const EdgeInsets.fromLTRB(12, 8, 12, 96),
@@ -82,12 +126,44 @@ class _MediaCategoryPageState extends ConsumerState<MediaCategoryPage> {
                       const _SectionTitle('系列'),
                       for (final series in data.series)
                         Card(
+                          elevation: 0,
+                          margin: const EdgeInsets.only(bottom: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .outlineVariant
+                                  .withValues(alpha: 0.4),
+                            ),
+                          ),
                           child: ListTile(
-                            leading: Icon(_categoryIcon(widget.category)),
-                            title: Text(series.title),
+                            leading: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: mediaCategoryLightColor(
+                                    MediaCategory.fromDb(series.category)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Icon(
+                                mediaCategoryIcon(
+                                    MediaCategory.fromDb(series.category)),
+                                color: mediaCategoryColor(
+                                    MediaCategory.fromDb(series.category)),
+                                size: 22,
+                              ),
+                            ),
+                            title: Text(
+                              series.title,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
+                            ),
                             subtitle: Text(_seriesSubtitle(
-                                data.entriesBySeries[series.id] ?? const [])),
-                            trailing: const Icon(Icons.chevron_right),
+                              data.entriesBySeries[series.id] ?? const [],
+                              matchingCount: data.matchingBySeries[series.id],
+                            )),
+                            trailing: const Icon(Icons.chevron_right, size: 20),
                             onTap: () async {
                               await Navigator.push(
                                 context,
@@ -106,14 +182,24 @@ class _MediaCategoryPageState extends ConsumerState<MediaCategoryPage> {
                       for (final entry in data.entries)
                         _EntryTile(
                           entry: entry,
+                          onStep: () => _stepEpisode(entry),
                           onTap: () async {
-                            await Navigator.push(
+                            final deleted = await Navigator.push<bool>(
                               context,
                               MaterialPageRoute(
                                 builder: (_) =>
                                     MediaEntryPage(entryId: entry.id),
                               ),
                             );
+                            if (!context.mounted) return;
+                            if (deleted == true) {
+                              showDeletedEntryUndo(
+                                context,
+                                repository,
+                                entry,
+                                onRestored: () => setState(() => revision++),
+                              );
+                            }
                             if (mounted) setState(() => revision++);
                           },
                         ),
@@ -127,69 +213,63 @@ class _MediaCategoryPageState extends ConsumerState<MediaCategoryPage> {
       );
 
   Future<_CategoryData> _load() async {
-    final series = await repository.listSeries(category: widget.category);
-    final allEntries = await repository.listEntries(
-      category: widget.category,
-      status: status,
-    );
+    final series = await repository.listSeries(category: category);
+    final allEntries = await repository.listEntries(category: category);
+    final visibleEntries = status == null
+        ? allEntries
+        : allEntries
+            .where((entry) => entry.watchStatus == status!.dbValue)
+            .toList();
     final visibleSeries = status == null
         ? series
         : series
-            .where(
-                (item) => allEntries.any((entry) => entry.seriesId == item.id))
+            .where((item) =>
+                visibleEntries.any((entry) => entry.seriesId == item.id))
             .toList();
     return _CategoryData(
       series: visibleSeries,
-      entries: allEntries.where((entry) => entry.seriesId == null).toList(),
+      entries: visibleEntries.where((entry) => entry.seriesId == null).toList(),
       entriesBySeries: {
         for (final item in visibleSeries)
           item.id:
               allEntries.where((entry) => entry.seriesId == item.id).toList(),
       },
+      matchingBySeries: status == null
+          ? const {}
+          : {
+              for (final item in visibleSeries)
+                item.id: visibleEntries
+                    .where((entry) => entry.seriesId == item.id)
+                    .length,
+            },
     );
   }
 
   Future<void> _add() async {
-    final choice = await showModalBottomSheet<String>(
-      context: context,
-      isDismissible: false,
-      enableDrag: false,
-      showDragHandle: true,
-      builder: (context) => SafeArea(
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          ListTile(
-            leading: const Icon(Icons.video_collection_outlined),
-            title: const Text('添加系列'),
-            onTap: () => Navigator.pop(context, 'series'),
-          ),
-          ListTile(
-            leading: const Icon(Icons.movie_outlined),
-            title: const Text('添加独立作品'),
-            onTap: () => Navigator.pop(context, 'entry'),
-          ),
-          ListTile(
-            leading: const Icon(Icons.close),
-            title: const Text('取消'),
-            onTap: () => Navigator.pop(context),
-          ),
-        ]),
-      ),
+    await showMediaEntryEditor(
+      context,
+      repository,
+      presetCategory: category,
     );
-    if (!mounted) return;
-    if (choice == 'series') {
-      await showMediaSeriesEditor(
-        context,
-        repository,
-        presetCategory: widget.category,
-      );
-    } else if (choice == 'entry') {
-      await showMediaEntryEditor(
-        context,
-        repository,
-        presetCategory: widget.category,
-      );
+    if (mounted) setState(() => revision++);
+  }
+
+  Future<void> _stepEpisode(MediaEntry entry) async {
+    final next = entry.completedEpisodes + 1;
+    await repository.updateEpisodeProgress(entry.id, next);
+    if (mounted) {
+      setState(() => revision++);
+      final isFinished =
+          entry.totalEpisodes != null && next >= entry.totalEpisodes!;
+      if (isFinished) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('《${entry.title}》已全部完结！🎉'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
     }
-    if (mounted && choice != null) setState(() => revision++);
   }
 }
 
@@ -198,10 +278,31 @@ class _CategoryData {
     required this.series,
     required this.entries,
     required this.entriesBySeries,
+    required this.matchingBySeries,
   });
   final List<MediaSeriesEntry> series;
   final List<MediaEntry> entries;
   final Map<String, List<MediaEntry>> entriesBySeries;
+  final Map<String, int> matchingBySeries;
+}
+
+class _FilterRow extends StatelessWidget {
+  const _FilterRow({required this.children});
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) => SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.fromLTRB(12, 6, 12, 0),
+        child: Row(
+          children: [
+            for (final child in children) ...[
+              child,
+              const SizedBox(width: 8),
+            ],
+          ],
+        ),
+      );
 }
 
 class _SectionTitle extends StatelessWidget {
@@ -215,20 +316,87 @@ class _SectionTitle extends StatelessWidget {
 }
 
 class _EntryTile extends StatelessWidget {
-  const _EntryTile({required this.entry, required this.onTap});
+  const _EntryTile({
+    required this.entry,
+    required this.onTap,
+    this.onStep,
+  });
   final MediaEntry entry;
   final VoidCallback onTap;
+  final VoidCallback? onStep;
 
   @override
-  Widget build(BuildContext context) => Card(
-        child: ListTile(
-          leading: Icon(_categoryIcon(MediaCategory.fromDb(entry.category))),
-          title: Text(entry.title),
-          subtitle: Text(mediaProgressText(entry)),
-          trailing: const Icon(Icons.chevron_right),
-          onTap: onTap,
+  Widget build(BuildContext context) {
+    final category = MediaCategory.fromDb(entry.category);
+    final usesEpisodes =
+        MediaEntryType.fromDb(entry.entryType).usesEpisodeProgress;
+    final isCompleted =
+        entry.watchStatus == MediaWatchStatus.completed.dbValue;
+
+    return Card(
+      elevation: 0,
+      margin: const EdgeInsets.only(bottom: 8),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(
+          color: Theme.of(context)
+              .colorScheme
+              .outlineVariant
+              .withValues(alpha: 0.4),
         ),
-      );
+      ),
+      child: ListTile(
+        leading: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: mediaCategoryLightColor(category),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(
+            mediaCategoryIcon(category),
+            color: mediaCategoryColor(category),
+            size: 22,
+          ),
+        ),
+        title: Text(
+          entry.title,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
+        subtitle: Text(mediaProgressText(entry)),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (isCompleted)
+              const Padding(
+                padding: EdgeInsets.only(right: 8),
+                child: Icon(Icons.check_circle_rounded,
+                    color: Colors.green, size: 22),
+              )
+            else if (usesEpisodes && onStep != null) ...[
+              FilledButton.tonal(
+                style: FilledButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  visualDensity: VisualDensity.compact,
+                  minimumSize: const Size(40, 30),
+                ),
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  onStep!();
+                },
+                child: const Text('+1 集',
+                    style:
+                        TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+              ),
+              const SizedBox(width: 4),
+            ],
+            const Icon(Icons.chevron_right, size: 20),
+          ],
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
 }
 
 String mediaProgressText(MediaEntry entry) {
@@ -246,11 +414,12 @@ String mediaProgressText(MediaEntry entry) {
       : '$status · $position / $duration';
 }
 
-String _seriesSubtitle(List<MediaEntry> entries) {
+String _seriesSubtitle(List<MediaEntry> entries, {int? matchingCount}) {
   final completed = entries
       .where((entry) => entry.watchStatus == MediaWatchStatus.completed.dbValue)
       .length;
-  return '$completed / ${entries.length} 部完成';
+  final progress = '$completed / ${entries.length} 项完成';
+  return matchingCount == null ? progress : '$matchingCount 项符合筛选 · $progress';
 }
 
 String _minutes(int seconds) {
@@ -261,8 +430,3 @@ String _minutes(int seconds) {
       : '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
 }
 
-IconData _categoryIcon(MediaCategory category) => switch (category) {
-      MediaCategory.tv => Icons.tv_outlined,
-      MediaCategory.anime => Icons.animation_outlined,
-      MediaCategory.movie => Icons.movie_outlined,
-    };

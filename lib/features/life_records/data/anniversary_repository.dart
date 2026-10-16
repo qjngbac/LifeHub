@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/core/time/date_keys.dart';
+import 'package:lifehub/features/life_records/data/lunar_date_helper.dart';
 import 'package:uuid/uuid.dart';
 
 class AnniversaryDraft {
@@ -11,6 +12,11 @@ class AnniversaryDraft {
     this.category = 'LIFE',
     this.relationshipId,
     this.showInToday = true,
+    this.isLunar = false,
+    this.lunarYear,
+    this.lunarMonth,
+    this.lunarDay,
+    this.isLeapMonth = false,
   });
 
   final String title;
@@ -19,6 +25,11 @@ class AnniversaryDraft {
   final String category;
   final String? relationshipId;
   final bool showInToday;
+  final bool isLunar;
+  final int? lunarYear;
+  final int? lunarMonth;
+  final int? lunarDay;
+  final bool isLeapMonth;
 }
 
 class AnniversaryRepository {
@@ -29,18 +40,39 @@ class AnniversaryRepository {
   Future<AnniversaryEntry> create(AnniversaryDraft draft) async {
     final title = _validate(draft);
     final id = const Uuid().v4();
+    final effectiveDate = draft.isLunar &&
+            draft.lunarMonth != null &&
+            draft.lunarDay != null
+        ? LunarDateHelper.lunarToSolar(
+            year: draft.lunarYear ?? draft.date.year,
+            month: draft.lunarMonth!,
+            day: draft.lunarDay!,
+            isLeapMonth: draft.isLeapMonth,
+          )
+        : draft.date;
+
+    final lunarInfo = LunarInfo(
+      isLunar: draft.isLunar,
+      lunarYear: draft.lunarYear ?? draft.date.year,
+      lunarMonth: draft.lunarMonth,
+      lunarDay: draft.lunarDay,
+      isLeapMonth: draft.isLeapMonth,
+    );
+    final metadataJson = lunarInfo.toMetadataJson();
+
     await _database.transaction(() async {
       await _database.into(_database.anniversaries).insert(
             AnniversariesCompanion.insert(
               id: Value(id),
               title: title,
-              date: DateKeys.toLocalDateKey(draft.date),
+              date: DateKeys.toLocalDateKey(effectiveDate),
               repeatYearly: Value(draft.repeatYearly),
               category: Value(draft.category.trim().isEmpty
                   ? 'LIFE'
                   : draft.category.trim()),
               relationshipId: Value(_optional(draft.relationshipId)),
               showInToday: Value(draft.showInToday),
+              metadata: Value(metadataJson),
             ),
           );
       await _log(id, 'CREATE');
@@ -60,17 +92,38 @@ class AnniversaryRepository {
     final current = await get(id);
     final title = _validate(draft);
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    final effectiveDate = draft.isLunar &&
+            draft.lunarMonth != null &&
+            draft.lunarDay != null
+        ? LunarDateHelper.lunarToSolar(
+            year: draft.lunarYear ?? draft.date.year,
+            month: draft.lunarMonth!,
+            day: draft.lunarDay!,
+            isLeapMonth: draft.isLeapMonth,
+          )
+        : draft.date;
+
+    final lunarInfo = LunarInfo(
+      isLunar: draft.isLunar,
+      lunarYear: draft.lunarYear ?? draft.date.year,
+      lunarMonth: draft.lunarMonth,
+      lunarDay: draft.lunarDay,
+      isLeapMonth: draft.isLeapMonth,
+    );
+    final metadataJson = lunarInfo.toMetadataJson(current.metadata);
+
     await _database.transaction(() async {
       await (_database.update(_database.anniversaries)
             ..where((row) => row.id.equals(id)))
           .write(AnniversariesCompanion(
         title: Value(title),
-        date: Value(DateKeys.toLocalDateKey(draft.date)),
+        date: Value(DateKeys.toLocalDateKey(effectiveDate)),
         repeatYearly: Value(draft.repeatYearly),
         category: Value(
             draft.category.trim().isEmpty ? 'LIFE' : draft.category.trim()),
         relationshipId: Value(_optional(draft.relationshipId)),
         showInToday: Value(draft.showInToday),
+        metadata: Value(metadataJson),
         updatedAt: Value(now),
         version: Value(current.version + 1),
       ));
@@ -100,6 +153,20 @@ class AnniversaryRepository {
   }
 
   DateTime nextOccurrence(AnniversaryEntry entry, DateTime from) {
+    final lunarInfo = LunarInfo.fromMetadata(entry.metadata);
+    if (lunarInfo.isLunar &&
+        lunarInfo.lunarMonth != null &&
+        lunarInfo.lunarDay != null) {
+      return LunarDateHelper.nextLunarOccurrence(
+        month: lunarInfo.lunarMonth!,
+        day: lunarInfo.lunarDay!,
+        isLeapMonth: lunarInfo.isLeapMonth,
+        from: from,
+        repeatYearly: entry.repeatYearly,
+        originalYear: lunarInfo.lunarYear,
+      );
+    }
+
     final source = DateKeys.fromLocalDateKey(entry.date);
     final today = DateTime(from.year, from.month, from.day);
     if (!entry.repeatYearly) return source;

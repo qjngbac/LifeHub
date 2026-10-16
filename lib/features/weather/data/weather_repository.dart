@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 import 'package:http/http.dart' as http;
 import 'package:lifehub/core/database/app_database.dart';
+import 'package:lifehub/features/weather/data/china_cities_data.dart';
 import 'package:lifehub/features/weather/domain/weather_models.dart';
 
 export 'package:lifehub/features/weather/domain/weather_models.dart';
@@ -58,32 +59,74 @@ class WeatherRepository {
   Future<List<WeatherLocationDraft>> searchDistricts(String query) async {
     final value = query.trim();
     if (value.length < 2) return const [];
-    final uri = Uri.parse(geocodingBaseUrl).replace(queryParameters: {
-      'name': value,
-      'count': '20',
-      'language': 'zh',
-      'format': 'json',
-    });
-    final response = await _client.get(uri).timeout(const Duration(seconds: 8));
-    if (response.statusCode != 200) {
-      throw StateError('天气地区查询失败（${response.statusCode}）');
+
+    final localMatches = searchChinaCityDivisions(value);
+    final remoteResults = <WeatherLocationDraft>[];
+
+    try {
+      final uri = Uri.parse(geocodingBaseUrl).replace(queryParameters: {
+        'name': value,
+        'count': '20',
+        'language': 'zh',
+        'format': 'json',
+      });
+      final response =
+          await _client.get(uri).timeout(const Duration(seconds: 8));
+      if (response.statusCode != 200) {
+        if (localMatches.isEmpty) {
+          throw StateError('天气地区查询失败（${response.statusCode}）');
+        }
+      } else {
+        final root = jsonDecode(response.body) as Map<String, dynamic>;
+        final rows = root['results'] as List<dynamic>? ?? const [];
+        for (final raw in rows) {
+          final row = raw as Map<String, dynamic>;
+          remoteResults.add(
+            WeatherLocationDraft(
+              name: row['name'] as String,
+              country: row['country'] as String?,
+              admin1: row['admin1'] as String?,
+              admin2: row['admin2'] as String?,
+              admin3: row['admin3'] as String?,
+              admin4: row['admin4'] as String?,
+              latitude: (row['latitude'] as num).toDouble(),
+              longitude: (row['longitude'] as num).toDouble(),
+              timezone: row['timezone'] as String? ?? 'Asia/Shanghai',
+            ),
+          );
+        }
+      }
+    } catch (_) {
+      if (localMatches.isEmpty) rethrow;
     }
-    final root = jsonDecode(response.body) as Map<String, dynamic>;
-    final rows = root['results'] as List<dynamic>? ?? const [];
-    return rows.map((raw) {
-      final row = raw as Map<String, dynamic>;
-      return WeatherLocationDraft(
-        name: row['name'] as String,
-        country: row['country'] as String?,
-        admin1: row['admin1'] as String?,
-        admin2: row['admin2'] as String?,
-        admin3: row['admin3'] as String?,
-        admin4: row['admin4'] as String?,
-        latitude: (row['latitude'] as num).toDouble(),
-        longitude: (row['longitude'] as num).toDouble(),
-        timezone: row['timezone'] as String? ?? 'Asia/Shanghai',
-      );
-    }).toList();
+
+    final merged = <WeatherLocationDraft>[];
+    final seenKeys = <String>{};
+
+    String makeKey(WeatherLocationDraft d) {
+      final normName = d.name.replaceAll(
+          RegExp(r'(特别行政区|自治州|地区|盟|自治县|区|县|市|省)$'), '');
+      final p = d.admin1?.replaceAll(
+              RegExp(r'(省|市|特别行政区|自治区)$'), '') ??
+          '';
+      return '$p:${normName.isNotEmpty ? normName : d.name}';
+    }
+
+    for (final r in remoteResults) {
+      final k = makeKey(r);
+      seenKeys.add(k);
+      merged.add(r);
+    }
+
+    for (final l in localMatches) {
+      final k = makeKey(l);
+      if (!seenKeys.contains(k)) {
+        seenKeys.add(k);
+        merged.add(l);
+      }
+    }
+
+    return merged;
   }
 
   Future<WeatherLocationEntry> saveLocation(
@@ -139,6 +182,27 @@ class WeatherRepository {
         await (_database.update(_database.weatherLocations)
               ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))
             .write(const WeatherLocationsCompanion(isDefault: Value(true)));
+      });
+
+  Future<void> deleteLocation(String id) => _database.transaction(() async {
+        final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+        final row = await (_database.select(_database.weatherLocations)
+              ..where((item) => item.id.equals(id) & item.deletedAt.isNull()))
+            .getSingleOrNull();
+        if (row == null) return;
+        await (_database.update(_database.weatherLocations)
+              ..where((item) => item.id.equals(id)))
+            .write(WeatherLocationsCompanion(
+          deletedAt: Value(now),
+          updatedAt: Value(now),
+          isDefault: const Value(false),
+        ));
+        if (row.isDefault) {
+          final remaining = await locations();
+          if (remaining.isNotEmpty) {
+            await setDefault(remaining.first.id);
+          }
+        }
       });
 
   Future<CurrentWeather> current(WeatherLocationEntry location) async {
@@ -210,7 +274,7 @@ class WeatherRepository {
       await _writeCurrentCache(location.id, today, result);
       return result;
     } catch (_) {
-      final cached = await _readCurrentCache(location.id, today);
+      final cached = await _readCurrentCache(location.id);
       if (cached != null) return cached.copyWith(stale: true);
       rethrow;
     }
@@ -265,35 +329,40 @@ class WeatherRepository {
 
   Future<CurrentWeather?> _readCurrentCache(
     String locationId,
-    DateTime date,
   ) async {
-    final row = await (_database.select(_database.weatherForecastCaches)
-          ..where((value) =>
-              value.locationId.equals(locationId) &
-              value.forecastDate.equals(_currentDateKey(date)) &
-              value.deletedAt.isNull()))
-        .getSingleOrNull();
-    if (row == null) return null;
-    final value = jsonDecode(row.payloadJson) as Map<String, dynamic>;
-    if (value['kind'] != 'current') return null;
-    return CurrentWeather(
-      temperature: (value['temperature'] as num).toDouble(),
-      apparentTemperature: (value['apparentTemperature'] as num).toDouble(),
-      humidity: (value['humidity'] as num).round(),
-      weatherCode: (value['weatherCode'] as num).round(),
-      windSpeed: (value['windSpeed'] as num).toDouble(),
-      windDirection: (value['windDirection'] as num).round(),
-      precipitationProbability:
-          (value['precipitationProbability'] as num).round(),
-      maximumTemperature: (value['maximumTemperature'] as num).toDouble(),
-      minimumTemperature: (value['minimumTemperature'] as num).toDouble(),
-      sunrise: DateTime.parse(value['sunrise'] as String),
-      sunset: DateTime.parse(value['sunset'] as String),
-      airQualityIndex: (value['airQualityIndex'] as num?)?.round(),
-      fetchedAt:
-          DateTime.fromMillisecondsSinceEpoch(row.fetchedAt, isUtc: true),
-      stale: true,
-    );
+    try {
+      final row = await (_database.select(_database.weatherForecastCaches)
+            ..where((value) =>
+                value.locationId.equals(locationId) &
+                value.forecastDate.isSmallerThanValue(0) &
+                value.deletedAt.isNull())
+            ..orderBy([(row) => OrderingTerm.desc(row.fetchedAt)])
+            ..limit(1))
+          .getSingleOrNull();
+      if (row == null) return null;
+      final value = jsonDecode(row.payloadJson) as Map<String, dynamic>;
+      if (value['kind'] != 'current') return null;
+      return CurrentWeather(
+        temperature: (value['temperature'] as num).toDouble(),
+        apparentTemperature: (value['apparentTemperature'] as num).toDouble(),
+        humidity: (value['humidity'] as num).round(),
+        weatherCode: (value['weatherCode'] as num).round(),
+        windSpeed: (value['windSpeed'] as num).toDouble(),
+        windDirection: (value['windDirection'] as num).round(),
+        precipitationProbability:
+            (value['precipitationProbability'] as num).round(),
+        maximumTemperature: (value['maximumTemperature'] as num).toDouble(),
+        minimumTemperature: (value['minimumTemperature'] as num).toDouble(),
+        sunrise: DateTime.parse(value['sunrise'] as String),
+        sunset: DateTime.parse(value['sunset'] as String),
+        airQualityIndex: (value['airQualityIndex'] as num?)?.round(),
+        fetchedAt:
+            DateTime.fromMillisecondsSinceEpoch(row.fetchedAt, isUtc: true),
+        stale: true,
+      );
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<DailyWeather> daily(
@@ -379,25 +448,29 @@ class WeatherRepository {
   }
 
   Future<DailyWeather?> _readCache(String locationId, DateTime date) async {
-    final row = await (_database.select(_database.weatherForecastCaches)
-          ..where((value) =>
-              value.locationId.equals(locationId) &
-              value.forecastDate.equals(_dateKey(date)) &
-              value.deletedAt.isNull()))
-        .getSingleOrNull();
-    if (row == null) return null;
-    final payload = jsonDecode(row.payloadJson) as Map<String, dynamic>;
-    return DailyWeather(
-      date: DateTime.parse(payload['date'] as String),
-      weatherCode: (payload['weatherCode'] as num).toInt(),
-      maximumTemperature: (payload['maximumTemperature'] as num).toDouble(),
-      minimumTemperature: (payload['minimumTemperature'] as num).toDouble(),
-      precipitationProbability:
-          (payload['precipitationProbability'] as num).toInt(),
-      fetchedAt:
-          DateTime.fromMillisecondsSinceEpoch(row.fetchedAt, isUtc: true),
-      stale: true,
-    );
+    try {
+      final row = await (_database.select(_database.weatherForecastCaches)
+            ..where((value) =>
+                value.locationId.equals(locationId) &
+                value.forecastDate.equals(_dateKey(date)) &
+                value.deletedAt.isNull()))
+          .getSingleOrNull();
+      if (row == null) return null;
+      final payload = jsonDecode(row.payloadJson) as Map<String, dynamic>;
+      return DailyWeather(
+        date: DateTime.parse(payload['date'] as String),
+        weatherCode: (payload['weatherCode'] as num).toInt(),
+        maximumTemperature: (payload['maximumTemperature'] as num).toDouble(),
+        minimumTemperature: (payload['minimumTemperature'] as num).toDouble(),
+        precipitationProbability:
+            (payload['precipitationProbability'] as num).toInt(),
+        fetchedAt:
+            DateTime.fromMillisecondsSinceEpoch(row.fetchedAt, isUtc: true),
+        stale: true,
+      );
+    } catch (_) {
+      return null;
+    }
   }
 }
 

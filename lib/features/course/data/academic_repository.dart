@@ -92,6 +92,121 @@ class AcademicExam {
   }
 }
 
+class GlobalAcademicOverview {
+  const GlobalAcademicOverview({
+    required this.courses,
+    required this.assignments,
+    required this.exams,
+    required this.materials,
+    required this.grades,
+  });
+
+  final List<CourseEntry> courses;
+  final List<GlobalAcademicAssignment> assignments;
+  final List<GlobalAcademicExam> exams;
+  final List<GlobalAcademicMaterial> materials;
+  final List<GlobalAcademicGrade> grades;
+
+  int get pendingAssignmentCount =>
+      assignments.where((item) => !item.submitted).length;
+  int get upcomingExamCount => exams.length;
+}
+
+class GlobalAcademicAssignment {
+  const GlobalAcademicAssignment({
+    required this.courseId,
+    required this.courseName,
+    required this.courseColor,
+    required this.taskId,
+    required this.title,
+    required this.submitted,
+    this.submissionMethod,
+    this.dueAt,
+  });
+
+  final String courseId;
+  final String courseName;
+  final String courseColor;
+  final String taskId;
+  final String title;
+  final bool submitted;
+  final String? submissionMethod;
+  final DateTime? dueAt;
+
+  String? get deadlineLabel {
+    final value = dueAt;
+    if (value == null) return null;
+    return '${value.year}年${value.month}月${value.day}日 '
+        '${_timeLabel(value)} 截止';
+  }
+}
+
+class GlobalAcademicExam {
+  const GlobalAcademicExam({
+    required this.courseId,
+    required this.courseName,
+    required this.courseColor,
+    required this.eventId,
+    required this.title,
+    required this.start,
+    required this.end,
+    required this.allDay,
+    this.location,
+    this.notes,
+  });
+
+  final String courseId;
+  final String courseName;
+  final String courseColor;
+  final String eventId;
+  final String title;
+  final DateTime start;
+  final DateTime end;
+  final bool allDay;
+  final String? location;
+  final String? notes;
+
+  String get scheduleLabel {
+    final date = '${start.year}年${start.month}月${start.day}日';
+    if (allDay) return date;
+    return '$date ${_timeLabel(start)}-${_timeLabel(end)}';
+  }
+}
+
+class GlobalAcademicMaterial {
+  const GlobalAcademicMaterial({
+    required this.courseId,
+    required this.courseName,
+    required this.courseColor,
+    required this.materialId,
+    required this.title,
+    this.content,
+    required this.updatedAt,
+  });
+
+  final String courseId;
+  final String courseName;
+  final String courseColor;
+  final String materialId;
+  final String title;
+  final String? content;
+  final int updatedAt;
+}
+
+class GlobalAcademicGrade {
+  const GlobalAcademicGrade({
+    required this.courseId,
+    required this.courseName,
+    required this.courseColor,
+    required this.grade,
+  });
+
+  final String courseId;
+  final String courseName;
+  final String courseColor;
+  final CourseGradeEntry grade;
+}
+
 class AcademicRepository {
   AcademicRepository(this._database);
   final AppDatabase _database;
@@ -155,6 +270,9 @@ class AcademicRepository {
       result = await SavedItemRepository(_database).create(SavedItemDraft(
         title: title,
         content: content,
+        itemType: SavedItemType.document,
+        associationType: 'COURSE',
+        associationId: courseId,
       ));
       await _link(courseId, 'SAVED_ITEM', result.id);
     });
@@ -203,6 +321,14 @@ class AcademicRepository {
     if (task.deletedAt != null) throw StateError('Assignment was deleted.');
     if (task.status == TaskStatus.done) return;
     await TaskRepository(_database).setStatus(id, TaskStatus.done);
+  }
+
+  Future<void> toggleAssignmentStatus(String id) async {
+    final task = await TaskRepository(_database).get(id);
+    if (task.deletedAt != null) throw StateError('Assignment was deleted.');
+    final nextStatus =
+        task.status == TaskStatus.done ? TaskStatus.todo : TaskStatus.done;
+    await TaskRepository(_database).setStatus(id, nextStatus);
   }
 
   Future<void> deleteAssignment(String id) =>
@@ -293,6 +419,165 @@ class AcademicRepository {
       futureExams: exams,
       materials: materials,
       grades: await listGrades(courseId),
+    );
+  }
+
+  Future<GlobalAcademicOverview> globalOverview({String? semesterId}) async {
+    final coursesQuery = _database.select(_database.courses)
+      ..where((row) => row.deletedAt.isNull());
+    if (semesterId != null) {
+      coursesQuery.where((row) => row.semesterId.equals(semesterId));
+    }
+    final courses = await coursesQuery.get();
+    final courseMap = {for (final c in courses) c.id: c};
+    final courseIds = courses.map((c) => c.id).toSet();
+
+    if (courseIds.isEmpty) {
+      return const GlobalAcademicOverview(
+        courses: [],
+        assignments: [],
+        exams: [],
+        materials: [],
+        grades: [],
+      );
+    }
+
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    final assignments = <GlobalAcademicAssignment>[];
+    final exams = <GlobalAcademicExam>[];
+    final materials = <GlobalAcademicMaterial>[];
+    final seenMaterialIds = <String>{};
+
+    for (final course in courses) {
+      final relations =
+          await RelationRepository(_database).relationsFor(EntityReference(
+        type: 'COURSE',
+        id: course.id,
+      ));
+
+      for (final relation in relations) {
+        final ref = relation.entity.reference;
+        if (ref.type == 'TASK') {
+          final row = await (_database.select(_database.tasks)
+                ..where((item) => item.id.equals(ref.id)))
+              .getSingleOrNull();
+          if (row != null && row.deletedAt == null) {
+            assignments.add(GlobalAcademicAssignment(
+              courseId: course.id,
+              courseName: course.name,
+              courseColor: course.color,
+              taskId: row.id,
+              title: row.title,
+              submissionMethod: _optional(row.description),
+              submitted: row.status == TaskStatus.done,
+              dueAt: row.dueAt == null
+                  ? null
+                  : DateTime.fromMillisecondsSinceEpoch(
+                      row.dueAt!,
+                      isUtc: true,
+                    ).toLocal(),
+            ));
+          }
+        } else if (ref.type == 'EVENT') {
+          final row = await (_database.select(_database.events)
+                ..where((item) => item.id.equals(ref.id)))
+              .getSingleOrNull();
+          if (row != null && row.startAt >= now && row.deletedAt == null) {
+            exams.add(GlobalAcademicExam(
+              courseId: course.id,
+              courseName: course.name,
+              courseColor: course.color,
+              eventId: row.id,
+              title: row.title,
+              start: DateTime.fromMillisecondsSinceEpoch(
+                row.startAt,
+                isUtc: true,
+              ).toLocal(),
+              end: DateTime.fromMillisecondsSinceEpoch(
+                row.endAt,
+                isUtc: true,
+              ).toLocal(),
+              allDay: row.allDay,
+              location: _optional(row.location),
+              notes: _optional(row.notes),
+            ));
+          }
+        } else if (ref.type == 'SAVED_ITEM') {
+          final item = await (_database.select(_database.savedItems)
+                ..where((s) => s.id.equals(ref.id) & s.deletedAt.isNull()))
+              .getSingleOrNull();
+          if (item != null && !seenMaterialIds.contains(item.id)) {
+            seenMaterialIds.add(item.id);
+            materials.add(GlobalAcademicMaterial(
+              courseId: course.id,
+              courseName: course.name,
+              courseColor: course.color,
+              materialId: item.id,
+              title: item.title,
+              content: item.content,
+              updatedAt: item.updatedAt,
+            ));
+          }
+        }
+      }
+
+      final directMaterials = await (_database.select(_database.savedItems)
+            ..where((s) =>
+                s.associationType.equals('COURSE') &
+                s.associationId.equals(course.id) &
+                s.deletedAt.isNull()))
+          .get();
+      for (final item in directMaterials) {
+        if (!seenMaterialIds.contains(item.id)) {
+          seenMaterialIds.add(item.id);
+          materials.add(GlobalAcademicMaterial(
+            courseId: course.id,
+            courseName: course.name,
+            courseColor: course.color,
+            materialId: item.id,
+            title: item.title,
+            content: item.content,
+            updatedAt: item.updatedAt,
+          ));
+        }
+      }
+    }
+
+    final gradeRows = await (_database.select(_database.courseGrades)
+          ..where((row) =>
+              row.courseId.isIn(courseIds) & row.deletedAt.isNull())
+          ..orderBy([(row) => OrderingTerm.desc(row.occurredDate)]))
+        .get();
+
+    final grades = gradeRows.map((row) {
+      final course = courseMap[row.courseId];
+      return GlobalAcademicGrade(
+        courseId: row.courseId,
+        courseName: course?.name ?? '未知课程',
+        courseColor: course?.color ?? '#4F46E5',
+        grade: row,
+      );
+    }).toList();
+
+    assignments.sort((a, b) {
+      if (a.submitted != b.submitted) return a.submitted ? 1 : -1;
+      final aDue = a.dueAt;
+      final bDue = b.dueAt;
+      if (aDue == null && bDue == null) return a.title.compareTo(b.title);
+      if (aDue == null) return 1;
+      if (bDue == null) return -1;
+      return aDue.compareTo(bDue);
+    });
+
+    exams.sort((a, b) => a.start.compareTo(b.start));
+    materials.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+
+    return GlobalAcademicOverview(
+      courses: courses,
+      assignments: assignments,
+      exams: exams,
+      materials: materials,
+      grades: grades,
     );
   }
 

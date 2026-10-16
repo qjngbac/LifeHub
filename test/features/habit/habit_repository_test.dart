@@ -67,4 +67,28 @@ void main() {
     await repository.delete(habit.id);
     expect(await repository.list(activeOnly: false), isEmpty);
   });
+
+  test('fixed weekday progress ignores off-schedule logs and partial targets',
+      () async {
+    for (final rule in ['WEEKDAY_SET:1,3,5', 'WEEKDAYS']) {
+      final habit = await repository.create(HabitDraft(
+        name: rule, scheduleRule: rule, targetCount: 2,
+      ));
+      await repository.checkIn(habit.id, DateTime(2026, 8, 3), value: 2);
+      await repository.checkIn(habit.id, DateTime(2026, 8, 5), value: 1);
+      await repository.checkIn(habit.id, DateTime(2026, 8, 8), value: 2);
+      expect(await repository.weeklyProgress(habit.id, DateTime(2026, 8, 9)),
+          closeTo(rule == 'WEEKDAYS' ? 1 / 5 : 1 / 3, .0001));
+    }
+  });
+
+  test('weekly count progress accepts arbitrary weekdays', () async {
+    final habit = await repository.create(const HabitDraft(
+      name: 'weekly', scheduleRule: 'WEEKLY_X:3',
+    ));
+    for (final day in [4, 6, 8]) {
+      await repository.checkIn(habit.id, DateTime(2026, 8, day));
+    }
+    expect(await repository.weeklyProgress(habit.id, DateTime(2026, 8, 9)), 1);
+  });
 }

@@ -1,7 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/core/providers.dart';
+import 'package:lifehub/features/finance/application/bill_csv_parser.dart';
+import 'package:lifehub/features/finance/presentation/bill_import_preview_page.dart';
 import 'package:lifehub/features/inbox/data/inbox_repository.dart';
 import 'package:lifehub/features/list/data/list_repository.dart';
 
@@ -14,16 +18,98 @@ class InboxPage extends ConsumerStatefulWidget {
 
 class _InboxPageState extends ConsumerState<InboxPage> {
   String state = InboxState.newItem;
+  final _quickController = TextEditingController();
+  final _quickFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _quickController.dispose();
+    _quickFocusNode.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submitQuick(InboxRepository repository) async {
+    final text = _quickController.text.trim();
+    if (text.isEmpty) return;
+    _quickController.clear();
+    HapticFeedback.lightImpact();
+    await repository.capture(text);
+    _refresh();
+  }
 
   @override
   Widget build(BuildContext context) {
     ref.watch(refreshProvider);
     final repository = InboxRepository(ref.read(databaseProvider));
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('收件箱')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _capture(context, repository),
-        child: const Icon(Icons.add),
+      appBar: AppBar(
+        title: const Text('灵感库'),
+        actions: [
+          IconButton(
+            tooltip: '记录长灵感',
+            icon: const Icon(Icons.edit_note_rounded, size: 26),
+            onPressed: () => _capture(context, repository),
+          ),
+        ],
+      ),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Container(
+          padding: EdgeInsets.fromLTRB(
+            16,
+            8,
+            16,
+            8 + MediaQuery.of(context).viewInsets.bottom,
+          ),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surface,
+            border: Border(
+              top: BorderSide(
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.35),
+                width: 0.8,
+              ),
+            ),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _quickController,
+                  focusNode: _quickFocusNode,
+                  textInputAction: TextInputAction.send,
+                  onSubmitted: (_) => _submitQuick(repository),
+                  decoration: InputDecoration(
+                    hintText: '记录随时闪现的灵感火花（回车即存）…',
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                      color: theme.colorScheme.outline,
+                    ),
+                    isDense: true,
+                    filled: true,
+                    fillColor: theme.colorScheme.surfaceContainerHighest
+                        .withValues(alpha: 0.5),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              IconButton.filled(
+                icon: const Icon(Icons.arrow_upward_rounded, size: 20),
+                onPressed: () => _submitQuick(repository),
+                tooltip: '存入灵感',
+              ),
+            ],
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -52,64 +138,218 @@ class _InboxPageState extends ConsumerState<InboxPage> {
                 }
                 final items = snapshot.data!;
                 if (items.isEmpty) {
-                  return const Center(child: Text('这里还没有内容'));
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.lightbulb_outline_rounded,
+                          size: 56,
+                          color: theme.colorScheme.outlineVariant,
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          state == InboxState.newItem
+                              ? '灵感库空空如也\n在下方直接输入，随时随手捕捉火花'
+                              : '当前分类下暂无内容',
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.outline,
+                            height: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
                 }
                 return ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     final item = items[index];
                     final canOrganize = state == InboxState.newItem ||
                         state == InboxState.later;
                     return Card(
+                      elevation: 0,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        side: BorderSide(
+                          color: theme.colorScheme.outlineVariant
+                              .withValues(alpha: 0.45),
+                          width: 0.8,
+                        ),
+                      ),
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                        padding: const EdgeInsets.fromLTRB(16, 12, 12, 10),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ListTile(
-                              title: Text(item.content),
-                              subtitle: Text(
-                                state == InboxState.processed
-                                    ? '${_sourceLabel(item.sourceType)} · ${_convertedLabel(item.convertedType)}'
-                                    : _sourceLabel(item.sourceType),
+                            // 头部元信息条
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.schedule_rounded,
+                                  size: 13,
+                                  color: theme.colorScheme.primary,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  _formatTime(item.createdAt),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: theme.colorScheme.primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  '· ${_sourceLabel(item.sourceType)}',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: theme.colorScheme.outline,
+                                  ),
+                                ),
+                                const Spacer(),
+                                if (state == InboxState.processed)
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: theme
+                                          .colorScheme.surfaceContainerHighest,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      _convertedLabel(item.convertedType),
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        color: theme
+                                            .colorScheme.onSurfaceVariant,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            // 内容区域（轻触可复制）
+                            InkWell(
+                              borderRadius: BorderRadius.circular(8),
+                              onTap: () {
+                                Clipboard.setData(
+                                    ClipboardData(text: item.content));
+                                HapticFeedback.selectionClick();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('已复制灵感内容到剪贴板'),
+                                    duration: Duration(milliseconds: 1400),
+                                  ),
+                                );
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4),
+                                child: Text(
+                                  item.content,
+                                  style: theme.textTheme.bodyLarge?.copyWith(
+                                    height: 1.45,
+                                  ),
+                                ),
                               ),
                             ),
+                            const SizedBox(height: 6),
+                            // 底部操作栏
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                if (canOrganize)
+                                if (canOrganize) ...[
                                   FilledButton.tonalIcon(
                                     onPressed: () =>
                                         _organize(context, repository, item),
-                                    icon:
-                                        const Icon(Icons.auto_awesome_outlined),
-                                    label: const Text('整理'),
+                                    icon: const Icon(
+                                        Icons.auto_awesome_rounded,
+                                        size: 16),
+                                    label: const Text('整理为…'),
+                                    style: FilledButton.styleFrom(
+                                      visualDensity: VisualDensity.compact,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12),
+                                    ),
                                   ),
+                                ],
+                                const SizedBox(width: 4),
                                 PopupMenuButton<String>(
                                   tooltip: '更多操作',
+                                  icon: const Icon(Icons.more_vert_rounded,
+                                      size: 20),
                                   itemBuilder: (_) => [
                                     const PopupMenuItem(
                                       value: 'edit',
-                                      child: Text('修改'),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.edit_outlined, size: 18),
+                                          SizedBox(width: 8),
+                                          Text('修改内容'),
+                                        ],
+                                      ),
                                     ),
                                     if (state != InboxState.newItem)
                                       const PopupMenuItem(
                                         value: 'new',
-                                        child: Text('恢复到未处理'),
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.undo_rounded, size: 18),
+                                            SizedBox(width: 8),
+                                            Text('恢复到未处理'),
+                                          ],
+                                        ),
                                       ),
                                     if (state != InboxState.later &&
                                         state != InboxState.processed)
                                       const PopupMenuItem(
                                         value: 'later',
-                                        child: Text('稍后处理'),
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.alarm_rounded, size: 18),
+                                            SizedBox(width: 8),
+                                            Text('稍后处理'),
+                                          ],
+                                        ),
                                       ),
                                     if (state != InboxState.archived)
                                       const PopupMenuItem(
                                         value: 'archive',
-                                        child: Text('归档'),
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.archive_outlined,
+                                                size: 18),
+                                            SizedBox(width: 8),
+                                            Text('归档'),
+                                          ],
+                                        ),
                                       ),
+                                    const PopupMenuDivider(),
+                                    const PopupMenuItem(
+                                      value: 'delete',
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.delete_outline,
+                                              size: 18, color: Colors.red),
+                                          SizedBox(width: 8),
+                                          Text('删除',
+                                              style: TextStyle(
+                                                  color: Colors.red)),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                   onSelected: (action) async {
+                                    if (action == 'delete') {
+                                      await _confirmAndDelete(
+                                          context, repository, item);
+                                      return;
+                                    }
                                     if (action == 'edit') {
                                       await _editContent(
                                         context,
@@ -123,7 +363,8 @@ class _InboxPageState extends ConsumerState<InboxPage> {
                                       switch (action) {
                                         'new' => InboxState.newItem,
                                         'later' => InboxState.later,
-                                        _ => InboxState.archived,
+                                        'archive' => InboxState.archived,
+                                        _ => state,
                                       },
                                     );
                                     _refresh();
@@ -147,6 +388,51 @@ class _InboxPageState extends ConsumerState<InboxPage> {
 
   void _refresh() => ref.read(refreshProvider.notifier).state++;
 
+  Future<void> _confirmAndDelete(
+    BuildContext context,
+    InboxRepository repository,
+    InboxItemEntry item,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('删除灵感'),
+        content: Text(
+          '确定删除这条灵感内容吗？\n\n"${item.content.length > 50 ? '${item.content.substring(0, 50)}...' : item.content}"',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('取消'),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('删除'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true) {
+      await repository.delete(item.id);
+      _refresh();
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('已删除该灵感'),
+            action: SnackBarAction(
+              label: '撤销',
+              onPressed: () async {
+                await repository.restore(item.id);
+                _refresh();
+              },
+            ),
+          ),
+        );
+      }
+    }
+  }
+
   Future<void> _editContent(
     BuildContext context,
     InboxRepository repository,
@@ -157,13 +443,18 @@ class _InboxPageState extends ConsumerState<InboxPage> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const Text('修改收件箱内容'),
+        title: const Text('修改灵感内容'),
         content: TextField(
           controller: controller,
           autofocus: true,
           maxLines: 5,
         ),
         actions: [
+          TextButton.icon(
+            onPressed: () => Navigator.pop(context, '__DELETE__'),
+            icon: const Icon(Icons.delete_outline, size: 18, color: Colors.red),
+            label: const Text('删除', style: TextStyle(color: Colors.red)),
+          ),
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('取消'),
@@ -176,7 +467,14 @@ class _InboxPageState extends ConsumerState<InboxPage> {
       ),
     );
     controller.dispose();
-    if (value == null || value.trim().isEmpty) return;
+    if (value == null) return;
+    if (value == '__DELETE__') {
+      if (context.mounted) {
+        await _confirmAndDelete(context, repository, item);
+      }
+      return;
+    }
+    if (value.trim().isEmpty) return;
     await repository.updateContent(item.id, value);
     _refresh();
   }
@@ -186,6 +484,17 @@ class _InboxPageState extends ConsumerState<InboxPage> {
     InboxRepository repository,
     InboxItemEntry item,
   ) async {
+    final hasTimeKeyword = RegExp(
+      r'今天|明天|后天|周[一二三四五六日天1-7]|点|时|分|月|日|号|\d{1,2}[:：]\d{2}',
+    ).hasMatch(item.content);
+    final isFilePath = item.content.toLowerCase().endsWith('.xlsx') ||
+        item.content.toLowerCase().endsWith('.csv') ||
+        item.content.toLowerCase().endsWith('.tsv') ||
+        item.content.toLowerCase().endsWith('.zip');
+    final hasBillKeyword = item.content.contains('微信支付账单') ||
+        item.content.contains('支付宝交易') ||
+        isFilePath ||
+        (item.content.contains('交易单号') && item.content.contains('金额'));
     final action = await showModalBottomSheet<String>(
       context: context,
       isDismissible: false,
@@ -194,12 +503,19 @@ class _InboxPageState extends ConsumerState<InboxPage> {
       builder: (context) => SafeArea(
         child: Wrap(children: [
           const ListTile(
-            title: Text('把这条内容整理为…'),
+            title: Text('把这条灵感整理为…'),
             subtitle: Text('原文会保留在“已整理”中'),
           ),
+          if (hasBillKeyword)
+            ListTile(
+              leading: Icon(Icons.receipt_long_outlined,
+                  color: Theme.of(context).colorScheme.primary),
+              title: const Text('财务流水（检测到账单数据，推荐）'),
+              onTap: () => Navigator.pop(context, 'finance'),
+            ),
           ListTile(
             leading: const Icon(Icons.task_alt_outlined),
-            title: const Text('任务'),
+            title: Text(hasTimeKeyword ? '任务（检测到时间，推荐）' : '任务'),
             onTap: () => Navigator.pop(context, 'task'),
           ),
           ListTile(
@@ -209,7 +525,7 @@ class _InboxPageState extends ConsumerState<InboxPage> {
           ),
           ListTile(
             leading: const Icon(Icons.auto_stories_outlined),
-            title: const Text('每日事件'),
+            title: Text(hasTimeKeyword ? '每日事件（检测到时间，推荐）' : '每日事件'),
             onTap: () => Navigator.pop(context, 'event'),
           ),
           ListTile(
@@ -232,6 +548,33 @@ class _InboxPageState extends ConsumerState<InboxPage> {
     );
     if (action == null) return;
     switch (action) {
+      case 'finance':
+        List<ParsedBillItem> items = [];
+        final maybeFile = File(item.content.trim());
+        if (await maybeFile.exists()) {
+          final fileName = maybeFile.uri.pathSegments.isNotEmpty
+              ? maybeFile.uri.pathSegments.last
+              : maybeFile.path;
+          final bytes = await maybeFile.readAsBytes();
+          items = BillCsvParser.parseBytes(bytes, fileName: fileName);
+        } else {
+          items = BillCsvParser.parse(item.content);
+        }
+        if (items.isNotEmpty) {
+          await repository.retain(item.id);
+          if (!context.mounted) return;
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BillImportPreviewPage(rawItems: items),
+            ),
+          );
+        } else {
+          if (!context.mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('未能在内容中解析到有效账单流水')),
+          );
+        }
       case 'task':
         await repository.convertToTask(item.id);
       case 'saved':
@@ -313,12 +656,12 @@ class _InboxPageState extends ConsumerState<InboxPage> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const Text('快速收集'),
+        title: const Text('记录灵感'),
         content: TextField(
           controller: controller,
           autofocus: true,
           maxLines: 5,
-          decoration: const InputDecoration(hintText: '先记下来，稍后再整理'),
+          decoration: const InputDecoration(hintText: '记录脑海中的灵感火花，稍后再整理'),
         ),
         actions: [
           TextButton(
@@ -353,3 +696,26 @@ String _convertedLabel(String? value) => switch (value) {
       'RETAINED' => '已保留',
       _ => '已处理',
     };
+
+String _formatTime(int epochMillis) {
+  final dt = DateTime.fromMillisecondsSinceEpoch(epochMillis);
+  final now = DateTime.now();
+  final diff = now.difference(dt);
+  if (diff.inSeconds < 60) {
+    return '刚刚';
+  } else if (diff.inMinutes < 60) {
+    return '${diff.inMinutes}分钟前';
+  } else if (diff.inHours < 24 && dt.day == now.day) {
+    final hh = dt.hour.toString().padLeft(2, '0');
+    final mm = dt.minute.toString().padLeft(2, '0');
+    return '今天 $hh:$mm';
+  } else if (diff.inDays <= 1 && dt.day == now.subtract(const Duration(days: 1)).day) {
+    final hh = dt.hour.toString().padLeft(2, '0');
+    final mm = dt.minute.toString().padLeft(2, '0');
+    return '昨天 $hh:$mm';
+  } else if (dt.year == now.year) {
+    return '${dt.month}月${dt.day}日';
+  } else {
+    return '${dt.year}.${dt.month.toString().padLeft(2, '0')}.${dt.day.toString().padLeft(2, '0')}';
+  }
+}

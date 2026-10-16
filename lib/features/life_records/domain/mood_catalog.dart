@@ -89,13 +89,18 @@ abstract final class MoodCatalog {
     ),
   ];
 
-  static MoodOption option(String code) => values.firstWhere(
-        (value) => value.code == code,
-        orElse: () => throw ArgumentError.value(code, 'code'),
-      );
+  static MoodOption option(String code) {
+    final upper = code.trim().toUpperCase();
+    return values.firstWhere(
+      (value) => value.code == code || value.code == upper,
+      orElse: () => throw ArgumentError.value(code, 'code'),
+    );
+  }
 
-  static bool contains(String code) =>
-      values.any((value) => value.code == code);
+  static bool contains(String code) {
+    final upper = code.trim().toUpperCase();
+    return values.any((value) => value.code == code || value.code == upper);
+  }
 
   static String label(String code) => option(code).label;
 

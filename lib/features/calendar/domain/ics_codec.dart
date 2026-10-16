@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:timezone/data/latest.dart' as timezone_data;
-import 'package:timezone/timezone.dart' as timezone;
+import 'package:lifehub/core/time/time_zone_resolver.dart';
 
 class CalendarExchangeItem {
   const CalendarExchangeItem({
@@ -12,6 +11,7 @@ class CalendarExchangeItem {
     this.allDay = false,
     this.location,
     this.notes,
+    this.timezoneId,
   });
 
   final String uid;
@@ -21,6 +21,7 @@ class CalendarExchangeItem {
   final bool allDay;
   final String? location;
   final String? notes;
+  final String? timezoneId;
 }
 
 class IcsImportResult {
@@ -73,11 +74,13 @@ abstract final class IcsCodec {
     return '${lines.join('\r\n')}\r\n';
   }
 
-  static IcsImportResult decode(String source) {
+  static IcsImportResult decode(
+    String source, {
+    String? defaultTimezoneId,
+  }) {
     if (utf8.encode(source).length > maxImportBytes) {
       throw const FormatException('ICS 文件超过 5 MB 限制。');
     }
-    timezone_data.initializeTimeZones();
     final raw = source.replaceAll('\r\n', '\n').split('\n');
     final lines = <String>[];
     for (final line in raw) {
@@ -101,7 +104,10 @@ abstract final class IcsCodec {
             throw const FormatException('ICS 日程数量超过 5000 项限制。');
           }
           try {
-            items.add(_parseEvent(event));
+            items.add(_parseEvent(
+              event,
+              defaultTimezoneId: defaultTimezoneId,
+            ));
           } on FormatException catch (error) {
             warnings.add(error.message);
           }
@@ -125,7 +131,10 @@ abstract final class IcsCodec {
     );
   }
 
-  static CalendarExchangeItem _parseEvent(Map<String, String> values) {
+  static CalendarExchangeItem _parseEvent(
+    Map<String, String> values, {
+    String? defaultTimezoneId,
+  }) {
     final uid = _unescape(values['UID'] ?? '');
     final title = _unescape(values['SUMMARY'] ?? '');
     if (title.trim().isEmpty) throw const FormatException('日历项目缺少标题。');
@@ -153,12 +162,26 @@ abstract final class IcsCodec {
     if (startText == null || endText == null) {
       throw const FormatException('日历项目缺少开始或结束时间。');
     }
+    final startTimezoneId = allDay
+        ? null
+        : _effectiveTimezoneId(
+            startEntry!.key,
+            startText,
+            defaultTimezoneId,
+          );
+    final endTimezoneId = allDay
+        ? null
+        : _effectiveTimezoneId(
+            endEntry!.key,
+            endText,
+            defaultTimezoneId,
+          );
     final start = allDay
         ? _parseDate(startText)
-        : _parseDateTime(startText, timezoneId: _timezoneId(startEntry!.key));
+        : _parseDateTime(startText, timezoneId: startTimezoneId);
     final end = allDay
         ? _parseDate(endText)
-        : _parseDateTime(endText, timezoneId: _timezoneId(endEntry!.key));
+        : _parseDateTime(endText, timezoneId: endTimezoneId);
     if (!end.isAfter(start)) {
       throw const FormatException('日历项目的结束时间无效。');
     }
@@ -170,6 +193,7 @@ abstract final class IcsCodec {
       allDay: allDay,
       location: _nullableUnescape(values['LOCATION']),
       notes: _nullableUnescape(values['DESCRIPTION']),
+      timezoneId: startTimezoneId,
     );
   }
 
@@ -213,21 +237,10 @@ abstract final class IcsCodec {
       return parsed;
     }
     if (timezoneId != null) {
-      try {
-        final parsed = timezone.TZDateTime(
-          timezone.getLocation(timezoneId),
-          year,
-          month,
-          day,
-          hour,
-          minute,
-          second,
-        );
-        _requireExactDateTime(parsed, year, month, day, hour, minute, second);
-        return parsed.toUtc();
-      } on timezone.LocationNotFoundException {
-        throw FormatException('日历使用了不支持的时区：$timezoneId');
-      }
+      return TimeZoneResolver.resolveLocal(
+        DateTime(year, month, day, hour, minute, second),
+        timezoneId,
+      );
     }
     final parsed = DateTime(year, month, day, hour, minute, second);
     _requireExactDateTime(parsed, year, month, day, hour, minute, second);
@@ -263,6 +276,15 @@ abstract final class IcsCodec {
       }
     }
     return null;
+  }
+
+  static String? _effectiveTimezoneId(
+    String propertyKey,
+    String value,
+    String? defaultTimezoneId,
+  ) {
+    if (value.endsWith('Z')) return 'UTC';
+    return _timezoneId(propertyKey) ?? defaultTimezoneId;
   }
 
   static String _escape(String value) => value

@@ -11,6 +11,7 @@ import 'package:lifehub/features/event/domain/recurrence.dart';
 import 'package:lifehub/features/attachment/data/attachment_repository.dart';
 import 'package:lifehub/features/attachment/data/attachment_storage.dart';
 import 'package:lifehub/features/habit/domain/habit_rules.dart';
+import 'package:lifehub/features/matches/domain/match_models.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -62,11 +63,12 @@ class _AttachmentRestoreResult {
 }
 
 class BackupService {
-  BackupService(this._database, {Directory? attachmentStorageRoot})
-      : _attachmentStorageRoot = attachmentStorageRoot;
+  BackupService(this._database, {this._attachmentStorageRoot});
   final AppDatabase _database;
   final Directory? _attachmentStorageRoot;
   static const maxImportBytes = 64 * 1024 * 1024;
+  // Ciphertext is Base64 encoded; allow its expansion and the fixed envelope.
+  static const maxEncryptedImportBytes = ((maxImportBytes + 2) ~/ 3) * 4 + 4096;
   static const maxImportRecords = 100000;
 
   BackupInspection inspectJson(String source) {
@@ -102,7 +104,15 @@ class BackupService {
     );
   }
 
-  Future<String> exportJson({bool includeAttachmentFiles = true}) async {
+  Future<String> exportJson({bool includeAttachmentFiles = true}) =>
+      _database.transaction(() => _exportSnapshot(includeAttachmentFiles));
+
+  Future<String> _exportSnapshot(bool includeAttachmentFiles) async {
+    final attachments = await _database.select(_database.attachments).get();
+    final attachmentIds = attachments.map((entry) => entry.id).toSet();
+    final attachmentLinks = await _database
+        .select(_database.attachmentLinks)
+        .get();
     final payload = <String, Object?>{
       'exportVersion': 1,
       'schemaVersion': _database.schemaVersion,
@@ -184,13 +194,15 @@ class BackupService {
         'savedItems': (await _database.select(_database.savedItems).get())
             .map((e) => e.toJson())
             .toList(),
-        'attachments': (await _database.select(_database.attachments).get())
+        'attachments': attachments.map((e) => e.toJson()).toList(),
+        // Older orphan cleanup removed attachments but retained link tombstones.
+        'attachmentLinks': attachmentLinks
+            .where(
+              (e) =>
+                  e.deletedAt == null || attachmentIds.contains(e.attachmentId),
+            )
             .map((e) => e.toJson())
             .toList(),
-        'attachmentLinks':
-            (await _database.select(_database.attachmentLinks).get())
-                .map((e) => e.toJson())
-                .toList(),
         'locations': (await _database.select(_database.locations).get())
             .map((e) => e.toJson())
             .toList(),
@@ -228,6 +240,10 @@ class BackupService {
             (await _database.select(_database.emergencyCards).get())
                 .map((e) => e.toJson())
                 .toList(),
+        'financeAccounts':
+            (await _database.select(_database.financeAccounts).get())
+                .map((e) => e.toJson())
+                .toList(),
         'financeEntries':
             (await _database.select(_database.financeEntries).get())
                 .map((e) => e.toJson())
@@ -262,6 +278,9 @@ class BackupService {
         'parcels': (await _database.select(_database.parcels).get())
             .map((e) => e.toJson())
             .toList(),
+        'matchRecords': (await _database.select(_database.matchRecords).get())
+            .map((e) => e.toJson())
+            .toList(),
         'tags': (await _database.select(_database.tags).get())
             .map((e) => e.toJson())
             .toList(),
@@ -278,7 +297,7 @@ class BackupService {
             .map((e) => e.toJson())
             .toList(),
         'attachmentFiles': includeAttachmentFiles
-            ? await _attachmentFilePayload()
+            ? await _attachmentFilePayload(attachments)
             : <Map<String, Object?>>[],
       },
     };
@@ -292,9 +311,15 @@ class BackupService {
     bool includeAttachmentFiles = true,
     EncryptedBackupCodec? codec,
   }) async {
-    final clear =
-        await exportJson(includeAttachmentFiles: includeAttachmentFiles);
-    return (codec ?? EncryptedBackupCodec()).encrypt(clear, password);
+    final clear = await exportJson(
+      includeAttachmentFiles: includeAttachmentFiles,
+    );
+    final encrypted = await (codec ?? EncryptedBackupCodec()).encrypt(
+      clear,
+      password,
+    );
+    _validateEncryptedSourceSize(encrypted);
+    return encrypted;
   }
 
   Future<void> importEncryptedJson(
@@ -303,6 +328,7 @@ class BackupService {
     ImportMode mode = ImportMode.replace,
     EncryptedBackupCodec? codec,
   }) async {
+    _validateEncryptedSourceSize(source);
     final clear = await (codec ?? EncryptedBackupCodec()).decrypt(
       source,
       password,
@@ -311,21 +337,27 @@ class BackupService {
     await importJson(clear, mode: mode);
   }
 
-  Future<List<Map<String, Object?>>> _attachmentFilePayload() async {
-    final values = await (_database.select(_database.attachments)
-          ..where((row) => row.deletedAt.isNull()))
-        .get();
+  Future<List<Map<String, Object?>>> _attachmentFilePayload(
+    List<AttachmentEntry> values,
+  ) async {
     final result = <Map<String, Object?>>[];
-    for (final value in values) {
+    for (final value in values.where((entry) => entry.deletedAt == null)) {
       final file = File(value.storedPath);
-      if (!await file.exists()) continue;
+      if (!await file.exists()) {
+        throw const FormatException('附件文件缺失，无法生成完整备份；可选择仅数据备份');
+      }
       if (await file.length() > AttachmentRepository.maxAttachmentBytes) {
         throw const FormatException('附件超过 25 MB，无法写入备份');
+      }
+      final bytes = await file.readAsBytes();
+      if (bytes.length != value.byteSize ||
+          AttachmentRepository.contentDigest(bytes) != value.contentDigest) {
+        throw const FormatException('附件文件已改变，无法生成完整备份');
       }
       result.add({
         'attachmentId': value.id,
         'fileName': p.basename(value.storedPath),
-        'contentBase64': base64Encode(await file.readAsBytes()),
+        'contentBase64': base64Encode(bytes),
       });
     }
     return result;
@@ -337,7 +369,8 @@ class BackupService {
     await directory.create(recursive: true);
     final now = DateTime.now();
     String two(int value) => value.toString().padLeft(2, '0');
-    final name = 'lifehub_${now.year}${two(now.month)}${two(now.day)}_'
+    final name =
+        'lifehub_${now.year}${two(now.month)}${two(now.day)}_'
         '${two(now.hour)}${two(now.minute)}${two(now.second)}.json';
     final file = File(p.join(directory.path, name));
     return file.writeAsString(
@@ -350,16 +383,19 @@ class BackupService {
     final now = DateTime.now();
     String two(int value) => value.toString().padLeft(2, '0');
     final kind = includeAttachmentFiles ? '' : '_data';
-    final name = 'lifehub${kind}_${now.year}${two(now.month)}${two(now.day)}_'
+    final name =
+        'lifehub${kind}_${now.year}${two(now.month)}${two(now.day)}_'
         '${two(now.hour)}${two(now.minute)}${two(now.second)}.json';
     final path = await FilePicker.platform.saveFile(
       dialogTitle: '保存 LifeHub 备份',
       fileName: name,
       type: FileType.custom,
       allowedExtensions: const ['json'],
-      bytes: Uint8List.fromList(utf8.encode(
-        await exportJson(includeAttachmentFiles: includeAttachmentFiles),
-      )),
+      bytes: Uint8List.fromList(
+        utf8.encode(
+          await exportJson(includeAttachmentFiles: includeAttachmentFiles),
+        ),
+      ),
     );
     return path != null;
   }
@@ -370,17 +406,22 @@ class BackupService {
   }) async {
     final now = DateTime.now();
     String two(int value) => value.toString().padLeft(2, '0');
-    final name = 'lifehub_secure_${now.year}${two(now.month)}${two(now.day)}_'
+    final name =
+        'lifehub_secure_${now.year}${two(now.month)}${two(now.day)}_'
         '${two(now.hour)}${two(now.minute)}${two(now.second)}.lifehubx';
     final path = await FilePicker.platform.saveFile(
       dialogTitle: '保存 LifeHub 加密备份',
       fileName: name,
       type: FileType.custom,
       allowedExtensions: const ['lifehubx'],
-      bytes: Uint8List.fromList(utf8.encode(await exportEncryptedJson(
-        password,
-        includeAttachmentFiles: includeAttachmentFiles,
-      ))),
+      bytes: Uint8List.fromList(
+        utf8.encode(
+          await exportEncryptedJson(
+            password,
+            includeAttachmentFiles: includeAttachmentFiles,
+          ),
+        ),
+      ),
     );
     return path != null;
   }
@@ -407,7 +448,9 @@ class BackupService {
     );
     if (result == null || result.files.isEmpty) return null;
     final file = result.files.single;
-    if (file.path != null) return _readBoundedFile(File(file.path!));
+    if (file.path != null) {
+      return _readBoundedFile(File(file.path!), allowEncrypted: true);
+    }
     throw const FileSystemException('无法读取所选备份');
   }
 
@@ -440,18 +483,18 @@ class BackupService {
     if (backupSchema is! int ||
         backupSchema < 1 ||
         backupSchema > _database.schemaVersion) {
-      throw FormatException(
-        '备份数据库版本不兼容：${decoded['schemaVersion']}',
-      );
+      throw FormatException('备份数据库版本不兼容：${decoded['schemaVersion']}');
     }
     final rawData = decoded['data'];
     if (rawData is! Map<String, dynamic>) {
       throw const FormatException('备份缺少 data');
     }
-    _validateRecordCount(rawData.values.whereType<List>().fold<int>(
-          0,
-          (sum, value) => sum + value.length,
-        ));
+    _validateRecordCount(
+      rawData.values.whereType<List>().fold<int>(
+        0,
+        (sum, value) => sum + value.length,
+      ),
+    );
     List<Map<String, dynamic>> rows(String key) {
       final value = rawData[key];
       if (value is! List) throw FormatException('备份缺少 $key');
@@ -536,119 +579,177 @@ class BackupService {
     }
 
     final tasks = compatibleRows('tasks').map(TaskEntry.fromJson).toList();
-    final projects =
-        compatibleRows('projects').map(ProjectEntry.fromJson).toList();
+    final projects = compatibleRows(
+      'projects',
+    ).map(ProjectEntry.fromJson).toList();
     final events = withV9Defaults(
       'events',
       rowsWithArchiveState('events'),
     ).map(EventEntry.fromJson).toList();
-    final semesters =
-        compatibleRows('semesters').map(SemesterEntry.fromJson).toList();
-    final courses =
-        compatibleRows('courses').map(CourseEntry.fromJson).toList();
-    final schedules = rowsWithArchiveState('courseSchedules')
-        .map(CourseScheduleEntry.fromJson)
-        .toList();
+    final semesters = compatibleRows(
+      'semesters',
+    ).map(SemesterEntry.fromJson).toList();
+    final courses = compatibleRows(
+      'courses',
+    ).map(CourseEntry.fromJson).toList();
+    final schedules = rowsWithArchiveState(
+      'courseSchedules',
+    ).map(CourseScheduleEntry.fromJson).toList();
     final lists = compatibleRows('lists').map(ListEntry.fromJson).toList();
-    final listItems =
-        compatibleRows('listItems').map(ListItemEntry.fromJson).toList();
+    final listItems = compatibleRows(
+      'listItems',
+    ).map(ListItemEntry.fromJson).toList();
     final habits = compatibleRows('habits').map(HabitEntry.fromJson).toList();
-    final habitLogs =
-        compatibleRows('habitLogs').map(HabitLogEntry.fromJson).toList();
-    final relationships = versionedRows('relationshipProfiles', 2)
-        .map(RelationshipProfileEntry.fromJson)
-        .toList();
-    final moodLogs =
-        versionedRows('moodLogs', 2).map(MoodLogEntry.fromJson).toList();
-    final lifeEvents =
-        versionedRows('lifeEvents', 2).map(LifeEventEntry.fromJson).toList();
-    final cycleRecords = versionedRows('cycleRecords', 2)
-        .map(CycleRecordEntry.fromJson)
-        .toList();
-    final anniversaries = versionedRows('anniversaries', 2)
-        .map(AnniversaryEntry.fromJson)
-        .toList();
+    final habitLogs = compatibleRows(
+      'habitLogs',
+    ).map(HabitLogEntry.fromJson).toList();
+    final relationships = versionedRows(
+      'relationshipProfiles',
+      2,
+    ).map(RelationshipProfileEntry.fromJson).toList();
+    final moodLogs = versionedRows(
+      'moodLogs',
+      2,
+    ).map(MoodLogEntry.fromJson).toList();
+    final lifeEvents = versionedRows(
+      'lifeEvents',
+      2,
+    ).map(LifeEventEntry.fromJson).toList();
+    final cycleRecords = versionedRows(
+      'cycleRecords',
+      2,
+    ).map(CycleRecordEntry.fromJson).toList();
+    final anniversaries = versionedRows(
+      'anniversaries',
+      2,
+    ).map(AnniversaryEntry.fromJson).toList();
     final goals = versionedRows('goals', 4).map(GoalEntry.fromJson).toList();
-    final milestones =
-        versionedRows('milestones', 4).map(MilestoneEntry.fromJson).toList();
-    final entityLinks =
-        versionedRows('entityLinks', 4).map(EntityLinkEntry.fromJson).toList();
+    final milestones = versionedRows(
+      'milestones',
+      4,
+    ).map(MilestoneEntry.fromJson).toList();
+    final entityLinks = versionedRows(
+      'entityLinks',
+      4,
+    ).map(EntityLinkEntry.fromJson).toList();
     final focusSessions = withV11FocusDefaults(
       versionedRows('focusSessions', 4),
     ).map(FocusSessionEntry.fromJson).toList();
-    final reviews =
-        versionedRows('reviews', 4).map(ReviewEntry.fromJson).toList();
-    final inboxItems =
-        versionedRows('inboxItems', 5).map(InboxItemEntry.fromJson).toList();
-    final automationRules = versionedRows('automationRules', 5)
-        .map(AutomationRuleEntry.fromJson)
-        .toList();
-    final automationRuns = versionedRows('automationRuns', 5)
-        .map(AutomationRunEntry.fromJson)
-        .toList();
-    final savedItems =
-        versionedRows('savedItems', 6).map(SavedItemEntry.fromJson).toList();
-    final attachments =
-        versionedRows('attachments', 6).map(AttachmentEntry.fromJson).toList();
-    final attachmentLinks = versionedRows('attachmentLinks', 6)
-        .map(AttachmentLinkEntry.fromJson)
-        .toList();
-    final locations =
-        versionedRows('locations', 6).map(LocationEntry.fromJson).toList();
-    final tripProfiles = versionedRows('tripProfiles', 6)
-        .map(TripProfileEntry.fromJson)
-        .toList();
-    final tripExpenses = versionedRows('tripExpenses', 6)
-        .map(TripExpenseEntry.fromJson)
-        .toList();
-    final weatherLocations = versionedRows('weatherLocations', 7)
-        .map(WeatherLocationEntry.fromJson)
-        .toList();
-    final weatherForecastCaches = versionedRows('weatherForecastCaches', 7)
-        .map(WeatherForecastCacheEntry.fromJson)
-        .toList();
-    final eveningPrepItems = versionedRows('eveningPrepItems', 7)
-        .map(EveningPrepItemEntry.fromJson)
-        .toList();
+    final reviews = versionedRows(
+      'reviews',
+      4,
+    ).map(ReviewEntry.fromJson).toList();
+    final inboxItems = versionedRows(
+      'inboxItems',
+      5,
+    ).map(InboxItemEntry.fromJson).toList();
+    final automationRules = versionedRows(
+      'automationRules',
+      5,
+    ).map(AutomationRuleEntry.fromJson).toList();
+    final automationRuns = versionedRows(
+      'automationRuns',
+      5,
+    ).map(AutomationRunEntry.fromJson).toList();
+    final savedItems = versionedRows(
+      'savedItems',
+      6,
+    ).map(SavedItemEntry.fromJson).toList();
+    final attachments = versionedRows(
+      'attachments',
+      6,
+    ).map(AttachmentEntry.fromJson).toList();
+    final attachmentLinks = versionedRows(
+      'attachmentLinks',
+      6,
+    ).map(AttachmentLinkEntry.fromJson).toList();
+    final locations = versionedRows(
+      'locations',
+      6,
+    ).map(LocationEntry.fromJson).toList();
+    final tripProfiles = versionedRows(
+      'tripProfiles',
+      6,
+    ).map(TripProfileEntry.fromJson).toList();
+    final tripExpenses = versionedRows(
+      'tripExpenses',
+      6,
+    ).map(TripExpenseEntry.fromJson).toList();
+    final weatherLocations = versionedRows(
+      'weatherLocations',
+      7,
+    ).map(WeatherLocationEntry.fromJson).toList();
+    final weatherForecastCaches = versionedRows(
+      'weatherForecastCaches',
+      7,
+    ).map(WeatherForecastCacheEntry.fromJson).toList();
+    final eveningPrepItems = versionedRows(
+      'eveningPrepItems',
+      7,
+    ).map(EveningPrepItemEntry.fromJson).toList();
     final householdItems = withV9Defaults(
       'householdItems',
       versionedRows('householdItems', 7),
     ).map(HouseholdItemEntry.fromJson).toList();
-    final medicationPlans = versionedRows('medicationPlans', 7)
-        .map(MedicationPlanEntry.fromJson)
-        .toList();
-    final medicationLogs = versionedRows('medicationLogs', 7)
-        .map(MedicationLogEntry.fromJson)
-        .toList();
+    final medicationPlans = versionedRows(
+      'medicationPlans',
+      7,
+    ).map(MedicationPlanEntry.fromJson).toList();
+    final medicationLogs = versionedRows(
+      'medicationLogs',
+      7,
+    ).map(MedicationLogEntry.fromJson).toList();
     final emergencyCards = withV10EmergencyCardDefaults(
       versionedRows('emergencyCards', 7),
     ).map(EmergencyCardEntry.fromJson).toList();
-    final financeEntries =
-        versionedRows('financeEntries', 7).map(FinanceEntry.fromJson).toList();
-    final credentialRecords = versionedRows('credentialRecords', 7)
-        .map(CredentialRecordEntry.fromJson)
-        .toList();
-    final mediaSeries =
-        versionedRows('mediaSeries', 8).map(MediaSeriesEntry.fromJson).toList();
-    final mediaEntries =
-        versionedRows('mediaEntries', 8).map(MediaEntry.fromJson).toList();
-    final courseGrades = versionedRows('courseGrades', 9)
-        .map(CourseGradeEntry.fromJson)
-        .toList();
-    final subscriptions = versionedRows('subscriptions', 9)
-        .map(SubscriptionEntry.fromJson)
-        .toList();
-    final maintenancePlans = versionedRows('maintenancePlans', 9)
-        .map(MaintenancePlanEntry.fromJson)
-        .toList();
-    final maintenanceLogs = versionedRows('maintenanceLogs', 9)
-        .map(MaintenanceLogEntry.fromJson)
-        .toList();
-    final readingItems = versionedRows('readingItems', 9)
-        .map(ReadingItemEntry.fromJson)
-        .toList();
-    final parcels =
-        versionedRows('parcels', 9).map(ParcelEntry.fromJson).toList();
+    final financeAccounts = versionedRows(
+      'financeAccounts',
+      13,
+    ).map(FinanceAccountEntry.fromJson).toList();
+    final financeEntries = versionedRows(
+      'financeEntries',
+      7,
+    ).map(FinanceEntry.fromJson).toList();
+    final credentialRecords = versionedRows(
+      'credentialRecords',
+      7,
+    ).map(CredentialRecordEntry.fromJson).toList();
+    final mediaSeries = versionedRows(
+      'mediaSeries',
+      8,
+    ).map(MediaSeriesEntry.fromJson).toList();
+    final mediaEntries = versionedRows(
+      'mediaEntries',
+      8,
+    ).map(MediaEntry.fromJson).toList();
+    final courseGrades = versionedRows(
+      'courseGrades',
+      9,
+    ).map(CourseGradeEntry.fromJson).toList();
+    final subscriptions = versionedRows(
+      'subscriptions',
+      9,
+    ).map(SubscriptionEntry.fromJson).toList();
+    final maintenancePlans = versionedRows(
+      'maintenancePlans',
+      9,
+    ).map(MaintenancePlanEntry.fromJson).toList();
+    final maintenanceLogs = versionedRows(
+      'maintenanceLogs',
+      9,
+    ).map(MaintenanceLogEntry.fromJson).toList();
+    final readingItems = versionedRows(
+      'readingItems',
+      9,
+    ).map(ReadingItemEntry.fromJson).toList();
+    final parcels = versionedRows(
+      'parcels',
+      9,
+    ).map(ParcelEntry.fromJson).toList();
+    final matchRecords = versionedRows(
+      'matchRecords',
+      12,
+    ).map(MatchRecordEntry.fromJson).toList();
     final attachmentFiles = versionedRows('attachmentFiles', 6);
     final tags = compatibleRows('tags').map(TagEntry.fromJson).toList();
     final entityTags = rows('entityTags').map(EntityTagEntry.fromJson).toList();
@@ -656,10 +757,12 @@ class BackupService {
       'reminders',
       optionalRows('reminders'),
     ).map(ReminderEntry.fromJson).toList();
-    final configs =
-        optionalRows('moduleConfigs').map(ModuleConfigEntry.fromJson).toList();
-    final changeLogs =
-        optionalRows('changeLogs').map(ChangeLogEntry.fromJson).toList();
+    final configs = optionalRows(
+      'moduleConfigs',
+    ).map(ModuleConfigEntry.fromJson).toList();
+    final changeLogs = optionalRows(
+      'changeLogs',
+    ).map(ChangeLogEntry.fromJson).toList();
     for (final value in changeLogs) {
       _requiredText('changeLogs.entityType', value.entityType);
       _requiredText('changeLogs.entityId', value.entityId);
@@ -704,6 +807,7 @@ class BackupService {
       medicationPlans: medicationPlans,
       medicationLogs: medicationLogs,
       emergencyCards: emergencyCards,
+      financeAccounts: financeAccounts,
       financeEntries: financeEntries,
       credentialRecords: credentialRecords,
       mediaSeries: mediaSeries,
@@ -714,6 +818,7 @@ class BackupService {
       maintenanceLogs: maintenanceLogs,
       readingItems: readingItems,
       parcels: parcels,
+      matchRecords: matchRecords,
       attachmentFiles: attachmentFiles,
       tags: tags,
       entityTags: entityTags,
@@ -726,95 +831,176 @@ class BackupService {
       await _removeStaleMergeRows(_database.tasks.actualTableName, tasks);
       await _removeStaleMergeRows(_database.events.actualTableName, events);
       await _removeStaleMergeRows(
-          _database.semesters.actualTableName, semesters);
+        _database.semesters.actualTableName,
+        semesters,
+      );
       await _removeStaleMergeRows(_database.courses.actualTableName, courses);
       await _removeStaleMergeRows(
-          _database.courseSchedules.actualTableName, schedules);
+        _database.courseSchedules.actualTableName,
+        schedules,
+      );
       await _removeStaleMergeRows(_database.lists.actualTableName, lists);
       await _removeStaleMergeRows(
-          _database.listItems.actualTableName, listItems);
+        _database.listItems.actualTableName,
+        listItems,
+      );
       await _removeStaleMergeRows(_database.habits.actualTableName, habits);
       await _removeStaleMergeRows(
-          _database.habitLogs.actualTableName, habitLogs);
+        _database.habitLogs.actualTableName,
+        habitLogs,
+      );
       await _removeStaleMergeRows(
-          _database.relationshipProfiles.actualTableName, relationships);
+        _database.relationshipProfiles.actualTableName,
+        relationships,
+      );
       await _removeStaleMergeRows(_database.moodLogs.actualTableName, moodLogs);
       await _removeStaleMergeRows(
-          _database.lifeEvents.actualTableName, lifeEvents);
+        _database.lifeEvents.actualTableName,
+        lifeEvents,
+      );
       await _removeStaleMergeRows(
-          _database.cycleRecords.actualTableName, cycleRecords);
+        _database.cycleRecords.actualTableName,
+        cycleRecords,
+      );
       await _removeStaleMergeRows(
-          _database.anniversaries.actualTableName, anniversaries);
+        _database.anniversaries.actualTableName,
+        anniversaries,
+      );
       await _removeStaleMergeRows(_database.goals.actualTableName, goals);
       await _removeStaleMergeRows(
-          _database.milestones.actualTableName, milestones);
+        _database.milestones.actualTableName,
+        milestones,
+      );
       await _removeStaleMergeRows(
-          _database.entityLinks.actualTableName, entityLinks);
+        _database.entityLinks.actualTableName,
+        entityLinks,
+      );
       await _removeStaleMergeRows(
-          _database.focusSessions.actualTableName, focusSessions);
+        _database.focusSessions.actualTableName,
+        focusSessions,
+      );
       await _removeStaleMergeRows(_database.reviews.actualTableName, reviews);
       await _removeStaleMergeRows(
-          _database.inboxItems.actualTableName, inboxItems);
+        _database.inboxItems.actualTableName,
+        inboxItems,
+      );
       await _removeStaleMergeRows(
-          _database.automationRules.actualTableName, automationRules);
+        _database.automationRules.actualTableName,
+        automationRules,
+      );
       await _removeStaleMergeRows(
-          _database.automationRuns.actualTableName, automationRuns);
+        _database.automationRuns.actualTableName,
+        automationRuns,
+      );
       await _removeStaleMergeRows(
-          _database.savedItems.actualTableName, savedItems);
+        _database.savedItems.actualTableName,
+        savedItems,
+      );
       await _removeStaleMergeRows(
-          _database.attachments.actualTableName, attachments);
+        _database.attachments.actualTableName,
+        attachments,
+      );
       await _removeStaleMergeRows(
-          _database.attachmentLinks.actualTableName, attachmentLinks);
+        _database.attachmentLinks.actualTableName,
+        attachmentLinks,
+      );
       await _removeStaleMergeRows(
-          _database.locations.actualTableName, locations);
+        _database.locations.actualTableName,
+        locations,
+      );
       await _removeStaleMergeRows(
-          _database.tripProfiles.actualTableName, tripProfiles);
+        _database.tripProfiles.actualTableName,
+        tripProfiles,
+      );
       await _removeStaleMergeRows(
-          _database.tripExpenses.actualTableName, tripExpenses);
+        _database.tripExpenses.actualTableName,
+        tripExpenses,
+      );
       await _removeStaleMergeRows(
-          _database.weatherLocations.actualTableName, weatherLocations);
+        _database.weatherLocations.actualTableName,
+        weatherLocations,
+      );
       await _removeStaleMergeRows(
-          _database.weatherForecastCaches.actualTableName,
-          weatherForecastCaches);
+        _database.weatherForecastCaches.actualTableName,
+        weatherForecastCaches,
+      );
       await _removeStaleMergeRows(
-          _database.eveningPrepItems.actualTableName, eveningPrepItems);
+        _database.eveningPrepItems.actualTableName,
+        eveningPrepItems,
+      );
       await _removeStaleMergeRows(
-          _database.householdItems.actualTableName, householdItems);
+        _database.householdItems.actualTableName,
+        householdItems,
+      );
       await _removeStaleMergeRows(
-          _database.medicationPlans.actualTableName, medicationPlans);
+        _database.medicationPlans.actualTableName,
+        medicationPlans,
+      );
       await _removeStaleMergeRows(
-          _database.medicationLogs.actualTableName, medicationLogs);
+        _database.medicationLogs.actualTableName,
+        medicationLogs,
+      );
       await _removeStaleMergeRows(
-          _database.emergencyCards.actualTableName, emergencyCards);
+        _database.emergencyCards.actualTableName,
+        emergencyCards,
+      );
       await _removeStaleMergeRows(
-          _database.financeEntries.actualTableName, financeEntries);
+        _database.financeEntries.actualTableName,
+        financeEntries,
+      );
       await _removeStaleMergeRows(
-          _database.credentialRecords.actualTableName, credentialRecords);
+        _database.financeAccounts.actualTableName,
+        financeAccounts,
+      );
       await _removeStaleMergeRows(
-          _database.mediaSeries.actualTableName, mediaSeries);
+        _database.credentialRecords.actualTableName,
+        credentialRecords,
+      );
       await _removeStaleMergeRows(
-          _database.mediaEntries.actualTableName, mediaEntries);
+        _database.mediaSeries.actualTableName,
+        mediaSeries,
+      );
       await _removeStaleMergeRows(
-          _database.courseGrades.actualTableName, courseGrades);
+        _database.mediaEntries.actualTableName,
+        mediaEntries,
+      );
       await _removeStaleMergeRows(
-          _database.subscriptions.actualTableName, subscriptions);
+        _database.courseGrades.actualTableName,
+        courseGrades,
+      );
       await _removeStaleMergeRows(
-          _database.maintenancePlans.actualTableName, maintenancePlans);
+        _database.subscriptions.actualTableName,
+        subscriptions,
+      );
       await _removeStaleMergeRows(
-          _database.maintenanceLogs.actualTableName, maintenanceLogs);
+        _database.maintenancePlans.actualTableName,
+        maintenancePlans,
+      );
       await _removeStaleMergeRows(
-          _database.readingItems.actualTableName, readingItems);
+        _database.maintenanceLogs.actualTableName,
+        maintenanceLogs,
+      );
+      await _removeStaleMergeRows(
+        _database.readingItems.actualTableName,
+        readingItems,
+      );
       await _removeStaleMergeRows(_database.parcels.actualTableName, parcels);
+      await _removeStaleMergeRows(
+        _database.matchRecords.actualTableName,
+        matchRecords,
+      );
       await _removeStaleMergeRows(_database.tags.actualTableName, tags);
       await _removeStaleMergeRows(
-          _database.reminders.actualTableName, reminders);
+        _database.reminders.actualTableName,
+        reminders,
+      );
       await _removeStaleConfigs(configs);
     }
 
     final previousAttachmentPaths = mode == ImportMode.replace
         ? (await _database.select(_database.attachments).get())
-            .map((value) => value.storedPath)
-            .toList()
+              .map((value) => value.storedPath)
+              .toList()
         : const <String>[];
     var attachmentRestore = const _AttachmentRestoreResult([], []);
     var restoredAttachments = <AttachmentEntry>[];
@@ -822,8 +1008,10 @@ class BackupService {
     try {
       await _database.transaction(() async {
         if (mode == ImportMode.merge) await pruneMergeRows();
-        attachmentRestore =
-            await _restoreAttachmentPayload(attachments, attachmentFiles);
+        attachmentRestore = await _restoreAttachmentPayload(
+          attachments,
+          attachmentFiles,
+        );
         restoredAttachments = attachmentRestore.entries;
         if (mode == ImportMode.replace) {
           await _database.delete(_database.maintenanceLogs).go();
@@ -832,12 +1020,14 @@ class BackupService {
           await _database.delete(_database.subscriptions).go();
           await _database.delete(_database.readingItems).go();
           await _database.delete(_database.parcels).go();
+          await _database.delete(_database.matchRecords).go();
           await _database.delete(_database.mediaEntries).go();
           await _database.delete(_database.mediaSeries).go();
           await _database.delete(_database.medicationLogs).go();
           await _database.delete(_database.weatherForecastCaches).go();
           await _database.delete(_database.eveningPrepItems).go();
           await _database.delete(_database.financeEntries).go();
+          await _database.delete(_database.financeAccounts).go();
           await _database.delete(_database.credentialRecords).go();
           await _database.delete(_database.emergencyCards).go();
           await _database.delete(_database.medicationPlans).go();
@@ -1070,6 +1260,11 @@ class BackupService {
               .into(_database.emergencyCards)
               .insert(value, mode: insertMode);
         }
+        for (final value in financeAccounts) {
+          await _database
+              .into(_database.financeAccounts)
+              .insert(value, mode: insertMode);
+        }
         for (final value in financeEntries) {
           await _database
               .into(_database.financeEntries)
@@ -1105,11 +1300,18 @@ class BackupService {
               .into(_database.parcels)
               .insert(value, mode: insertMode);
         }
+        for (final value in matchRecords) {
+          await _database
+              .into(_database.matchRecords)
+              .insert(value, mode: insertMode);
+        }
         for (final value in tags) {
           await _database.into(_database.tags).insert(value, mode: insertMode);
         }
         for (final value in entityTags) {
-          await _database.into(_database.entityTags).insert(
+          await _database
+              .into(_database.entityTags)
+              .insert(
                 value,
                 mode: mode == ImportMode.merge
                     ? InsertMode.insertOrIgnore
@@ -1131,15 +1333,19 @@ class BackupService {
             await _database.into(_database.changeLogs).insert(value);
             continue;
           }
-          final duplicate = await (_database.select(_database.changeLogs)
-                ..where((row) =>
-                    row.entityType.equals(value.entityType) &
-                    row.entityId.equals(value.entityId) &
-                    row.operation.equals(value.operation) &
-                    row.createdAt.equals(value.createdAt)))
-              .getSingleOrNull();
+          final duplicate =
+              await (_database.select(_database.changeLogs)..where(
+                    (row) =>
+                        row.entityType.equals(value.entityType) &
+                        row.entityId.equals(value.entityId) &
+                        row.operation.equals(value.operation) &
+                        row.createdAt.equals(value.createdAt),
+                  ))
+                  .getSingleOrNull();
           if (duplicate == null) {
-            await _database.into(_database.changeLogs).insert(
+            await _database
+                .into(_database.changeLogs)
+                .insert(
                   ChangeLogsCompanion.insert(
                     entityType: value.entityType,
                     entityId: value.entityId,
@@ -1183,19 +1389,18 @@ class BackupService {
     }
   }
 
-  Future<void> _removeStaleMergeRows<T>(
-    String table,
-    List<T> values,
-  ) async {
+  Future<void> _removeStaleMergeRows<T>(String table, List<T> values) async {
     final retained = <T>[];
     for (final value in values) {
       final json = (value as dynamic).toJson() as Map<String, dynamic>;
       final id = json['id'] as String;
       final updatedAt = json['updatedAt'] as int;
-      final existing = await _database.customSelect(
-        'SELECT updated_at FROM "$table" WHERE id = ? LIMIT 1',
-        variables: [Variable<String>(id)],
-      ).getSingleOrNull();
+      final existing = await _database
+          .customSelect(
+            'SELECT updated_at FROM "$table" WHERE id = ? LIMIT 1',
+            variables: [Variable<String>(id)],
+          )
+          .getSingleOrNull();
       final existingUpdatedAt = existing?.read<int>('updated_at');
       if (existingUpdatedAt == null || updatedAt >= existingUpdatedAt) {
         retained.add(value);
@@ -1209,9 +1414,9 @@ class BackupService {
   Future<void> _removeStaleConfigs(List<ModuleConfigEntry> values) async {
     final retained = <ModuleConfigEntry>[];
     for (final value in values) {
-      final existing = await (_database.select(_database.moduleConfigs)
-            ..where((row) => row.key.equals(value.key)))
-          .getSingleOrNull();
+      final existing = await (_database.select(
+        _database.moduleConfigs,
+      )..where((row) => row.key.equals(value.key))).getSingleOrNull();
       if (existing == null || value.updatedAt >= existing.updatedAt) {
         retained.add(value);
       }
@@ -1247,8 +1452,9 @@ class BackupService {
         addSyncDefaults();
         final progressMode = row['progressMode'];
         if (progressMode is num) {
-          row['progressMode'] =
-              progressMode.toInt() == 1 ? 'MANUAL' : 'AUTO_TASK';
+          row['progressMode'] = progressMode.toInt() == 1
+              ? 'MANUAL'
+              : 'AUTO_TASK';
         }
         row['progressMode'] ??= 'AUTO_TASK';
         final manualProgress = row['manualProgress'];
@@ -1299,8 +1505,9 @@ class BackupService {
         addSyncDefaults();
         final reminder = row['reminderPolicy'];
         if (reminder is num) {
-          row['reminderPolicy'] =
-              reminder.toInt() <= 0 ? null : _legacyClockText(reminder.toInt());
+          row['reminderPolicy'] = reminder.toInt() <= 0
+              ? null
+              : _legacyClockText(reminder.toInt());
         }
         row['scheduleRule'] ??= 'DAILY';
         row['targetCount'] ??= 1;
@@ -1334,8 +1541,10 @@ class BackupService {
     if (value is! num) return null;
     final number = value.toInt();
     if (number >= 10000101 && number <= 99991231) return number;
-    final date =
-        DateTime.fromMillisecondsSinceEpoch(number, isUtc: true).toLocal();
+    final date = DateTime.fromMillisecondsSinceEpoch(
+      number,
+      isUtc: true,
+    ).toLocal();
     return date.year * 10000 + date.month * 100 + date.day;
   }
 
@@ -1382,11 +1591,13 @@ class BackupService {
         final target = File(p.join(root.path, '${attachment.id}$extension'));
         if (payload != null) {
           final existed = await target.exists();
-          mutations.add(_AttachmentFileMutation(
-            file: target,
-            existed: existed,
-            originalBytes: existed ? await target.readAsBytes() : null,
-          ));
+          mutations.add(
+            _AttachmentFileMutation(
+              file: target,
+              existed: existed,
+              originalBytes: existed ? await target.readAsBytes() : null,
+            ),
+          );
           await target.writeAsBytes(
             base64Decode(payload['contentBase64'] as String),
             flush: true,
@@ -1438,6 +1649,7 @@ class BackupService {
     required List<MedicationPlanEntry> medicationPlans,
     required List<MedicationLogEntry> medicationLogs,
     required List<EmergencyCardEntry> emergencyCards,
+    required List<FinanceAccountEntry> financeAccounts,
     required List<FinanceEntry> financeEntries,
     required List<CredentialRecordEntry> credentialRecords,
     required List<MediaSeriesEntry> mediaSeries,
@@ -1448,6 +1660,7 @@ class BackupService {
     required List<MaintenanceLogEntry> maintenanceLogs,
     required List<ReadingItemEntry> readingItems,
     required List<ParcelEntry> parcels,
+    required List<MatchRecordEntry> matchRecords,
     required List<Map<String, dynamic>> attachmentFiles,
     required List<TagEntry> tags,
     required List<EntityTagEntry> entityTags,
@@ -1459,8 +1672,10 @@ class BackupService {
     final eventIds = _uniqueIds('events', events.map((row) => row.id));
     final semesterIds = _uniqueIds('semesters', semesters.map((row) => row.id));
     final courseIds = _uniqueIds('courses', courses.map((row) => row.id));
-    final scheduleIds =
-        _uniqueIds('courseSchedules', schedules.map((row) => row.id));
+    final scheduleIds = _uniqueIds(
+      'courseSchedules',
+      schedules.map((row) => row.id),
+    );
     final listIds = _uniqueIds('lists', lists.map((row) => row.id));
     final listItemIds = _uniqueIds('listItems', listItems.map((row) => row.id));
     final habitIds = _uniqueIds('habits', habits.map((row) => row.id));
@@ -1470,68 +1685,126 @@ class BackupService {
       relationships.map((row) => row.id),
     );
     final moodLogIds = _uniqueIds('moodLogs', moodLogs.map((row) => row.id));
-    final lifeEventIds =
-        _uniqueIds('lifeEvents', lifeEvents.map((row) => row.id));
-    final cycleRecordIds =
-        _uniqueIds('cycleRecords', cycleRecords.map((row) => row.id));
-    final anniversaryIds =
-        _uniqueIds('anniversaries', anniversaries.map((row) => row.id));
+    final lifeEventIds = _uniqueIds(
+      'lifeEvents',
+      lifeEvents.map((row) => row.id),
+    );
+    final cycleRecordIds = _uniqueIds(
+      'cycleRecords',
+      cycleRecords.map((row) => row.id),
+    );
+    final anniversaryIds = _uniqueIds(
+      'anniversaries',
+      anniversaries.map((row) => row.id),
+    );
     final goalIds = _uniqueIds('goals', goals.map((row) => row.id));
-    final milestoneIds =
-        _uniqueIds('milestones', milestones.map((row) => row.id));
-    final focusIds =
-        _uniqueIds('focusSessions', focusSessions.map((row) => row.id));
+    final milestoneIds = _uniqueIds(
+      'milestones',
+      milestones.map((row) => row.id),
+    );
+    final focusIds = _uniqueIds(
+      'focusSessions',
+      focusSessions.map((row) => row.id),
+    );
     final reviewIds = _uniqueIds('reviews', reviews.map((row) => row.id));
     final inboxIds = _uniqueIds('inboxItems', inboxItems.map((row) => row.id));
-    final automationRuleIds =
-        _uniqueIds('automationRules', automationRules.map((row) => row.id));
-    final automationRunIds =
-        _uniqueIds('automationRuns', automationRuns.map((row) => row.id));
-    final savedItemIds =
-        _uniqueIds('savedItems', savedItems.map((row) => row.id));
-    final attachmentIds =
-        _uniqueIds('attachments', attachments.map((row) => row.id));
+    final automationRuleIds = _uniqueIds(
+      'automationRules',
+      automationRules.map((row) => row.id),
+    );
+    final automationRunIds = _uniqueIds(
+      'automationRuns',
+      automationRuns.map((row) => row.id),
+    );
+    final savedItemIds = _uniqueIds(
+      'savedItems',
+      savedItems.map((row) => row.id),
+    );
+    final attachmentIds = _uniqueIds(
+      'attachments',
+      attachments.map((row) => row.id),
+    );
     for (final id in attachmentIds) {
       if (!RegExp(r'^[A-Za-z0-9_-]{1,128}$').hasMatch(id)) {
         throw const FormatException('附件 ID 包含无效路径字符');
       }
     }
     final locationIds = _uniqueIds('locations', locations.map((row) => row.id));
-    final tripIds =
-        _uniqueIds('tripProfiles', tripProfiles.map((row) => row.id));
-    final tripExpenseIds =
-        _uniqueIds('tripExpenses', tripExpenses.map((row) => row.id));
-    final weatherLocationIds =
-        _uniqueIds('weatherLocations', weatherLocations.map((row) => row.id));
+    final tripIds = _uniqueIds(
+      'tripProfiles',
+      tripProfiles.map((row) => row.id),
+    );
+    final tripExpenseIds = _uniqueIds(
+      'tripExpenses',
+      tripExpenses.map((row) => row.id),
+    );
+    final weatherLocationIds = _uniqueIds(
+      'weatherLocations',
+      weatherLocations.map((row) => row.id),
+    );
     _uniqueIds(
-        'weatherForecastCaches', weatherForecastCaches.map((row) => row.id));
+      'weatherForecastCaches',
+      weatherForecastCaches.map((row) => row.id),
+    );
     _uniqueIds('eveningPrepItems', eveningPrepItems.map((row) => row.id));
-    final householdIds =
-        _uniqueIds('householdItems', householdItems.map((row) => row.id));
-    final medicationPlanIds =
-        _uniqueIds('medicationPlans', medicationPlans.map((row) => row.id));
+    final householdIds = _uniqueIds(
+      'householdItems',
+      householdItems.map((row) => row.id),
+    );
+    final medicationPlanIds = _uniqueIds(
+      'medicationPlans',
+      medicationPlans.map((row) => row.id),
+    );
     _uniqueIds('medicationLogs', medicationLogs.map((row) => row.id));
-    final emergencyCardIds =
-        _uniqueIds('emergencyCards', emergencyCards.map((row) => row.id));
-    final financeIds =
-        _uniqueIds('financeEntries', financeEntries.map((row) => row.id));
-    final credentialIds =
-        _uniqueIds('credentialRecords', credentialRecords.map((row) => row.id));
-    final mediaSeriesIds =
-        _uniqueIds('mediaSeries', mediaSeries.map((row) => row.id));
-    final mediaEntryIds =
-        _uniqueIds('mediaEntries', mediaEntries.map((row) => row.id));
-    final courseGradeIds =
-        _uniqueIds('courseGrades', courseGrades.map((row) => row.id));
-    final subscriptionIds =
-        _uniqueIds('subscriptions', subscriptions.map((row) => row.id));
-    final maintenancePlanIds =
-        _uniqueIds('maintenancePlans', maintenancePlans.map((row) => row.id));
-    final maintenanceLogIds =
-        _uniqueIds('maintenanceLogs', maintenanceLogs.map((row) => row.id));
-    final readingIds =
-        _uniqueIds('readingItems', readingItems.map((row) => row.id));
+    final emergencyCardIds = _uniqueIds(
+      'emergencyCards',
+      emergencyCards.map((row) => row.id),
+    );
+    final financeAccountIds = _uniqueIds(
+      'financeAccounts',
+      financeAccounts.map((row) => row.id),
+    );
+    final financeIds = _uniqueIds(
+      'financeEntries',
+      financeEntries.map((row) => row.id),
+    );
+    final credentialIds = _uniqueIds(
+      'credentialRecords',
+      credentialRecords.map((row) => row.id),
+    );
+    final mediaSeriesIds = _uniqueIds(
+      'mediaSeries',
+      mediaSeries.map((row) => row.id),
+    );
+    final mediaEntryIds = _uniqueIds(
+      'mediaEntries',
+      mediaEntries.map((row) => row.id),
+    );
+    final courseGradeIds = _uniqueIds(
+      'courseGrades',
+      courseGrades.map((row) => row.id),
+    );
+    final subscriptionIds = _uniqueIds(
+      'subscriptions',
+      subscriptions.map((row) => row.id),
+    );
+    final maintenancePlanIds = _uniqueIds(
+      'maintenancePlans',
+      maintenancePlans.map((row) => row.id),
+    );
+    final maintenanceLogIds = _uniqueIds(
+      'maintenanceLogs',
+      maintenanceLogs.map((row) => row.id),
+    );
+    final readingIds = _uniqueIds(
+      'readingItems',
+      readingItems.map((row) => row.id),
+    );
     final parcelIds = _uniqueIds('parcels', parcels.map((row) => row.id));
+    final matchIds = _uniqueIds(
+      'matchRecords',
+      matchRecords.map((row) => row.id),
+    );
     _uniqueIds('entityLinks', entityLinks.map((row) => row.id));
     _uniqueIds('attachmentLinks', attachmentLinks.map((row) => row.id));
     final tagIds = _uniqueIds('tags', tags.map((row) => row.id));
@@ -1540,10 +1813,19 @@ class BackupService {
     for (final row in tasks) {
       _validateSync('tasks', row.toJson());
       _requiredText('tasks.title', row.title);
-      _allowed('tasks.category', row.category,
-          const {'STUDY', 'WORK', 'LIFE', 'OUTDOOR'});
-      _allowed('tasks.status', row.status,
-          const {'TODO', 'IN_PROGRESS', 'DONE', 'CANCELED', 'ARCHIVED'});
+      _allowed('tasks.category', row.category, const {
+        'STUDY',
+        'WORK',
+        'LIFE',
+        'OUTDOOR',
+      });
+      _allowed('tasks.status', row.status, const {
+        'TODO',
+        'IN_PROGRESS',
+        'DONE',
+        'CANCELED',
+        'ARCHIVED',
+      });
       if (row.priority < 0 || row.priority > 4) {
         throw const FormatException('任务优先级无效');
       }
@@ -1559,8 +1841,10 @@ class BackupService {
       _validateSync('projects', row.toJson());
       _requiredText('projects.name', row.name);
       _allowed('projects.status', row.status, const {'ACTIVE', 'ARCHIVED'});
-      _allowed('projects.progressMode', row.progressMode,
-          const {'AUTO_TASK', 'MANUAL'});
+      _allowed('projects.progressMode', row.progressMode, const {
+        'AUTO_TASK',
+        'MANUAL',
+      });
       if (row.manualProgress != null &&
           (row.manualProgress! < 0 || row.manualProgress! > 1)) {
         throw const FormatException('项目进度无效');
@@ -1575,8 +1859,13 @@ class BackupService {
     for (final row in events) {
       _validateSync('events', row.toJson());
       _requiredText('events.title', row.title);
-      _allowed('events.eventType', row.eventType,
-          const {'STUDY', 'WORK', 'LIFE', 'OUTDOOR', 'COURSE'});
+      _allowed('events.eventType', row.eventType, const {
+        'STUDY',
+        'WORK',
+        'LIFE',
+        'OUTDOOR',
+        'COURSE',
+      });
       if (row.endAt <= row.startAt) {
         throw const FormatException('日程结束时间必须晚于开始时间');
       }
@@ -1749,10 +2038,14 @@ class BackupService {
         'PAUSED',
         'COMPLETED',
         'ABANDONED',
-        'ARCHIVED'
+        'ARCHIVED',
       });
-      _allowed('goals.progressMode', row.progressMode,
-          const {'MANUAL', 'MILESTONE', 'TASK', 'PROJECT'});
+      _allowed('goals.progressMode', row.progressMode, const {
+        'MANUAL',
+        'MILESTONE',
+        'TASK',
+        'PROJECT',
+      });
       if (row.manualProgress != null &&
           (row.manualProgress! < 0 || row.manualProgress! > 1)) {
         throw const FormatException('目标进度无效');
@@ -1768,8 +2061,12 @@ class BackupService {
       if (row.plannedMinutes < 1 || row.pausedMillis < 0) {
         throw const FormatException('专注记录无效');
       }
-      _allowed('focusSessions.status', row.status,
-          const {'RUNNING', 'PAUSED', 'FINISHED', 'DISCARDED'});
+      _allowed('focusSessions.status', row.status, const {
+        'RUNNING',
+        'PAUSED',
+        'FINISHED',
+        'DISCARDED',
+      });
     }
     for (final row in reviews) {
       _validateSync('reviews', row.toJson());
@@ -1782,8 +2079,12 @@ class BackupService {
     for (final row in inboxItems) {
       _validateSync('inboxItems', row.toJson());
       _requiredText('inboxItems.content', row.content);
-      _allowed('inboxItems.state', row.state,
-          const {'NEW', 'LATER', 'PROCESSED', 'ARCHIVED'});
+      _allowed('inboxItems.state', row.state, const {
+        'NEW',
+        'LATER',
+        'PROCESSED',
+        'ARCHIVED',
+      });
     }
     for (final row in automationRules) {
       _validateSync('automationRules', row.toJson());
@@ -1804,8 +2105,13 @@ class BackupService {
     for (final row in savedItems) {
       _validateSync('savedItems', row.toJson());
       _requiredText('savedItems.title', row.title);
-      _allowed('savedItems.itemType', row.itemType,
-          const {'NOTE', 'ARTICLE', 'LINK', 'IMAGE', 'DOCUMENT'});
+      _allowed('savedItems.itemType', row.itemType, const {
+        'NOTE',
+        'ARTICLE',
+        'LINK',
+        'IMAGE',
+        'DOCUMENT',
+      });
       _allowed('savedItems.status', row.status, const {'ACTIVE', 'ARCHIVED'});
       if ((row.associationType == null) != (row.associationId == null)) {
         throw const FormatException('资料库关联无效');
@@ -1887,8 +2193,11 @@ class BackupService {
     }
     for (final row in weatherForecastCaches) {
       _validateSync('weatherForecastCaches', row.toJson());
-      _reference('weatherForecastCaches.locationId', row.locationId,
-          weatherLocationIds);
+      _reference(
+        'weatherForecastCaches.locationId',
+        row.locationId,
+        weatherLocationIds,
+      );
       DateKeys.fromLocalDateKey(row.forecastDate);
     }
     for (final row in eveningPrepItems) {
@@ -1902,8 +2211,10 @@ class BackupService {
       if (row.purchaseAmountMinor != null && row.purchaseAmountMinor! < 0) {
         throw const FormatException('家庭物品金额无效');
       }
-      _allowed('householdItems.itemKind', row.itemKind,
-          const {'DURABLE', 'CONSUMABLE'});
+      _allowed('householdItems.itemKind', row.itemKind, const {
+        'DURABLE',
+        'CONSUMABLE',
+      });
       if (!row.quantity.isFinite ||
           row.quantity < 0 ||
           row.minimumQuantity != null &&
@@ -1941,12 +2252,41 @@ class BackupService {
     for (final row in emergencyCards) {
       _validateSync('emergencyCards', row.toJson());
     }
+    for (final row in financeAccounts) {
+      _validateSync('financeAccounts', row.toJson());
+      _requiredText('financeAccounts.name', row.name);
+      _allowed('financeAccounts.accountType', row.accountType, const {
+        'WALLET',
+        'DEBIT',
+        'CREDIT',
+        'PLATFORM',
+        'CASH',
+        'OTHER',
+      });
+      if (row.creditLimitMinor != null && row.creditLimitMinor! < 0 ||
+          row.billingDay != null &&
+              (row.billingDay! < 1 || row.billingDay! > 31) ||
+          row.repaymentDay != null &&
+              (row.repaymentDay! < 1 || row.repaymentDay! > 31)) {
+        throw const FormatException('财务账户信息无效');
+      }
+    }
     for (final row in financeEntries) {
       _validateSync('financeEntries', row.toJson());
       if (row.amountMinor <= 0 ||
-          !const {'INCOME', 'EXPENSE'}.contains(row.direction)) {
+          !const {'INCOME', 'EXPENSE', 'TRANSFER'}.contains(row.direction)) {
         throw const FormatException('收支记录无效');
       }
+      _optionalReference(
+        'financeEntries.accountId',
+        row.accountId,
+        financeAccountIds,
+      );
+      _optionalReference(
+        'financeEntries.targetAccountId',
+        row.targetAccountId,
+        financeAccountIds,
+      );
     }
     for (final row in credentialRecords) {
       _validateSync('credentialRecords', row.toJson());
@@ -1957,8 +2297,11 @@ class BackupService {
     for (final row in mediaSeries) {
       _validateSync('mediaSeries', row.toJson());
       _requiredText('mediaSeries.title', row.title);
-      _allowed(
-          'mediaSeries.category', row.category, const {'TV', 'ANIME', 'MOVIE'});
+      _allowed('mediaSeries.category', row.category, const {
+        'TV',
+        'ANIME',
+        'MOVIE',
+      });
       if (row.rating != null && (row.rating! < 0 || row.rating! > 10)) {
         throw const FormatException('影视系列评分无效');
       }
@@ -1966,8 +2309,11 @@ class BackupService {
     for (final row in mediaEntries) {
       _validateSync('mediaEntries', row.toJson());
       _requiredText('mediaEntries.title', row.title);
-      _allowed('mediaEntries.category', row.category,
-          const {'TV', 'ANIME', 'MOVIE'});
+      _allowed('mediaEntries.category', row.category, const {
+        'TV',
+        'ANIME',
+        'MOVIE',
+      });
       _allowed('mediaEntries.entryType', row.entryType, const {
         'SEASON',
         'MOVIE',
@@ -1978,8 +2324,13 @@ class BackupService {
         'DOCUMENTARY',
         'OTHER',
       });
-      _allowed('mediaEntries.watchStatus', row.watchStatus,
-          const {'PLAN', 'WATCHING', 'COMPLETED', 'PAUSED', 'DROPPED'});
+      _allowed('mediaEntries.watchStatus', row.watchStatus, const {
+        'PLAN',
+        'WATCHING',
+        'COMPLETED',
+        'PAUSED',
+        'DROPPED',
+      });
       _optionalReference('mediaEntries.seriesId', row.seriesId, mediaSeriesIds);
       if (row.seriesId != null &&
           mediaSeriesById[row.seriesId]!.category != row.category) {
@@ -2019,10 +2370,17 @@ class BackupService {
     for (final row in subscriptions) {
       _validateSync('subscriptions', row.toJson());
       _requiredText('subscriptions.name', row.name);
-      _allowed('subscriptions.cycleUnit', row.cycleUnit,
-          const {'WEEK', 'MONTH', 'YEAR', 'FIXED_DAYS'});
-      _allowed('subscriptions.status', row.status,
-          const {'ACTIVE', 'PAUSED', 'CANCELED'});
+      _allowed('subscriptions.cycleUnit', row.cycleUnit, const {
+        'WEEK',
+        'MONTH',
+        'YEAR',
+        'FIXED_DAYS',
+      });
+      _allowed('subscriptions.status', row.status, const {
+        'ACTIVE',
+        'PAUSED',
+        'CANCELED',
+      });
       DateKeys.fromLocalDateKey(row.nextRenewalDate);
       if (row.trialEndDate != null) {
         DateKeys.fromLocalDateKey(row.trialEndDate!);
@@ -2040,10 +2398,16 @@ class BackupService {
     for (final row in maintenancePlans) {
       _validateSync('maintenancePlans', row.toJson());
       _requiredText('maintenancePlans.title', row.title);
-      _optionalReference('maintenancePlans.householdItemId',
-          row.householdItemId, householdIds);
       _optionalReference(
-          'maintenancePlans.currentTaskId', row.currentTaskId, taskIds);
+        'maintenancePlans.householdItemId',
+        row.householdItemId,
+        householdIds,
+      );
+      _optionalReference(
+        'maintenancePlans.currentTaskId',
+        row.currentTaskId,
+        taskIds,
+      );
       if (row.intervalDays <= 0 ||
           row.nextDueAt < 0 ||
           row.reminderDays < 0 ||
@@ -2059,8 +2423,13 @@ class BackupService {
     for (final row in readingItems) {
       _validateSync('readingItems', row.toJson());
       _requiredText('readingItems.title', row.title);
-      _allowed('readingItems.status', row.status,
-          const {'PLANNED', 'READING', 'COMPLETED', 'PAUSED', 'DROPPED'});
+      _allowed('readingItems.status', row.status, const {
+        'PLANNED',
+        'READING',
+        'COMPLETED',
+        'PAUSED',
+        'DROPPED',
+      });
       if (row.currentProgress < 0 ||
           row.totalProgress != null &&
               (row.totalProgress! < 0 ||
@@ -2073,8 +2442,13 @@ class BackupService {
     for (final row in parcels) {
       _validateSync('parcels', row.toJson());
       _requiredText('parcels.title', row.title);
-      _allowed('parcels.status', row.status,
-          const {'IN_TRANSIT', 'READY', 'COLLECTED', 'RETURNED', 'ARCHIVED'});
+      _allowed('parcels.status', row.status, const {
+        'IN_TRANSIT',
+        'READY',
+        'COLLECTED',
+        'RETURNED',
+        'ARCHIVED',
+      });
       _optionalReference('parcels.locationId', row.locationId, locationIds);
       if (row.expectedAt != null && row.expectedAt! < 0 ||
           row.arrivedAt != null && row.arrivedAt! < 0 ||
@@ -2083,6 +2457,44 @@ class BackupService {
               row.pickupDeadline != null &&
               row.pickupDeadline! < row.arrivedAt!) {
         throw const FormatException('快递日期范围无效');
+      }
+    }
+    for (final row in matchRecords) {
+      _validateSync('matchRecords', row.toJson());
+      _requiredText('matchRecords.sportType', row.sportType);
+      _requiredText('matchRecords.competition', row.competition);
+      _requiredText('matchRecords.participantA', row.participantA);
+      _requiredText('matchRecords.participantB', row.participantB);
+      _allowed('matchRecords.status', row.status, MatchStatuses.values);
+      _allowed('matchRecords.sourceType', row.sourceType, const {
+        MatchSources.screenshot,
+        MatchSources.csv,
+        MatchSources.ics,
+        MatchSources.manual,
+      });
+      DateKeys.fromLocalDateKey(row.matchDate);
+      if (row.startAt != null && row.startAt! < 0) {
+        throw const FormatException('比赛开始时间无效');
+      }
+      final needsSchedule =
+          row.status == MatchStatuses.scheduled ||
+          row.status == MatchStatuses.pendingResult;
+      if (needsSchedule && row.startAt == null) {
+        throw const FormatException('未来比赛缺少开始时间');
+      }
+      if (needsSchedule &&
+          (row.timezoneId == null || row.timezoneId!.trim().isEmpty)) {
+        throw const FormatException('未来比赛缺少时区');
+      }
+      if ((row.scoreA == null) != (row.scoreB == null) ||
+          row.scoreA != null && (row.scoreA! < 0 || row.scoreB! < 0)) {
+        throw const FormatException('比赛比分无效');
+      }
+      if (row.status == MatchStatuses.finished &&
+          row.scoreA == null &&
+          row.scoreB == null &&
+          (row.scoreDetail == null || row.scoreDetail!.trim().isEmpty)) {
+        throw const FormatException('已结束比赛缺少结果');
       }
     }
 
@@ -2131,6 +2543,7 @@ class BackupService {
       'MAINTENANCE_LOG': maintenanceLogIds,
       'READING': readingIds,
       'PARCEL': parcelIds,
+      'MATCH': matchIds,
     };
     final entityLinkKeys = <String>{};
     for (final row in entityLinks) {
@@ -2143,7 +2556,8 @@ class BackupService {
       _reference('entityLinks.sourceId', row.sourceId, sourceIds);
       _reference('entityLinks.targetId', row.targetId, targetIds);
       if (!entityLinkKeys.add(
-          '${row.sourceType}:${row.sourceId}:${row.targetType}:${row.targetId}')) {
+        '${row.sourceType}:${row.sourceId}:${row.targetType}:${row.targetId}',
+      )) {
         throw const FormatException('实体关联重复');
       }
     }
@@ -2151,14 +2565,18 @@ class BackupService {
     for (final row in attachmentLinks) {
       _validateSync('attachmentLinks', row.toJson());
       _reference(
-          'attachmentLinks.attachmentId', row.attachmentId, attachmentIds);
+        'attachmentLinks.attachmentId',
+        row.attachmentId,
+        attachmentIds,
+      );
       final targetIds = entityIds[row.entityType];
       if (targetIds == null) {
         throw const FormatException('附件关联类型无效');
       }
       _reference('attachmentLinks.entityId', row.entityId, targetIds);
-      if (!attachmentLinkKeys
-          .add('${row.attachmentId}:${row.entityType}:${row.entityId}')) {
+      if (!attachmentLinkKeys.add(
+        '${row.attachmentId}:${row.entityType}:${row.entityId}',
+      )) {
         throw const FormatException('附件关联重复');
       }
     }
@@ -2168,8 +2586,9 @@ class BackupService {
       if (ids == null) throw FormatException('未知实体类型：${row.entityType}');
       _reference('entityTags.entityId', row.entityId, ids);
       _reference('entityTags.tagId', row.tagId, tagIds);
-      if (!entityTagKeys
-          .add('${row.entityType}:${row.entityId}:${row.tagId}')) {
+      if (!entityTagKeys.add(
+        '${row.entityType}:${row.entityId}:${row.tagId}',
+      )) {
         throw const FormatException('实体标签重复');
       }
     }
@@ -2179,6 +2598,10 @@ class BackupService {
       final ids = entityIds[row.entityType];
       if (ids == null) throw FormatException('未知提醒类型：${row.entityType}');
       _reference('reminders.entityId', row.entityId, ids);
+      if (row.entityType == 'MATCH' &&
+          !const {'BEFORE_8H', 'BEFORE_1H'}.contains(row.reminderKind)) {
+        throw const FormatException('比赛提醒类型无效');
+      }
       if (row.triggerAt < 0 || !notificationIds.add(row.notificationId)) {
         throw const FormatException('提醒时间或通知 ID 无效');
       }
@@ -2238,8 +2661,10 @@ class BackupService {
     if (sourceMillis == null) {
       throw const FormatException('重复规则缺少日期');
     }
-    final source =
-        DateTime.fromMillisecondsSinceEpoch(sourceMillis, isUtc: true);
+    final source = DateTime.fromMillisecondsSinceEpoch(
+      sourceMillis,
+      isUtc: true,
+    );
     Recurrence.expandStarts(
       sourceStart: source,
       rule: rule,
@@ -2269,25 +2694,39 @@ class BackupService {
     }
   }
 
+  void _validateEncryptedSourceSize(String source) {
+    if (utf8.encode(source).length > maxEncryptedImportBytes) {
+      throw const FormatException('加密备份文件超过大小限制');
+    }
+  }
+
   void _validateRecordCount(int count) {
     if (count > maxImportRecords) {
       throw const FormatException('备份记录数量超过 100000 条限制');
     }
   }
 
-  Future<String> _readBoundedFile(File file) async {
-    if (await file.length() > maxImportBytes) {
-      throw const FormatException('备份文件超过 64 MB 限制');
+  Future<String> _readBoundedFile(
+    File file, {
+    bool allowEncrypted = false,
+  }) async {
+    final limit = allowEncrypted ? maxEncryptedImportBytes : maxImportBytes;
+    if (await file.length() > limit) {
+      throw const FormatException('备份文件超过大小限制');
     }
     final bytes = BytesBuilder(copy: false);
     var total = 0;
     await for (final chunk in file.openRead()) {
       total += chunk.length;
-      if (total > maxImportBytes) {
-        throw const FormatException('备份文件超过 64 MB 限制');
+      if (total > limit) {
+        throw const FormatException('备份文件超过大小限制');
       }
       bytes.add(chunk);
     }
-    return utf8.decode(bytes.takeBytes());
+    final source = utf8.decode(bytes.takeBytes());
+    if (!allowEncrypted || !EncryptedBackupCodec.looksEncrypted(source)) {
+      _validateSourceSize(source);
+    }
+    return source;
   }
 }

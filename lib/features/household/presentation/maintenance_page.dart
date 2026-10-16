@@ -112,11 +112,21 @@ class _MaintenancePageState extends ConsumerState<MaintenancePage> {
       ),
     );
     if (accepted == true && title.text.trim().isNotEmpty) {
-      await repository.create(MaintenanceDraft(
-          title: title.text,
-          intervalDays: int.parse(days.text),
-          nextDueAt: due));
-      if (mounted) setState(() => revision++);
+      final parsedDays = int.tryParse(days.text.trim());
+      if (parsedDays == null || parsedDays <= 0) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('请输入有效的天数')),
+          );
+        }
+      } else {
+        await repository.create(MaintenanceDraft(
+          title: title.text.trim(),
+          intervalDays: parsedDays,
+          nextDueAt: due,
+        ));
+        if (mounted) setState(() => revision++);
+      }
     }
     title.dispose();
     days.dispose();

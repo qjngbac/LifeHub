@@ -2,13 +2,19 @@
 
 > 本地优先、离线可用的 Android 个人生活管理应用。
 
-LifeHub 使用 Flutter 开发，把任务、日程、课程表、习惯、资料、旅行和常用生活知识放在同一个应用中。核心数据默认保存在手机本地，不需要注册账号，也不依赖服务器才能使用。
+LifeHub 使用 Flutter 开发，把任务、日程、课程表、财务收支、比赛日程、便签、旅行和生活知识放在同一个应用中。核心数据默认保存在手机本地，不需要注册账号，也不依赖配套云端服务器才能使用。
 
-- 当前版本：**V1.9.10**
+- 当前源码版本：**V1.10.29（构建号 51）**，以 [`pubspec.yaml`](pubspec.yaml) 为准
 - 支持平台：**Android 7.0（API 24）及以上**
 - 安装包架构：**arm64-v8a**
 
-[前往 Releases 下载 Android APK](https://github.com/qjngbac/LifeHub/releases/latest)
+[查看 GitHub Releases](https://github.com/qjngbac/LifeHub/releases) · [Android 安装与使用](docs/ANDROID_INSTALL.md) · [贡献指南](CONTRIBUTING.md)
+
+[下载 V1.10.29 Android ARM64 安装包](https://github.com/qjngbac/LifeHub/releases/download/v1.10.29/LifeHub-V1.10.29-arm64.apk)
+
+源码版本与已上传的安装包可能不同，请以 Releases 中实际列出的版本为准。
+
+V1.10.29 的发布前测试未全部通过，包含急救卡编辑弹窗的已知问题；具体结果见[版本说明](docs/releases/V1.10.29.md#发布前验证与已知问题)。
 
 ## 主要功能
 
@@ -16,6 +22,7 @@ LifeHub 使用 Flutter 开发，把任务、日程、课程表、习惯、资料
 
 - 任务、子任务、项目、清单和习惯
 - 日、周、月日程视图，以及 ICS 导入导出
+- 比赛日程、结果补录与赛事档案；支持文本、剪贴板和本机截图 OCR 导入，识别后可预览、编辑与检查重复
 - 课程表、学期周次、单双周、连堂课程和 Android 桌面组件
 - 长期目标、里程碑、关联进度、专注与计时、周/月复盘
 - 收件箱、晚间规划、本地自动化和统一关联中心
@@ -25,13 +32,16 @@ LifeHub 使用 Flutter 开发，把任务、日程、课程表、习惯、资料
 - 心情日历、关系空间、纪念日
 - 旅行计划、地点、旅行账单和附件
 - 家庭物品与保修、证件到期、用药提醒与本地急救卡
-- 轻量收支、快递取件、阅读进度和影视进度
+- 财务收支、多账户、预算、转账、退款、报销和账单导入
+- 快递取件、阅读进度和影视进度
 
 ### 资料与离线知识
 
-- 支持便签、图片和文件附件的本地资料库
+- 支持富文本便签、标签、图片和文件附件的本地资料库
 - 按地区整理的野外急救与求生知识
 - 日用品选购知识库和常见药品信息库
+- 生命选品：按人生阶段整理日用品、食品、水果与居家环境指南
+- 专注计时与内置白噪音
 - 笑话与故事支持模块内搜索、收藏、屏蔽和稍后阅读
 - 全局搜索只收录适合全局查找的重要数据；娱乐内容和影视记录仅在模块内搜索
 
@@ -42,6 +52,7 @@ LifeHub 使用 Flutter 开发，把任务、日程、课程表、习惯、资料
 - 合并恢复、替换恢复、恢复前检查和数据健康检查
 - 归档与最近删除分离
 - 数据页模块排序、固定、隐藏和恢复默认布局
+- 本地二级密码保护私密内容的查看入口；它不等同于数据库整库加密
 
 ## 离线与联网边界
 
@@ -57,7 +68,7 @@ LifeHub 的任务、日程、课程表、资料、知识库、搜索、备份等
 
 ## 安装
 
-1. 在 [Releases](https://github.com/qjngbac/LifeHub/releases/latest) 下载 `LifeHub-V1.9.10.apk`。
+1. 在 [Releases](https://github.com/qjngbac/LifeHub/releases) 选择已发布版本，下载相应的 `LifeHub-V<版本>-arm64.apk`。
 2. 在 Android 文件管理器中打开 APK。
 3. 如系统拦截，请仅为当前文件管理器临时允许“安装未知应用”。
 4. 首次打开后，按需要授予通知和定位权限。
@@ -79,19 +90,19 @@ LifeHub 的任务、日程、课程表、资料、知识库、搜索、备份等
 
 ### 环境要求
 
-- Flutter 3.32 或更高版本
-- Dart 3.5 或更高版本
+- Flutter 3.44.0 或更高的兼容版本
+- Dart 3.12.x（项目约束为 `>=3.12.0 <4.0.0`，随 Flutter SDK 提供）
 - JDK 17
-- Android SDK（compileSdk 36）
+- Android SDK；当前构建使用 API 36，实际 SDK/NDK 版本由 Flutter Gradle 配置决定
+- arm64 Android 真机或相应开发设备
 
 ### 获取依赖与生成代码
 
 ```bash
 flutter pub get
-dart run build_runner build --delete-conflicting-outputs
 ```
 
-项目包含一份经过兼容修正的 `workmanager_android`，位于 `third_party/workmanager_android`，因此克隆仓库后不需要访问开发者电脑上的绝对路径。
+项目保留 `pubspec.lock`、数据库生成文件和经过兼容修正的 `third_party/workmanager_android`，不要在上传时遗漏。修改数据库声明后，再按[贡献指南](CONTRIBUTING.md)生成代码并验证迁移。
 
 ### 运行与检查
 
@@ -104,17 +115,19 @@ flutter test
 ### 构建 Android APK
 
 ```bash
-flutter build apk --release
+flutter build apk --release --target-platform android-arm64
 ```
 
-发布签名配置不在仓库中。构建 release 前必须在 `android/key.properties` 配置自己的密钥；缺少配置时构建会直接失败，不会生成使用调试签名的 release。切勿提交 `key.properties`、`.jks` 或 `.keystore` 文件。
+发布签名配置不在仓库中。可复制 [`android/key.properties.example`](android/key.properties.example) 为 `android/key.properties`，填写自己的密钥路径和签名信息。缺少配置时 release 构建会失败，不会退回调试签名。不要提交真实的 `key.properties`、`.jks`、`.keystore` 或口令。
+
+从源码自行构建的应用使用你自己的签名，通常不能直接覆盖原作者签名的正式版；更换安装包前先导出备份。
 
 ## 目录结构
 
 ```text
 lifehub/
 ├─ android/                  Android 原生代码、通知与桌面组件
-├─ assets/                   图标、图片和离线知识库内容
+├─ assets/                   图标、音频和离线知识库内容
 ├─ integration_test/         集成测试
 ├─ lib/                      Flutter 应用源码
 │  ├─ app/                   路由、主题与主界面
@@ -128,7 +141,9 @@ lifehub/
 
 ## 项目状态
 
-V1.9.10 是 Android 1.x 系列的本地优先版本。项目仍会根据真实设备使用反馈修复兼容性和交互问题。当前不承诺兼容早期未公开测试 APK 的数据库；安装不同测试包前请先导出备份。
+当前维护 Android 1.x 系列。各功能随真实设备反馈持续调整；通知、后台任务和桌面组件会受到系统省电策略影响。安装其他签名或旧测试包前请先导出备份。
+
+仓库上传范围和发布前检查见 [GitHub 上传说明](docs/GITHUB_UPLOAD.md)，版本说明见[更新日志](CHANGELOG.md)。
 
 ## 参与贡献
 

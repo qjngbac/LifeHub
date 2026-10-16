@@ -417,13 +417,23 @@ class _AcademicCoursePageState extends ConsumerState<AcademicCoursePage> {
       ),
     );
     if (accepted == true) {
-      await repository.saveGrade(CourseGradeDraft(
-        courseId: widget.courseId,
-        title: title.text,
-        score: double.parse(score.text),
-        maximum: double.parse(maximum.text),
-      ));
-      if (mounted) setState(() => revision++);
+      final parsedScore = double.tryParse(score.text.trim());
+      final parsedMaximum = double.tryParse(maximum.text.trim());
+      if (parsedScore == null || parsedMaximum == null || parsedMaximum <= 0) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('请输入有效的分数与总分')),
+          );
+        }
+      } else {
+        await repository.saveGrade(CourseGradeDraft(
+          courseId: widget.courseId,
+          title: title.text.trim().isEmpty ? '成绩记录' : title.text.trim(),
+          score: parsedScore,
+          maximum: parsedMaximum,
+        ));
+        if (mounted) setState(() => revision++);
+      }
     }
     title.dispose();
     score.dispose();

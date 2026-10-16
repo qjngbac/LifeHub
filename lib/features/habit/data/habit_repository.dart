@@ -171,6 +171,26 @@ class HabitRepository {
     return {for (final value in values) value.habitId: value};
   }
 
+  Future<Map<String, Map<int, HabitLogEntry>>> logsForDays(
+    DateTime endingOn,
+    int dayCount,
+  ) async {
+    final start = endingOn.subtract(Duration(days: dayCount - 1));
+    final startKey = DateKeys.toLocalDateKey(DateTime(start.year, start.month, start.day));
+    final endKey = DateKeys.toLocalDateKey(DateTime(endingOn.year, endingOn.month, endingOn.day));
+    final values = await (_database.select(_database.habitLogs)
+          ..where((row) =>
+              row.localDate.isBiggerOrEqualValue(startKey) &
+              row.localDate.isSmallerOrEqualValue(endKey) &
+              row.deletedAt.isNull()))
+        .get();
+    final result = <String, Map<int, HabitLogEntry>>{};
+    for (final value in values) {
+      result.putIfAbsent(value.habitId, () => {})[value.localDate] = value;
+    }
+    return result;
+  }
+
   Future<int> streak(String habitId, DateTime endingOn) async {
     final habit = await get(habitId);
     final values = {for (final log in await logs(habitId)) log.localDate: log};
@@ -201,6 +221,7 @@ class HabitRepository {
       final date = DateKeys.fromLocalDateKey(log.localDate);
       return !date.isBefore(monday) &&
           !date.isAfter(sunday) &&
+          HabitRules.isScheduled(habit.scheduleRule, date) &&
           log.value >= habit.targetCount;
     }).length;
     final target = HabitRules.weeklyTarget(habit.scheduleRule);

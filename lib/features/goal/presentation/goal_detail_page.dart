@@ -22,6 +22,26 @@ class GoalDetailPage extends ConsumerWidget {
         repository.links(goalId),
       ]),
       builder: (context, snapshot) {
+        if (snapshot.hasError ||
+            (snapshot.connectionState == ConnectionState.done &&
+                (!snapshot.hasData ||
+                    (snapshot.data![0] as GoalEntry).deletedAt != null))) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('目标详情')),
+            body: Center(
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(snapshot.hasError
+                    ? '加载失败，记录可能不存在或已删除'
+                    : '记录不存在或已删除'),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  onPressed: () => ref.read(refreshProvider.notifier).state++,
+                  icon: const Icon(Icons.refresh), label: const Text('重试'),
+                ),
+              ]),
+            ),
+          );
+        }
         if (!snapshot.hasData) {
           return Scaffold(
             appBar: AppBar(),

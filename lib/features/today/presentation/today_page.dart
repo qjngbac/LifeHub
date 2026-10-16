@@ -82,19 +82,21 @@ class _TodayPageState extends ConsumerState<TodayPage>
     return Scaffold(
       appBar: AppBar(
         title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('今天'),
                 Text(
-                  DateFormat('M月d日 EEEE', 'zh_CN').format(now),
+                  DateFormat('M月d日 E', 'zh_CN').format(now),
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
             if (motto != null) ...[
-              const SizedBox(width: 16),
+              const SizedBox(width: 8),
               Expanded(
                 child: _MottoTicker(
                   text: motto,
@@ -124,7 +126,7 @@ class _TodayPageState extends ConsumerState<TodayPage>
         heroTag: 'today_add',
         onPressed: () => createTaskDialog(context, ref, dueOn: now),
         tooltip: '新建任务',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add_task),
       ),
       body: Column(
         children: [
@@ -306,7 +308,7 @@ class _TodayPageState extends ConsumerState<TodayPage>
                       courses ? Icons.school_outlined : Icons.event_outlined),
                   title: Text(event.title),
                   subtitle: Text(
-                    '${DateFormat.Hm().format(event.start)}–${DateFormat.Hm().format(event.end)}${event.location == null ? '' : ' · ${event.location}'}',
+                    '${event.allDay ? '00:00–23:59' : '${DateFormat.Hm().format(event.start)}–${DateFormat.Hm().format(event.end)}'}${event.location == null ? '' : ' · ${event.location}'}',
                   ),
                 ),
               ),
@@ -541,6 +543,7 @@ class _MottoTickerState extends State<_MottoTicker>
           builder: (context, constraints) {
             final painter = TextPainter(
               text: TextSpan(text: widget.text, style: style),
+              textScaler: MediaQuery.textScalerOf(context),
               maxLines: 1,
               textDirection: Directionality.of(context),
             )..layout();
@@ -559,14 +562,20 @@ class _MottoTickerState extends State<_MottoTicker>
                   alignment: Alignment.centerLeft,
                   minWidth: 0,
                   maxWidth: double.infinity,
+                  minHeight: constraints.maxHeight,
+                  maxHeight: constraints.maxHeight,
                   child: SizedBox(
                     width: painter.width,
-                    child: Text(
-                      widget.text,
-                      maxLines: 1,
-                      softWrap: false,
-                      overflow: TextOverflow.visible,
-                      style: style,
+                    height: constraints.maxHeight,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.text,
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.visible,
+                        style: style,
+                      ),
                     ),
                   ),
                 ),
@@ -607,11 +616,11 @@ class _ModeHint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final messages = <String>[
-      if (modes.contains(LifeMode.student)) '学生：课程与学习任务优先',
-      if (modes.contains(LifeMode.work)) '工作：项目与会议优先',
-      if (modes.contains(LifeMode.daily)) '日常：生活任务与习惯优先',
-      if (modes.contains(LifeMode.outdoor)) '户外：行程与装备清单优先',
+    final messages = <(String, String)>[
+      if (modes.contains(LifeMode.student)) ('学生模式', '课程与学习任务优先'),
+      if (modes.contains(LifeMode.work)) ('工作模式', '项目与会议优先'),
+      if (modes.contains(LifeMode.daily)) ('日常模式', '生活任务与习惯优先'),
+      if (modes.contains(LifeMode.outdoor)) ('户外模式', '行程与装备清单优先'),
     ];
     return Padding(
       padding: const EdgeInsets.only(top: 8),
@@ -619,10 +628,11 @@ class _ModeHint extends StatelessWidget {
         spacing: 6,
         runSpacing: 6,
         children: messages
-            .map((value) => Chip(
+            .map((value) => Tooltip(message: value.$2, child: Chip(
                   avatar: const Icon(Icons.tune, size: 18),
-                  label: Text(value),
-                ))
+                  visualDensity: VisualDensity.compact,
+                  label: Text(value.$1),
+                )))
             .toList(),
       ),
     );
@@ -636,7 +646,7 @@ class _SummaryCard extends StatelessWidget {
   Widget build(BuildContext context) => Card(
         color: Theme.of(context).colorScheme.primaryContainer,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -644,6 +654,7 @@ class _SummaryCard extends StatelessWidget {
               _Count(value: data.tasks.length, label: '任务'),
               _Count(
                   value: data.habits.where((value) => value.completed).length,
+                  total: data.habits.length,
                   label: '已打卡'),
             ],
           ),
@@ -652,12 +663,13 @@ class _SummaryCard extends StatelessWidget {
 }
 
 class _Count extends StatelessWidget {
-  const _Count({required this.value, required this.label});
+  const _Count({required this.value, required this.label, this.total});
   final int value;
+  final int? total;
   final String label;
   @override
   Widget build(BuildContext context) => Column(children: [
-        Text('$value', style: Theme.of(context).textTheme.headlineSmall),
+        Text(total != null && total! > 0 ? '$value/$total' : '$value', style: Theme.of(context).textTheme.headlineSmall),
         Text(label),
       ]);
 }
@@ -672,7 +684,7 @@ class _SectionTitle extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(4, 20, 4, 6),
+          padding: const EdgeInsets.fromLTRB(4, 12, 4, 6),
           child: Row(children: [
             Expanded(
               child: Text(text, style: Theme.of(context).textTheme.titleMedium),

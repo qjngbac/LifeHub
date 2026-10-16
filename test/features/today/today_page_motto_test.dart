@@ -5,12 +5,58 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/core/providers.dart';
+import 'package:lifehub/features/today/application/today_preferences.dart';
 import 'package:lifehub/features/today/presentation/today_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   setUpAll(() => initializeDateFormatting('zh_CN'));
   setUp(() => SharedPreferences.setMockInitialValues({}));
+
+  testWidgets('motto traverses the full text at larger accessibility sizes',
+      (tester) async {
+    tester.view.physicalSize = const Size(1080, 2400);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+    final preferences = await SharedPreferences.getInstance();
+    final motto = List.filled(15, '今天也要稳稳向前，把每一个小步骤都做扎实。').join();
+    await TodayPreferences(preferences).saveMotto(motto);
+    await tester.pumpWidget(ProviderScope(
+      overrides: [
+        databaseProvider.overrideWithValue(database),
+        sharedPreferencesProvider.overrideWithValue(preferences),
+      ],
+      child: MaterialApp(
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: const TextScaler.linear(1.5),
+          ),
+          child: child!,
+        ),
+        home: const TodayPage(),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    final text = tester.widget<Text>(find.text(motto));
+    final textScaler = MediaQuery.textScalerOf(tester.element(find.text(motto)));
+    expect(textScaler.scale(14), greaterThan(14));
+    final painter = TextPainter(
+      text: TextSpan(text: motto, style: text.style),
+      textScaler: textScaler,
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+    )..layout();
+    addTearDown(painter.dispose);
+    expect(tester.getSize(find.text(motto)).width,
+        greaterThanOrEqualTo(painter.width - 1));
+    expect(tester.takeException(), isNull);
+  });
 
   testWidgets('homepage motto is created once and edited by tapping its text',
       (tester) async {
@@ -50,6 +96,12 @@ void main() {
       (mottoRect.center.dy - customizeRect.center.dy).abs(),
       lessThan(12),
       reason: '标语应当与顶部自定义按钮处于同一行，而不是另占一行',
+    );
+    final textRect = tester.getRect(find.text(longMotto));
+    expect(
+      (textRect.center.dy - mottoRect.center.dy).abs(),
+      lessThan(4),
+      reason: '标语文本应当在标语容器垂直正中间',
     );
     final theme = Theme.of(tester.element(find.byType(Scaffold)));
     final mottoText = tester.widget<Text>(find.text(longMotto));

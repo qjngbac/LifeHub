@@ -223,4 +223,82 @@ void main() {
     expect(await database.select(database.listItems).get(), isEmpty);
     expect(await database.select(database.entityTags).get(), isEmpty);
   });
+
+  test('purging a course removes grades and their associations only', () async {
+    final courses = CourseRepository(database);
+    final semester = await courses.createSemester(SemesterDraft(
+      name: 'semester',
+      start: DateTime(2026, 8, 31),
+      end: DateTime(2026, 12, 20),
+      totalWeeks: 16,
+    ));
+    final removed = await courses.createCourse(
+      CourseDraft(name: 'removed course', semesterId: semester.id),
+    );
+    final retained = await courses.createCourse(
+      CourseDraft(name: 'retained course', semesterId: semester.id),
+    );
+    for (final entry in [
+      (removed, 'removed-grade'),
+      (retained, 'retained-grade')
+    ]) {
+      await database.into(database.courseGrades).insert(
+            CourseGradesCompanion.insert(
+              id: Value(entry.$2),
+              courseId: entry.$1.id,
+              title: 'exam',
+              score: 90,
+            ),
+          );
+      await database.into(database.entityTags).insert(
+            EntityTagsCompanion.insert(
+              entityType: 'COURSE_GRADE',
+              entityId: entry.$2,
+              tagId: 'grade-tag',
+            ),
+          );
+      await database.into(database.reminders).insert(
+            RemindersCompanion.insert(
+              entityType: 'COURSE_GRADE',
+              entityId: entry.$2,
+              triggerAt: 2000000000000,
+              notificationId: entry.$2 == 'removed-grade' ? 1 : 2,
+            ),
+          );
+      await database.into(database.attachmentLinks).insert(
+            AttachmentLinksCompanion.insert(
+              attachmentId: 'shared-attachment',
+              entityType: 'COURSE_GRADE',
+              entityId: entry.$2,
+            ),
+          );
+      await database.into(database.entityLinks).insert(
+            EntityLinksCompanion.insert(
+              sourceType: 'COURSE_GRADE',
+              sourceId: entry.$2,
+              targetType: 'COURSE',
+              targetId: retained.id,
+            ),
+          );
+    }
+    await courses.deleteCourse(removed.id);
+
+    await archive.purgeDeleted((await archive.deletedItems()).singleWhere(
+      (entry) => entry.type == 'COURSE',
+    ));
+
+    expect(
+        (await database.select(database.courses).get()).single.id, retained.id);
+    expect((await database.select(database.courseGrades).get()).single.id,
+        'retained-grade');
+    expect((await database.select(database.entityTags).get()).single.entityId,
+        'retained-grade');
+    expect((await database.select(database.reminders).get()).single.entityId,
+        'retained-grade');
+    expect(
+        (await database.select(database.attachmentLinks).get()).single.entityId,
+        'retained-grade');
+    expect((await database.select(database.entityLinks).get()).single.sourceId,
+        'retained-grade');
+  });
 }

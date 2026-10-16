@@ -15,6 +15,7 @@ import 'package:lifehub/features/household/presentation/household_page.dart';
 import 'package:lifehub/features/inbox/presentation/inbox_page.dart';
 import 'package:lifehub/features/knowledge/presentation/offline_knowledge_pages.dart';
 import 'package:lifehub/features/library/presentation/library_page.dart';
+import 'package:lifehub/features/lifecycle_guide/presentation/lifecycle_guide_page.dart';
 import 'package:lifehub/features/life_records/presentation/anniversaries_page.dart';
 import 'package:lifehub/features/life_records/presentation/mood_calendar_page.dart';
 import 'package:lifehub/features/life_records/presentation/relationship_space_page.dart';
@@ -22,6 +23,7 @@ import 'package:lifehub/features/list/presentation/lists_page.dart';
 import 'package:lifehub/features/location/presentation/locations_page.dart';
 import 'package:lifehub/features/medication/presentation/medication_page.dart';
 import 'package:lifehub/features/media/presentation/media_home_page.dart';
+import 'package:lifehub/features/matches/presentation/match_schedule_page.dart';
 import 'package:lifehub/features/parcel/presentation/parcels_page.dart';
 import 'package:lifehub/features/reading/presentation/reading_page.dart';
 import 'package:lifehub/features/project/presentation/projects_page.dart';
@@ -319,7 +321,7 @@ const _modules = <_HubModule>[
       '购买记录、保修截止和附件', HouseholdPage()),
   _HubModule('medication', Icons.medication_outlined, Color(0xFFD9F0E7), '用药提醒',
       '只做用户记录、提醒与本地急救卡', MedicationPage()),
-  _HubModule('finance', Icons.receipt_long_outlined, Color(0xFFFFE8C8), '轻量收支',
+  _HubModule('finance', Icons.receipt_long_outlined, Color(0xFFFFE8C8), '财务收支',
       '快速记录收入、支出与月度分类', FinancePage()),
   _HubModule('credentials', Icons.badge_outlined, Color(0xFFE8DFFF), '证件到期',
       '保存号码提示与到期提醒', CredentialsPage()),
@@ -333,14 +335,16 @@ const _modules = <_HubModule>[
       '笑话与故事', '随机浏览、收藏、屏蔽与睡前阅读', EntertainmentPage()),
   _HubModule('media', Icons.movie_filter_outlined, Color(0xFFDCE7FF), '影视进度',
       '记录看到哪里、下一集与下一部', MediaHomePage()),
+  _HubModule('matches', Icons.emoji_events_outlined, Color(0xFFFFE4B8), '比赛日程',
+      '导入未来比赛、固定提醒并保留赛事档案', MatchSchedulePage()),
   _HubModule('reading', Icons.menu_book_outlined, Color(0xFFE2EBD8), '阅读进度',
       '记录图书、小说、漫画和论文看到哪里', ReadingPage()),
   _HubModule('parcels', Icons.local_shipping_outlined, Color(0xFFFFE1CC),
       '快递取件', '集中查看运输中和待领取的快递', ParcelsPage()),
-  _HubModule('inbox', Icons.inbox_outlined, Color(0xFFE7DFFF), '收件箱',
-      '收集分享、速记并稍后转为行动', InboxPage()),
-  _HubModule('library', Icons.bookmarks_outlined, Color(0xFFFFE2D3), '资料库',
-      '便签、图片与文件附件', LibraryPage()),
+  _HubModule('inbox', Icons.lightbulb_outline, Color(0xFFE7DFFF), '灵感库',
+      '收集灵感、速记并稍后转为行动', InboxPage()),
+  _HubModule('library', Icons.note_alt_outlined, Color(0xFFFFE2D3), '便签',
+      '随手备忘、想法与便签速记', LibraryPage()),
   _HubModule('tasks', Icons.check_circle_outline, Color(0xFFDCD3FF), '任务',
       '管理所有待办与完成状态', TasksPage()),
   _HubModule('projects', Icons.folder_outlined, Color(0xFFD8E5FF), '项目',
@@ -367,6 +371,8 @@ const _modules = <_HubModule>[
       '共同心情、事件和生理期记录', RelationshipSpacePage()),
   _HubModule('anniversaries', Icons.celebration_outlined, Color(0xFFFFEDBF),
       '纪念日', '生日、周年与重要日期倒数', AnniversariesPage()),
+  _HubModule('lifecycle_guide', Icons.spa_outlined, Color(0xFFD7EEDF),
+      '生命选品', '人生各阶段日用品、食品、水果与居家环境全景指南', LifecycleGuidePage()),
   _HubModule('archive', Icons.archive_outlined, Color(0xFFE2DEE9), '归档',
       '查找、恢复或删除归档内容', ArchivePage()),
 ];

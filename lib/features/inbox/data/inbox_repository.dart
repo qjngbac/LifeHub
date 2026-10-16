@@ -84,6 +84,33 @@ class InboxRepository {
     ));
   }
 
+  Future<void> delete(String id) async {
+    final current = await get(id);
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    await (_database.update(_database.inboxItems)
+          ..where((row) => row.id.equals(id)))
+        .write(InboxItemsCompanion(
+      deletedAt: Value(now),
+      updatedAt: Value(now),
+      version: Value(current.version + 1),
+    ));
+  }
+
+  Future<void> restore(String id) async {
+    final current = await (_database.select(_database.inboxItems)
+          ..where((value) => value.id.equals(id)))
+        .getSingleOrNull();
+    if (current == null) return;
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    await (_database.update(_database.inboxItems)
+          ..where((row) => row.id.equals(id)))
+        .write(InboxItemsCompanion(
+      deletedAt: const Value(null),
+      updatedAt: Value(now),
+      version: Value(current.version + 1),
+    ));
+  }
+
   Future<TaskEntry> convertToTask(String id) => _database.transaction(() async {
         final current = await get(id);
         if (current.convertedType == 'TASK' && current.convertedId != null) {
@@ -112,6 +139,8 @@ class InboxRepository {
             itemType: isLink ? SavedItemType.link : SavedItemType.note,
             content: current.content,
             sourceUri: isLink ? current.content : current.sourceUri,
+            associationType: 'INBOX',
+            associationId: current.id,
           ),
         );
         await _markConverted(current, 'SAVED_ITEM', saved.id);

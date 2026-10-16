@@ -68,4 +68,43 @@ void main() {
     await tester.pump();
     expect(find.text('这已经是最后一条了'), findsOneWidget);
   });
+
+  testWidgets('脑筋急转弯默认藏住答案，点击后才揭晓', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final repository = EntertainmentRepository(
+      preferences: await SharedPreferences.getInstance(),
+    );
+    const item = EntertainmentItem(
+      id: 'riddle',
+      categoryId: 'test',
+      category: '脑筋急转弯',
+      group: 'joke',
+      contentType: 'riddle',
+      title: '什么门永远关不上？',
+      body: '答案：球门',
+      estimatedReadSeconds: 8,
+    );
+    await tester.pumpWidget(
+      MaterialApp(
+        home: EntertainmentItemPage(item: item, repository: repository),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('点击揭晓答案'), findsOneWidget);
+    expect(
+      find.byType(SelectableText),
+      findsNothing,
+      reason: '未揭晓时不能把答案正文渲染出来（否则等于直接剧透）',
+    );
+
+    await tester.tap(find.text('点击揭晓答案'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('点击揭晓答案'), findsNothing);
+    final revealed =
+        tester.widget<SelectableText>(find.byType(SelectableText));
+    expect(revealed.data, '球门');
+    expect(tester.takeException(), isNull);
+  });
 }

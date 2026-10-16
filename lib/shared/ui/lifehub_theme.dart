@@ -16,7 +16,8 @@ abstract final class LifeHubTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colors,
-      scaffoldBackgroundColor: Colors.transparent,
+      scaffoldBackgroundColor:
+          light ? const Color(0xFFF8F5FF) : const Color(0xFF171420),
       canvasColor: light ? const Color(0xFFF8F5FF) : const Color(0xFF171420),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,

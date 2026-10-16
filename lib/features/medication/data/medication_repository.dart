@@ -50,6 +50,31 @@ class MedicationRepository {
   MedicationRepository(this._database);
   final AppDatabase _database;
 
+  /// 紧急联系人在库里仍是**一个** `emergencyContacts` 字段，
+  /// 但界面要拆成「姓名」「电话」两栏。这里用可读的分隔符把两部分存进同一字段，
+  /// 好处是不用改数据库结构、备份与旧数据都能直接读；
+  /// 老数据（没有分隔符）会被整体当作姓名，用户补一次电话即可。
+  static const emergencyContactSeparator = ' · ';
+
+  static ({String name, String phone}) splitEmergencyContact(String? raw) {
+    final value = raw?.trim() ?? '';
+    if (value.isEmpty) return (name: '', phone: '');
+    final index = value.indexOf(emergencyContactSeparator);
+    if (index < 0) return (name: value, phone: '');
+    return (
+      name: value.substring(0, index).trim(),
+      phone: value.substring(index + emergencyContactSeparator.length).trim(),
+    );
+  }
+
+  static String joinEmergencyContact(String name, String phone) {
+    final trimmedName = name.trim();
+    final trimmedPhone = phone.trim();
+    if (trimmedName.isEmpty) return trimmedPhone;
+    if (trimmedPhone.isEmpty) return trimmedName;
+    return '$trimmedName$emergencyContactSeparator$trimmedPhone';
+  }
+
   Future<MedicationPlanEntry> createPlan(MedicationPlanDraft draft) {
     final times = _normalizedTimes(draft.reminderTimes);
     if (draft.name.trim().isEmpty) {
@@ -127,6 +152,22 @@ class MedicationRepository {
   List<String> reminderTimes(MedicationPlanEntry plan) =>
       (jsonDecode(plan.reminderTimesJson) as List<dynamic>).cast<String>();
 
+  /// 某个日期下，各计划已打卡的时间点（分钟数）。
+  ///
+  /// 列表页用一次查询拿到全部进度，避免每个计划各查一次；
+  /// 有了它才能把「08:00 打卡」显示成「08:00 已打卡」并给出 n/m 进度。
+  Future<Map<String, Set<int>>> checkedInMinutesByPlan(DateTime date) async {
+    final key = DateKeys.toLocalDateKey(date);
+    final rows = await (_database.select(_database.medicationLogs)
+          ..where((row) => row.localDate.equals(key) & row.deletedAt.isNull()))
+        .get();
+    final result = <String, Set<int>>{};
+    for (final row in rows) {
+      (result[row.planId] ??= <int>{}).add(row.timeMinutes);
+    }
+    return result;
+  }
+
   bool isActiveOn(MedicationPlanEntry plan, DateTime date) {
     if (!plan.active || plan.deletedAt != null) return false;
     final key = DateKeys.toLocalDateKey(date);
@@ -155,25 +196,40 @@ class MedicationRepository {
       throw ArgumentError.value(timeMinutes, 'timeMinutes');
     }
     final key = DateKeys.toLocalDateKey(date);
-    final existing = await (_database.select(_database.medicationLogs)
-          ..where((row) =>
-              row.planId.equals(planId) &
-              row.localDate.equals(key) &
-              row.timeMinutes.equals(timeMinutes)))
-        .getSingleOrNull();
-    if (existing != null) return existing;
-    final plan = await (_database.select(_database.medicationPlans)
-          ..where((row) => row.id.equals(planId) & row.deletedAt.isNull()))
-        .getSingleOrNull();
-    if (plan == null) throw StateError('Medication plan not found.');
-    return _database.into(_database.medicationLogs).insertReturning(
-          MedicationLogsCompanion.insert(
-            planId: planId,
-            localDate: key,
-            timeMinutes: timeMinutes,
-            status: Value(status),
-          ),
-        );
+    return _database.transaction(() async {
+      final plan = await getPlan(planId);
+      if (!isActiveOn(plan, date)) {
+        throw StateError('Medication plan is not active on this date.');
+      }
+      final existing = await (_database.select(_database.medicationLogs)
+            ..where((row) =>
+                row.planId.equals(planId) &
+                row.localDate.equals(key) &
+                row.timeMinutes.equals(timeMinutes)))
+          .getSingleOrNull();
+      if (existing != null) {
+        if (existing.deletedAt == null) return existing;
+        await (_database.update(_database.medicationLogs)
+              ..where((row) => row.id.equals(existing.id)))
+            .write(MedicationLogsCompanion(
+          deletedAt: const Value(null),
+          status: Value(status),
+          updatedAt: Value(DateTime.now().toUtc().millisecondsSinceEpoch),
+          version: Value(existing.version + 1),
+        ));
+        return (_database.select(_database.medicationLogs)
+              ..where((row) => row.id.equals(existing.id)))
+            .getSingle();
+      }
+      return _database.into(_database.medicationLogs).insertReturning(
+            MedicationLogsCompanion.insert(
+              planId: planId,
+              localDate: key,
+              timeMinutes: timeMinutes,
+              status: Value(status),
+            ),
+          );
+    });
   }
 
   Future<EmergencyCardEntry> saveEmergencyCard(EmergencyCardDraft draft) async {

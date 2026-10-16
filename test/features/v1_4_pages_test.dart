@@ -17,7 +17,7 @@ void main() {
     await InboxRepository(database).capture('保存的文字');
     await tester.pumpWidget(_app(database, const InboxPage()));
     await tester.pumpAndSettle();
-    expect(find.text('收件箱'), findsOneWidget);
+    expect(find.text('灵感库'), findsOneWidget);
     expect(find.text('保存的文字'), findsOneWidget);
     expect(find.text('整理'), findsOneWidget);
   });

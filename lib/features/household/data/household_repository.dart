@@ -172,6 +172,12 @@ class HouseholdRepository {
         .getSingle();
   }
 
+  Future<HouseholdItemEntry> adjustQuantity(String id, double delta) async {
+    final item = await get(id);
+    final next = (item.quantity + delta).clamp(0.0, 999999.0);
+    return updateQuantity(id, next);
+  }
+
   Future<ListItemEntry> addToShoppingList(String id) async {
     final item = await (_database.select(_database.householdItems)
           ..where((row) => row.id.equals(id) & row.deletedAt.isNull()))

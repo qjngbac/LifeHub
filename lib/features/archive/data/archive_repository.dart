@@ -613,6 +613,15 @@ class ArchiveRepository {
                 ..where((row) => row.id.equals(item.id)))
               .go();
         case 'COURSE':
+          final grades = await (_database.select(_database.courseGrades)
+                ..where((row) => row.courseId.equals(item.id)))
+              .get();
+          for (final grade in grades) {
+            await _purgeAssociations('COURSE_GRADE', grade.id);
+          }
+          await (_database.delete(_database.courseGrades)
+                ..where((row) => row.courseId.equals(item.id)))
+              .go();
           final schedules = await (_database.select(_database.courseSchedules)
                 ..where((row) => row.courseId.equals(item.id)))
               .get();

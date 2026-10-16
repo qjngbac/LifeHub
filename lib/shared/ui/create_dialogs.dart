@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/core/notifications/notification_actions.dart';
 import 'package:lifehub/core/providers.dart';
-import 'package:lifehub/core/time/date_keys.dart';
 import 'package:lifehub/features/event/data/event_repository.dart';
+import 'package:lifehub/features/event/presentation/event_form.dart';
 import 'package:lifehub/features/habit/data/habit_repository.dart';
 import 'package:lifehub/features/list/data/list_repository.dart';
 import 'package:lifehub/features/library/data/saved_item_repository.dart';
 import 'package:lifehub/features/project/data/project_repository.dart';
+import 'package:lifehub/features/project/presentation/project_form.dart';
 import 'package:lifehub/features/task/data/task_repository.dart';
 import 'package:lifehub/shared/ui/keyboard_safe_form_dialog.dart';
 
@@ -17,8 +18,11 @@ Future<String?> promptText(
   required String title,
   required String label,
   String? initial,
+  int? maxLines = 1,
+  String? hintText,
 }) async {
   final controller = TextEditingController(text: initial);
+  final isMultiline = maxLines == null || maxLines > 1;
   final value = await showDialog<String>(
     context: context,
     barrierDismissible: false,
@@ -27,9 +31,12 @@ Future<String?> promptText(
       body: TextField(
         controller: controller,
         autofocus: true,
-        maxLength: 500,
-        decoration: InputDecoration(labelText: label),
-        onSubmitted: (value) {
+        maxLength: isMultiline ? 2000 : 500,
+        maxLines: maxLines,
+        decoration: InputDecoration(labelText: label, hintText: hintText),
+        onSubmitted: isMultiline
+            ? null
+            : (value) {
           if (value.trim().isNotEmpty) Navigator.pop(context, value.trim());
         },
       ),
@@ -318,10 +325,10 @@ Future<void> editTaskDialog(
 }
 
 Future<void> createProjectDialog(BuildContext context, WidgetRef ref) async {
-  final name = await promptText(context, title: '新建项目', label: '项目名称');
-  if (name == null || !context.mounted) return;
+  final draft = await showProjectForm(context);
+  if (draft == null || !context.mounted) return;
   await ProjectRepository(ref.read(databaseProvider))
-      .create(ProjectDraft(name: name));
+      .create(draft);
   ref.read(refreshProvider.notifier).state++;
   if (context.mounted) _success(context, '项目已创建');
 }
@@ -351,198 +358,16 @@ Future<void> createEventDialog(
   DateTime? initialDate,
   String? projectId,
 }) async {
-  final base = initialDate ?? DateTime.now();
-  final date = await showDatePicker(
-    context: context,
-    initialDate: base,
-    firstDate: DateTime(2020),
-    lastDate: DateTime(2100),
-    barrierDismissible: false,
-  );
-  if (date == null || !context.mounted) return;
-  final title = await promptText(context, title: '新建日程', label: '日程标题');
-  if (title == null || !context.mounted) return;
-  final allDay = await showDialog<bool>(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) => SimpleDialog(
-      title: const Text('日程类型'),
-      children: [
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop(context, false),
-          child: const ListTile(
-            leading: Icon(Icons.schedule),
-            title: Text('指定时间'),
-          ),
-        ),
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop(context, true),
-          child: const ListTile(
-            leading: Icon(Icons.today),
-            title: Text('全天日程'),
-          ),
-        ),
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop(context),
-          child: const ListTile(
-            leading: Icon(Icons.close),
-            title: Text('取消'),
-          ),
-        ),
-      ],
-    ),
-  );
-  if (allDay == null || !context.mounted) return;
-
-  DateTime start;
-  DateTime end;
-  if (allDay) {
-    start = DateTime(date.year, date.month, date.day);
-    end = start.add(const Duration(days: 1));
-  } else {
-    final startValue = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(base.add(const Duration(hours: 1))),
-      helpText: '开始时间',
-      barrierDismissible: false,
-    );
-    if (startValue == null || !context.mounted) return;
-    final endValue = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay(
-        hour: (startValue.hour + 1) % 24,
-        minute: startValue.minute,
-      ),
-      helpText: '结束时间',
-      barrierDismissible: false,
-    );
-    if (endValue == null) return;
-    start = DateTime(
-        date.year, date.month, date.day, startValue.hour, startValue.minute);
-    end = DateTime(
-        date.year, date.month, date.day, endValue.hour, endValue.minute);
-    if (!end.isAfter(start)) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('结束时间必须晚于开始时间')),
-        );
-      }
-      return;
-    }
-  }
-
-  if (!context.mounted) return;
-  final repeat = await showDialog<String>(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) => SimpleDialog(
-      title: const Text('重复'),
-      children: [
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop(context, 'NONE'),
-          child: const Text('不重复'),
-        ),
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop(context, 'FREQ=DAILY;INTERVAL=1'),
-          child: const Text('每天'),
-        ),
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop(context, 'FREQ=WEEKLY;INTERVAL=1'),
-          child: const Text('每周'),
-        ),
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('取消'),
-        ),
-      ],
-    ),
-  );
-  if (repeat == null) return;
-  var departure = const _DepartureDraft();
-  if (!allDay && context.mounted) {
-    final preparation = TextEditingController(text: '0');
-    final travel = TextEditingController(text: '0');
-    var enabled = false;
-    final value = await showDialog<_DepartureDraft>(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
-          title: const Text('出发提醒（可选）'),
-          content: SingleChildScrollView(
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: const Text('启用出发提醒'),
-                subtitle: const Text('按照准备时间和路程时间计算'),
-                value: enabled,
-                onChanged: (value) => setDialogState(() => enabled = value),
-              ),
-              TextField(
-                controller: preparation,
-                enabled: enabled,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: '准备时间（分钟）'),
-              ),
-              TextField(
-                controller: travel,
-                enabled: enabled,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: '路程时间（分钟）'),
-              ),
-            ]),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('取消创建'),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.pop(
-                context,
-                _DepartureDraft(
-                  enabled: enabled,
-                  preparationMinutes: int.tryParse(preparation.text) ?? 0,
-                  travelMinutes: int.tryParse(travel.text) ?? 0,
-                ),
-              ),
-              child: const Text('继续'),
-            ),
-          ],
-        ),
-      ),
-    );
-    preparation.dispose();
-    travel.dispose();
-    if (value == null) return;
-    departure = value;
-  }
-  await EventRepository(ref.read(databaseProvider)).create(EventDraft(
-    title: title,
-    start: start,
-    end: end,
-    allDay: allDay,
-    localDate: allDay ? DateKeys.toLocalDateKey(start) : null,
-    repeatRule: repeat == 'NONE' ? null : repeat,
+  final draft = await showEventForm(
+    context,
+    initialDate: initialDate,
     projectId: projectId,
-    preparationMinutes: departure.preparationMinutes,
-    travelMinutes: departure.travelMinutes,
-    departureReminderEnabled: departure.enabled,
-  ));
+  );
+  if (draft == null || !context.mounted) return;
+  await EventRepository(ref.read(databaseProvider)).create(draft);
   ref.read(refreshProvider.notifier).state++;
   await refreshReminders(ref);
   if (context.mounted) _success(context, '日程已创建');
-}
-
-class _DepartureDraft {
-  const _DepartureDraft({
-    this.enabled = false,
-    this.preparationMinutes = 0,
-    this.travelMinutes = 0,
-  });
-  final bool enabled;
-  final int preparationMinutes;
-  final int travelMinutes;
 }
 
 void _success(BuildContext context, String text) {

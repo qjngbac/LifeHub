@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:drift/drift.dart';
 import 'package:lifehub/core/database/app_database.dart';
 import 'package:lifehub/features/event/domain/recurrence.dart';
@@ -9,6 +11,9 @@ abstract final class TaskStatus {
   static const done = 'DONE';
   static const canceled = 'CANCELED';
   static const archived = 'ARCHIVED';
+  static const actionable = [todo, inProgress];
+
+  static bool isActionable(String status) => actionable.contains(status);
 }
 
 abstract final class TaskCategory {
@@ -205,13 +210,11 @@ class TaskRepository {
       await _archivePromotingChildren(id);
       return;
     }
-    final current = await get(id);
-    _validateTransition(current.status, status);
-    if (current.status == status) {
-      return;
-    }
-    final nowMillis = (now ?? DateTime.now()).toUtc().millisecondsSinceEpoch;
     await _database.transaction(() async {
+      final current = await get(id);
+      _validateTransition(current.status, status);
+      if (current.status == status) return;
+      final nowMillis = (now ?? DateTime.now()).toUtc().millisecondsSinceEpoch;
       await (_database.update(_database.tasks)
             ..where((row) => row.id.equals(id)))
           .write(
@@ -235,6 +238,79 @@ class TaskRepository {
     for (final id in ids.toSet()) {
       await archive(id);
     }
+  }
+
+  Future<int> postponeOverdueTasks(
+    DateTime targetDate, {
+    required Iterable<String> taskIds,
+  }) async {
+    final ids = taskIds.toSet();
+    if (ids.isEmpty) return 0;
+    final now = DateTime.now();
+    final todayStart = DateTime(now.year, now.month, now.day);
+    final nowMillis = now.toUtc().millisecondsSinceEpoch;
+    return _database.transaction(() async {
+      final overdue = await (_database.select(_database.tasks)
+            ..where((row) =>
+                row.id.isIn(ids) &
+                row.deletedAt.isNull() &
+                row.status.isIn(TaskStatus.actionable) &
+                row.dueAt.isSmallerThanValue(todayStart.millisecondsSinceEpoch)))
+          .get();
+      for (final task in overdue) {
+        final oldDue =
+            DateTime.fromMillisecondsSinceEpoch(task.dueAt!, isUtc: true).toLocal();
+        final newDue = DateTime(targetDate.year, targetDate.month, targetDate.day,
+            oldDue.hour, oldDue.minute);
+        await (_database.update(_database.tasks)
+              ..where((row) => row.id.equals(task.id)))
+            .write(TasksCompanion(
+          dueAt: Value(newDue.toUtc().millisecondsSinceEpoch),
+          updatedAt: Value(nowMillis),
+          version: Value(task.version + 1),
+        ));
+        await _log(task.id, 'UPDATE');
+      }
+      return overdue.length;
+    });
+  }
+
+  Future<int> postponeTasks(Iterable<String> taskIds, DateTime newDue) async {
+    final ids = taskIds.toSet();
+    if (ids.isEmpty) return 0;
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    return _database.transaction(() async {
+      final tasks = await (_database.select(_database.tasks)
+            ..where((row) => row.id.isIn(ids) & row.deletedAt.isNull() &
+                row.status.isIn(TaskStatus.actionable))).get();
+      for (final task in tasks) {
+        await (_database.update(_database.tasks)
+              ..where((row) => row.id.equals(task.id)))
+            .write(TasksCompanion(
+          dueAt: Value(newDue.toUtc().millisecondsSinceEpoch),
+          updatedAt: Value(now),
+          version: Value(task.version + 1),
+        ));
+        await _log(task.id, 'UPDATE');
+      }
+      return tasks.length;
+    });
+  }
+
+  Future<TaskEntry> postponeTask(String id, DateTime newDue) async {
+    final current = await get(id);
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    await _database.transaction(() async {
+      await (_database.update(_database.tasks)
+            ..where((row) => row.id.equals(id)))
+          .write(TasksCompanion(
+        dueAt: Value(newDue.toUtc().millisecondsSinceEpoch),
+        updatedAt: Value(now),
+        version: Value(current.version + 1),
+      ));
+      await _log(id, 'UPDATE');
+    });
+    return get(id);
   }
 
   Future<void> _archivePromotingChildren(String id) async {
@@ -345,6 +421,12 @@ class TaskRepository {
   }
 
   Future<void> _createNextOccurrence(TaskEntry current) async {
+    final metadata = _taskMetadata(current.metadata);
+    const nextKey = 'lifehub.task.nextOccurrenceId';
+    final existingNextId = metadata[nextKey];
+    if (existingNextId is String && existingNextId.isNotEmpty) {
+      return;
+    }
     final sourceMillis = current.dueAt ?? current.startAt;
     if (sourceMillis == null) {
       return;
@@ -361,6 +443,8 @@ class TaskRepository {
     final next = occurrences.first;
     final delta = next.difference(source);
     final nextId = const Uuid().v4();
+    final nextMetadata = {...metadata}..remove(nextKey);
+    nextMetadata['lifehub.task.previousOccurrenceId'] = current.id;
     await _database.into(_database.tasks).insert(
           TasksCompanion.insert(
             id: Value(nextId),
@@ -377,9 +461,24 @@ class TaskRepository {
             projectId: Value(current.projectId),
             parentTaskId: Value(current.parentTaskId),
             repeatRule: Value(current.repeatRule),
+            metadata: Value(jsonEncode(nextMetadata)),
           ),
         );
+    metadata[nextKey] = nextId;
+    await (_database.update(_database.tasks)
+          ..where((row) => row.id.equals(current.id)))
+        .write(TasksCompanion(metadata: Value(jsonEncode(metadata))));
     await _log(nextId, 'CREATE');
+  }
+
+  static Map<String, dynamic> _taskMetadata(String source) {
+    try {
+      final decoded = jsonDecode(source);
+      if (decoded is Map<String, dynamic>) return decoded;
+    } on FormatException {
+      // Legacy task metadata can predate the JSON object requirement.
+    }
+    return {'lifehub.task.legacyMetadata': source};
   }
 
   static String? _trimmedOrNull(String? source) {
@@ -428,7 +527,7 @@ class TaskRepository {
   Future<void> _validateHierarchy({String? parentId, String? taskId}) async {
     var depth = 1;
     var currentId = parentId;
-    final visited = <String>{if (taskId != null) taskId};
+    final visited = <String>{?taskId};
     while (currentId != null) {
       if (!visited.add(currentId)) {
         throw StateError('Task hierarchy cannot contain a cycle.');

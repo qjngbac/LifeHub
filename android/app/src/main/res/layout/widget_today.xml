@@ -3,7 +3,7 @@
     android:id="@+id/widget_today_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F2FF"
+    android:background="@drawable/widget_card_rounded_bg"
     android:orientation="vertical"
     android:padding="16dp">
 

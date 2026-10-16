@@ -71,20 +71,20 @@ class MaintenanceRepository {
           .get();
 
   Future<TaskEntry> ensureCurrentTask(String id) async {
-    final plan = await get(id);
-    if (!plan.active) throw StateError('Maintenance plan is inactive.');
-    if (plan.currentTaskId != null) {
-      final existing = await (_database.select(_database.tasks)
-            ..where((row) =>
-                row.id.equals(plan.currentTaskId!) & row.deletedAt.isNull()))
-          .getSingleOrNull();
-      if (existing != null && existing.status != TaskStatus.done) {
-        return existing;
+    return _database.transaction(() async {
+      final plan = await get(id);
+      if (!plan.active) throw StateError('Maintenance plan is inactive.');
+      if (plan.currentTaskId != null) {
+        final existing = await (_database.select(_database.tasks)
+              ..where((row) =>
+                  row.id.equals(plan.currentTaskId!) & row.deletedAt.isNull()))
+            .getSingleOrNull();
+        if (existing != null &&
+            TaskStatus.isActionable(existing.status)) {
+          return existing;
+        }
       }
-    }
-    late TaskEntry task;
-    await _database.transaction(() async {
-      task = await TaskRepository(_database).create(TaskDraft(
+      final task = await TaskRepository(_database).create(TaskDraft(
         title: plan.title,
         category: TaskCategory.life,
         dueAt: DateTime.fromMillisecondsSinceEpoch(plan.nextDueAt),
@@ -97,8 +97,8 @@ class MaintenanceRepository {
       await (_database.update(_database.maintenancePlans)
             ..where((row) => row.id.equals(id)))
           .write(MaintenancePlansCompanion(currentTaskId: Value(task.id)));
+      return task;
     });
-    return task;
   }
 
   Future<MaintenancePlanEntry> completePlan(
@@ -106,10 +106,10 @@ class MaintenanceRepository {
     DateTime? completedAt,
     String? notes,
   }) async {
-    final plan = await get(id);
     final completed = completedAt ?? DateTime.now();
-    final next = completed.add(Duration(days: plan.intervalDays));
     await _database.transaction(() async {
+      final plan = await get(id);
+      final next = completed.add(Duration(days: plan.intervalDays));
       await _database.into(_database.maintenanceLogs).insert(
             MaintenanceLogsCompanion.insert(
               planId: id,
@@ -119,9 +119,11 @@ class MaintenanceRepository {
           );
       if (plan.currentTaskId != null) {
         final task = await (_database.select(_database.tasks)
-              ..where((row) => row.id.equals(plan.currentTaskId!)))
+              ..where((row) =>
+                  row.id.equals(plan.currentTaskId!) & row.deletedAt.isNull()))
             .getSingleOrNull();
-        if (task != null && task.status != TaskStatus.done) {
+        if (task != null &&
+            TaskStatus.isActionable(task.status)) {
           await TaskRepository(_database)
               .setStatus(plan.currentTaskId!, TaskStatus.done);
         }

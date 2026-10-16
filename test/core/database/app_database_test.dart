@@ -77,9 +77,11 @@ void main() {
         'maintenance_logs',
         'reading_items',
         'parcels',
+        'match_records',
+        'finance_accounts',
       }),
     );
-    expect(database.schemaVersion, 11);
+    expect(database.schemaVersion, 13);
     final eventColumns =
         await database.customSelect('PRAGMA table_info(events)').get();
     expect(
