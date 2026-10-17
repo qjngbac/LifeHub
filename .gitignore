@@ -54,6 +54,8 @@ lib/generated/
 /docs/V1_ACCEPTANCE_REPORT.md
 /docs/HANDOVER_DOCUMENT.md
 /docs/IMPLEMENTATION_STATUS.md
+/docs/GITHUB_UPLOAD.md
+/docs/releases/
 
 # Generated Android/IDE state.
 /android/.gradle/

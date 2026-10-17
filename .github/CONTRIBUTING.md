@@ -1,6 +1,6 @@
 # 贡献指南
 
-感谢你帮助改进 LifeHub。项目当前只维护 Android arm64 版本，提交改动前请先确认问题能在当前默认分支复现。环境要求见 [README](README.md)。
+感谢你帮助改进 LifeHub。项目当前只维护 Android arm64 版本，提交改动前请先确认问题能在当前默认分支复现。环境要求见 [README](../README.md)。
 
 ## 报告问题
 
@@ -28,6 +28,7 @@ flutter test
 3. 为可测试的逻辑补充测试。
 4. 提交前运行 `flutter analyze` 和 `flutter test`。
 5. Pull Request 使用中文说明改动原因、用户影响和验证方式。
+6. 提交说明使用中文，例如“整理文档目录，合并重复说明”；保留必要的版本号和技术名称。
 
 ## 数据库与界面
 

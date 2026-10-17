@@ -8,13 +8,13 @@ LifeHub 使用 Flutter 开发，把任务、日程、课程表、财务收支、
 - 支持平台：**Android 7.0（API 24）及以上**
 - 安装包架构：**arm64-v8a**
 
-[查看 GitHub Releases](https://github.com/qjngbac/LifeHub/releases) · [Android 安装与使用](docs/ANDROID_INSTALL.md) · [贡献指南](CONTRIBUTING.md)
+[查看 GitHub Releases](https://github.com/qjngbac/LifeHub/releases) · [安装与使用](docs/安装与使用.md) · [贡献指南](.github/CONTRIBUTING.md)
 
 [下载 V1.10.29 Android ARM64 安装包](https://github.com/qjngbac/LifeHub/releases/download/v1.10.29/LifeHub-V1.10.29-arm64.apk)
 
 源码版本与已上传的安装包可能不同，请以 Releases 中实际列出的版本为准。
 
-V1.10.29 的发布前测试未全部通过，包含急救卡编辑弹窗的已知问题；具体结果见[版本说明](docs/releases/V1.10.29.md#发布前验证与已知问题)。
+V1.10.29 的发布前测试未全部通过，包含急救卡编辑弹窗的已知问题；具体结果见 [Release 说明](https://github.com/qjngbac/LifeHub/releases/tag/v1.10.29)。
 
 ## 主要功能
 
@@ -64,7 +64,7 @@ LifeHub 的任务、日程、课程表、资料、知识库、搜索、备份等
 - 通知和提醒：依赖 Android 通知、精确提醒、后台运行及电池策略。
 - 桌面组件：由 Android 桌面启动器提供，系统可能根据省电策略延后刷新。
 
-应用不会要求登录，也没有配套云端服务器。详细说明见 [隐私说明](PRIVACY.md)。
+应用不会要求登录，也没有配套云端服务器。详细说明见[隐私说明](docs/隐私说明.md)。
 
 ## 安装
 
@@ -75,7 +75,7 @@ LifeHub 的任务、日程、课程表、资料、知识库、搜索、备份等
 
 升级或卸载前，建议先在“我的”中导出密码加密备份。卸载应用或清除应用数据会删除手机上的 LifeHub 本地数据。
 
-更完整的手机设置说明见 [Android 安装与使用](docs/ANDROID_INSTALL.md)。
+更完整的手机设置说明见[安装与使用](docs/安装与使用.md)。
 
 ## 权限用途
 
@@ -102,7 +102,7 @@ LifeHub 的任务、日程、课程表、资料、知识库、搜索、备份等
 flutter pub get
 ```
 
-项目保留 `pubspec.lock`、数据库生成文件和经过兼容修正的 `third_party/workmanager_android`，不要在上传时遗漏。修改数据库声明后，再按[贡献指南](CONTRIBUTING.md)生成代码并验证迁移。
+项目保留 `pubspec.lock`、数据库生成文件和经过兼容修正的 `third_party/workmanager_android`。修改数据库声明后，再按[贡献指南](.github/CONTRIBUTING.md)生成代码并验证迁移。
 
 ### 运行与检查
 
@@ -126,8 +126,10 @@ flutter build apk --release --target-platform android-arm64
 
 ```text
 lifehub/
+├─ .github/                  问题反馈、贡献指南与安全说明
 ├─ android/                  Android 原生代码、通知与桌面组件
 ├─ assets/                   图标、音频和离线知识库内容
+├─ docs/                     安装使用、隐私说明与更新日志
 ├─ integration_test/         集成测试
 ├─ lib/                      Flutter 应用源码
 │  ├─ app/                   路由、主题与主界面
@@ -143,11 +145,11 @@ lifehub/
 
 当前维护 Android 1.x 系列。各功能随真实设备反馈持续调整；通知、后台任务和桌面组件会受到系统省电策略影响。安装其他签名或旧测试包前请先导出备份。
 
-仓库上传范围和发布前检查见 [GitHub 上传说明](docs/GITHUB_UPLOAD.md)，版本说明见[更新日志](CHANGELOG.md)。
+版本记录见[更新日志](docs/更新日志.md)，安装包和发布说明统一放在 [Releases](https://github.com/qjngbac/LifeHub/releases)。
 
 ## 参与贡献
 
-提交问题前请阅读 [贡献指南](CONTRIBUTING.md)。安全问题请按 [安全说明](SECURITY.md) 私下报告，不要在公开 Issue 中附带真实健康信息、位置、备份文件或签名材料。
+提交问题前请阅读[贡献指南](.github/CONTRIBUTING.md)。安全问题请按[安全说明](.github/SECURITY.md)私下报告，不要在公开 Issue 中附带真实健康信息、位置、备份文件或签名材料。后续提交说明统一使用中文。
 
 ## 免责声明
 
@@ -155,4 +157,4 @@ lifehub/
 
 ## 许可证
 
-LifeHub 使用 [GNU General Public License v3.0](LICENSE) 发布，中文参考译文见 [LICENSE.zh-CN](LICENSE.zh-CN)。第三方依赖继续遵循各自许可证。
+LifeHub 使用 [GNU General Public License v3.0](LICENSE) 发布，另有[许可证中文参考](docs/许可证中文参考.md)。第三方依赖继续遵循各自许可证。
